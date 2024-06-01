@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  background-color: #fff;
+  font-family: sans-serif;
+  overflow: hidden;
+}
+
+h1 {
+  font-weight: normal;
+  font-size: 140%;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.blocklyScrollbarHorizontal, .blocklyScrollbarVertical {
+  display: none !important;
+}
+
+.bold-label {
+  font-weight: bold !important;
+  font-size: medium !important;
+}
+
+.args-label {
+  font-size: small !important;
+}
+
+.blocklyText, .blocklyHtmlInput {
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+}
+
+.blocklyMainBackground {
+  stroke-width: 0;
+}
+
+.blocklyToolboxDiv, .blocklyFlyout {
+  background-color: rgba(255,255,255,1);
+}
+
+.blocklyToolboxDiv {
+  padding: 10px;
+  padding-left: 20px;
+  border-right: #D0D0D0 solid 1px;
+}
+
+.blocklyFlyout {
+  left: 10px;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.blocklyFlyoutBackground {
+  fill: rgba(255,255,255,1);
+}
+
+.blocklyTreeLabel {
+  font-size: medium;
+  color: rgb(81, 87, 87);
+  font-weight:700;
+}
