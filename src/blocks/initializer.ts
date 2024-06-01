@@ -28,6 +28,9 @@ import { defineXamanSimpleLogoutBlock, initInterpreterXamanSimpleLogout } from '
 import { defineXamanPaymentBlock, initInterpreterXamanPayment } from '@/blocks/xamanPaymentBlock';
 import { defineXamanWaitForSignatureBlock, initInterpreterXamanWaitForSignatureBlock } from '@/blocks/xamanWaitForSignatureBlock';
 import { defineConfettiAnimationBlock, initInterpreterConfettiAnimationFunctions  } from '@/blocks/confettiAnimationBlock';
+import { defineNumberToTextBlock } from '@/blocks/textNumberToTextBlock';
+import { defineTextToNumberBlock } from '@/blocks/textTextToNumberBlock';
+
 import { BlockColors } from '@/utils/BlockColors';
 
 let workspace:Blockly.WorkspaceSvg;
@@ -57,6 +60,8 @@ const toolbox = `
       <block type="dynamic_text_join"></block>
       <block type="text_length"></block>
       <block type="text_isEmpty"></block>
+      <block type="number_to_text"></block>
+      <block type="text_to_number"></block>
     </category>
     <category name="Math" colour="%{BKY_MATH_HUE}">
       <block type="math_number"></block>
@@ -111,6 +116,8 @@ const createCustomBlocks = () => {
   defineArrayAppendBlock();
   defineArrayInitBlock();
   defineConfettiAnimationBlock();
+  defineNumberToTextBlock();
+  defineTextToNumberBlock();
 
   // Plugins
   defineDynamicListCreate();

@@ -7,10 +7,11 @@ export const defineXrplXrp2DropBlock = () => {
     init: function () {
       this.appendValueInput("AMOUNT")
         .setCheck('Number')
-        .appendField("drops <- XRP");
+      this.appendDummyInput()
+        .appendField("XRP to drops");
       this.setOutput(true, 'Number');
       this.setColour(BlockColors.xrpl);
-      this.setTooltip('Enter the amount in XRP');
+      this.setTooltip('Enter the amount in XRP to convert to drops');
       this.setHelpUrl('');
     }
   };
@@ -27,7 +28,8 @@ export const defineXrplDrop2XrpBlock = () => {
     init: function () {
       this.appendValueInput("AMOUNT")
         .setCheck('Number')
-        .appendField("XRP <- drops");
+      this.appendDummyInput()
+        .appendField("drops to XRP");
       this.setOutput(true, 'Number');
       this.setColour(BlockColors.xrpl);
       this.setTooltip('Enter the amount in XRP');
