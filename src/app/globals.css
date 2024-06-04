@@ -89,3 +89,7 @@ body {
   color: rgb(81, 87, 87);
   font-weight:700;
 }
+
+.blocklyHtmlInput.blocklyTimeInput {
+  min-width: 100px;
+}

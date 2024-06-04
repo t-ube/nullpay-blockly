@@ -1,6 +1,6 @@
 import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
-import { BlockColors } from '../utils/BlockColors';
+import { BlockColors } from '@/blocks/BlockColors';
 
 type TriggerRewardFunction = (duration: number) => void;
 let confettiAnimationFunction: TriggerRewardFunction | null = null;

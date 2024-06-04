@@ -11,7 +11,7 @@
   "dependencies": {
     "@blockly/block-dynamic-connection": "^0.7.0",
     "@blockly/dev-tools": "^8.0.0",
-    "@blockly/field-date": "^9.0.0",
+    "@blockly/field-date": "^9.0.1",
     "@blockly/zoom-to-fit": "^6.0.0",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.4",
@@ -20,6 +20,7 @@
     "@mui/material": "^5.15.19",
     "@mui/material-nextjs": "^5.15.11",
     "blockly": "^11.0.0",
+    "dayjs": "^1.11.11",
     "js-interpreter": "^5.1.2",
     "next": "14.2.3",
     "react": "^18",

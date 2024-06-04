@@ -30,8 +30,22 @@ import { defineXamanWaitForSignatureBlock, initInterpreterXamanWaitForSignatureB
 import { defineConfettiAnimationBlock, initInterpreterConfettiAnimationFunctions  } from '@/blocks/confettiAnimationBlock';
 import { defineNumberToTextBlock } from '@/blocks/textNumberToTextBlock';
 import { defineTextToNumberBlock } from '@/blocks/textTextToNumberBlock';
+import { defineCurrentDateTimeBlock, initInterpreterCurrentDateTime } from '@/blocks/time/getCurrentDateTimeBlock';
+import { defineDatedatetimeToTextBlock, initInterpreterDatedatetimeToText } from '@/blocks/time/datetimeToTextBlock';
+import { defineCreateDateTimeBlock, initInterpreterCreateDateTime } from '@/blocks/time/createTimeBlock';
+import { 
+  defineDateTimeToRippleEpoch,
+  defineRippleEpochToDateTime,
+  initInterpreterDateTimeToRippleEpoch,
+  initInterpreterRippleEpochToDateTime
+} from '@/blocks/time/datetimeToRippleEpochBlock';
+import { defineAdjustDateTimeBlock, initInterpreterAdjustDateTime } from '@/blocks/time/adjustDateTimeBlock';
+import { defineDateTimeTextFormatBlock } from '@/blocks/time/dateTimeTextFormatBlock';
+import { defineTimezoneBlock } from '@/blocks/time/timezoneBlock';
+import { defineCompareDateTimeBlock, initInterpreterCompareDateTime } from '@/blocks/time/compareDateTimeBlock';
 
-import { BlockColors } from '@/utils/BlockColors';
+
+import { BlockColors } from '@/blocks/BlockColors';
 
 let workspace:Blockly.WorkspaceSvg;
 
@@ -70,13 +84,24 @@ const toolbox = `
     <category name="Conrol" colour="${BlockColors.control}">
       <block type="wait_seconds"></block>
     </category>
-    <category name="Animation" colour="${BlockColors.animation}">
-      <block type="confetti_animation"></block>
+    <category name="Time" colour="${BlockColors.time}">
+      <block type="current_datetime"></block>
+      <block type="create_datetime"></block>
+      <block type="datetime_to_text"></block>
+      <block type="datetime_to_ripple_epoch"></block>
+      <block type="ripple_epoch_to_datetime"></block>
+      <block type="adjust_datetime"></block>
+      <block type="datetime_text_format"></block>
+      <block type="timezone_block"></block>
+      <block type="compare_datetime"></block>
     </category>
     <category name="JSON" colour="${BlockColors.json}">
       <block type="json_get_value"></block>
       <block type="json_to_text"></block>
       <block type="text_to_json"></block>
+    </category>
+    <category name="Animation" colour="${BlockColors.animation}">
+      <block type="confetti_animation"></block>
     </category>
     <category name="Logic" colour="%{BKY_LOGIC_HUE}">
       <block type="dynamic_if"></block>
@@ -119,6 +144,17 @@ const createCustomBlocks = () => {
   defineNumberToTextBlock();
   defineTextToNumberBlock();
 
+  // Time
+  defineCurrentDateTimeBlock();
+  defineDatedatetimeToTextBlock();
+  defineCreateDateTimeBlock();
+  defineDateTimeToRippleEpoch();
+  defineRippleEpochToDateTime();
+  defineAdjustDateTimeBlock();
+  defineDateTimeTextFormatBlock();
+  defineTimezoneBlock();
+  defineCompareDateTimeBlock();
+
   // Plugins
   defineDynamicListCreate();
   defineDynamicTextJoin();
@@ -154,6 +190,13 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterXamanPayment(interpreter, scope);
   initInterpreterXamanWaitForSignatureBlock(interpreter, scope);
   initInterpreterConfettiAnimationFunctions(interpreter, scope);
+  initInterpreterCurrentDateTime(interpreter, scope);
+  initInterpreterDatedatetimeToText(interpreter, scope);
+  initInterpreterCreateDateTime(interpreter, scope);
+  initInterpreterDateTimeToRippleEpoch(interpreter, scope);
+  initInterpreterRippleEpochToDateTime(interpreter, scope);
+  initInterpreterAdjustDateTime(interpreter, scope);
+  initInterpreterCompareDateTime(interpreter, scope);
 }
 
 const handleBlocklyResize = () => {
