@@ -8,6 +8,7 @@ import { javascriptGenerator } from 'blockly/javascript';
 import { blocklyInit, initInterpreter, workspace } from '@/blocks/initializer';
 import { MainTabs } from '@/components/MainTabs';
 import WelcomeDialog from '@/components/WelcomeDialog';
+import FeatureModal from '@/components/FeatureModal';
 import { DemoBlockXml } from '@/demos/blocksDemo';
 import { useReward } from 'react-rewards';
 import { setConfettiAnimationFunction } from '@/blocks/animation/confettiAnimationBlock';
@@ -17,6 +18,7 @@ import { Sidebar } from '@/components/Sidebar';
 import Header from '@/components/Header';
 import { PlayState } from '@/components/HeaderButtons';
 import { dropBlockToWorkspace, createBlockFromFlyout, addBlockToWorkspace } from '@/utils/BlocklyHelper';
+import { releaseInfo } from '@/features/features-v0-r2';
 
 type clientFramePos = {
   headerHeight: number,
@@ -56,6 +58,7 @@ const BlocklyComponent = () => {
   const { reward, isAnimating } = useReward("confettiItem", "confetti");
   const [isRunning, setIsRunning] = useState(false);
   const [duration, setDuration] = useState(0);
+  const [openFeatures, setOpenFeatures] = useState(false);
   const [openFlyout, setOpenFlyout] = useState<boolean>(false);
   const [flyoutType, setFlyoutType] = useState<string | null>(null);
   const headerRef = useRef<HTMLElement>(null);
@@ -387,7 +390,8 @@ const BlocklyComponent = () => {
       >
         <Sidebar setOpen={setOpenFlyout} setFlyoutType={setFlyoutType} />
       </div>
-      <WelcomeDialog onYes={handleShowDemo} />
+      {/*<WelcomeDialog onYes={handleShowDemo} />*/}
+      <FeatureModal releaseInfo={releaseInfo} />
     </>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button, FormControlLabel, Checkbox } from '@mui/material';
-import useLocalStorage from '../hooks/useLocalStorage';
+import useLocalStorage from '@/hooks/useLocalStorage';
 
 interface WelcomeDialogProps {
   onYes: () => void;
