@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/utils/serialize.js", "src/blocks/baseFieldDependentDropdown.js", "src/components/CanvasConfetti.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/utils/Serialize.js", "src/components/CanvasConfetti.js"],
   "exclude": ["node_modules"]
 }

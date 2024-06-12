@@ -5,49 +5,48 @@ import { javascriptGenerator } from 'blockly/javascript';
 import Interpreter from 'js-interpreter';
 import * as BlockDynamicConnection from '@blockly/block-dynamic-connection';
 import { ZoomToFitControl } from '@blockly/zoom-to-fit';
-import { defineXrplNetworkWssSelectionBlock } from '@/blocks/xrplNetworkSelectionBlock';
-import { defineXrplFaucetNetworkSelectionBlock } from '@/blocks/xrplFaucetNetworkSelectionBlock';
-import { defineXrplCreateAccountBlock, initInterpreterXrplCreateAccount } from '@/blocks/xrplCreateAccountBlock';
-import { defineXrplRequestFaucetBlock, initInterpreterXrplRequestFaucet } from '@/blocks/xrplRequestFaucetBlock';
-import { defineXrplRequestCustomFaucetBlock, initInterpreterXrplRequestCustomFaucet } from '@/blocks/xrplRequestCustomFaucetBlock';
-import { defineXrplAddressBlock } from '@/blocks/xrplAddressBlock';
-import { defineXrplXrp2DropBlock, defineXrplDrop2XrpBlock } from '@/blocks/xrplAmountBlock';
-import { defineXrplPaymentBlock } from '@/blocks/xrplPaymentBlock';
-import { definePercentageBlock } from '@/blocks/percentageBlock'; 
-import { defineXrplAccountInfoApiBlock, initInterpreterAccountInfoApi } from '@/blocks/xrplAccountInfoApiBlock';
-import { defineConsoleLogBlock } from '@/blocks/consoleLogBlock';
-import { defineJsonGetValueBlock } from '@/blocks/jsonValueBlock';
-import { defineJsonToTextBlock } from '@/blocks/jsonToTextBlock';
-import { defineJsonTextToJsonBlock } from '@/blocks/jsonTextToJsonBlock';
-import { defineWaitForSecondsBlock, initInterpreterWaitForSeconds } from '@/blocks/waitForSecondsBlock';
-import { defineArrayAppendBlock } from '@/blocks/arrayAppendBlock';
-import { defineArrayInitBlock } from '@/blocks/arrayInitBlock';
-import { defineDynamicListCreate, defineDynamicTextJoin, defineDynamicIf } from '@/blocks/pluginDynamicConnection';
-import { defineXamanSimpleLoginBlock, initInterpreterXamanSimpleLogin } from '@/blocks/xamanSimpleLoginBlock';
-import { defineXamanSimpleLogoutBlock, initInterpreterXamanSimpleLogout } from '@/blocks/xamanSimpleLogoutBlock';
-import { defineXamanPaymentBlock, initInterpreterXamanPayment } from '@/blocks/xamanPaymentBlock';
-import { defineXamanWaitForSignatureBlock, initInterpreterXamanWaitForSignatureBlock } from '@/blocks/xamanWaitForSignatureBlock';
-import { defineConfettiAnimationBlock, initInterpreterConfettiAnimationFunctions  } from '@/blocks/confettiAnimationBlock';
-import { defineNumberToTextBlock } from '@/blocks/textNumberToTextBlock';
-import { defineTextToNumberBlock } from '@/blocks/textTextToNumberBlock';
-import { defineCurrentDateTimeBlock, initInterpreterCurrentDateTime } from '@/blocks/time/getCurrentDateTimeBlock';
-import { defineDatedatetimeToTextBlock, initInterpreterDatedatetimeToText } from '@/blocks/time/datetimeToTextBlock';
-import { defineCreateDateTimeBlock, initInterpreterCreateDateTime } from '@/blocks/time/createTimeBlock';
 import { 
   defineDateTimeToRippleEpoch,
   defineRippleEpochToDateTime,
   initInterpreterDateTimeToRippleEpoch,
   initInterpreterRippleEpochToDateTime
-} from '@/blocks/time/datetimeToRippleEpochBlock';
+} from '@/blocks/xrpl/datetimeToRippleEpochBlock';
+import { defineXrplNetworkWssSelectionBlock } from '@/blocks/xrpl/xrplNetworkSelectionBlock';
+import { defineXrplFaucetNetworkSelectionBlock } from '@/blocks/xrpl/xrplFaucetNetworkSelectionBlock';
+import { defineXrplCreateAccountBlock, initInterpreterXrplCreateAccount } from '@/blocks/xrpl/xrplCreateAccountBlock';
+import { defineXrplRequestFaucetBlock, initInterpreterXrplRequestFaucet } from '@/blocks/xrpl/xrplRequestFaucetBlock';
+import { defineXrplRequestCustomFaucetBlock, initInterpreterXrplRequestCustomFaucet } from '@/blocks/xrpl/xrplRequestCustomFaucetBlock';
+import { defineXrplAddressBlock } from '@/blocks/xrpl/xrplAddressBlock';
+import { defineXrplXrp2DropBlock, defineXrplDrop2XrpBlock } from '@/blocks/xrpl/xrplAmountBlock';
+import { defineXrplPaymentBlock } from '@/blocks/xrpl/xrplPaymentBlock';
+import { definePercentageBlock } from '@/blocks/math/percentageBlock'; 
+import { defineXrplAccountInfoApiBlock, initInterpreterAccountInfoApi } from '@/blocks/xrpl/xrplAccountInfoApiBlock';
+import { defineJsonGetValueBlock } from '@/blocks/json/jsonValueBlock';
+import { defineJsonToTextBlock } from '@/blocks/json/jsonToTextBlock';
+import { defineJsonTextToJsonBlock } from '@/blocks/json/jsonTextToJsonBlock';
+import { defineWaitForSecondsBlock, initInterpreterWaitForSeconds } from '@/blocks/control/waitForSecondsBlock';
+import { defineArrayAppendBlock } from '@/blocks/lists/arrayAppendBlock';
+import { defineArrayInitBlock } from '@/blocks/lists/arrayInitBlock';
+import { defineDynamicListCreate, defineDynamicTextJoin, defineDynamicIf } from '@/blocks/plugins/pluginDynamicConnection';
+import { defineXamanSimpleLoginBlock, initInterpreterXamanSimpleLogin } from '@/blocks/xaman/xamanSimpleLoginBlock';
+import { defineXamanSimpleLogoutBlock, initInterpreterXamanSimpleLogout } from '@/blocks/xaman/xamanSimpleLogoutBlock';
+import { defineXamanPaymentBlock, initInterpreterXamanPayment } from '@/blocks/xaman/xamanPaymentBlock';
+import { defineXamanWaitForSignatureBlock, initInterpreterXamanWaitForSignatureBlock } from '@/blocks/xaman/xamanWaitForSignatureBlock';
+import { defineConfettiAnimationBlock, initInterpreterConfettiAnimationFunctions  } from '@/blocks/animation/confettiAnimationBlock';
+import { defineNumberToTextBlock } from '@/blocks/text/textNumberToTextBlock';
+import { defineTextToNumberBlock } from '@/blocks/text/textTextToNumberBlock';
+import { defineCurrentDateTimeBlock, initInterpreterCurrentDateTime } from '@/blocks/time/getCurrentDateTimeBlock';
+import { defineDatedatetimeToTextBlock, initInterpreterDatedatetimeToText } from '@/blocks/time/datetimeToTextBlock';
+import { defineCreateDateTimeBlock, initInterpreterCreateDateTime } from '@/blocks/time/createTimeBlock';
 import { defineAdjustDateTimeBlock, initInterpreterAdjustDateTime } from '@/blocks/time/adjustDateTimeBlock';
 import { defineDateTimeTextFormatBlock } from '@/blocks/time/dateTimeTextFormatBlock';
 import { defineTimezoneBlock } from '@/blocks/time/timezoneBlock';
 import { defineCompareDateTimeBlock, initInterpreterCompareDateTime } from '@/blocks/time/compareDateTimeBlock';
-
-
-import { BlockColors } from '@/blocks/BlockColors';
+import { defineConsoleLogBlock } from '@/blocks/debug/consoleLogBlock';
+import { BlockColors } from '@/blocks/blockColors';
 
 let workspace:Blockly.WorkspaceSvg;
+let flyout:Blockly.WorkspaceSvg;
 
 const toolbox = `
   <xml id="toolbox" style="display: none">
@@ -200,6 +199,7 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
 }
 
 const handleBlocklyResize = () => {
+  //console.log('resize');
   const blocklyArea = document.getElementById("blocklyArea");
   const blocklyDiv = document.getElementById("blocklyDiv");
   
@@ -227,9 +227,16 @@ const handleBlocklyResize = () => {
 };
 
 const workspaceAdjustment = () => {
-  const zoomToFit = new ZoomToFitControl(workspace);
-  zoomToFit.init();
-  workspace.addChangeListener(BlockDynamicConnection.finalizeConnections);
+  if(workspace){
+    const toolboxTemp = workspace.getToolbox();
+    if (toolboxTemp) {
+      toolboxTemp.setVisible(false);
+    }
+  }
+  // Bug
+  //const zoomToFit = new ZoomToFitControl(workspace);
+  //zoomToFit.init();
+  //workspace.addChangeListener(BlockDynamicConnection.finalizeConnections);
   
   javascriptGenerator.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
   javascriptGenerator.addReservedWords('highlightBlock');
@@ -250,7 +257,7 @@ const blocklyInit = () => {
     zoom: {
       controls: true,
       wheel: false,
-      startScale: 1.0,
+      startScale: 0.8,
       maxScale: 3,
       minScale: 0.3,
       scaleSpeed: 1.2,
@@ -267,35 +274,15 @@ const blocklyInit = () => {
   workspaceAdjustment();
   handleBlocklyResize();
 
-  // Override (Disabled)
-  // BlockDynamicConnection.overrideOldBlockDefinitions();
-  console.log('Blockly initialized with workspace:', workspace);
+  //console.log('Blockly initialized with workspace:', workspace);
 }
 
-const blocklyUpdate = () => {
-  console.log('Updating Blockly...');
-  workspace = Blockly.inject("blocklyDiv", {
-    toolbox : toolbox,
-    zoom: {
-      controls: true,
-      wheel: false,
-      startScale: 1.0,
-      maxScale: 3,
-      minScale: 0.3,
-      scaleSpeed: 1.2,
-      pinch: true
-    },
-    plugins: {
-      connectionPreviewer:
-        BlockDynamicConnection.decoratePreviewer(
-          Blockly.InsertionMarkerPreviewer,
-        ),
-    },
-    horizontalLayout: true
-  });
-  workspaceAdjustment();
-  handleBlocklyResize();
-  console.log('Blockly updated with workspace:', workspace);
-}
+const handleFlyoutResize = () => {
+  const onresize = function () {
+    Blockly.svgResize(flyout);
+  }
+  window.addEventListener("resize", onresize, false);
+  Blockly.svgResize(flyout);
+};
 
-export { blocklyInit, initInterpreter, blocklyUpdate, workspace };
+export { blocklyInit, initInterpreter, workspace, flyout };

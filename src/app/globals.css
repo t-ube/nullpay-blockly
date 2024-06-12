@@ -43,7 +43,11 @@ body {
   }
 }
 
-.blocklyScrollbarHorizontal, .blocklyScrollbarVertical {
+.blocklyScrollbarHorizontal {
+  display: none !important;
+}
+
+.blocklyScrollbarVertical {
   display: none !important;
 }
 
@@ -75,14 +79,10 @@ body {
 }
 
 .blocklyFlyout {
-  left: 10px;
-  border-radius: 4px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  fill: rgb(180, 172, 172);
 }
 
-.blocklyFlyoutBackground {
-  fill: rgba(255,255,255,1);
-}
 
 .blocklyTreeLabel {
   font-size: medium;

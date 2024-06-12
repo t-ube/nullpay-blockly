@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Custom Blockly Flyout</title>
+  <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+  <style>
+    #modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgb(0,0,0);
+      background-color: rgba(0,0,0,0.4);
+    }
+    #modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+    #closeBtn {
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #flyoutDiv {
+      height: 200px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+<button id="openModalBtn">Open Modal</button>
+
+<div id="modal">
+  <div id="modal-content">
+    <span id="closeBtn">&times;</span>
+    <div id="flyoutDiv"></div>
+  </div>
+</div>
+
+<script>
+  // Blockly workspace
+  var workspace = Blockly.inject('blocklyDiv', {
+    toolbox: `<xml></xml>`
+  });
+
+  // Flyout blocks
+  var flyoutBlocks = `<xml id="toolbox" style="display: none">
+    <block type="controls_if"></block>
+    <block type="logic_compare"></block>
+    <block type="math_number">
+      <field name="NUM">123</field>
+    </block>
+    <block type="text">
+      <field name="TEXT">Hello, Blockly!</field>
+    </block>
+  </xml>`;
+
+  // Modal elements
+  var modal = document.getElementById("modal");
+  var openModalBtn = document.getElementById("openModalBtn");
+  var closeBtn = document.getElementById("closeBtn");
+
+  // Open modal
+  openModalBtn.onclick = function() {
+    modal.style.display = "block";
+    showFlyoutBlocks();
+  }
+
+  // Close modal
+  closeBtn.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // Close modal when clicking outside of the modal content
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  // Show flyout blocks in modal
+  function showFlyoutBlocks() {
+    var flyoutDiv = document.getElementById('flyoutDiv');
+    var flyoutWorkspace = Blockly.inject(flyoutDiv, {
+      toolbox: flyoutBlocks,
+      scrollbars: true,
+      readOnly: true,
+    });
+
+    flyoutWorkspace.addChangeListener(function(event) {
+      if (event.type === Blockly.Events.BLOCK_CLICK) {
+        var block = flyoutWorkspace.getBlockById(event.blockId);
+        if (block) {
+          var xml = Blockly.Xml.blockToDom(block);
+          var newBlock = Blockly.Xml.domToBlock(xml, workspace);
+          newBlock.initSvg();
+          newBlock.render();
+          modal.style.display = "none";
+        }
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
