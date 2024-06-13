@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Modal, Box, Button, Typography, Grow, Stack, FormControlLabel, Checkbox, Divider } from '@mui/material';
+import { Modal, Box, Button, Typography, Fade, Stack, FormControlLabel, Checkbox, Divider } from '@mui/material';
 import { ReleaseInfo } from '@/types/featureType';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { useMobile } from '@/contexts/MobileContext';
@@ -10,7 +10,7 @@ interface FeatureModalProps {
 }
 
 const FeatureModal = ({ releaseInfo } : FeatureModalProps) => {
-  const { isMobile, isLoaded } = useMobile();
+  const { isMobile, isPortrait, isLoaded } = useMobile();
   const [open, setOpen] = useState(false);
   const [dontShowAgain, setDontShowAgain] = useLocalStorage(`dontShowReleaseInfo-${releaseInfo.version}`, false);
   const [activeStep, setActiveStep] = useState(0);
@@ -46,25 +46,26 @@ const FeatureModal = ({ releaseInfo } : FeatureModalProps) => {
     >
       <Box sx={{
         position: 'absolute',
-        top: isMobile ? 'none' : '50%',
-        left: isMobile ? 'none' :'50%',
-        transform: isMobile ? 'none' : 'translate(-50%, -50%)',
+        top: isMobile && isPortrait ? '10%' : '50%',
+        left: isMobile && isPortrait ? 'none' :'50%',
+        transform: isMobile && isPortrait ? 'none' : 'translate(-50%, -50%)',
         width: 600,
         maxWidth: '100vw',
-        height: isMobile ? 600 : 400,
+        height: isMobile && isPortrait ? 600 : 400,
         maxHeight: '100vw',
         bgcolor: 'background.paper',
         boxShadow: 24,
         p: isMobile ? 1 : 4,
+        pt: isMobile ? 1 : 2,
         outline: 0,
-        borderRadius: isMobile ? 0 : 2
+        borderRadius: isMobile && isPortrait ? 0 : 2
       }}>
-        <Typography id="feature-modal-title" variant="h5" component="h2" gutterBottom textAlign={isMobile ? 'center' : 'start'}>
+        <Typography id="feature-modal-title" variant="h5" component="h2" fontWeight={'bold'} gutterBottom textAlign={isMobile ? 'center' : 'start'}>
           {`What's New in Version ${releaseInfo.displayVersion} 👻`}
         </Typography>
         <Divider sx={{ mb: 2 }} />
         {releaseInfo.features.map((feature, index) => (
-          <Grow
+          <Fade
             in={activeStep === index}
             style={{ transformOrigin: '0 0 0' }}
             {...(activeStep === index ? { timeout: 1000 } : {})}
@@ -81,7 +82,7 @@ const FeatureModal = ({ releaseInfo } : FeatureModalProps) => {
                 </Box>
               </Stack>
             </Box>
-          </Grow>
+          </Fade>
         ))}
         <Box sx={{ position: 'absolute', bottom: 16, left: 16, right: 16, display: 'flex', justifyContent: 'space-between' }}>
           <Button onClick={handleBack} disabled={activeStep === 0} sx={{color: '#A855F7'}}>
