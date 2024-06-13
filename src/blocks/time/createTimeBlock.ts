@@ -1,6 +1,6 @@
 import * as Blockly from 'blockly';
 import { javascriptGenerator, Order } from 'blockly/javascript';
-import { BlockColors } from '@/blocks/blockColors';
+import { BlockColors } from '@/blocks/BlockColors';
 import { dayjs, timezoneMenu, FieldTimeWithSeconds } from '@/blocks/time/DateTimeField';
 import { FieldDate } from '@blockly/field-date';
 

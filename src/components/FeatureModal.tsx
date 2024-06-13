@@ -3,12 +3,14 @@ import Image from 'next/image';
 import { Modal, Box, Button, Typography, Grow, Stack, FormControlLabel, Checkbox, Divider } from '@mui/material';
 import { ReleaseInfo } from '@/types/featureType';
 import useLocalStorage from '@/hooks/useLocalStorage';
+import { useMobile } from '@/contexts/MobileContext';
 
 interface FeatureModalProps {
   releaseInfo: ReleaseInfo;
 }
 
 const FeatureModal = ({ releaseInfo } : FeatureModalProps) => {
+  const { isMobile, isLoaded } = useMobile();
   const [open, setOpen] = useState(false);
   const [dontShowAgain, setDontShowAgain] = useLocalStorage(`dontShowReleaseInfo-${releaseInfo.version}`, false);
   const [activeStep, setActiveStep] = useState(0);
@@ -44,20 +46,20 @@ const FeatureModal = ({ releaseInfo } : FeatureModalProps) => {
     >
       <Box sx={{
         position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
+        top: isMobile ? 'none' : '50%',
+        left: isMobile ? 'none' :'50%',
+        transform: isMobile ? 'none' : 'translate(-50%, -50%)',
         width: 600,
         maxWidth: '100vw',
-        height: 400,
+        height: isMobile ? 600 : 400,
         maxHeight: '100vw',
         bgcolor: 'background.paper',
         boxShadow: 24,
-        p: 4,
+        p: isMobile ? 1 : 4,
         outline: 0,
-        borderRadius: 2
+        borderRadius: isMobile ? 0 : 2
       }}>
-        <Typography id="feature-modal-title" variant="h5" component="h2" gutterBottom>
+        <Typography id="feature-modal-title" variant="h5" component="h2" gutterBottom textAlign={isMobile ? 'center' : 'start'}>
           {`What's New in Version ${releaseInfo.displayVersion} 👻`}
         </Typography>
         <Divider sx={{ mb: 2 }} />

@@ -9,7 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 import PuzzleIcon from '@mui/icons-material/Extension';
 import * as Blockly from 'blockly/core';
-import { BlockColors } from '@/blocks/blockColors';
+import { BlockColors } from '@/blocks/BlockColors';
 import {
   xrpl_blocks, xaman_blocks, text_blocks, math_blocks,
   control_blocks, time_blocks, json_blocks, animation_blocks,

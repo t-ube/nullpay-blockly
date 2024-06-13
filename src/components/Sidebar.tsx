@@ -16,7 +16,7 @@ import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 import Home from '@mui/icons-material/Home';
 import Settings from '@mui/icons-material/Settings';
 import PuzzleIcon from '@mui/icons-material/Extension';
-import { BlockColors } from '@/blocks/blockColors';
+import { BlockColors } from '@/blocks/BlockColors';
 
 
 const ListNav = styled(List)<{ component?: React.ElementType }>({

@@ -1,13 +1,14 @@
 'use client'
 import { useEffect, useRef, useState, useCallback } from 'react';
 import Split from "react-split";
+import classNames from 'classnames';
 import Interpreter from 'js-interpreter';
 import * as Blockly from 'blockly/core';
 import 'blockly/blocks';
 import { javascriptGenerator } from 'blockly/javascript';
 import { blocklyInit, initInterpreter, workspace } from '@/blocks/initializer';
 import { MainTabs } from '@/components/MainTabs';
-import WelcomeDialog from '@/components/WelcomeDialog';
+//import WelcomeDialog from '@/components/WelcomeDialog';
 import FeatureModal from '@/components/FeatureModal';
 import { DemoBlockXml } from '@/demos/blocksDemo';
 import { useReward } from 'react-rewards';
@@ -16,9 +17,11 @@ import BlocklySearchFlyout from '@/components/BlocklySearchFlyout';
 import BlocklyDrawer from '@/components/BlocklyDrawer';
 import { Sidebar } from '@/components/Sidebar';
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import { PlayState } from '@/components/HeaderButtons';
-import { dropBlockToWorkspace, createBlockFromFlyout, addBlockToWorkspace } from '@/utils/BlocklyHelper';
+import { dropBlockToWorkspace, addBlockToWorkspace } from '@/utils/BlocklyHelper';
 import { releaseInfo } from '@/features/features-v0-r2';
+import { useMobile } from '@/contexts/MobileContext';
 
 type clientFramePos = {
   headerHeight: number,
@@ -44,6 +47,7 @@ const useInterval = (callback: () => void, delay: number) => {
 };
 
 const BlocklyComponent = () => {
+  const { isMobile, isPortrait, isLoaded } = useMobile();
   const blocklyAreaRef = useRef<HTMLDivElement>(null);
   const codeArea = useRef<HTMLTextAreaElement>(null);
   const outputArea = useRef<HTMLTextAreaElement>(null);
@@ -53,7 +57,6 @@ const BlocklyComponent = () => {
   const [playState, setPlayState] = useState<PlayState>('init');
   const myInterpreter = useRef<Interpreter | null>(null);
   const [selectedTab, setSelectedTab] = useState("log");
-  const [isMobileView, setIsMobileView] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const { reward, isAnimating } = useReward("confettiItem", "confetti");
   const [isRunning, setIsRunning] = useState(false);
@@ -82,10 +85,6 @@ const BlocklyComponent = () => {
     setConfettiAnimationFunction(confettiAnimationInternal);
   }, [reward, isAnimating]);
 
-  const updateIsMobileView = () => {
-    setIsMobileView(window.innerWidth <= 932);
-  };
-
   useEffect(() => {
     if (isRunning && duration > 0) {
       const timer = setTimeout(() => {
@@ -95,51 +94,44 @@ const BlocklyComponent = () => {
     }
   }, [isRunning, duration]);
 
-  useEffect(() => {
-    updateIsMobileView();
-    window.addEventListener('resize', updateIsMobileView);
+  const handleSaveWorkspace = () => {
+    console.log('handleSaveWorkspace');
+    const xml = Blockly.Xml.workspaceToDom(workspace);
+    const xmlText = Blockly.Xml.domToPrettyText(xml);
+    const blob = new Blob([xmlText], { type: 'text/xml' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'workspace.xml';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
 
-    blocklyInit();
-    
-    const saveWorkspaceButton = document.getElementById('saveWorkspaceButton');
-    if (saveWorkspaceButton) {
-      saveWorkspaceButton.addEventListener('click', () => {
-        const xml = Blockly.Xml.workspaceToDom(workspace);
-        const xmlText = Blockly.Xml.domToPrettyText(xml);
-        const blob = new Blob([xmlText], { type: 'text/xml' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'workspace.xml';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      });
-    }
-
-    const loadWorkspaceButton = document.getElementById('loadWorkspaceButton');
-    if (loadWorkspaceButton) {
-      loadWorkspaceButton.addEventListener('click', () => {
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = '.xml';
-        input.onchange = (event) => {
-          const file = (event.target as HTMLInputElement).files?.[0];
-          if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-              const xmlText = e.target?.result as string;
-              const xml = Blockly.utils.xml.textToDom(xmlText);
-              Blockly.Xml.clearWorkspaceAndLoadFromXml(xml, workspace);
-              workspace.scrollCenter();
-            };
-            reader.readAsText(file);
-          }
+  const handleLoadWorkspace = () => {
+    console.log('handleLoadWorkspace');
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.xml';
+    input.onchange = (event) => {
+      const file = (event.target as HTMLInputElement).files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const xmlText = e.target?.result as string;
+          const xml = Blockly.utils.xml.textToDom(xmlText);
+          Blockly.Xml.clearWorkspaceAndLoadFromXml(xml, workspace);
+          workspace.scrollCenter();
         };
-        input.click();
-      });
-    }
+        reader.readAsText(file);
+      }
+    };
+    input.click();
+  };
 
+  useEffect(() => {
+    blocklyInit();
+ 
     const handleResize = () => {
       if (headerRef.current && footerRef.current) {
         setClientFramePos({
@@ -174,7 +166,6 @@ const BlocklyComponent = () => {
     workspace.addChangeListener(updateCode);
 
     return () => {
-      window.removeEventListener('resize', updateIsMobileView);
       window.removeEventListener('resize', handleResize);
       workspace.removeChangeListener(updateCode);
     };
@@ -227,7 +218,9 @@ const BlocklyComponent = () => {
     if (!interpreterTemp) {
       const code = javascriptGenerator.workspaceToCode(workspace);
       interpreterTemp = new Interpreter(code, initApi);
-      outputArea.current!.value = '';
+      if (outputArea.current) {
+        outputArea.current!.value = '';
+      }
     }
 
     let hasMoreCode = interpreterTemp.step();
@@ -261,6 +254,50 @@ const BlocklyComponent = () => {
       cancelledRef.current = true;
     }
   }, [playState, playCode]);
+
+  useEffect(() => {
+    const originalTrashcanPosition = Blockly.Trashcan.prototype.position;
+    Blockly.Trashcan.prototype.position = function(metrics, savedPositions) {
+      originalTrashcanPosition.call(this, metrics, savedPositions);
+      const trashcan = this;
+      const trashcanBBox = trashcan.getBoundingRectangle();
+      if (trashcanBBox){
+        let left = metrics.viewMetrics.width - trashcanBBox.getWidth() - metrics.absoluteMetrics.left;
+        let top = metrics.viewMetrics.height - trashcanBBox.getHeight() - metrics.absoluteMetrics.top;
+        if (isMobile && isPortrait) {
+          left -= 10;
+          top -= 150;
+        } else {
+          left -= 20;
+          top -= 50;
+        }
+        const trashcan = this as any;
+        trashcan.svgGroup.setAttribute('transform', `translate(${left}, ${top})`);
+      }
+    };
+
+    const originaZoomControlsPosition = Blockly.ZoomControls.prototype.position;
+    Blockly.ZoomControls.prototype.position = function(metrics, savedPositions) {
+      originaZoomControlsPosition.call(this, metrics, savedPositions);
+      const zooms = this;
+      const zoomsBox = zooms.getBoundingRectangle();
+      if (zoomsBox){
+        let left = metrics.viewMetrics.width - zoomsBox.getWidth() - metrics.absoluteMetrics.left;
+        let top = metrics.viewMetrics.height - zoomsBox.getHeight() - metrics.absoluteMetrics.top;
+        if (isMobile && isPortrait) {
+          left -= 17;
+          top -= 250;
+        } else {
+          left -= 28;
+          top -= 150;
+        }
+        const zooms = this as any;
+        zooms.svgGroup.setAttribute('transform', `translate(${left}, ${top})`);
+      }
+    };
+
+    window.dispatchEvent(new Event('resize'));
+  }, [isMobile, isPortrait, isLoaded]);
 
   function highlightBlock(id: string) {
     workspace.highlightBlock(id);
@@ -301,10 +338,6 @@ const BlocklyComponent = () => {
     }
   }, []);
 
-  const handleBlockSelectedForFlyout = (xml: Element, eventType: string, event: MouseEvent): void => {
-    createBlockFromFlyout(workspace, xml, event);
-  };
-
   const handleBlockSelectedForDrawer = (xml: string, eventType: string, event: MouseEvent): void => {
     if (eventType === 'drag') {
       dropBlockToWorkspace(workspace, xml, event);
@@ -324,15 +357,17 @@ const BlocklyComponent = () => {
           playState={playState}
           setPlayState={setPlayState}
           onSearchClick={handleSearchClick}
+          onSaveClick={handleSaveWorkspace}
+          onLoadClick={handleLoadWorkspace}
           ref={headerRef}
         />
         <div className="border-t border-gray-300"></div>
         <div className="flex flex-1 overflow-hidden">
           <Split
             className="flex flex-1"
-            sizes={isMobileView ? [100, 0] : [80, 20]}
-            minSize={100}
-            gutterSize={10}
+            sizes={isMobile ? [100, 0] : [80, 20]}
+            minSize={0}
+            gutterSize={isMobile ? 0:  10}
             onDrag={handleDrag}
             onDragEnd={handleDragEnd}
           >
@@ -341,8 +376,6 @@ const BlocklyComponent = () => {
                 <span className="text-lg">Loading Workspace...</span>
                 <span id="confettiItem" style={{ zIndex: 99 }} />
               </div>
-            </div>
-            <div className="flex flex-col bg-white p-2 border-l">
               <div className="flex space-x-2 mb-2">
                 <BlocklyDrawer
                   onBlockSelected={handleBlockSelectedForDrawer}
@@ -358,6 +391,14 @@ const BlocklyComponent = () => {
                   mainWorkspace={workspace}
                 />
               </div>
+            </div>
+            <div
+              className={classNames('flex flex-col bg-white border-l', {
+                'p-2': !isMobile,
+                'p-0': isMobile,
+              })}
+            >
+            {isLoaded && !isMobile && (
               <div className="flex-1 flex flex-col">
                 <MainTabs page={selectedTab} onTabChange={handleTabChange} />
                 <div style={{ display: selectedTab === 'log' ? 'flex' : 'none' }} className='py-1 flex-1 overflow-auto'>
@@ -367,29 +408,35 @@ const BlocklyComponent = () => {
                   <textarea ref={codeArea} id="codeArea" className="px-1 w-full h-full resize-none border"></textarea>
                 </div>
               </div>
+              )}
             </div>
           </Split>
         </div>
-        {!isMobileView &&
-          <footer ref={footerRef} className="flex-none bg-white text-gray-800 p-1 text-center w-full border-t">
-            <p style={{ fontSize: '12px' }}>© 2024 null pay - All Rights Reserved</p>
-          </footer>
-        }
+        <Footer
+          playState={playState}
+          setPlayState={setPlayState}
+          onSearchClick={handleSearchClick}
+          onSaveClick={handleSaveWorkspace}
+          onLoadClick={handleLoadWorkspace}
+          ref={footerRef}
+        />
       </div>
       <div id="blocklyDiv" style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%' }}></div>
-      <div style={{
-        position: 'absolute',
-        top: `${clientFramePos.headerHeight}px`,
-        left: '0',
-        height: `calc(100% - ${clientFramePos.headerHeight + clientFramePos.footerHeight}px)`,
-        zIndex: '10',
-        borderRight: 'solid 1px #ccc',
-        backgroundColor: 'rgba(255, 255, 255, 1)',
-        overflow: 'auto'
-      }}
-      >
-        <Sidebar setOpen={setOpenFlyout} setFlyoutType={setFlyoutType} />
-      </div>
+      {isLoaded && !isMobile && (
+        <div style={{
+          position: 'absolute',
+          top: `${clientFramePos.headerHeight}px`,
+          left: '0',
+          height: `calc(100% - ${clientFramePos.headerHeight + clientFramePos.footerHeight}px)`,
+          zIndex: '10',
+          borderRight: 'solid 1px #ccc',
+          backgroundColor: 'rgba(255, 255, 255, 1)',
+          overflow: 'auto'
+        }}
+        >
+          <Sidebar setOpen={setOpenFlyout} setFlyoutType={setFlyoutType} />
+        </div>
+      )}
       {/*<WelcomeDialog onYes={handleShowDemo} />*/}
       <FeatureModal releaseInfo={releaseInfo} />
     </>

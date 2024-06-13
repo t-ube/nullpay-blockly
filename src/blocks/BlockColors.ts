@@ -1,4 +1,4 @@
-// @/blocks/blockColors.ts
+// @/blocks/BlockColors.ts
 interface BlockColorsMap {
   [key: string]: string;
 }

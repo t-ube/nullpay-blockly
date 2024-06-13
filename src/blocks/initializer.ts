@@ -43,7 +43,7 @@ import { defineDateTimeTextFormatBlock } from '@/blocks/time/dateTimeTextFormatB
 import { defineTimezoneBlock } from '@/blocks/time/timezoneBlock';
 import { defineCompareDateTimeBlock, initInterpreterCompareDateTime } from '@/blocks/time/compareDateTimeBlock';
 import { defineConsoleLogBlock } from '@/blocks/debug/consoleLogBlock';
-import { BlockColors } from '@/blocks/blockColors';
+import { BlockColors } from '@/blocks/BlockColors';
 
 let workspace:Blockly.WorkspaceSvg;
 let flyout:Blockly.WorkspaceSvg;

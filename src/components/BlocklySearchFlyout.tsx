@@ -1,14 +1,16 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+import classNames from 'classnames';
 import * as Blockly from 'blockly/core';
 import { Box, Modal, TextField, Typography, InputAdornment, Chip, Stack, IconButton } from '@mui/material';
 import Divider from '@mui/material/Divider';
-import { MagnifyingGlassIcon, XCircleIcon } from '@heroicons/react/24/solid';
+import { MagnifyingGlassIcon, XCircleIcon, ArrowLeftCircleIcon } from '@heroicons/react/24/solid';
 import {
   xrpl_blocks, xaman_blocks, text_blocks, math_blocks,
   control_blocks, time_blocks, json_blocks, animation_blocks,
   logic_blocks, loops_blocks, lists_blocks
 } from '@/blocks/flyoutContents';
-import { BlockColors } from '@/blocks/blockColors';
+import { BlockColors } from '@/blocks/BlockColors';
+import { useMobile } from '@/contexts/MobileContext';
 
 interface Block {
   height: number;
@@ -44,6 +46,7 @@ interface FlyoutModalProps {
 }
 
 const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: FlyoutModalProps) => {
+  const { isMobile, isLoaded } = useMobile();
   const workspaceRefs = useRef<{ id: string, workspace: Blockly.WorkspaceSvg | null }[]>([]);
   const [blockTypesMap, setBlockTypesMap] = useState<BlockTypesMap>(initialBlockTypesMap);
   const [dynamicUpdated, setDynamicUpdated] = useState(false);
@@ -106,7 +109,7 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
               zoom: {
                 controls: false,
                 wheel: false,
-                startScale: 0.8,
+                startScale: isMobile ? 0.5 : 0.8,
               },
             });
             workspaceRefs.current.push({ id: divId, workspace });
@@ -132,7 +135,7 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
         }
       });
     }
-  }, [handleBlockClick]);
+  }, [handleBlockClick, isMobile]);
 
   const rankBlocks = (blocks: Block[], term: string): Block[] => {
     const terms = term.toLowerCase().split(' ').filter(t => t);
@@ -206,18 +209,23 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
       <Box sx={{
         position: 'absolute',
         top: '0px',
-        left: '50%',
-        transform: 'translate(-50%, 0)',
+        left: isMobile ? '0%' : '50%',
+        transform: isMobile ? 'translate(0, 0)' : 'translate(-50%, 0)',
         width: 800,
-        maxWidth: '80vw',
-        height: '90vh',
+        maxWidth: isMobile ? '100vw' : '80vw',
+        height: isMobile ? '100vh' : '90vh',
         overflowY: 'auto',
         bgcolor: 'background.paper',
-        boxShadow: 24,
-        p: 4,
+        boxShadow: isMobile ? 0 : 24,
+        p: isMobile ? 0 : 4,
         pt: 0,
       }}>
-        <Box sx={{ position: 'sticky', top: 0, zIndex: 1, bgcolor: 'background.paper', py: 0.8 }}>
+        <Box sx={{ position: 'sticky', top: 0, zIndex: 1, bgcolor: 'background.paper', py: 0.8, px: 1 }}>
+          {isMobile && (
+            <IconButton onClick={handleClose} size="small">
+              <ArrowLeftCircleIcon className="h-5 w-5"/>
+            </IconButton>
+          )}
           <TextField
             id="search-input"
             variant="outlined"
@@ -226,7 +234,7 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
             fullWidth
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            autoFocus
+            autoFocus={!isMobile}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -268,6 +276,7 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
             No blocks found. Please try different keywords.
           </Typography>
         )}
+        <Box px={2}>
         {filteredBlocks.map((item: Block, index: number) => (
           <Box key={index} mt={3} mb={3}>
             <Typography variant="subtitle1" sx={{ fontWeight: 'bold', color: '#333333' }}>
@@ -294,6 +303,7 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
             <Box id={`flyoutDiv_${index}`} className="custom-cursor" sx={{ width: '100%', height: item.height, mb: 2 }} />
           </Box>
         ))}
+        </Box>
       </Box>
     </Modal>
   );

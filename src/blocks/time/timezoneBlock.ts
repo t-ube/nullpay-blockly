@@ -1,6 +1,6 @@
 import * as Blockly from 'blockly';
 import { javascriptGenerator, Order } from 'blockly/javascript';
-import { BlockColors } from '@/blocks/blockColors';
+import { BlockColors } from '@/blocks/BlockColors';
 import { timezoneMenu } from '@/blocks/time/DateTimeField';
 
 export const defineTimezoneBlock = () => {

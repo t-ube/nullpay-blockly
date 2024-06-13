@@ -1,6 +1,6 @@
 import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
-import { BlockColors } from '@/blocks/blockColors';
+import { BlockColors } from '@/blocks/BlockColors';
 
 export const defineXrplRequestFaucetBlock = () => {
   Blockly.Blocks['xrpl_request_faucet'] = {

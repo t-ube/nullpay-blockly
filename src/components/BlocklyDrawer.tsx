@@ -7,7 +7,7 @@ import {
   control_blocks, time_blocks, json_blocks, animation_blocks,
   logic_blocks, loops_blocks, lists_blocks
 } from '@/blocks/flyoutContents';
-import { BlockColors } from '@/blocks/blockColors';
+import { BlockColors } from '@/blocks/BlockColors';
 
 interface Block {
   height: number;

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { MobileProvider } from '@/contexts/MobileContext';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +17,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" style={{height: '100%', margin: 0}}>
-      <body className={inter.className} style={{height: '100%', margin: 0}}>{children}</body>
+      <body className={inter.className} style={{height: '100%', margin: 0}}>
+        <MobileProvider>
+          {children}
+        </MobileProvider>
+      </body>
     </html>
   );
 }
