@@ -82,6 +82,33 @@ export const xrpl_blocks = [
     categories: ["xrpl"]
   },
   {
+    height: 80,
+    block: `
+      <block type="xrpl_client_initialize" x="0" y="0"></block>
+    `,
+    title: "Initialize XRPL Client",
+    description: "",
+    categories: ["xrpl"]
+  },
+  {
+    height: 100,
+    block: `
+      <block type="xrpl_client_subscribe_account_transactions" x="0" y="0"></block>
+    `,
+    title: "Initialize XRPL Client",
+    description: "",
+    categories: ["xrpl"]
+  },
+  /*{
+    height: 150,
+    block: `
+      <block type="xrpl_subscribe_streams" x="0" y="0"></block>
+    `,
+    title: "Subscribe to XRPL",
+    description: "",
+    categories: ["xrpl"]
+  },*/
+  {
     height: 50,
     block: `
       <block type="datetime_to_ripple_epoch" x="0" y="0"></block>
@@ -274,6 +301,15 @@ export const text_blocks = [
     `,
     title: "Print Text",
     description: "Print text to the console.",
+    categories: ["text"]
+  },
+  {
+    height: 50,
+    block: `
+      <block type="text_util_inspect_print" x="0" y="0"></block>
+    `,
+    title: "Inspect and print",
+    description: "",
     categories: ["text"]
   },
   {

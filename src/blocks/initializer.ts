@@ -21,6 +21,12 @@ import { defineXrplXrp2DropBlock, defineXrplDrop2XrpBlock } from '@/blocks/xrpl/
 import { defineXrplPaymentBlock } from '@/blocks/xrpl/xrplPaymentBlock';
 import { definePercentageBlock } from '@/blocks/math/percentageBlock'; 
 import { defineXrplAccountInfoApiBlock, initInterpreterAccountInfoApi } from '@/blocks/xrpl/xrplAccountInfoApiBlock';
+//import { defineXrplClientSubscribeStreamsTxnsBlock, initInterpreterXrplClientSubscribeStreamsTxns } from '@/blocks/xrpl/xrplClientSubscribeStreamsTxnsBlock';
+import { defineXrplClientInitializeBlock, initInterpreterXrplClientInitialize } from '@/blocks/xrpl/xrplClientInitializeBlock';
+import { defineXrplClientSubscribeAccountTransactionsBlock, initInterpreterXrplClientSubscribeAccountTransactions  } from '@/blocks/xrpl/xrplClientSubscribeAccountTransactions';
+import { defineTextUtilInspectPrintBlock, initInterpreterTextUtilInspectPrint } from '@/blocks/text/textUtilInspectPrintBlock';
+
+
 import { defineJsonGetValueBlock } from '@/blocks/json/jsonValueBlock';
 import { defineJsonToTextBlock } from '@/blocks/json/jsonToTextBlock';
 import { defineJsonTextToJsonBlock } from '@/blocks/json/jsonTextToJsonBlock';
@@ -142,6 +148,7 @@ const createCustomBlocks = () => {
   defineConfettiAnimationBlock();
   defineNumberToTextBlock();
   defineTextToNumberBlock();
+  defineTextUtilInspectPrintBlock();
 
   // Time
   defineCurrentDateTimeBlock();
@@ -170,6 +177,8 @@ const createCustomBlocks = () => {
   defineXrplDrop2XrpBlock();
   defineXrplPaymentBlock();
   defineXrplAccountInfoApiBlock();
+  defineXrplClientInitializeBlock();
+  defineXrplClientSubscribeAccountTransactionsBlock();
 
   // Xaman Wallet
   defineXamanSimpleLoginBlock();
@@ -181,6 +190,9 @@ const createCustomBlocks = () => {
 const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterWaitForSeconds(interpreter, scope);
   initInterpreterAccountInfoApi(interpreter, scope);
+  initInterpreterXrplClientInitialize(interpreter, scope);
+  initInterpreterXrplClientSubscribeAccountTransactions(interpreter, scope);
+  initInterpreterTextUtilInspectPrint(interpreter, scope);
   initInterpreterXrplCreateAccount(interpreter, scope);
   initInterpreterXrplRequestFaucet(interpreter, scope);
   initInterpreterXrplRequestCustomFaucet(interpreter, scope);
