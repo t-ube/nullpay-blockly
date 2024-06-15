@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import * as Blockly from 'blockly/core';
 import { Drawer, Box, Typography, Divider, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Button } from '@mui/material';
 import PuzzleIcon from '@mui/icons-material/Extension';
@@ -8,6 +9,7 @@ import {
   logic_blocks, loops_blocks, lists_blocks
 } from '@/blocks/BlockContents';
 import { BlockColors } from '@/blocks/BlockColors';
+import { BlockIcons } from '@/blocks/BlockIcons';
 
 interface Block {
   height: number;
@@ -245,6 +247,19 @@ const BlocklyDrawer = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspa
     handleVarDialogClose();
   };
 
+  function getIcon(icon: string | React.ElementType, color: string) {
+    if (typeof icon === 'string') {
+      return (
+        <Box sx={{ width: 22, height: 22, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Image src={icon} alt="" width={22} height={22} style={{ borderRadius: '4px', objectFit: 'cover' }} />
+        </Box>
+      );
+    } else {
+      const IconComponent = icon as React.ElementType;
+      return <IconComponent sx={{ width: 24, height: 24, color: color }} />;
+    }
+  }
+
   return (
     <>
       <Drawer
@@ -261,9 +276,9 @@ const BlocklyDrawer = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspa
           pt: 2,
           pr: 2
         }}>
-          <Box sx={{display: 'flex'}}>
-            <PuzzleIcon sx={{color: flyoutType ? BlockColors[flyoutType] : '#ccc' }} />
-            <Typography variant="subtitle1" px={1} sx={{ fontWeight: 'bold', color: '#333333' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            {flyoutType ? getIcon(BlockIcons[flyoutType], BlockColors[flyoutType]) : <PuzzleIcon sx={{ color: '#ccc' }} />}
+            <Typography variant="subtitle1" px={1} sx={{ fontWeight: 'bold', color: '#333333', display: 'flex', alignItems: 'center' }}>
               {flyoutType ? initialBlockTitleMap[flyoutType] : 'unknown'} {'Blocks'}
             </Typography>
           </Box>

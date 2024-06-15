@@ -1,5 +1,6 @@
 // components/Sidebar.tsx
 import React, { useState } from 'react';
+import Image from 'next/image';
 import Box from '@mui/material/Box';
 import { styled, ThemeProvider, createTheme } from '@mui/material/styles';
 import Divider from '@mui/material/Divider';
@@ -9,14 +10,10 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import ArrowRight from '@mui/icons-material/ArrowRight';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
-import Home from '@mui/icons-material/Home';
-import Settings from '@mui/icons-material/Settings';
 import PuzzleIcon from '@mui/icons-material/Extension';
 import { BlockColors } from '@/blocks/BlockColors';
+import { BlockIcons } from '@/blocks/BlockIcons';
 
 
 const ListNav = styled(List)<{ component?: React.ElementType }>({
@@ -58,30 +55,29 @@ export function Sidebar ({ setOpen, setFlyoutType }: SidebarProps) {
   };
 
   const menuItems = [
-    /*
-    { type: 'group', label: 'XRPL', color: BlockColors.xrpl,
-      children:
-      [
-        { label: 'Authentication', color: '#aaa', onClick: handleFlyoutOpen('authentication') },
-        { label: 'Database', color: '#aaa', onClick: handleFlyoutOpen('database') },
-        { label: 'Storage', color: '#aaa', onClick: handleFlyoutOpen('storage') },
-        { label: 'Hosting', color: '#aaa', onClick: handleFlyoutOpen('hosting') },
-      ]
-    },*/
-    { type: 'item', label: 'XRPL', color: BlockColors.xrpl, onClick: handleFlyoutOpen('xrpl') },
-    { type: 'item', label: 'Xaman', color: BlockColors.xaman, onClick: handleFlyoutOpen('xaman') },
-    { type: 'item', label: 'Text', color: BlockColors.text, onClick: handleFlyoutOpen('text') },
-    { type: 'item', label: 'Math', color: BlockColors.math, onClick: handleFlyoutOpen('math') },
-    { type: 'item', label: 'Control', color: BlockColors.control, onClick: handleFlyoutOpen('control') },
-    { type: 'item', label: 'Time', color: BlockColors.time, onClick: handleFlyoutOpen('time') },
-    { type: 'item', label: 'JSON', color: BlockColors.json, onClick: handleFlyoutOpen('json') },
-    { type: 'item', label: 'Animation', color: BlockColors.animation, onClick: handleFlyoutOpen('animation') },
-    { type: 'item', label: 'Logic', color: BlockColors.logic, onClick: handleFlyoutOpen('logic') },
-    { type: 'item', label: 'Loops', color: BlockColors.loops, onClick: handleFlyoutOpen('loops') },
-    { type: 'item', label: 'Lists', color: BlockColors.lists, onClick: handleFlyoutOpen('lists') },
-    { type: 'item', label: 'Variables', color: BlockColors.variables, onClick: handleFlyoutOpen('variables') },
-    { type: 'item', label: 'Functions', color: BlockColors.functions, onClick: handleFlyoutOpen('functions') },
+    { type: 'item', label: 'XRPL', color: BlockColors.xrpl, onClick: handleFlyoutOpen('xrpl'), icon: BlockIcons.xrpl },
+    { type: 'item', label: 'Xaman', color: BlockColors.xaman, onClick: handleFlyoutOpen('xaman'), icon: BlockIcons.xaman },
+    { type: 'item', label: 'Text', color: BlockColors.text, onClick: handleFlyoutOpen('text'), icon: BlockIcons.text },
+    { type: 'item', label: 'Math', color: BlockColors.math, onClick: handleFlyoutOpen('math'), icon: BlockIcons.math },
+    { type: 'item', label: 'Control', color: BlockColors.control, onClick: handleFlyoutOpen('control'), icon: BlockIcons.control },
+    { type: 'item', label: 'Time', color: BlockColors.time, onClick: handleFlyoutOpen('time'), icon: BlockIcons.time },
+    { type: 'item', label: 'JSON', color: BlockColors.json, onClick: handleFlyoutOpen('json'), icon: BlockIcons.json },
+    { type: 'item', label: 'Animation', color: BlockColors.animation, onClick: handleFlyoutOpen('animation'), icon: BlockIcons.animation },
+    { type: 'item', label: 'Logic', color: BlockColors.logic, onClick: handleFlyoutOpen('logic'), icon: BlockIcons.logic },
+    { type: 'item', label: 'Loops', color: BlockColors.loops, onClick: handleFlyoutOpen('loops'), icon: BlockIcons.loops },
+    { type: 'item', label: 'Lists', color: BlockColors.lists, onClick: handleFlyoutOpen('lists'), icon: BlockIcons.lists },
+    { type: 'item', label: 'Variables', color: BlockColors.variables, onClick: handleFlyoutOpen('variables'), icon: BlockIcons.variables },
+    { type: 'item', label: 'Functions', color: BlockColors.functions, onClick: handleFlyoutOpen('functions'), icon: BlockIcons.functions },
   ];
+
+  function getIcon(icon: string | React.ElementType, color: string) {
+    if (typeof icon === 'string') {
+      return <Image width={22} height={22}  src={icon} alt="" style={{ borderRadius: '4px' }}/>;
+    } else {
+      const IconComponent = icon as React.ElementType;
+      return <IconComponent sx={{ width: 24, height: 24, color: color }} />;
+    }
+  }
 
   function getGroupItem (item:any) {
     return (
@@ -150,9 +146,16 @@ export function Sidebar ({ setOpen, setFlyoutType }: SidebarProps) {
     return (
       <>
         {
-          <ListItemButton key={item.label} sx={{ py: 0, minHeight: 32 }} onClick={item.onClick}>
+          <ListItemButton 
+            key={item.label}
+            sx={{ py: 0,
+              minHeight: 36,
+              borderRight: `10px solid ${item.color}`
+            }}
+            onClick={item.onClick}
+          >
             <ListItemIcon>
-              <PuzzleIcon sx={{ color: item.color }} />
+              {getIcon(item.icon, item.color)}
             </ListItemIcon>
             <ListItemText
               primary={item.label}
@@ -191,9 +194,14 @@ export function Sidebar ({ setOpen, setFlyoutType }: SidebarProps) {
             <Box sx={{pb: 0}}>
               {
                 menuItems.map((item, index) => (
-                  <div key={item.label}>
+                  <Box key={item.label}
+                    sx={{ py: 0,
+                      minHeight: 36,
+                      borderBottom: '1px solid #f0f0f0',
+                    }}
+                  >
                     {item.type === 'group' ? getGroupItem(item) : getItem(item)}
-                  </div>
+                  </Box>
                 ))
               }
             </Box>

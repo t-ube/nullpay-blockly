@@ -440,15 +440,15 @@ const BlocklyComponent = () => {
       <div id="blocklyDiv" style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%' }}></div>
       {isLoaded && !isMobile && (
         <div style={{
-          position: 'absolute',
-          top: `${clientFramePos.headerHeight}px`,
-          left: '0',
-          height: `calc(100% - ${clientFramePos.headerHeight + clientFramePos.footerHeight}px)`,
-          zIndex: '10',
-          borderRight: 'solid 1px #ccc',
-          backgroundColor: 'rgba(255, 255, 255, 1)',
-          overflow: 'auto'
-        }}
+            position: 'absolute',
+            top: `${clientFramePos.headerHeight}px`,
+            left: '0',
+            height: `calc(100% - ${clientFramePos.headerHeight + clientFramePos.footerHeight}px)`,
+            zIndex: '10',
+            borderRight: 'solid 1px #ccc',
+            backgroundColor: 'rgba(255, 255, 255, 1)',
+            overflow: 'auto'
+          }}
         >
           <Sidebar setOpen={setOpenFlyout} setFlyoutType={setFlyoutType} />
         </div>
