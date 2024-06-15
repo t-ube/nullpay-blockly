@@ -150,7 +150,20 @@ export function Sidebar ({ setOpen, setFlyoutType }: SidebarProps) {
             key={item.label}
             sx={{ py: 0,
               minHeight: 36,
-              borderRight: `10px solid ${item.color}`
+              transition: 'border-right-width 0.2s ease-in-out',
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                right: 0,
+                top: 0,
+                bottom: 0,
+                width: '10px',
+                backgroundColor: item.color,
+                transition: 'width 0.2s ease-in-out',
+              },
+              '&:hover::before': {
+                width: '20px',
+              }
             }}
             onClick={item.onClick}
           >
