@@ -64,10 +64,10 @@ export function Sidebar ({ setOpen, setFlyoutType }: SidebarProps) {
     { type: 'item', label: 'JSON', color: BlockColors.json, onClick: handleFlyoutOpen('json'), icon: BlockIcons.json },
     { type: 'item', label: 'Animation', color: BlockColors.animation, onClick: handleFlyoutOpen('animation'), icon: BlockIcons.animation },
     { type: 'item', label: 'Logic', color: BlockColors.logic, onClick: handleFlyoutOpen('logic'), icon: BlockIcons.logic },
-    { type: 'item', label: 'Loops', color: BlockColors.loops, onClick: handleFlyoutOpen('loops'), icon: BlockIcons.loops },
-    { type: 'item', label: 'Lists', color: BlockColors.lists, onClick: handleFlyoutOpen('lists'), icon: BlockIcons.lists },
-    { type: 'item', label: 'Variables', color: BlockColors.variables, onClick: handleFlyoutOpen('variables'), icon: BlockIcons.variables },
-    { type: 'item', label: 'Functions', color: BlockColors.functions, onClick: handleFlyoutOpen('functions'), icon: BlockIcons.functions },
+    { type: 'item', label: 'Loops', color: BlockColors.loop, onClick: handleFlyoutOpen('loop'), icon: BlockIcons.loop },
+    { type: 'item', label: 'Lists', color: BlockColors.list, onClick: handleFlyoutOpen('list'), icon: BlockIcons.list },
+    { type: 'item', label: 'Variables', color: BlockColors.variable, onClick: handleFlyoutOpen('variable'), icon: BlockIcons.variable },
+    { type: 'item', label: 'Functions', color: BlockColors.function, onClick: handleFlyoutOpen('function'), icon: BlockIcons.function },
   ];
 
   function getIcon(icon: string | React.ElementType, color: string) {

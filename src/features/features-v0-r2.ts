@@ -11,7 +11,7 @@ export const releaseInfo : ReleaseInfo = {
     },
     {
       title: 'Block Search Feature Added',
-      description: 'You can search for block descriptions and pre-built samples.',
+      description: 'You can search for block descriptions and pre-built examples.',
       image: '/feature/v0-r2/search-blocks.png'
     }
   ]

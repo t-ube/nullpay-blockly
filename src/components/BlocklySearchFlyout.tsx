@@ -1,16 +1,18 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
 import * as Blockly from 'blockly/core';
-import { Box, Modal, TextField, Typography, InputAdornment, Chip, Stack, IconButton } from '@mui/material';
+import { Box, Modal, TextField, Typography, InputAdornment, Chip, Stack, IconButton, Tooltip } from '@mui/material';
 import Divider from '@mui/material/Divider';
-import { MagnifyingGlassIcon, XCircleIcon, ArrowLeftCircleIcon } from '@heroicons/react/24/solid';
+import { MagnifyingGlassIcon, XCircleIcon, ArrowLeftCircleIcon, PlusIcon } from '@heroicons/react/24/solid';
 import {
   xrpl_blocks, xaman_blocks, text_blocks, math_blocks,
   control_blocks, time_blocks, json_blocks, animation_blocks,
-  logic_blocks, loops_blocks, lists_blocks
+  logic_blocks, loop_blocks, lists_blocks
 } from '@/blocks/BlockContents';
 import { BlockColors } from '@/blocks/BlockColors';
+import { FlyoutTheme } from '@/blocks/BlocklyTheme';
 import { useMobile } from '@/contexts/MobileContext';
+import { flyout } from '@/blocks/initializer';
 
 interface Block {
   height: number;
@@ -34,8 +36,8 @@ const initialBlockTypesMap: BlockTypesMap = {
   json: json_blocks,
   animation: animation_blocks,
   logic: logic_blocks,
-  loops: loops_blocks,
-  lists: lists_blocks,
+  loop: loop_blocks,
+  list: lists_blocks,
 };
 
 interface FlyoutModalProps {
@@ -51,6 +53,7 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
   const [blockTypesMap, setBlockTypesMap] = useState<BlockTypesMap>(initialBlockTypesMap);
   const [dynamicUpdated, setDynamicUpdated] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const handleClose = useCallback(() => {
     workspaceRefs.current.forEach(({ workspace }) => {
@@ -85,6 +88,28 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
     [onBlockSelected, handleClose]
   );
 
+  const handleAddBlock = useCallback((workspaceId: string, blockId: string) => {
+    const workspace = workspaceRefs.current.find(ws => ws.id === workspaceId)?.workspace;
+    if (workspace) {
+      const blockSvgs = workspace.getTopBlocks();
+      if (blockSvgs && blockSvgs.length) {
+        const blockSvg = blockSvgs[0];
+        if (blockSvg) {
+          const xml = Blockly.Xml.blockToDom(blockSvg as Blockly.Block) as Element;
+          const xmlText = Blockly.Xml.domToText(xml);
+          const blockElement = blockSvg.getSvgRoot();
+          const rect = blockElement.getBoundingClientRect();
+          let dummyEvent: any = {
+            clientX: rect.left,
+            clientY: rect.top
+          };
+          onBlockSelected(xmlText, 'click', dummyEvent);
+          handleClose();
+        }
+      }
+    }
+  }, [mainWorkspace]);
+
   const disposeWorkspaces = useCallback(() => {
     workspaceRefs.current.forEach(({ workspace }) => {
       if (workspace) {
@@ -104,6 +129,7 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
           const existingWorkspace = workspaceRefs.current.find(ws => ws.id === divId)?.workspace;
           if (!existingWorkspace) {
             const workspace = Blockly.inject(divId, {
+              theme: FlyoutTheme,
               readOnly: false,
               scrollbars: false,
               zoom: {
@@ -143,8 +169,9 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
       const titleMatchCount = terms.filter(t => block.title.toLowerCase().includes(t)).length;
       const descriptionMatchCount = terms.filter(t => block.description.toLowerCase().includes(t)).length;
       const categoryMatchCount = terms.filter(t => block.categories.some(category => category.toLowerCase().includes(t))).length;
-      const sampleBonus = block.categories.includes('sample') ? 1 : 0; // 'sample' カテゴリのブロックにボーナスを追加
-      const score = titleMatchCount + descriptionMatchCount + categoryMatchCount + sampleBonus;
+      const categoryMatchBonus = categoryMatchCount > 0 ? 2 : 0;
+      const exampleBonus = block.categories.includes('example') ? 1 : 0; // 'example' カテゴリのブロックにボーナスを追加
+      const score = titleMatchCount + descriptionMatchCount + categoryMatchCount + categoryMatchBonus + exampleBonus;
       return { ...block, score };
     }).sort((a, b) => b.score - a.score);
   };
@@ -229,7 +256,7 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
           <TextField
             id="search-input"
             variant="outlined"
-            placeholder="Search for Blocks and Samples"
+            placeholder="Search for Blocks and Examples"
             size="small"
             fullWidth
             value={searchTerm}
@@ -253,7 +280,7 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
           />
           <Box sx={{ overflowX: 'auto', mt: 1 }}>
             <Stack direction="row" spacing={1}>
-              {['payment', 'xrpl', 'xaman', 'text', 'math', 'time',
+              {['example', 'xrpl', 'xaman', 'text', 'math', 'time', 'animation', 'json', 'logic', 'loop', 'list'
                ].map((category) => (
                 <Chip
                   key={category}
@@ -270,7 +297,6 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
             </Stack>
           </Box>
         </Box>
-        <Divider />
         {filteredBlocks.length === 0 && (
           <Typography variant="body1" color="textSecondary">
             No blocks found. Please try different keywords.
@@ -278,10 +304,24 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
         )}
         <Box px={2}>
         {filteredBlocks.map((item: Block, index: number) => (
-          <Box key={index} mt={3} mb={3}>
-            <Typography variant="subtitle1" sx={{ fontWeight: 'bold', color: '#333333' }}>
-              {item.title}
-            </Typography>
+          <Box
+            key={index} mt={3} mb={5}
+            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseLeave={() => setHoveredIndex(null)}
+          >
+            <Divider />
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+              <Typography variant="subtitle1" sx={{ fontWeight: 'bold', color: '#333333' }}>
+                {item.title}
+              </Typography>
+              <Box sx={{ visibility: hoveredIndex === index ? 'visible' : 'hidden' }}>
+                <Tooltip title="Add to workspace" placement="top">
+                  <IconButton onClick={() => handleAddBlock(`flyoutDiv_${index}`, item.block)}>
+                    <PlusIcon className="h-5 w-5" />
+                  </IconButton>
+                </Tooltip>
+              </Box>
+            </Box>
             <Typography variant="body2" color="textSecondary" gutterBottom>
               {item.description}
             </Typography>
@@ -300,7 +340,13 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
                 />
               ))}
             </Stack>
-            <Box id={`flyoutDiv_${index}`} className="custom-cursor" sx={{ width: '100%', height: item.height, mb: 2 }} />
+            <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1}>
+              <Box 
+                id={`flyoutDiv_${index}`}
+                className="custom-cursor"
+                sx={{ width: '100%', height: item.height }}
+              />
+            </Box>
           </Box>
         ))}
         </Box>

@@ -192,9 +192,9 @@ export const xrpl_blocks = [
         </value>
       </block>
     `,
-    title: "XRPL Create Account Sample",
-    description: "Create a new XRPL account using the selected network.",
-    categories: ["sample","xrpl"]
+    title: "XRPL Faucet Request Example",
+    description: "Request funds from the XRPL faucet using the selected network and specified amount.",
+    categories: ["example","xrpl"]
   }
 ];
 
@@ -323,9 +323,9 @@ export const xaman_blocks = [
       </next>
     </block>
     `,
-    title: "Xaman Payment Sample",
-    description: "Create a new XRPL account and payment.",
-    categories: ["sample","xaman"]
+    title: "XRPL Account and Payment Example with Xaman",
+    description: "Create a new XRPL account, login with Xaman, and send a payment using the selected network.",
+    categories: ["example","xaman"]
   }
 ];
 
@@ -584,7 +584,7 @@ export const logic_blocks = [
   },
 ];
 
-export const loops_blocks = [
+export const loop_blocks = [
   {
     height: 80,
     block: `
@@ -592,7 +592,7 @@ export const loops_blocks = [
     `,
     title: "While/Until Loop",
     description: "Create a while or until loop.",
-    categories: ["loops"]
+    categories: ["loop"]
   },
   {
     height: 80,
@@ -601,7 +601,7 @@ export const loops_blocks = [
     `,
     title: "For Loop",
     description: "Create a for loop.",
-    categories: ["loops"]
+    categories: ["loop"]
   },
   {
     height: 80,
@@ -610,7 +610,7 @@ export const loops_blocks = [
     `,
     title: "ForEach Loop",
     description: "Create a for-each loop.",
-    categories: ["loops"]
+    categories: ["loop"]
   }
 ];
 
@@ -622,7 +622,7 @@ export const lists_blocks = [
     `,
     title: "Initialize Array",
     description: "Initialize an array.",
-    categories: ["lists"]
+    categories: ["list"]
   },
   {
     height: 70,
@@ -631,7 +631,7 @@ export const lists_blocks = [
     `,
     title: "Append to Array",
     description: "Append an item to an array.",
-    categories: ["lists"]
+    categories: ["list"]
   },
   {
     height: 70,
@@ -640,7 +640,7 @@ export const lists_blocks = [
     `,
     title: "Create List",
     description: "Create a dynamic list.",
-    categories: ["lists"]
+    categories: ["list"]
   },
   {
     height: 50,
@@ -649,7 +649,7 @@ export const lists_blocks = [
     `,
     title: "List Length",
     description: "Get the length of a list.",
-    categories: ["lists"]
+    categories: ["list"]
   },
   {
     height: 50,
@@ -658,7 +658,7 @@ export const lists_blocks = [
     `,
     title: "List Is Empty",
     description: "Check if a list is empty.",
-    categories: ["lists"]
+    categories: ["list"]
   },
   {
     height: 50,
@@ -667,6 +667,6 @@ export const lists_blocks = [
     `,
     title: "Sort List",
     description: "Sort a list.",
-    categories: ["lists"]
+    categories: ["list"]
   }
 ];

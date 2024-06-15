@@ -55,7 +55,7 @@ const Header = React.forwardRef(({ playState, setPlayState, onSearchClick, onSav
       <div className="absolute left-1/2 transform -translate-x-1/2">
         <TextField
           variant="outlined"
-          placeholder="Search for Blocks and Samples"
+          placeholder="Search for Blocks and Examples"
           size="small"
           onClick={onSearchClick}
           InputProps={{

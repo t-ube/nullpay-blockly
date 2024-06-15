@@ -6,7 +6,7 @@ import PuzzleIcon from '@mui/icons-material/Extension';
 import { 
   xrpl_blocks, xaman_blocks, text_blocks, math_blocks,
   control_blocks, time_blocks, json_blocks, animation_blocks,
-  logic_blocks, loops_blocks, lists_blocks
+  logic_blocks, loop_blocks, lists_blocks
 } from '@/blocks/BlockContents';
 import { BlockColors } from '@/blocks/BlockColors';
 import { BlockIcons } from '@/blocks/BlockIcons';
@@ -33,8 +33,8 @@ const initialBlockTypesMap: BlockTypesMap = {
   json: json_blocks,
   animation: animation_blocks,
   logic: logic_blocks,
-  loops: loops_blocks,
-  lists: lists_blocks,
+  loop: loop_blocks,
+  list: lists_blocks,
 };
 
 interface BlockDrawerMap {
@@ -51,10 +51,10 @@ const initialBlockDrawerMap : BlockDrawerMap = {
   json: 300,
   animation: 300,
   logic: 300,
-  loops: 300,
-  lists: 300,
-  variables: 300,
-  functions: 300,
+  loop: 300,
+  list: 300,
+  variable: 300,
+  function: 300,
 };
 
 interface BlockTitleMap {
@@ -71,10 +71,10 @@ const initialBlockTitleMap : BlockTitleMap = {
   json: 'JSON',
   animation: 'Animation',
   logic: 'Logic',
-  loops: 'Loops',
-  lists: 'Lists',
-  variables: 'Variables',
-  functions: 'Functions',
+  loop: 'Loops',
+  list: 'Lists',
+  variable: 'Variables',
+  function: 'Functions',
 };
 
 
@@ -139,9 +139,9 @@ const BlocklyDrawer = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspa
     if (open && flyoutType && !dynamicUpdated) {
       let blocks : Block[] = [];
 
-      if (flyoutType === 'variables' || flyoutType === 'functions') {
+      if (flyoutType === 'variable' || flyoutType === 'function') {
         const dynamicBlocks: Block[] = [];
-        if (flyoutType === 'variables') {
+        if (flyoutType === 'variable') {
           const elements = Blockly.Variables.flyoutCategoryBlocks(mainWorkspace);
           elements.forEach(xml => {
             dynamicBlocks.push({
@@ -152,7 +152,7 @@ const BlocklyDrawer = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspa
               categories: [],
             });
           });
-        } else if (flyoutType === 'functions') {
+        } else if (flyoutType === 'function') {
           const elements = Blockly.Procedures.flyoutCategory(mainWorkspace);
           elements.forEach((xml, index) => {
             dynamicBlocks.push({
@@ -168,7 +168,7 @@ const BlocklyDrawer = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspa
         blocks = dynamicBlocks;
         setDynamicUpdated(true);
       } else {
-        const dynamicBlocks: Block[] = blockTypesMap[flyoutType].filter(block => !block.categories?.includes('sample'));
+        const dynamicBlocks: Block[] = blockTypesMap[flyoutType].filter(block => !block.categories?.includes('example'));
         blocks = dynamicBlocks;
         setBlockTypesMap(prevMap => ({ ...prevMap, [flyoutType]: dynamicBlocks }));
         setDynamicUpdated(true);
@@ -197,7 +197,7 @@ const BlocklyDrawer = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspa
                 Blockly.Xml.clearWorkspaceAndLoadFromXml(blockDom, workspace);
 
                 const block = workspace.getAllBlocks(false)[0];
-                if (flyoutType !== 'variables' && flyoutType !== 'functions') {
+                if (flyoutType !== 'variable' && flyoutType !== 'function') {
                   const blockSvg = block.getSvgRoot();
                   if (blockSvg) {
                     const blockRect = blockSvg.getBoundingClientRect();
@@ -283,11 +283,11 @@ const BlocklyDrawer = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspa
             </Typography>
           </Box>
           <Divider />
-          {flyoutType === 'variables' &&
+          {flyoutType === 'variable' &&
             <Box pl={1} pt={2} pb={3}>
               <Button 
                 onClick={() => setVarDialogOpen(true)} 
-                sx={{fontSize: '0.675rem', backgroundColor: BlockColors.variables, color: '#FFFFFF', '&:hover': { backgroundColor: '#8F4D6D' } }}
+                sx={{fontSize: '0.675rem', backgroundColor: BlockColors.variable, color: '#FFFFFF', '&:hover': { backgroundColor: '#8F4D6D' } }}
               >
                 Add Variable
               </Button>
@@ -319,13 +319,13 @@ const BlocklyDrawer = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspa
         <DialogActions>
           <Button
             onClick={handleVarDialogClose}
-            sx={{color: BlockColors.variables }}
+            sx={{color: BlockColors.variable }}
           >
             Cancel
           </Button>
           <Button
             onClick={handleVarDialogSubmit}
-            sx={{backgroundColor: BlockColors.variables, color: '#FFFFFF', '&:hover': { backgroundColor: '#8F4D6D' } }}
+            sx={{backgroundColor: BlockColors.variable, color: '#FFFFFF', '&:hover': { backgroundColor: '#8F4D6D' } }}
           >
             Add
           </Button>

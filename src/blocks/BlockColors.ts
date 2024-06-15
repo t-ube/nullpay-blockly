@@ -13,8 +13,8 @@ export const BlockColors : BlockColorsMap = {
   text: '#5BA58C',
   math: '#5B67A5',
   logic: '#5B80A5',
-  loops: '#5BA55B',
-  lists: '#745BA5',
-  variables: '#A55B80',
-  functions: '#995BA5',
+  loop: '#5BA55B',
+  list: '#745BA5',
+  variable: '#A55B80',
+  function: '#995BA5',
 };

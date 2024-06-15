@@ -4,7 +4,7 @@ import { Modal, Box, Typography } from '@mui/material';
 import { 
   xrpl_blocks, xaman_blocks, text_blocks, math_blocks,
   control_blocks, time_blocks, json_blocks, animation_blocks,
-  logic_blocks, loops_blocks, lists_blocks
+  logic_blocks, loop_blocks, lists_blocks
 } from '@/blocks/BlockContents';
 import '@/components/BlocklyFlyoutModal.css';
 
@@ -29,8 +29,8 @@ const initialBlockTypesMap: BlockTypesMap = {
   json: json_blocks,
   animation: animation_blocks,
   logic: logic_blocks,
-  loops: loops_blocks,
-  lists: lists_blocks,
+  loop: loop_blocks,
+  list: lists_blocks,
 };
 
 interface FlyoutModalProps {
@@ -95,9 +95,9 @@ const BlocklyFlyoutModal = ({ onBlockSelected, setOpen, open, flyoutType, mainWo
   useEffect(() => {
     if (open && flyoutType && !dynamicUpdated) {
       let blocks = blockTypesMap[flyoutType];
-      if (flyoutType === 'variables' || flyoutType === 'functions') {
+      if (flyoutType === 'variable' || flyoutType === 'function') {
         const dynamicBlocks: Block[] = [];
-        if (flyoutType === 'variables') {
+        if (flyoutType === 'variable') {
           const elements = Blockly.Variables.flyoutCategoryBlocks(mainWorkspace);
           elements.forEach(xml => {
             dynamicBlocks.push({
@@ -107,7 +107,7 @@ const BlocklyFlyoutModal = ({ onBlockSelected, setOpen, open, flyoutType, mainWo
               description: '',
             });
           });
-        } else if (flyoutType === 'functions') {
+        } else if (flyoutType === 'function') {
           const elements = Blockly.Procedures.flyoutCategory(mainWorkspace);
           elements.forEach((xml, index) => {
             console.log(Blockly.Xml.domToPrettyText(xml));
@@ -143,7 +143,7 @@ const BlocklyFlyoutModal = ({ onBlockSelected, setOpen, open, flyoutType, mainWo
                 workspace.getAllBlocks().forEach(block => block.setMovable(false));
 
                 const block = workspace.getAllBlocks(false)[0];
-                if (flyoutType !== 'variables' && flyoutType !== 'functions') {
+                if (flyoutType !== 'variable' && flyoutType !== 'function') {
                   const blockSvg = block.getSvgRoot();
                   if (blockSvg) {
                     const blockRect = blockSvg.getBoundingClientRect();

@@ -24,8 +24,8 @@ export const BlockIcons : BlockIconMap = {
   json: DataObjectIcon,
   animation: AnimationIcon,
   logic: ShuffleIcon,
-  loops: RefreshIcon,
-  lists: ListIcon,
-  variables: InputIcon,
-  functions: WidgetsIcon,
+  loop: RefreshIcon,
+  list: ListIcon,
+  variable: InputIcon,
+  function: WidgetsIcon,
 };

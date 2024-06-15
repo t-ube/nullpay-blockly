@@ -50,13 +50,12 @@ import {
 import { defineTextUtilInspectPrintBlock, initInterpreterTextUtilInspectPrint } from '@/blocks/text/textUtilInspectPrintBlock';
 import { defineUndefinedBlock, defineNullBlock } from '@/blocks/logic/logicBlock';
 
-
 import { defineJsonGetValueBlock } from '@/blocks/json/jsonValueBlock';
 import { defineJsonToTextBlock } from '@/blocks/json/jsonToTextBlock';
 import { defineJsonTextToJsonBlock } from '@/blocks/json/jsonTextToJsonBlock';
 import { defineWaitForSecondsBlock, initInterpreterWaitForSeconds } from '@/blocks/control/waitForSecondsBlock';
-import { defineArrayAppendBlock } from '@/blocks/lists/arrayAppendBlock';
-import { defineArrayInitBlock } from '@/blocks/lists/arrayInitBlock';
+import { defineArrayAppendBlock } from '@/blocks/list/arrayAppendBlock';
+import { defineArrayInitBlock } from '@/blocks/list/arrayInitBlock';
 import { defineDynamicListCreate, defineDynamicTextJoin, defineDynamicIf } from '@/blocks/plugins/pluginDynamicConnection';
 import { defineXamanSimpleLoginBlock, initInterpreterXamanSimpleLogin } from '@/blocks/xaman/xamanSimpleLoginBlock';
 import { defineXamanSimpleLogoutBlock, initInterpreterXamanSimpleLogout } from '@/blocks/xaman/xamanSimpleLogoutBlock';
@@ -74,6 +73,7 @@ import { defineTimezoneBlock } from '@/blocks/time/timezoneBlock';
 import { defineCompareDateTimeBlock, initInterpreterCompareDateTime } from '@/blocks/time/compareDateTimeBlock';
 import { defineConsoleLogBlock } from '@/blocks/debug/consoleLogBlock';
 import { BlockColors } from '@/blocks/BlockColors';
+import { BaseTheme } from '@/blocks/BlocklyTheme';
 
 let workspace:Blockly.WorkspaceSvg;
 let flyout:Blockly.WorkspaceSvg;
