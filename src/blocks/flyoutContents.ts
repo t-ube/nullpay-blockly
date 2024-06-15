@@ -1,12 +1,21 @@
 // @/blocks/flyoutContents.tsx
 export const xrpl_blocks = [
   {
-    height: 50,
+    height: 54,
     block: `
       <block type="xrpl_create_account" x="0" y="0"></block>
     `,
     title: "XRPL Create Account",
     description: "Create a new XRPL account using the selected network.",
+    categories: ["xrpl"]
+  },
+  {
+    height: 150,
+    block: `
+      <block type="xrpl_request_custom_faucet" x="0" y="0"></block>
+    `,
+    title: "XRPL Create Account and Custom Faucet Request",
+    description: "Request funds from a custom XRPL faucet.",
     categories: ["xrpl"]
   },
   {
@@ -25,15 +34,6 @@ export const xrpl_blocks = [
     `,
     title: "XRPL Faucet Network Selection",
     description: "Select the faucet network for creating test accounts.",
-    categories: ["xrpl"]
-  },
-  {
-    height: 150,
-    block: `
-      <block type="xrpl_request_custom_faucet" x="0" y="0"></block>
-    `,
-    title: "XRPL Create Account and Custom Faucet Request",
-    description: "Request funds from a custom XRPL faucet.",
     categories: ["xrpl"]
   },
   {
@@ -66,6 +66,15 @@ export const xrpl_blocks = [
   {
     height: 50,
     block: `
+      <block type="xrpl_exchange_address" x="0" y="0"></block>
+    `,
+    title: "XRPL Exchange Address",
+    description: "Define an XRPL exchange address.",
+    categories: ["xrpl"]
+  },
+  {
+    height: 50,
+    block: `
       <block type="xrpl_xrp_to_drops" x="0" y="0"></block>
     `,
     title: "XRP to Drops",
@@ -91,11 +100,56 @@ export const xrpl_blocks = [
     categories: ["xrpl"]
   },
   {
-    height: 100,
+    height: 131,
     block: `
       <block type="xrpl_client_subscribe_account_transactions" x="0" y="0"></block>
     `,
-    title: "Initialize XRPL Client",
+    title: "Subscribe transactions",
+    description: "",
+    categories: ["xrpl"]
+  },
+  {
+    height: 100,
+    block: `
+      <block type="xrpl_client_unsubscribe_account_transactions" x="0" y="0"></block>
+    `,
+    title: "Unsubscribe transactions",
+    description: "",
+    categories: ["xrpl"]
+  },
+  {
+    height: 80,
+    block: `
+      <block type="xrpl_wallet_initialize" x="0" y="0"></block>
+    `,
+    title: "Initialize Wallet",
+    description: "",
+    categories: ["xrpl"]
+  },
+  {
+    height: 183,
+    block: `
+      <block type="xrpl_payment_transaction" x="0" y="0"></block>
+    `,
+    title: "Payment Transaction",
+    description: "",
+    categories: ["xrpl"]
+  },
+  {
+    height: 105,
+    block: `
+      <block type="xrpl_wallet_sign" x="0" y="0"></block>
+    `,
+    title: "Sign Wallet",
+    description: "",
+    categories: ["xrpl"]
+  },
+  {
+    height: 105,
+    block: `
+      <block type="xrpl_client_submit" x="0" y="0"></block>
+    `,
+    title: "Submit",
     description: "",
     categories: ["xrpl"]
   },
@@ -518,7 +572,25 @@ export const logic_blocks = [
     title: "Logic Compare",
     description: "Compare two values.",
     categories: ["logic"]
-  }
+  },
+  {
+    height: 50,
+    block: `
+      <block type="undefined" x="0" y="0"></block>
+    `,
+    title: "undefined",
+    description: "",
+    categories: ["logic"]
+  },
+  {
+    height: 50,
+    block: `
+      <block type="null" x="0" y="0"></block>
+    `,
+    title: "null",
+    description: "",
+    categories: ["logic"]
+  },
 ];
 
 export const loops_blocks = [

@@ -23,8 +23,32 @@ import { definePercentageBlock } from '@/blocks/math/percentageBlock';
 import { defineXrplAccountInfoApiBlock, initInterpreterAccountInfoApi } from '@/blocks/xrpl/xrplAccountInfoApiBlock';
 //import { defineXrplClientSubscribeStreamsTxnsBlock, initInterpreterXrplClientSubscribeStreamsTxns } from '@/blocks/xrpl/xrplClientSubscribeStreamsTxnsBlock';
 import { defineXrplClientInitializeBlock, initInterpreterXrplClientInitialize } from '@/blocks/xrpl/xrplClientInitializeBlock';
-import { defineXrplClientSubscribeAccountTransactionsBlock, initInterpreterXrplClientSubscribeAccountTransactions  } from '@/blocks/xrpl/xrplClientSubscribeAccountTransactions';
+import {
+  defineXrplClientSubscribeAccountTxnsBlock,
+  initInterpreterXrplClientSubscribeAccountTxns,
+  defineXrplClientUnsubscribeAccountTxnsBlock,
+  initInterpreterXrplClientUnsubscribeAccountTxns
+} from '@/blocks/xrpl/xrplClientSubscribeAccountTxnsBlock';
+import {
+  defineXrplPaymentTxnBlock,
+  initInterpreterXrplPaymentTxn
+} from '@/blocks/xrpl/xrplPaymentTransactionBlock';
+import {
+  defineXrplWalletInitializeBlock,
+  initInterpreterXrplWalletInitialize,
+  defineXrplWalletSignBlock,
+  initInterpreterXrplWalletSign
+} from '@/blocks/xrpl/xrplWalletBlock';
+
+import {
+  defineXrplClientSubmitBlock, initInterpreterXrplClientSubmit
+} from '@/blocks/xrpl/xrplClientSubmitBlock';
+import {
+  defineXrplExchangeAddressBlock
+} from '@/blocks/xrpl/xrplExchangeAddressBlock';
+
 import { defineTextUtilInspectPrintBlock, initInterpreterTextUtilInspectPrint } from '@/blocks/text/textUtilInspectPrintBlock';
+import { defineUndefinedBlock, defineNullBlock } from '@/blocks/logic/logicBlock';
 
 
 import { defineJsonGetValueBlock } from '@/blocks/json/jsonValueBlock';
@@ -149,6 +173,8 @@ const createCustomBlocks = () => {
   defineNumberToTextBlock();
   defineTextToNumberBlock();
   defineTextUtilInspectPrintBlock();
+  defineUndefinedBlock();
+  defineNullBlock();
 
   // Time
   defineCurrentDateTimeBlock();
@@ -178,7 +204,13 @@ const createCustomBlocks = () => {
   defineXrplPaymentBlock();
   defineXrplAccountInfoApiBlock();
   defineXrplClientInitializeBlock();
-  defineXrplClientSubscribeAccountTransactionsBlock();
+  defineXrplClientSubscribeAccountTxnsBlock();
+  defineXrplClientUnsubscribeAccountTxnsBlock();
+  defineXrplWalletInitializeBlock();
+  defineXrplWalletSignBlock();
+  defineXrplPaymentTxnBlock();
+  defineXrplClientSubmitBlock();
+  defineXrplExchangeAddressBlock();
 
   // Xaman Wallet
   defineXamanSimpleLoginBlock();
@@ -191,11 +223,15 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterWaitForSeconds(interpreter, scope);
   initInterpreterAccountInfoApi(interpreter, scope);
   initInterpreterXrplClientInitialize(interpreter, scope);
-  initInterpreterXrplClientSubscribeAccountTransactions(interpreter, scope);
-  initInterpreterTextUtilInspectPrint(interpreter, scope);
+  initInterpreterXrplClientSubscribeAccountTxns(interpreter, scope);
+  initInterpreterXrplClientUnsubscribeAccountTxns(interpreter, scope);
   initInterpreterXrplCreateAccount(interpreter, scope);
   initInterpreterXrplRequestFaucet(interpreter, scope);
   initInterpreterXrplRequestCustomFaucet(interpreter, scope);
+  initInterpreterXrplWalletInitialize(interpreter, scope);
+  initInterpreterXrplWalletSign(interpreter, scope);
+  initInterpreterXrplClientSubmit(interpreter, scope);
+  initInterpreterXrplPaymentTxn(interpreter, scope);
   initInterpreterXamanSimpleLogin(interpreter, scope);
   initInterpreterXamanSimpleLogout(interpreter, scope);
   initInterpreterXamanPayment(interpreter, scope);
@@ -208,6 +244,7 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterRippleEpochToDateTime(interpreter, scope);
   initInterpreterAdjustDateTime(interpreter, scope);
   initInterpreterCompareDateTime(interpreter, scope);
+  initInterpreterTextUtilInspectPrint(interpreter, scope);
 }
 
 const handleBlocklyResize = () => {

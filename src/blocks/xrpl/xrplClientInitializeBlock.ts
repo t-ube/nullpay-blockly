@@ -1,14 +1,26 @@
+// xrplClientInitializeBlock.ts
 import * as util from 'util';
 import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
-import { XrplClient } from 'xrpl-client';
+import { Client as xrplClient } from 'xrpl';
+import { EventTypes } from 'xrpl/dist/npm/models/methods/subscribe';
 
 interface XRPLClientMap {
-  [key: string]: XrplClient;
+  [key: string]: xrplClient;
+}
+
+interface XRPLClientEventListener {
+  type: EventTypes;
+  listener: (data: any) => void;
+}
+
+interface XRPLClientEventListenMap {
+  [id: string]: XRPLClientEventListener[];
 }
 
 const xrplClientInstances : XRPLClientMap = {};
+const xrplClientEventListeners: XRPLClientEventListenMap = {};
 
 export const defineXrplClientInitializeBlock = () => {
   Blockly.Blocks['xrpl_client_initialize'] = {
@@ -44,8 +56,9 @@ export const defineXrplClientInitializeBlock = () => {
 export function initInterpreterXrplClientInitialize(interpreter:any, globalObject:any) {
   javascriptGenerator.addReservedWords('initializeXrplClient');
   const wrapper = async function (server:string, variable:any, callback:any) {
-    const client = new XrplClient(server);
+    const client = new xrplClient(server);
     try {
+      await client.connect();
       xrplClientInstances[variable] = client;
       console.log(`client: ${util.inspect(client, { showHidden: false, depth: null, colors: true })}`);
       interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(variable));
@@ -59,6 +72,30 @@ export function initInterpreterXrplClientInitialize(interpreter:any, globalObjec
   interpreter.setProperty(globalObject, 'initializeXrplClient', interpreter.createAsyncFunction(wrapper));
 }
 
-export function getXrplClient(variable:any) {
+export function getXrplClient(variable:any) : xrplClient {
   return xrplClientInstances[variable];
+}
+
+export function setXrplClientEventListner(client: xrplClient, id:string, type: EventTypes, listener:any) {
+  client.on(type, listener);
+  if (!xrplClientEventListeners[id]) {
+    xrplClientEventListeners[id] = [];
+  }
+  xrplClientEventListeners[id].push({ type: type, listener });
+}
+
+export function clearXrplClientEventListner(client: xrplClient, id:string, type: EventTypes) {
+  if (xrplClientEventListeners[id]) {
+    xrplClientEventListeners[id] = xrplClientEventListeners[id].filter(eventListener => {
+      if (type === eventListener.type) {
+        client.off(eventListener.type, eventListener.listener);
+        return false;
+      }
+      return true;
+    });
+
+    if (xrplClientEventListeners[id].length === 0) {
+      delete xrplClientEventListeners[id];
+    }
+  }
 }
