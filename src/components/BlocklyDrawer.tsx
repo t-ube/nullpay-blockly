@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import * as Blockly from 'blockly/core';
-import { Drawer, Box, Typography, Divider } from '@mui/material';
+import { Drawer, Box, Typography, Divider, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Button } from '@mui/material';
 import PuzzleIcon from '@mui/icons-material/Extension';
 import { 
   xrpl_blocks, xaman_blocks, text_blocks, math_blocks,
@@ -92,6 +92,8 @@ const BlocklyDrawer = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspa
   const workspaceRefs = useRef<{ id: string, workspace: Blockly.WorkspaceSvg | null }[]>([]);
   const [blockTypesMap, setBlockTypesMap] = useState<BlockTypesMap>(initialBlockTypesMap);
   const [dynamicUpdated, setDynamicUpdated] = useState(false);
+  const [varDialogOpen, setVarDialogOpen] = useState(false);
+  const [variableName, setVariableName] = useState("");
 
   const handleClose = useCallback(() => {
     workspaceRefs.current.forEach(({ workspace }) => {
@@ -228,35 +230,93 @@ const BlocklyDrawer = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspa
     }
   }, [open]);
 
+  const handleVarDialogClose = () => {
+    setVarDialogOpen(false);
+    setVariableName("");
+  };
+
+  const handleVarDialogSubmit = () => {
+    if (variableName) {
+      mainWorkspace.createVariable(variableName);
+      setDynamicUpdated(false);
+      handleClose();
+      setTimeout(() => setOpen(true), 0);
+    }
+    handleVarDialogClose();
+  };
+
   return (
-    <Drawer
-      open={open}
-      onClose={handleClose}
-      anchor="left"
-    >
-      <Box sx={{
-        width: flyoutType ? initialBlockDrawerMap[flyoutType] : 300,
-        maxHeight: '100vh',
-        overflowY: 'auto',
-        bgcolor: 'background.paper',
-        p: 4,
-        pt: 2,
-        pr: 2
-      }}>
-        <Box sx={{display: 'flex'}}>
-          <PuzzleIcon sx={{color: flyoutType ? BlockColors[flyoutType] : '#ccc' }} />
-          <Typography variant="subtitle1" px={1} sx={{ fontWeight: 'bold', color: '#333333' }}>
-            {flyoutType ? initialBlockTitleMap[flyoutType] : 'unknown'} {'Blocks'}
-          </Typography>
-        </Box>
-        <Divider />
-        {flyoutType && blockTypesMap[flyoutType]?.map((item: Block, index: number) => (
-          <Box key={index} mt={2} mb={3}>
-            <Box id={`flyoutDiv_${index}`} sx={{ width: '100%', height: item.height, mb: 2 }} />
+    <>
+      <Drawer
+        open={open}
+        onClose={handleClose}
+        anchor="left"
+      >
+        <Box sx={{
+          width: flyoutType ? initialBlockDrawerMap[flyoutType] : 300,
+          maxHeight: '100vh',
+          overflowY: 'auto',
+          bgcolor: 'background.paper',
+          p: 4,
+          pt: 2,
+          pr: 2
+        }}>
+          <Box sx={{display: 'flex'}}>
+            <PuzzleIcon sx={{color: flyoutType ? BlockColors[flyoutType] : '#ccc' }} />
+            <Typography variant="subtitle1" px={1} sx={{ fontWeight: 'bold', color: '#333333' }}>
+              {flyoutType ? initialBlockTitleMap[flyoutType] : 'unknown'} {'Blocks'}
+            </Typography>
           </Box>
-        ))}
-      </Box>
-    </Drawer>
+          <Divider />
+          {flyoutType === 'variables' &&
+            <Box pl={1} pt={2} pb={3}>
+              <Button 
+                onClick={() => setVarDialogOpen(true)} 
+                sx={{fontSize: '0.675rem', backgroundColor: BlockColors.variables, color: '#FFFFFF', '&:hover': { backgroundColor: '#8F4D6D' } }}
+              >
+                Add Variable
+              </Button>
+            </Box>
+          }
+          {flyoutType && blockTypesMap[flyoutType]?.map((item: Block, index: number) => (
+            <Box key={index} mt={2} mb={3}>
+              <Box id={`flyoutDiv_${index}`} sx={{ width: '100%', height: item.height, mb: 2 }} />
+            </Box>
+          ))}
+        </Box>
+      </Drawer>
+      <Dialog open={varDialogOpen} onClose={handleVarDialogClose}>
+        <DialogTitle>Add Variable</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Please enter the name for the new variable.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Variable Name"
+            type="text"
+            fullWidth
+            value={variableName}
+            onChange={(e) => setVariableName(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleVarDialogClose}
+            sx={{color: BlockColors.variables }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleVarDialogSubmit}
+            sx={{backgroundColor: BlockColors.variables, color: '#FFFFFF', '&:hover': { backgroundColor: '#8F4D6D' } }}
+          >
+            Add
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 };
 
