@@ -6,7 +6,7 @@ import {
   xrpl_blocks, xaman_blocks, text_blocks, math_blocks,
   control_blocks, time_blocks, json_blocks, animation_blocks,
   logic_blocks, loops_blocks, lists_blocks
-} from '@/blocks/flyoutContents';
+} from '@/blocks/BlockContents';
 import { BlockColors } from '@/blocks/BlockColors';
 
 interface Block {

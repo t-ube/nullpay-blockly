@@ -2,16 +2,11 @@
 import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
-import { Client as xrplClient, Wallet as xrplWallet } from 'xrpl';
+import { Wallet as xrplWallet } from 'xrpl';
+import { xrplWalletInstances } from '@/blocks/xrpl/xrplWallet';
 
-interface XRPLWalletMap {
-  [key: string]: xrplWallet;
-}
-
-const xrplWalletInstances : XRPLWalletMap = {};
-
-export const defineXrplWalletInitializeBlock = () => {
-  Blockly.Blocks['xrpl_wallet_initialize'] = {
+export const defineXrplLoadWalletBlock = () => {
+  Blockly.Blocks['xrpl_load_wallet'] = {
     init: function () {
       this.appendDummyInput()
         .appendField(new Blockly.FieldLabel("Load wallet", "bold-label"));
@@ -25,44 +20,44 @@ export const defineXrplWalletInitializeBlock = () => {
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(BlockColors.xrpl);
-      this.setTooltip('Initialize XRPL wallet');
+      this.setTooltip('Load an XRPL wallet using a seed and store it in a variable');
       this.setHelpUrl('');
     }
   };
 
-  javascriptGenerator.forBlock['xrpl_wallet_initialize'] = function (block, generator) {
+  javascriptGenerator.forBlock['xrpl_load_wallet'] = function (block, generator) {
     const seed = generator.valueToCode(block, 'SEED', Order.ATOMIC) || '""';
     if (generator.nameDB_ === undefined) {
-      return `initializeXrplWallet(${seed}, '');\n`;
+      return `loadXrplWallet(${seed}, '');\n`;
     }
     const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
-    const code = `initializeXrplWallet(${seed}, '${variable}');\n`;
+    const code = `loadXrplWallet(${seed}, '${variable}');\n`;
     return code;
   };
 };
 
-export function initInterpreterXrplWalletInitialize(interpreter:any, globalObject:any) {
-  javascriptGenerator.addReservedWords('initializeXrplWallet');
+export function initInterpreterXrplLoadWallet(interpreter:any, globalObject:any) {
+  javascriptGenerator.addReservedWords('loadXrplWallet');
   const wrapper = async function (seed:string, variable:any, callback:any) {
     const wallet = xrplWallet.fromSeed(seed);
     try {
       xrplWalletInstances[variable] = wallet;
       interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(variable));
-      console.log('Initialize XRPL wallet :', wallet.address);
+      console.log('Load XRPL wallet :', wallet.address);
       callback();
     } catch (error) {
-      console.error('Failed to initialize XRPL wallet:', error);
+      console.error('Failed to load XRPL wallet:', error);
       callback();
     }
   };
-  interpreter.setProperty(globalObject, 'initializeXrplWallet', interpreter.createAsyncFunction(wrapper));
+  interpreter.setProperty(globalObject, 'loadXrplWallet', interpreter.createAsyncFunction(wrapper));
 }
 
 export function getXrplWallet(variable:any) : xrplWallet {
   return xrplWalletInstances[variable];
 }
 
-// Sign //
+// Sign
 export const defineXrplWalletSignBlock = () => {
   Blockly.Blocks['xrpl_wallet_sign'] = {
     init: function () {

@@ -6,7 +6,7 @@ import Interpreter from 'js-interpreter';
 import * as Blockly from 'blockly/core';
 import 'blockly/blocks';
 import { javascriptGenerator } from 'blockly/javascript';
-import { blocklyInit, initInterpreter, workspace } from '@/blocks/initializer';
+import { blocklyInit, initInterpreterEx, workspace } from '@/blocks/initializer';
 import { MainTabs } from '@/components/MainTabs';
 //import WelcomeDialog from '@/components/WelcomeDialog';
 import FeatureModal from '@/components/FeatureModal';
@@ -191,7 +191,7 @@ const BlocklyComponent = () => {
       'highlightBlock',
       interpreter.createNativeFunction(wrapperHighlight),
     );
-    initInterpreter(interpreter, scope);
+    initInterpreterEx(interpreter, scope, outputArea.current);
     
   }, []);
 
@@ -402,10 +402,26 @@ const BlocklyComponent = () => {
               <div className="flex-1 flex flex-col">
                 <MainTabs page={selectedTab} onTabChange={handleTabChange} />
                 <div style={{ display: selectedTab === 'log' ? 'flex' : 'none' }} className='py-1 flex-1 overflow-auto'>
-                  <textarea ref={outputArea} id="outputArea" className="px-1 w-full h-full resize-none border"></textarea>
+                  <textarea 
+                    ref={outputArea}
+                    id="outputArea"
+                    className="px-1 w-full h-full resize-none border"
+                    style={{ fontSize: '12px' }}
+                    readOnly
+                    spellCheck="false"
+                  >
+                  </textarea>
                 </div>
                 <div style={{ display: selectedTab === 'code' ? 'flex' : 'none' }} className='py-1 flex-1 overflow-auto'>
-                  <textarea ref={codeArea} id="codeArea" className="px-1 w-full h-full resize-none border"></textarea>
+                  <textarea 
+                    ref={codeArea}
+                    id="codeArea"
+                    className="px-1 w-full h-full resize-none border"
+                    style={{ fontSize: '12px' }}
+                    readOnly
+                    spellCheck="false"
+                  >
+                  </textarea>
                 </div>
               </div>
               )}

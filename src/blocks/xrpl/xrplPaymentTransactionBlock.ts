@@ -9,7 +9,7 @@ export const defineXrplPaymentTxnBlock = () => {
   Blockly.Blocks['xrpl_payment_transaction'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField(new Blockly.FieldLabel("Payment Transaction", "bold-label"));
+        .appendField(new Blockly.FieldLabel("Payment transaction", "bold-label"));
       this.appendValueInput("CLIENT")
         .setCheck('Client')
         .appendField("XRPL client");

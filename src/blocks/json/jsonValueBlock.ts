@@ -7,10 +7,10 @@ export const defineJsonGetValueBlock = () => {
     init: function () {
       this.appendValueInput("VAR")
         .setCheck(null)
-        .appendField("Get value from");
+        .appendField("Get JSON");
       this.appendValueInput("KEY")
         .setCheck("String")
-        .appendField("with key");
+        .appendField("Key");
       this.setOutput(true, null);
       this.setColour(BlockColors.json);
       this.setTooltip('Get the value from a JSON object by key');

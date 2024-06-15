@@ -20,7 +20,7 @@ import { defineXrplAddressBlock } from '@/blocks/xrpl/xrplAddressBlock';
 import { defineXrplXrp2DropBlock, defineXrplDrop2XrpBlock } from '@/blocks/xrpl/xrplAmountBlock';
 import { defineXrplPaymentBlock } from '@/blocks/xrpl/xrplPaymentBlock';
 import { definePercentageBlock } from '@/blocks/math/percentageBlock'; 
-import { defineXrplAccountInfoApiBlock, initInterpreterAccountInfoApi } from '@/blocks/xrpl/xrplAccountInfoApiBlock';
+import { defineXrplAccountInfoBlock, initInterpreterXrplAccountInfo } from '@/blocks/xrpl/xrplAccountInfoBlock';
 //import { defineXrplClientSubscribeStreamsTxnsBlock, initInterpreterXrplClientSubscribeStreamsTxns } from '@/blocks/xrpl/xrplClientSubscribeStreamsTxnsBlock';
 import { defineXrplClientInitializeBlock, initInterpreterXrplClientInitialize } from '@/blocks/xrpl/xrplClientInitializeBlock';
 import {
@@ -34,8 +34,8 @@ import {
   initInterpreterXrplPaymentTxn
 } from '@/blocks/xrpl/xrplPaymentTransactionBlock';
 import {
-  defineXrplWalletInitializeBlock,
-  initInterpreterXrplWalletInitialize,
+  defineXrplLoadWalletBlock,
+  initInterpreterXrplLoadWallet,
   defineXrplWalletSignBlock,
   initInterpreterXrplWalletSign
 } from '@/blocks/xrpl/xrplWalletBlock';
@@ -202,11 +202,11 @@ const createCustomBlocks = () => {
   defineXrplXrp2DropBlock();
   defineXrplDrop2XrpBlock();
   defineXrplPaymentBlock();
-  defineXrplAccountInfoApiBlock();
+  defineXrplAccountInfoBlock();
   defineXrplClientInitializeBlock();
   defineXrplClientSubscribeAccountTxnsBlock();
   defineXrplClientUnsubscribeAccountTxnsBlock();
-  defineXrplWalletInitializeBlock();
+  defineXrplLoadWalletBlock();
   defineXrplWalletSignBlock();
   defineXrplPaymentTxnBlock();
   defineXrplClientSubmitBlock();
@@ -221,14 +221,14 @@ const createCustomBlocks = () => {
 
 const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterWaitForSeconds(interpreter, scope);
-  initInterpreterAccountInfoApi(interpreter, scope);
+  initInterpreterXrplAccountInfo(interpreter, scope);
   initInterpreterXrplClientInitialize(interpreter, scope);
   initInterpreterXrplClientSubscribeAccountTxns(interpreter, scope);
   initInterpreterXrplClientUnsubscribeAccountTxns(interpreter, scope);
   initInterpreterXrplCreateAccount(interpreter, scope);
   initInterpreterXrplRequestFaucet(interpreter, scope);
   initInterpreterXrplRequestCustomFaucet(interpreter, scope);
-  initInterpreterXrplWalletInitialize(interpreter, scope);
+  initInterpreterXrplLoadWallet(interpreter, scope);
   initInterpreterXrplWalletSign(interpreter, scope);
   initInterpreterXrplClientSubmit(interpreter, scope);
   initInterpreterXrplPaymentTxn(interpreter, scope);
@@ -244,7 +244,13 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterRippleEpochToDateTime(interpreter, scope);
   initInterpreterAdjustDateTime(interpreter, scope);
   initInterpreterCompareDateTime(interpreter, scope);
-  initInterpreterTextUtilInspectPrint(interpreter, scope);
+}
+
+const initInterpreterEx = (interpreter: Interpreter, scope: any, logArea:HTMLTextAreaElement | null) => {
+  initInterpreter(interpreter, scope);
+  if (logArea) {
+    initInterpreterTextUtilInspectPrint(interpreter, scope, logArea);
+  }
 }
 
 const handleBlocklyResize = () => {
@@ -334,4 +340,4 @@ const handleFlyoutResize = () => {
   Blockly.svgResize(flyout);
 };
 
-export { blocklyInit, initInterpreter, workspace, flyout };
+export { blocklyInit, initInterpreterEx, workspace, flyout };

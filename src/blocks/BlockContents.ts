@@ -1,4 +1,4 @@
-// @/blocks/flyoutContents.tsx
+// @/blocks/BlockContents.tsx
 export const xrpl_blocks = [
   {
     height: 54,
@@ -46,15 +46,6 @@ export const xrpl_blocks = [
     categories: ["xrpl"]
   },
   {
-    height: 150,
-    block: `
-      <block type="xrpl_account_info_api" x="0" y="0"></block>
-    `,
-    title: "XRPL Account Info",
-    description: "Retrieve information about a specific XRPL account.",
-    categories: ["xrpl"]
-  },
-  {
     height: 50,
     block: `
       <block type="xrpl_address" x="0" y="0"></block>
@@ -96,7 +87,16 @@ export const xrpl_blocks = [
       <block type="xrpl_client_initialize" x="0" y="0"></block>
     `,
     title: "Initialize XRPL Client",
-    description: "",
+    description: "Initialize a new XRPL client to connect to the XRPL network.",
+    categories: ["xrpl"]
+  },
+  {
+    height: 150,
+    block: `
+      <block type="xrpl_account_info" x="0" y="0"></block>
+    `,
+    title: "XRPL Account Info",
+    description: "Retrieve information about a specific XRPL account.",
     categories: ["xrpl"]
   },
   {
@@ -104,8 +104,8 @@ export const xrpl_blocks = [
     block: `
       <block type="xrpl_client_subscribe_account_transactions" x="0" y="0"></block>
     `,
-    title: "Subscribe transactions",
-    description: "",
+    title: "Subscribe Transactions",
+    description: "Subscribe to transactions for a specific XRPL account to receive real-time updates.",
     categories: ["xrpl"]
   },
   {
@@ -113,17 +113,17 @@ export const xrpl_blocks = [
     block: `
       <block type="xrpl_client_unsubscribe_account_transactions" x="0" y="0"></block>
     `,
-    title: "Unsubscribe transactions",
-    description: "",
+    title: "Unsubscribe Transactions",
+    description: "Unsubscribe from transactions for a specific XRPL account to stop receiving updates.",
     categories: ["xrpl"]
   },
   {
     height: 80,
     block: `
-      <block type="xrpl_wallet_initialize" x="0" y="0"></block>
+      <block type="xrpl_load_wallet" x="0" y="0"></block>
     `,
-    title: "Initialize Wallet",
-    description: "",
+    title: "Load Wallet",
+    description: "Load an existing wallet using a seed to manage XRPL accounts and transactions.",
     categories: ["xrpl"]
   },
   {
@@ -132,7 +132,7 @@ export const xrpl_blocks = [
       <block type="xrpl_payment_transaction" x="0" y="0"></block>
     `,
     title: "Payment Transaction",
-    description: "",
+    description: "Create and submit a payment transaction on the XRPL.",
     categories: ["xrpl"]
   },
   {
@@ -141,7 +141,7 @@ export const xrpl_blocks = [
       <block type="xrpl_wallet_sign" x="0" y="0"></block>
     `,
     title: "Sign Wallet",
-    description: "",
+    description: "Sign a transaction with the wallet's private key to authorize it.",
     categories: ["xrpl"]
   },
   {
@@ -150,18 +150,9 @@ export const xrpl_blocks = [
       <block type="xrpl_client_submit" x="0" y="0"></block>
     `,
     title: "Submit",
-    description: "",
+    description: "Submit a signed transaction to the XRPL network for processing.",
     categories: ["xrpl"]
   },
-  /*{
-    height: 150,
-    block: `
-      <block type="xrpl_subscribe_streams" x="0" y="0"></block>
-    `,
-    title: "Subscribe to XRPL",
-    description: "",
-    categories: ["xrpl"]
-  },*/
   {
     height: 50,
     block: `
@@ -362,8 +353,8 @@ export const text_blocks = [
     block: `
       <block type="text_util_inspect_print" x="0" y="0"></block>
     `,
-    title: "Inspect and print",
-    description: "",
+    title: "Inspect and Print",
+    description: "Inspect an object and print its structure to the console.",
     categories: ["text"]
   },
   {
@@ -578,8 +569,8 @@ export const logic_blocks = [
     block: `
       <block type="undefined" x="0" y="0"></block>
     `,
-    title: "undefined",
-    description: "",
+    title: "Undefined",
+    description: "Returns the undefined value, used to indicate the absence of a value.",
     categories: ["logic"]
   },
   {
@@ -587,8 +578,8 @@ export const logic_blocks = [
     block: `
       <block type="null" x="0" y="0"></block>
     `,
-    title: "null",
-    description: "",
+    title: "Null",
+    description: "Returns the null value, used to indicate the intentional absence of any object value.",
     categories: ["logic"]
   },
 ];

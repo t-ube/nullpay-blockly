@@ -7,7 +7,7 @@ export const defineJsonTextToJsonBlock = () => {
         init: function () {
         this.appendValueInput("TEXT")
             .setCheck('String')
-            .appendField("Convert text to JSON");
+            .appendField("text to JSON");
         this.setOutput(true, 'String');
         this.setColour(BlockColors.json);
         this.setTooltip('Convert a plain text to a JSON string');

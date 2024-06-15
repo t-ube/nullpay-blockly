@@ -9,7 +9,7 @@ export const defineUndefinedBlock = () => {
         .appendField("undefined");
       this.setOutput(true, null);
       this.setColour(BlockColors.logic);
-      this.setTooltip('Returns undefined');
+      this.setTooltip('Returns the undefined value.');
       this.setHelpUrl('');
     }
   };
@@ -26,7 +26,7 @@ export const defineNullBlock = () => {
         .appendField("null");
       this.setOutput(true, null);
       this.setColour(BlockColors.logic);
-      this.setTooltip('Returns null');
+      this.setTooltip('Returns the null value.');
       this.setHelpUrl('');
     }
   };

@@ -12,7 +12,7 @@ export const defineTextUtilInspectPrintBlock = () => {
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(BlockColors.text);
-      this.setTooltip('Inspect and print an object using util.inspect');
+      this.setTooltip('Inspect an object and print its structure to the console using util.inspect');
       this.setHelpUrl('');
     }
   };
@@ -24,10 +24,12 @@ export const defineTextUtilInspectPrintBlock = () => {
   };
 };
 
-export function initInterpreterTextUtilInspectPrint(interpreter: any, globalObject: any) {
+export function initInterpreterTextUtilInspectPrint(interpreter: any, globalObject: any, logArea:HTMLTextAreaElement) {
   javascriptGenerator.addReservedWords('textUtilInspectPrint');
   const wrapper = function (object: any) {
-    console.log(util.inspect(object, { showHidden: false, depth: null, colors: true }));
+    if (logArea) {
+      logArea.value += `\n${util.inspect(object, { showHidden: false, depth: null, colors: false })}`;
+    }
   };
   interpreter.setProperty(globalObject, 'textUtilInspectPrint', interpreter.createNativeFunction(wrapper));
 }

@@ -3,24 +3,10 @@ import * as util from 'util';
 import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
-import { Client as xrplClient } from 'xrpl';
+import { xrplClientInstances, xrplClientEventListeners } from '@/blocks/xrpl/xrplClient';
+import { Client } from 'xrpl';
 import { EventTypes } from 'xrpl/dist/npm/models/methods/subscribe';
 
-interface XRPLClientMap {
-  [key: string]: xrplClient;
-}
-
-interface XRPLClientEventListener {
-  type: EventTypes;
-  listener: (data: any) => void;
-}
-
-interface XRPLClientEventListenMap {
-  [id: string]: XRPLClientEventListener[];
-}
-
-const xrplClientInstances : XRPLClientMap = {};
-const xrplClientEventListeners: XRPLClientEventListenMap = {};
 
 export const defineXrplClientInitializeBlock = () => {
   Blockly.Blocks['xrpl_client_initialize'] = {
@@ -56,7 +42,7 @@ export const defineXrplClientInitializeBlock = () => {
 export function initInterpreterXrplClientInitialize(interpreter:any, globalObject:any) {
   javascriptGenerator.addReservedWords('initializeXrplClient');
   const wrapper = async function (server:string, variable:any, callback:any) {
-    const client = new xrplClient(server);
+    const client = new Client(server);
     try {
       await client.connect();
       xrplClientInstances[variable] = client;
@@ -72,11 +58,11 @@ export function initInterpreterXrplClientInitialize(interpreter:any, globalObjec
   interpreter.setProperty(globalObject, 'initializeXrplClient', interpreter.createAsyncFunction(wrapper));
 }
 
-export function getXrplClient(variable:any) : xrplClient {
+export function getXrplClient(variable:any) : Client {
   return xrplClientInstances[variable];
 }
 
-export function setXrplClientEventListner(client: xrplClient, id:string, type: EventTypes, listener:any) {
+export function setXrplClientEventListner(client: Client, id:string, type: EventTypes, listener:any) {
   client.on(type, listener);
   if (!xrplClientEventListeners[id]) {
     xrplClientEventListeners[id] = [];
@@ -84,7 +70,7 @@ export function setXrplClientEventListner(client: xrplClient, id:string, type: E
   xrplClientEventListeners[id].push({ type: type, listener });
 }
 
-export function clearXrplClientEventListner(client: xrplClient, id:string, type: EventTypes) {
+export function clearXrplClientEventListner(client: Client, id:string, type: EventTypes) {
   if (xrplClientEventListeners[id]) {
     xrplClientEventListeners[id] = xrplClientEventListeners[id].filter(eventListener => {
       if (type === eventListener.type) {
