@@ -34,7 +34,7 @@ export function MainTabs({ page, onTabChange, children }: Props) {
         onChange={handleChange}
         textColor="secondary"
         indicatorColor="secondary"
-        aria-label="secondary tabs example"
+        aria-label="secondary tabs template"
         sx={{ minHeight: '36px' }} // Adjust the height of the Tabs container
       >
         <Tab

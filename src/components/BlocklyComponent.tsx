@@ -8,9 +8,7 @@ import 'blockly/blocks';
 import { javascriptGenerator } from 'blockly/javascript';
 import { blocklyInit, initInterpreterEx, workspace } from '@/blocks/initializer';
 import { MainTabs } from '@/components/MainTabs';
-//import WelcomeDialog from '@/components/WelcomeDialog';
 import FeatureModal from '@/components/FeatureModal';
-import { DemoBlockXml } from '@/demos/blocksDemo';
 import { useReward } from 'react-rewards';
 import { setConfettiAnimationFunction } from '@/blocks/animation/confettiAnimationBlock';
 import BlocklySearchFlyout from '@/components/BlocklySearchFlyout';
@@ -20,7 +18,9 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { PlayState } from '@/components/HeaderButtons';
 import { dropBlockToWorkspace, addBlockToWorkspace } from '@/utils/BlocklyHelper';
-import { releaseInfo } from '@/features/features-v0-r2';
+//import WelcomeDialog from '@/components/WelcomeDialog';
+import { DemoBlockXml } from '@/demos/demo-v0-r2-async-block';
+import { releaseInfo as initialReleaseInfo } from '@/features/features-v0-r2';
 import { useMobile } from '@/contexts/MobileContext';
 
 type clientFramePos = {
@@ -329,15 +329,6 @@ const BlocklyComponent = () => {
     window.dispatchEvent(new Event('resize'));
   };
 
-  const handleShowDemo = useCallback(() => {
-    const blockDom = Blockly.utils.xml.textToDom(DemoBlockXml);
-    if (Blockly && workspace && blockDom) {
-      Blockly.Xml.domToWorkspace(blockDom, workspace);
-      workspace.setScale(1.0);
-      workspace.scrollCenter();
-    }
-  }, []);
-
   const handleBlockSelectedForDrawer = (xml: string, eventType: string, event: MouseEvent): void => {
     if (eventType === 'drag') {
       dropBlockToWorkspace(workspace, xml, event);
@@ -348,6 +339,24 @@ const BlocklyComponent = () => {
 
   const handleSearchClick = () => {
     setIsSearchModalOpen(true);
+  };
+
+  // Release info //
+  const handleShowDemo = useCallback(() => {
+    const blockDom = Blockly.utils.xml.textToDom(DemoBlockXml);
+    if (Blockly && workspace && blockDom) {
+      Blockly.Xml.domToWorkspace(blockDom, workspace);
+      workspace.setScale(0.8);
+      workspace.scrollCenter();
+    }
+  }, []);
+
+  const releaseInfo = {
+    ...initialReleaseInfo,
+    features: initialReleaseInfo.features.map((feature) => ({
+      ...feature,
+      onDemoEvent: feature.title === "Subscribe Block Added" ? handleShowDemo : undefined,
+    })),
   };
 
   return (

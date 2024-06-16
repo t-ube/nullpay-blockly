@@ -361,7 +361,7 @@ export const xrpl_blocks = [
     `,
     title: "Monitor and Process XRPL Transactions for Multiple Exchange Addresses",
     description: "This block sequence initializes a connection to the XRPL (XRP Ledger) and monitors transactions for a list of exchange addresses. It sets up a list of predefined exchange addresses and establishes a client connection to the XRPL. The program subscribes to account transactions for the specified addresses and continuously checks for incoming transactions. While waiting, it prints \"polling...\" every 5 seconds. Once a transaction is detected, it prints the transaction details and unsubscribes from the transaction stream, indicating completion. This process helps in tracking and processing transactions related to multiple exchange addresses in real-time.",
-    categories: ["example","xrpl"]
+    categories: ["template","xrpl"]
   }
   /*
   {
@@ -387,7 +387,7 @@ export const xrpl_blocks = [
     `,
     title: "XRPL Faucet Request Example",
     description: "Request funds from the XRPL faucet using the selected network and specified amount.",
-    categories: ["example","xrpl"]
+    categories: ["template","xrpl"]
   }
   */
 ];
@@ -519,7 +519,7 @@ export const xaman_blocks = [
     `,
     title: "XRPL Account and Payment Example with Xaman",
     description: "Create a new XRPL account, login with Xaman, and send a payment using the selected network.",
-    categories: ["example","xaman"]
+    categories: ["template","xaman"]
   }
 ];
 

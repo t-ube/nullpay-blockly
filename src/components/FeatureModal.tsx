@@ -47,72 +47,106 @@ const FeatureModal = ({ releaseInfo } : FeatureModalProps) => {
       <Box sx={{
         position: 'absolute',
         top: isMobile && isPortrait ? '10%' : '50%',
-        left: isMobile && isPortrait ? 'none' :'50%',
+        left: isMobile && isPortrait ? 'none' : '50%',
         transform: isMobile && isPortrait ? 'none' : 'translate(-50%, -50%)',
-        width: 600,
+        width: 800,
         maxWidth: '100vw',
-        height: isMobile && isPortrait ? 600 : 400,
-        maxHeight: '100vw',
+        height: isMobile && isPortrait ? '70vh' : '80vh',
+        maxHeight: isMobile && isPortrait ? '100vh' : 'auto',
         bgcolor: 'background.paper',
         boxShadow: 24,
         p: isMobile ? 1 : 4,
         pt: isMobile ? 1 : 2,
         outline: 0,
-        borderRadius: isMobile && isPortrait ? 0 : 2
+        borderRadius: isMobile && isPortrait ? 0 : 2,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between'
       }}>
-        <Typography id="feature-modal-title" variant="h5" component="h2" fontWeight={'bold'} gutterBottom textAlign={isMobile ? 'center' : 'start'}>
+        <Typography id="feature-modal-title" variant="h5" component="h2" fontWeight="bold" gutterBottom textAlign="center">
           {`What's New in Version ${releaseInfo.displayVersion} 👻`}
         </Typography>
         <Divider sx={{ mb: 2 }} />
-        {releaseInfo.features.map((feature, index) => (
-          <Fade
-            in={activeStep === index}
-            style={{ transformOrigin: '0 0 0' }}
-            {...(activeStep === index ? { timeout: 1000 } : {})}
-            key={index}
-          >
-            <Box sx={{ display: activeStep === index ? 'block' : 'none' }}>
-              <Stack direction="row" spacing={2}>
-                <Box flex={1}>
-                  <Image src={feature.image} alt={feature.title} width={300} height={300} objectFit="contain" />
+        <Box flex={1} overflow="auto">
+          {releaseInfo.features.map((feature, index) => (
+            <Fade
+              in={activeStep === index}
+              style={{ transformOrigin: '0 0 0' }}
+              {...(activeStep === index ? { timeout: 1000 } : {})}
+              key={index}
+            >
+              <Box sx={{ display: activeStep === index ? 'block' : 'none' }}>
+                <Typography variant="h6" textAlign="center" mb={2}>{feature.title}</Typography>
+                <Box textAlign="center" mb={2}>
+                  {feature.image.endsWith('.mp4') ? (
+                    <video width="100%" height="auto"  controls autoPlay loop muted>
+                      <source src={feature.image} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : (
+                    <Image src={feature.image} alt={feature.title} width={isMobile ? 200 : 300} height={isMobile ? 200 : 300} objectFit="contain" />
+                  )}
                 </Box>
-                <Box flex={1}>
-                  <Typography variant="h6">{feature.title}</Typography>
-                  <Typography variant="body1">{feature.description}</Typography>
-                </Box>
-              </Stack>
-            </Box>
-          </Fade>
-        ))}
-        <Box sx={{ position: 'absolute', bottom: 16, left: 16, right: 16, display: 'flex', justifyContent: 'space-between' }}>
-          <Button onClick={handleBack} disabled={activeStep === 0} sx={{color: '#A855F7'}}>
-            Prev
-          </Button>
-          {activeStep === releaseInfo.features.length - 1 ? (
-            <Button onClick={handleClose} variant="contained" color="primary" sx={{
-              bgcolor: '#A855F7',
-              '&:hover': {
-                bgcolor: '#8E24AA',
-              },
-            }}>
-              Start
-            </Button>
-          ) : (
-            <Button onClick={handleNext} variant="contained" color="primary" sx={{
-              bgcolor: '#A855F7',
-              '&:hover': {
-                bgcolor: '#8E24AA',
-              },
-            }}>
-              Next
-            </Button>
-          )}
+                <Typography variant="body1" textAlign="left" mb={2} sx={{ mx: isMobile ? 2 : 4 }}>
+                  {feature.description}
+                </Typography>
+                {feature.onDemoEvent && (
+                  <Box textAlign="center">
+                    <Button
+                      onClick={() => {
+                        if (feature.onDemoEvent) {
+                          feature.onDemoEvent();
+                        }
+                        handleClose();
+                      }}
+                      sx={{
+                        bgcolor: '#ffffff',
+                        color: '#A855F7',
+                        border: '1px solid #A855F7',
+                        '&:hover': {
+                          bgcolor: '#f0f0f0',
+                          color: '#8E24AA',
+                          border: '1px solid #8E24AA',
+                        },
+                      }}
+                    >
+                      TRY IT
+                    </Button>
+                  </Box>
+                )}
+              </Box>
+            </Fade>
+          ))}
         </Box>
-        <Box sx={{ position: 'absolute', bottom: 80, left: 32 }}>
+        <Box display="flex" justifyContent="space-between" alignItems="center" mt={2}>
           <FormControlLabel
             control={<Checkbox checked={dontShowAgain} onChange={handleDontShowAgainChange} />}
             label="Don't show this again"
           />
+          <Box>
+            <Button onClick={handleBack} disabled={activeStep === 0} sx={{ color: '#A855F7' }}>
+              Prev
+            </Button>
+            {activeStep === releaseInfo.features.length - 1 ? (
+              <Button onClick={handleClose} variant="contained" color="primary" sx={{
+                bgcolor: '#A855F7',
+                '&:hover': {
+                  bgcolor: '#8E24AA',
+                },
+              }}>
+                Start
+              </Button>
+            ) : (
+              <Button onClick={handleNext} variant="contained" color="primary" sx={{
+                bgcolor: '#A855F7',
+                '&:hover': {
+                  bgcolor: '#8E24AA',
+                },
+              }}>
+                Next
+              </Button>
+            )}
+          </Box>
         </Box>
       </Box>
     </Modal>

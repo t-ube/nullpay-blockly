@@ -170,7 +170,7 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
       const descriptionMatchCount = terms.filter(t => block.description.toLowerCase().includes(t)).length;
       const categoryMatchCount = terms.filter(t => block.categories.some(category => category.toLowerCase().includes(t))).length;
       const categoryMatchBonus = categoryMatchCount > 0 ? 2 : 0;
-      const exampleBonus = block.categories.includes('example') ? 1 : 0; // 'example' カテゴリのブロックにボーナスを追加
+      const exampleBonus = block.categories.includes('template') ? 1 : 0; // 'template' カテゴリのブロックにボーナスを追加
       const score = titleMatchCount + descriptionMatchCount + categoryMatchCount + categoryMatchBonus + exampleBonus;
       return { ...block, score };
     }).sort((a, b) => b.score - a.score);
@@ -256,7 +256,7 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
           <TextField
             id="search-input"
             variant="outlined"
-            placeholder="Search for Blocks and Examples"
+            placeholder="Search for Blocks and Templates"
             size="small"
             fullWidth
             value={searchTerm}
@@ -280,7 +280,7 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
           />
           <Box sx={{ overflowX: 'auto', mt: 1 }}>
             <Stack direction="row" spacing={1}>
-              {['example', 'xrpl', 'xaman', 'text', 'math', 'time', 'animation', 'json', 'logic', 'loop', 'list'
+              {['template', 'xrpl', 'xaman', 'text', 'math', 'time', 'animation', 'json', 'logic', 'loop', 'list'
                ].map((category) => (
                 <Chip
                   key={category}

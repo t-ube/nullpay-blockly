@@ -5,14 +5,14 @@ export const releaseInfo : ReleaseInfo = {
   displayVersion: '0.2',
   features: [
     {
-      title: 'Time Block Added',
-      description: 'The Time Block controls time zones and time. It is a very important block.',
-      image: '/feature/v0-r2/time-block.png'
+      title: 'Search for Blocks and Templates',
+      description: 'You can search for blocks. By selecting templates, you can quickly complete your code.',
+      image: '/feature/v0-r2/search-blocks.mp4'
     },
     {
-      title: 'Block Search Feature Added',
-      description: 'You can search for block descriptions and pre-built examples.',
-      image: '/feature/v0-r2/search-blocks.png'
+      title: 'Subscribe Block Added',
+      description: 'The powerful async "Subscribe" block has been added. It monitors XRPL transactions in real-time and allows the results to be used for condition evaluation.',
+      image: '/feature/v0-r2/async-block.mp4',
     }
   ]
 };

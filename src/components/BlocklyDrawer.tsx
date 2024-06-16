@@ -168,7 +168,7 @@ const BlocklyDrawer = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspa
         blocks = dynamicBlocks;
         setDynamicUpdated(true);
       } else {
-        const dynamicBlocks: Block[] = blockTypesMap[flyoutType].filter(block => !block.categories?.includes('example'));
+        const dynamicBlocks: Block[] = blockTypesMap[flyoutType].filter(block => !block.categories?.includes('template'));
         blocks = dynamicBlocks;
         setBlockTypesMap(prevMap => ({ ...prevMap, [flyoutType]: dynamicBlocks }));
         setDynamicUpdated(true);
