@@ -5,7 +5,7 @@ import { PlayIcon, PauseIcon, StopIcon, FolderOpenIcon, DocumentArrowDownIcon } 
 import * as Blockly from 'blockly/core';
 import 'blockly/blocks';
 import { javascriptGenerator } from 'blockly/javascript';
-import { blocklyInit, initInterpreter, workspace } from '@/blocks/initializer';
+import { blocklyInit, initInterpreterEx, workspace } from '@/blocks/initializer';
 import { MainTabs } from '@/components/MainTabs';
 
 const BlocklyComponent = () => {
@@ -80,7 +80,7 @@ const BlocklyComponent = () => {
       'highlightBlock',
       interpreter.createNativeFunction(wrapperHighlight),
     );
-    initInterpreter(interpreter, scope);
+    initInterpreterEx(interpreter, scope, null);
     
   },[]);
 
