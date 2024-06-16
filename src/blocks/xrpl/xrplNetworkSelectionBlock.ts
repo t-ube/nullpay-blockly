@@ -2,17 +2,18 @@ import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { FieldDependentDropdown } from '@blockly/field-dependent-dropdown';
+import { newTitleLabel, newArgsLabel, newOutputLabel } from '@/blocks/BlockField';
 
 export const defineXrplNetworkWssSelectionBlock = () => {
     Blockly.Blocks['xrpl_network_wss_selection'] = {
         init: function () {
             this.appendDummyInput()
-                .appendField("Network type")
+                .appendField(newArgsLabel("Network URI"))
                 .appendField(new Blockly.FieldDropdown([
                 ["XRPL", "xrpl"],
                 ["Xahau", "xahau"],
                 ]), 'NETWORK_TYPE')
-                .appendField("Network URI")
+                .appendField("/")
                 .appendField(new FieldDependentDropdown('NETWORK_TYPE', {
                 xrpl: [
                     ["Testnet", "wss://s.altnet.rippletest.net:51233"],

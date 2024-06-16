@@ -3,23 +3,24 @@ import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { getXrplClient, setXrplClientEventListner, clearXrplClientEventListner } from '@/blocks/xrpl/xrplClientInitializeBlock';
+import { newTitleLabel, newArgsLabel, newOutputLabel } from '@/blocks/BlockField';
 
 export const defineXrplClientSubscribeAccountTxnsBlock = () => {
   Blockly.Blocks['xrpl_client_subscribe_account_transactions'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField(new Blockly.FieldLabel("Subscribe transactions", "bold-label"));
+        .appendField(newTitleLabel("Subscribe transactions"));
       this.appendValueInput("CLIENT")
         .setCheck('Client')
-        .appendField("XRPL client");
+        .appendField(newArgsLabel("XRPL client"));
       this.appendValueInput("ID")
         .setCheck('String')
-        .appendField("Subscribe ID");
+        .appendField(newArgsLabel("Subscribe ID"));
       this.appendValueInput("ACCOUNTS")
         .setCheck('Array')
-        .appendField("XRPL address list");
+        .appendField(newArgsLabel("XRPL address list"));
       this.appendDummyInput()
-        .appendField("Transaction info")
+        .appendField(newOutputLabel("Transaction info"))
         .appendField(new Blockly.FieldVariable("transactionInfo"), "VAR");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);
@@ -71,16 +72,16 @@ export const defineXrplClientUnsubscribeAccountTxnsBlock = () => {
   Blockly.Blocks['xrpl_client_unsubscribe_account_transactions'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField(new Blockly.FieldLabel("Unsubscribe transactions", "bold-label"));
+        .appendField(newTitleLabel("Unsubscribe transactions"));
       this.appendValueInput("CLIENT")
         .setCheck('Client')
-        .appendField("XRPL client");
+        .appendField(newArgsLabel("XRPL client"));
       this.appendValueInput("ID")
         .setCheck('String')
-        .appendField("Subscribe ID");
+        .appendField(newArgsLabel("Subscribe ID"));
       this.appendValueInput("ACCOUNTS")
         .setCheck('Array')
-        .appendField("XRPL address list");
+        .appendField(newArgsLabel("XRPL address list"));
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);

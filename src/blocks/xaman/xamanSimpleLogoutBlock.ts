@@ -2,12 +2,13 @@ import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import xamanPkce from '@/utils/XamanPkce';
+import { newTitleLabel } from '@/blocks/BlockField';
 
 export const defineXamanSimpleLogoutBlock = () => {
   Blockly.Blocks['xaman_simple_logout'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField(new Blockly.FieldLabel("Xaman logout", "bold-label"));
+        .appendField(newTitleLabel("Xaman logout"));
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(BlockColors.xaman);

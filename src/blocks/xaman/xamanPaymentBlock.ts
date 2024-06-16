@@ -3,6 +3,7 @@ import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import xamanPkce from '@/utils/XamanPkce';
 import { XummJsonTransaction } from 'xumm-sdk/dist/src/types';
+import { newTitleLabel, newArgsLabel, newOutputLabel } from '@/blocks/BlockField';
 
 function stringToHex(str:string) {
   return Buffer.from(str, 'utf8').toString('hex');
@@ -12,21 +13,21 @@ export const defineXamanPaymentBlock = () => {
   Blockly.Blocks['xaman_payment'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField(new Blockly.FieldLabel("Xaman payment", "bold-label"));
+        .appendField(newTitleLabel("Xaman payment"));
       this.appendValueInput("DESTINATION")
         .setCheck('String')
-        .appendField(new Blockly.FieldLabel("Destination address", "args-label"));
+        .appendField(newArgsLabel("Destination address"));
       this.appendValueInput("AMOUNT")
         .setCheck('Number')
-        .appendField(new Blockly.FieldLabel("Amount (drops)", "args-label"));
+        .appendField(newArgsLabel("Amount (drops)"));
       this.appendValueInput("MEMO")
         .setCheck('String')
-        .appendField(new Blockly.FieldLabel("Memo (optional)", "args-label"));
+        .appendField(newArgsLabel("Memo (optional)"));
       this.appendDummyInput()
-        .appendField(new Blockly.FieldLabel("Payload ID", "args-label"))
+        .appendField(newOutputLabel("Payload ID"))
         .appendField(new Blockly.FieldVariable("payloadID"), "VAR");
       this.appendDummyInput()
-        .appendField(new Blockly.FieldLabel("Result", "args-label"))
+        .appendField(newOutputLabel("Result"))
         .appendField(new Blockly.FieldVariable("error"), "ERROR_VAR");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);

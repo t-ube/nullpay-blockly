@@ -2,14 +2,15 @@ import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { Wallet } from 'xrpl';
+import { newTitleLabel, newOutputLabel } from '@/blocks/BlockField';
 
 export const defineXrplCreateAccountBlock = () => {
   Blockly.Blocks['xrpl_create_account'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField(new Blockly.FieldLabel("Create account", "bold-label"));
+        .appendField(newTitleLabel("Create account"));
       this.appendDummyInput()
-        .appendField("Wallet info")
+        .appendField(newOutputLabel("Wallet info"))
         .appendField(new Blockly.FieldVariable("walletInfo"), "VAR");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);

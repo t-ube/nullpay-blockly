@@ -4,17 +4,18 @@ import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { Wallet as xrplWallet } from 'xrpl';
 import { xrplWalletInstances } from '@/blocks/xrpl/xrplWallet';
+import { newTitleLabel, newArgsLabel, newOutputLabel } from '@/blocks/BlockField';
 
 export const defineXrplLoadWalletBlock = () => {
   Blockly.Blocks['xrpl_load_wallet'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField(new Blockly.FieldLabel("Load wallet", "bold-label"));
+        .appendField(newTitleLabel("Load wallet"));
       this.appendValueInput("SEED")
         .setCheck('String')
-        .appendField("Wallet seed");
+        .appendField(newArgsLabel("Wallet seed"));
       this.appendDummyInput()
-        .appendField("XRPL wallet")
+        .appendField(newOutputLabel("XRPL wallet"))
         .appendField(new Blockly.FieldVariable("xrplWallet"), "VAR");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);
@@ -62,15 +63,15 @@ export const defineXrplWalletSignBlock = () => {
   Blockly.Blocks['xrpl_wallet_sign'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField(new Blockly.FieldLabel("Sign wallet", "bold-label"));
+        .appendField(newTitleLabel("Sign wallet"));
       this.appendValueInput("WALLET")
         .setCheck('String')
-        .appendField("XRPL wallet");
+        .appendField(newArgsLabel("XRPL wallet"));
       this.appendValueInput("TRANSACTION")
         .setCheck('JSON')
-        .appendField("Transaction");
+        .appendField(newArgsLabel("Transaction"));
       this.appendDummyInput()
-        .appendField("Signed")
+        .appendField(newOutputLabel("Signed"))
         .appendField(new Blockly.FieldVariable("signed"), "VAR");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);

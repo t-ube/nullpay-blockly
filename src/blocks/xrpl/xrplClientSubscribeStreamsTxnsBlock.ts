@@ -2,23 +2,24 @@ import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { getXrplClient, setXrplClientEventListner } from '@/blocks/xrpl/xrplClientInitializeBlock';
+import { newTitleLabel, newArgsLabel, newOutputLabel } from '@/blocks/BlockField';
 
 export const defineXrplClientSubscribeStreamsTxnsBlock = () => {
   Blockly.Blocks['xrpl_client_subscribe_streams_transactions'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField(new Blockly.FieldLabel("Subscribe streams", "bold-label"));
+        .appendField(newTitleLabel("Subscribe streams"));
       this.appendValueInput("CLIENT")
         .setCheck('Client')
-        .appendField("XRPL client");
+        .appendField(newArgsLabel("XRPL client"));
       this.appendValueInput("ID")
         .setCheck('String')
-        .appendField("Subscribe ID");
+        .appendField(newArgsLabel("Subscribe ID"));
       this.appendValueInput("STREAMS")
         .setCheck('Array')
-        .appendField("Streams");
+        .appendField(newArgsLabel("Streams"));
       this.appendDummyInput()
-        .appendField("Transaction info")
+        .appendField(newOutputLabel("Transaction info"))
         .appendField(new Blockly.FieldVariable("transactionInfo"), "VAR");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);

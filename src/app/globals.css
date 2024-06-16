@@ -51,12 +51,13 @@ body {
   display: none !important;
 }
 
-.bold-label {
+.title-label {
   font-weight: bold !important;
   font-size: medium !important;
 }
 
-.args-label {
+.args-label,
+.output-label {
   font-size: small !important;
 }
 

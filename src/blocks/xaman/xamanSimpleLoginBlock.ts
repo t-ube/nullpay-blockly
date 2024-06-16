@@ -2,15 +2,16 @@ import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import xamanPkce from '@/utils/XamanPkce';
+import { newTitleLabel, newOutputLabel } from '@/blocks/BlockField';
 
 
 export const defineXamanSimpleLoginBlock = () => {
   Blockly.Blocks['xaman_simple_login'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField(new Blockly.FieldLabel("Xaman login", "bold-label"));
+        .appendField(newTitleLabel("Xaman login"));
       this.appendDummyInput()
-        .appendField(new Blockly.FieldLabel("User", "args-label"))
+        .appendField(newOutputLabel("User"))
         .appendField(new Blockly.FieldVariable("userInfo"), "VAR");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);

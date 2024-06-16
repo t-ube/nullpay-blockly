@@ -2,17 +2,18 @@ import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { FieldDependentDropdown } from '@blockly/field-dependent-dropdown';
+import { newTitleLabel, newArgsLabel, newOutputLabel } from '@/blocks/BlockField';
 
 export const defineXrplFaucetNetworkSelectionBlock = () => {
     Blockly.Blocks['xrpl_faucet_network_selection'] = {
         init: function () {
             this.appendDummyInput()
-                .appendField("Network type")
+                .appendField(newArgsLabel("Faucet URI"))
                 .appendField(new Blockly.FieldDropdown([
                     ["XRPL", "xrpl"],
                     ["Xahau", "xahau"],
                     ]), 'NETWORK_TYPE')
-                    .appendField("Faucet URI")
+                    .appendField("/")
                     .appendField(new FieldDependentDropdown('NETWORK_TYPE', {
                     xrpl: [
                         ["Testnet", "https://faucet.altnet.rippletest.net/accounts"],

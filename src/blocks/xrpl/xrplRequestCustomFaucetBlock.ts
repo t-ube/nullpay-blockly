@@ -2,21 +2,22 @@ import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { Client, Wallet } from 'xrpl';
+import { newTitleLabel, newArgsLabel, newOutputLabel } from '@/blocks/BlockField';
 
 
 export const defineXrplRequestCustomFaucetBlock = () => {
   Blockly.Blocks['xrpl_request_custom_faucet'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField(new Blockly.FieldLabel("Create account", "bold-label"));
+        .appendField(newTitleLabel("Create account"));
       this.appendValueInput("CONNECTION")
         .setCheck('String')
-        .appendField("Network URI")
+        .appendField(newArgsLabel("Network URI"))
       this.appendValueInput("AMOUNT")
         .setCheck('Number')
-        .appendField("Faucet amount (XRP)");
+        .appendField(newArgsLabel("Faucet amount (XRP)"));
       this.appendDummyInput()
-        .appendField("Faucet info")
+        .appendField(newOutputLabel("Faucet info"))
         .appendField(new Blockly.FieldVariable("faucetInfo"), "VAR");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);

@@ -1,20 +1,21 @@
 import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
+import { newTitleLabel, newArgsLabel, newOutputLabel } from '@/blocks/BlockField';
 
 export const defineXrplRequestFaucetBlock = () => {
   Blockly.Blocks['xrpl_request_faucet'] = {
     init: function () {
       this.appendDummyInput()
-      .appendField(new Blockly.FieldLabel("Request faucet", "bold-label"));
+      .appendField(newTitleLabel("Request faucet"));
       this.appendValueInput("CONNECTION")
         .setCheck('String')
-        .appendField("Faucet URI")
+        .appendField(newArgsLabel("Faucet URI"))
       this.appendValueInput("ADDRESS")
         .setCheck('String')
-        .appendField("Destination address");
+        .appendField(newArgsLabel("Destination address"));
       this.appendDummyInput()
-        .appendField("Faucet info")
+        .appendField(newOutputLabel("Faucet info"))
         .appendField(new Blockly.FieldVariable("faucetInfo"), "VAR");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);

@@ -4,29 +4,30 @@ import { BlockColors } from '@/blocks/BlockColors';
 import { getXrplClient } from './xrplClientInitializeBlock';
 import { getXrplWallet } from './xrplWalletBlock';
 import { Transaction } from 'xrpl';
+import { newTitleLabel, newArgsLabel, newOutputLabel } from '@/blocks/BlockField';
 
 export const defineXrplPaymentTxnBlock = () => {
   Blockly.Blocks['xrpl_payment_transaction'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField(new Blockly.FieldLabel("Payment transaction", "bold-label"));
+        .appendField(newTitleLabel("Payment transaction"));
       this.appendValueInput("CLIENT")
         .setCheck('Client')
-        .appendField("XRPL client");
+        .appendField(newArgsLabel("XRPL client"));
       this.appendValueInput("WALLET")
         .setCheck('String')
-        .appendField("XRPL wallet");
+        .appendField(newArgsLabel("XRPL wallet"));
       this.appendValueInput("DESTINATION")
         .setCheck('String')
-        .appendField("Destination address");
+        .appendField(newArgsLabel("Destination address"));
       this.appendValueInput("AMOUNT")
         .setCheck('Number')
-        .appendField("Amount (drops)");
+        .appendField(newArgsLabel("Amount (drops)"));
       this.appendValueInput("FLAG")
         .setCheck('Number')
-        .appendField("Flag");
+        .appendField(newArgsLabel("Flag"));
       this.appendDummyInput()
-        .appendField("Transaction")
+        .appendField(newOutputLabel("Transaction"))
         .appendField(new Blockly.FieldVariable("txJson"), "VAR");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);

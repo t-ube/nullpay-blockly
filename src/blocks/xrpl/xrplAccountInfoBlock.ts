@@ -3,20 +3,21 @@ import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { AccountInfoRequest } from 'xrpl';
 import { getXrplClient } from '@/blocks/xrpl/xrplClientInitializeBlock';
+import { newTitleLabel, newArgsLabel, newOutputLabel } from '@/blocks/BlockField';
 
 export const defineXrplAccountInfoBlock = () => {
   Blockly.Blocks['xrpl_account_info'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField(new Blockly.FieldLabel("Get account info", "bold-label"));
+        .appendField(newTitleLabel("Get account info"));
       this.appendValueInput("CLIENT")
         .setCheck('Client')
-        .appendField("XRPL client");
+        .appendField(newArgsLabel("XRPL client"));
       this.appendValueInput("ADDRESS")
         .setCheck('String')
-        .appendField("Address");
+        .appendField(newArgsLabel("Address"));
       this.appendDummyInput()
-        .appendField("Account info")
+        .appendField(newOutputLabel("Account info"))
         .appendField(new Blockly.FieldVariable("accountInfo"), "VAR");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);

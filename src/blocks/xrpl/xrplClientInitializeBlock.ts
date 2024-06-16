@@ -6,18 +6,19 @@ import { BlockColors } from '@/blocks/BlockColors';
 import { xrplClientInstances, xrplClientEventListeners } from '@/blocks/xrpl/xrplClient';
 import { Client } from 'xrpl';
 import { EventTypes } from 'xrpl/dist/npm/models/methods/subscribe';
+import { newTitleLabel, newArgsLabel, newOutputLabel } from '@/blocks/BlockField';
 
 
 export const defineXrplClientInitializeBlock = () => {
   Blockly.Blocks['xrpl_client_initialize'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField(new Blockly.FieldLabel("Initialize client", "bold-label"));
+        .appendField(newTitleLabel("Initialize client"));
       this.appendValueInput("SERVER")
         .setCheck('String')
-        .appendField("Server URI");
+        .appendField(newArgsLabel("Server URI"));
       this.appendDummyInput()
-        .appendField("XRPL client")
+        .appendField(newOutputLabel("XRPL client"))
         .appendField(new Blockly.FieldVariable("xrplClient"), "VAR");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);

@@ -2,14 +2,15 @@ import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import xamanPkce from '@/utils/XamanPkce';
+import { newTitleLabel, newArgsLabel } from '@/blocks/BlockField';
 
 export const defineXamanWaitForSignatureBlock = () => {
   Blockly.Blocks['xaman_wait_for_signature'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField(new Blockly.FieldLabel("Wait for Xaman signature", "bold-label"));
+        .appendField(newTitleLabel("Wait for Xaman signature"));
       this.appendValueInput("PAYLOAD")
-        .appendField(new Blockly.FieldLabel("Payload ID", "args-label"));
+        .appendField(newArgsLabel("Payload ID"));
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(BlockColors.xaman);

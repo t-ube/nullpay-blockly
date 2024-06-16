@@ -3,20 +3,21 @@ import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { getXrplClient } from '@/blocks/xrpl/xrplClientInitializeBlock';
+import { newTitleLabel, newArgsLabel, newOutputLabel } from '@/blocks/BlockField';
 
 export const defineXrplClientSubmitBlock = () => {
   Blockly.Blocks['xrpl_client_submit'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField(new Blockly.FieldLabel("Submit", "bold-label"));
+        .appendField(newTitleLabel("Submit"));
       this.appendValueInput("CLIENT")
         .setCheck('Client')
-        .appendField("XRPL client");
+        .appendField(newArgsLabel("XRPL client"));
       this.appendValueInput("BLOB")
         .setCheck('String')
-        .appendField("Transaction BLOB");
+        .appendField(newArgsLabel("Transaction BLOB"));
       this.appendDummyInput()
-        .appendField("Result")
+        .appendField(newOutputLabel("Result"))
         .appendField(new Blockly.FieldVariable("result"), "VAR");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);
