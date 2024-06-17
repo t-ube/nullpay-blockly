@@ -64,6 +64,7 @@ import { defineXamanWaitForSignatureBlock, initInterpreterXamanWaitForSignatureB
 import { defineConfettiAnimationBlock, initInterpreterConfettiAnimationFunctions  } from '@/blocks/animation/confettiAnimationBlock';
 import { defineNumberToTextBlock } from '@/blocks/text/textNumberToTextBlock';
 import { defineTextToNumberBlock } from '@/blocks/text/textTextToNumberBlock';
+import { defineTableBlock } from '@/blocks/table/tableBlock';
 import { defineCurrentDateTimeBlock, initInterpreterCurrentDateTime } from '@/blocks/time/getCurrentDateTimeBlock';
 import { defineDatedatetimeToTextBlock, initInterpreterDatedatetimeToText } from '@/blocks/time/datetimeToTextBlock';
 import { defineCreateDateTimeBlock, initInterpreterCreateDateTime } from '@/blocks/time/createTimeBlock';
@@ -129,6 +130,9 @@ const toolbox = `
       <block type="json_to_text"></block>
       <block type="text_to_json"></block>
     </category>
+    <category name="Table" colour="%{BKY_LOOPS_HUE}">
+      <block type="table_input"></block>
+    </category>
     <category name="Animation" colour="${BlockColors.animation}">
       <block type="confetti_animation"></block>
     </category>
@@ -160,38 +164,6 @@ const toolbox = `
 
 
 const createCustomBlocks = () => {
-  // Common
-  defineWaitForSecondsBlock();
-  definePercentageBlock();
-  defineConsoleLogBlock();
-  defineJsonGetValueBlock();
-  defineJsonToTextBlock();
-  defineJsonTextToJsonBlock();
-  defineArrayAppendBlock();
-  defineArrayInitBlock();
-  defineConfettiAnimationBlock();
-  defineNumberToTextBlock();
-  defineTextToNumberBlock();
-  defineTextUtilInspectPrintBlock();
-  defineUndefinedBlock();
-  defineNullBlock();
-
-  // Time
-  defineCurrentDateTimeBlock();
-  defineDatedatetimeToTextBlock();
-  defineCreateDateTimeBlock();
-  defineDateTimeToRippleEpoch();
-  defineRippleEpochToDateTime();
-  defineAdjustDateTimeBlock();
-  defineDateTimeTextFormatBlock();
-  defineTimezoneBlock();
-  defineCompareDateTimeBlock();
-
-  // Plugins
-  defineDynamicListCreate();
-  defineDynamicTextJoin();
-  defineDynamicIf();
-
   // XRPL & Xahau
   defineXrplNetworkWssSelectionBlock();
   defineXrplFaucetNetworkSelectionBlock();
@@ -217,6 +189,55 @@ const createCustomBlocks = () => {
   defineXamanSimpleLogoutBlock();
   defineXamanPaymentBlock();
   defineXamanWaitForSignatureBlock();
+
+  // Math
+  definePercentageBlock();
+
+  // Text
+  defineTextToNumberBlock();
+  defineTextUtilInspectPrintBlock();
+  defineNumberToTextBlock();
+
+  // JSON
+  defineJsonGetValueBlock();
+  defineJsonToTextBlock();
+  defineJsonTextToJsonBlock();
+
+  // Table
+  defineTableBlock();
+
+  // List
+  defineArrayAppendBlock();
+  defineArrayInitBlock();
+
+  // Control
+  defineWaitForSecondsBlock();
+
+  // Time
+  defineCurrentDateTimeBlock();
+  defineDatedatetimeToTextBlock();
+  defineCreateDateTimeBlock();
+  defineDateTimeToRippleEpoch();
+  defineRippleEpochToDateTime();
+  defineAdjustDateTimeBlock();
+  defineDateTimeTextFormatBlock();
+  defineTimezoneBlock();
+  defineCompareDateTimeBlock();
+
+  // Logic
+  defineUndefinedBlock();
+  defineNullBlock();
+
+  // Animation
+  defineConfettiAnimationBlock();
+  
+  // Debug
+  defineConsoleLogBlock();
+  
+  // Plugins
+  defineDynamicListCreate();
+  defineDynamicTextJoin();
+  defineDynamicIf();
 }
 
 const initInterpreter = (interpreter: Interpreter, scope: any) => {

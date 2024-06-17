@@ -9,6 +9,7 @@ import TextFieldsIcon from '@mui/icons-material/TextFields';
 import InputIcon from '@mui/icons-material/Input';
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import DataObjectIcon from '@mui/icons-material/DataObject';
+import GridOnIcon from '@mui/icons-material/GridOn';
 
 interface BlockIconMap {
   [key: string]: string | React.ElementType;
@@ -22,6 +23,7 @@ export const BlockIcons : BlockIconMap = {
   control: TuneIcon,
   time: AlarmOnIcon,
   json: DataObjectIcon,
+  table: GridOnIcon,
   animation: AnimationIcon,
   logic: ShuffleIcon,
   loop: RefreshIcon,

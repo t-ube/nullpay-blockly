@@ -12,7 +12,7 @@ import * as Blockly from 'blockly/core';
 import { BlockColors } from '@/blocks/BlockColors';
 import {
   xrpl_blocks, xaman_blocks, text_blocks, math_blocks,
-  control_blocks, time_blocks, json_blocks, animation_blocks,
+  control_blocks, table_blocks, time_blocks, json_blocks, animation_blocks,
   logic_blocks, loop_blocks, lists_blocks
 } from '@/blocks/BlockContents';
 
@@ -47,6 +47,7 @@ const initialBlockTypesMap: BlockTypesMap = {
   text: text_blocks,
   math: math_blocks,
   control: control_blocks,
+  table: table_blocks,
   time: time_blocks,
   json: json_blocks,
   animation: animation_blocks,

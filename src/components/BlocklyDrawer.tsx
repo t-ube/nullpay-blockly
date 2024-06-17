@@ -5,7 +5,7 @@ import { Drawer, Box, Typography, Divider, Dialog, DialogActions, DialogContent,
 import PuzzleIcon from '@mui/icons-material/Extension';
 import { 
   xrpl_blocks, xaman_blocks, text_blocks, math_blocks,
-  control_blocks, time_blocks, json_blocks, animation_blocks,
+  control_blocks, table_blocks, time_blocks, json_blocks, animation_blocks,
   logic_blocks, loop_blocks, lists_blocks
 } from '@/blocks/BlockContents';
 import { BlockColors } from '@/blocks/BlockColors';
@@ -29,6 +29,7 @@ const initialBlockTypesMap: BlockTypesMap = {
   text: text_blocks,
   math: math_blocks,
   control: control_blocks,
+  table: table_blocks,
   time: time_blocks,
   json: json_blocks,
   animation: animation_blocks,
@@ -47,6 +48,7 @@ const initialBlockDrawerMap : BlockDrawerMap = {
   text: 300,
   math: 300,
   control: 300,
+  table: 300,
   time: 320,
   json: 300,
   animation: 300,
@@ -67,6 +69,7 @@ const initialBlockTitleMap : BlockTitleMap = {
   text: 'Text',
   math: 'Math',
   control: 'Control',
+  table: 'Table',
   time: 'Time',
   json: 'JSON',
   animation: 'Animation',

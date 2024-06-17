@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import 'jspreadsheet-ce/dist/jspreadsheet.css';
 import "./globals.css";
 import { MobileProvider } from '@/contexts/MobileContext';
 

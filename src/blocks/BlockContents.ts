@@ -619,6 +619,18 @@ export const math_blocks = [
   }
 ];
 
+export const table_blocks = [
+  {
+      height: 50,
+      block: `
+        <block type="table_input" x="0" y="0"></block>
+      `,
+      title: "Table",
+      description: "",
+      categories: ["table"]
+  }
+];
+
 export const control_blocks = [
   {
       height: 50,
