@@ -621,7 +621,7 @@ export const math_blocks = [
 
 export const table_blocks = [
   {
-      height: 50,
+      height: 25,
       block: `
         <block type="table_input" x="0" y="0"></block>
       `,

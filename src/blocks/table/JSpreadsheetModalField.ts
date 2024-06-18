@@ -270,10 +270,12 @@ class FieldJSpreadsheet extends Blockly.Field {
       onselection: (el, selection) => {
         this.selectedCell = this.spreadsheet.selectedCell;
       },
+      
       contextMenu: (obj, x, y, e) => {
         if (this.contextMenuElement) {
           document.body.removeChild(this.contextMenuElement);
         }
+
         const menu = document.createElement('div');
         menu.style.position = 'absolute';
         menu.style.top = `${e.clientY}px`;
@@ -285,7 +287,7 @@ class FieldJSpreadsheet extends Blockly.Field {
         menu.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
         this.contextMenuElement = menu;
 
-        const addButton = (title, onclick) => {
+        const addButton = (title:string, onclick:any) => {
           const button = document.createElement('button');
           button.innerText = title;
           button.style.display = 'block';
@@ -302,10 +304,10 @@ class FieldJSpreadsheet extends Blockly.Field {
 
         if (x !== null && y === null) {
           addButton('Insert Column Before', () => {
-            obj.insertColumn(1, parseInt(x), 1);
+            obj.insertColumn(1, parseInt(x), 1 as unknown as undefined);
           });
           addButton('Insert Column After', () => {
-            obj.insertColumn(1, parseInt(x), 0);
+            obj.insertColumn(1, parseInt(x), 0 as unknown as undefined);
           });
           addButton('Delete Column', () => {
             obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x))
@@ -349,13 +351,14 @@ class FieldJSpreadsheet extends Blockly.Field {
         addButton('Load from File', () => this.loadFromFile());
 
         document.body.appendChild(menu);
+        
         document.addEventListener('click', () => {
           if (menu.parentNode) {
             menu.parentNode.removeChild(menu);
             this.contextMenuElement = null;
           }
         }, { once: true });
-        return false;
+        return null;
       }
     });
 
@@ -416,9 +419,6 @@ class FieldJSpreadsheet extends Blockly.Field {
     }
     super.setValue(this.value_);
     const block = this.getSourceBlock() as Blockly.Block;
-    if (block) {
-      block.render(block);
-    }
   }
 
   updateContainerSize() {
