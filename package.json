@@ -26,7 +26,6 @@
     "classnames": "^2.5.1",
     "dayjs": "^1.11.11",
     "js-interpreter": "^5.1.2",
-    "jspreadsheet-ce": "^4.2.1",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",

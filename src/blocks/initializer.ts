@@ -4,7 +4,6 @@ import * as En from 'blockly/msg/en';
 import { javascriptGenerator } from 'blockly/javascript';
 import Interpreter from 'js-interpreter';
 import * as BlockDynamicConnection from '@blockly/block-dynamic-connection';
-import { ZoomToFitControl } from '@blockly/zoom-to-fit';
 import { 
   defineDateTimeToRippleEpoch,
   defineRippleEpochToDateTime,
@@ -64,8 +63,19 @@ import { defineXamanWaitForSignatureBlock, initInterpreterXamanWaitForSignatureB
 import { defineConfettiAnimationBlock, initInterpreterConfettiAnimationFunctions  } from '@/blocks/animation/confettiAnimationBlock';
 import { defineNumberToTextBlock } from '@/blocks/text/textNumberToTextBlock';
 import { defineTextToNumberBlock } from '@/blocks/text/textTextToNumberBlock';
-import { defineTableBlock } from '@/blocks/table/tableBlock';
-import { defineCurrentDateTimeBlock, initInterpreterCurrentDateTime } from '@/blocks/time/getCurrentDateTimeBlock';
+import {
+  defineTableEmptyBlock,
+  defineTableGetRowBlock,
+  defineTableRowCountBlock,
+  defineTextToTableBlock,
+  defineTableGetColumnBlock,
+  defineTableAddRowBlock,
+  initInterpreterTableGetColumn,
+  initInterpreterTableGetRow,
+  initInterpreterTableAddRow
+ } from '@/blocks/table/tableBlock';
+ import { defineCsvBlock, defineCSVSaveBlock, initInterpreterTableCSVSave  } from '@/blocks/table/tableCsvBlock';
+ import { defineCurrentDateTimeBlock, initInterpreterCurrentDateTime } from '@/blocks/time/getCurrentDateTimeBlock';
 import { defineDatedatetimeToTextBlock, initInterpreterDatedatetimeToText } from '@/blocks/time/datetimeToTextBlock';
 import { defineCreateDateTimeBlock, initInterpreterCreateDateTime } from '@/blocks/time/createTimeBlock';
 import { defineAdjustDateTimeBlock, initInterpreterAdjustDateTime } from '@/blocks/time/adjustDateTimeBlock';
@@ -131,7 +141,7 @@ const toolbox = `
       <block type="text_to_json"></block>
     </category>
     <category name="Table" colour="%{BKY_LOOPS_HUE}">
-      <block type="table_input"></block>
+      <block type="table_input_csv"></block>
     </category>
     <category name="Animation" colour="${BlockColors.animation}">
       <block type="confetti_animation"></block>
@@ -150,6 +160,7 @@ const toolbox = `
       <block type="array_append"></block>
       <block type="dynamic_list_create"></block>
       <block type="lists_length"></block>
+      <block type="lists_repeat"></block>
       <block type="lists_isEmpty"></block>
       <block type="lists_sort"></block>
     </category>
@@ -204,7 +215,14 @@ const createCustomBlocks = () => {
   defineJsonTextToJsonBlock();
 
   // Table
-  defineTableBlock();
+  defineTableEmptyBlock();
+  defineTableGetRowBlock();
+  defineTableRowCountBlock();
+  defineTextToTableBlock();
+  defineTableGetColumnBlock();
+  defineTableAddRowBlock();
+  defineCsvBlock();
+  defineCSVSaveBlock();
 
   // List
   defineArrayAppendBlock();
@@ -265,6 +283,10 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterRippleEpochToDateTime(interpreter, scope);
   initInterpreterAdjustDateTime(interpreter, scope);
   initInterpreterCompareDateTime(interpreter, scope);
+  initInterpreterTableGetColumn(interpreter, scope);
+  initInterpreterTableGetRow(interpreter, scope);
+  initInterpreterTableAddRow(interpreter, scope);
+  initInterpreterTableCSVSave(interpreter, scope);
 }
 
 const initInterpreterEx = (interpreter: Interpreter, scope: any, logArea:HTMLTextAreaElement | null) => {

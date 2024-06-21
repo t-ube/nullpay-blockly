@@ -10,7 +10,7 @@ export const BlockColors : BlockColorsMap = {
   time: '#7CB342',
   animation: '#EC407A',
   json: '#546E7A',
-  table: '#546E7A',
+  table: '#00796B',
   text: '#5BA58C',
   math: '#5B67A5',
   logic: '#5B80A5',

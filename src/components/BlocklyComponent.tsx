@@ -210,7 +210,7 @@ const BlocklyComponent = () => {
     if (suspendRef.current) {
       setTimeout(() => {
         playCode();
-      }, 10);
+      }, 1);
       return;
     }
 
@@ -223,10 +223,21 @@ const BlocklyComponent = () => {
       }
     }
 
+    /*
+    const stepCount = 100;
+    let hasMoreCode = true;
+    for (let i = 0; i < stepCount; i++) {
+      hasMoreCode = interpreterTemp.step();
+      if (!hasMoreCode) {
+        break;
+      }
+    }
+    */
+
     let hasMoreCode = interpreterTemp.step();
     if (hasMoreCode) {
       myInterpreter.current = interpreterTemp;
-      setTimeout(playCode, 10);
+      setTimeout(playCode, 1);
     } else {
       clearHighlight();
       myInterpreter.current = null;

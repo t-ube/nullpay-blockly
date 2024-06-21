@@ -621,13 +621,203 @@ export const math_blocks = [
 
 export const table_blocks = [
   {
+    height: 25,
+    block: `
+      <block type="table_empty" x="0" y="0"></block>
+    `,
+    title: "Table",
+    description: "",
+    categories: ["table"]
+  },
+  {
       height: 25,
       block: `
-        <block type="table_input" x="0" y="0"></block>
+        <block type="table_input_csv" x="0" y="0"></block>
       `,
       title: "Table",
       description: "",
       categories: ["table"]
+  },
+  {
+    height: 48,
+    block: `
+      <block type="csv_to_table" x="0" y="0"></block>
+    `,
+    title: "Table",
+    description: "",
+    categories: ["table"]
+  },
+  {
+    height: 100,
+    block: `
+      <block type="table_get_row" x="0" y="0"></block>
+    `,
+    title: "Table",
+    description: "",
+    categories: ["table"]
+  },
+  {
+    height: 100,
+    block: `
+      <block type="table_get_column" x="0" y="0"></block>
+    `,
+    title: "Table",
+    description: "",
+    categories: ["table"]
+  },
+  {
+    height: 100,
+    block: `
+      <block type="table_add_row" x="0" y="0"></block>
+    `,
+    title: "Table",
+    description: "",
+    categories: ["table"]
+  },
+  {
+    height: 75,
+    block: `
+      <block type="table_csv_save" x="0" y="0"></block>
+    `,
+    title: "Table CSV Save",
+    description: "",
+    categories: ["table"]
+  },
+  {
+    height: 471,
+    block: `
+      <variables>
+        <variable id="vHUKFaYWkuLipXA-eqRT">newTable</variable>
+        <variable id="(lW_F+JQ3xijMjT(fNB_">i</variable>
+        <variable id="45(Oig9he3qprkqRAy)?">walletInfo</variable>
+        <variable id="JIchN7D{RHv1PS=h?t-b">newRow</variable>
+      </variables>
+      <block type="table_add_row" id="#f$80#FXI2]9*Vqdg::d" x="0" y="0">
+        <field name="VAR" id="vHUKFaYWkuLipXA-eqRT">newTable</field>
+        <value name="TABLE">
+          <block type="table_empty" id="s5^+*^+v\`[%{\`ht#K0Mu"></block>
+        </value>
+        <value name="ROW">
+          <block type="dynamic_list_create" id="h;,iQiw^_V0/(ty03QxF">
+            <mutation items="2"></mutation>
+            <value name="ADD0">
+              <block type="text" id=".u_z(A[cb7}_!ODsdy/-">
+                <field name="TEXT">address</field>
+              </block>
+            </value>
+            <value name="ADD1">
+              <block type="text" id="dAv?_nEr2e#H.\`^i(yS=">
+                <field name="TEXT">secret</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="controls_for" id="D!9D7xP2X9Io!YowjWiL">
+            <field name="VAR" id="(lW_F+JQ3xijMjT(fNB_">i</field>
+            <value name="FROM">
+              <block type="math_number" id="(vH@P?}.pah|j6/Upfo4">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+            <value name="TO">
+              <block type="math_number" id="Gli:*FqvnGWo!y=50[)p">
+                <field name="NUM">10</field>
+              </block>
+            </value>
+            <value name="BY">
+              <block type="math_number" id="pV*74{s(6h6xQ#7CY{4u">
+                <field name="NUM">1</field>
+              </block>
+            </value>
+            <statement name="DO">
+              <block type="xrpl_create_account" id="4p,Nq[,|$R]$6n=RxJcw">
+                <field name="VAR" id="45(Oig9he3qprkqRAy)?">walletInfo</field>
+                <next>
+                  <block type="variables_set" id="{sAp6b^Sig1FH^Zbmvxi">
+                    <field name="VAR" id="JIchN7D{RHv1PS=h?t-b">newRow</field>
+                    <value name="VALUE">
+                      <block type="dynamic_list_create" id="UR;?\`q$$%=;NQ~DifS8G">
+                        <mutation items="2"></mutation>
+                        <value name="ADD0">
+                          <block type="json_get_value" id="+oPFp*mxG;7[SPp(%iq-">
+                            <value name="VAR">
+                              <block type="variables_get" id="xg5GJmzKG{lmX(0tag2h">
+                                <field name="VAR" id="45(Oig9he3qprkqRAy)?">walletInfo</field>
+                              </block>
+                            </value>
+                            <value name="KEY">
+                              <block type="text" id="lI@3Y{p-5;2a9Aa.NrB$">
+                                <field name="TEXT">address</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="ADD1">
+                          <block type="json_get_value" id="WgXq4rLIQ~jIH@e{o%Hb">
+                            <value name="VAR">
+                              <block type="variables_get" id="+Qxpi)@d@QTT[hxrVa:u">
+                                <field name="VAR" id="45(Oig9he3qprkqRAy)?">walletInfo</field>
+                              </block>
+                            </value>
+                            <value name="KEY">
+                              <block type="text" id="nJd/q06P8Qc|dTa,I.Tn">
+                                <field name="TEXT">secret</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="table_add_row" id="oQ]%cJH4({@K+bzQ=r+Q">
+                        <field name="VAR" id="vHUKFaYWkuLipXA-eqRT">newTable</field>
+                        <value name="TABLE">
+                          <block type="variables_get" id="f~C_a0tAz+*m[S*yXv*A">
+                            <field name="VAR" id="vHUKFaYWkuLipXA-eqRT">newTable</field>
+                          </block>
+                        </value>
+                        <value name="ROW">
+                          <block type="variables_get" id="^y8h^|.H$Zb4M!}C0h)D">
+                            <field name="VAR" id="JIchN7D{RHv1PS=h?t-b">newRow</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="table_csv_save" id=",i,w:+;H+%7-ntn[dm@=">
+                <value name="TABLE">
+                  <block type="variables_get" id="|BI9v4t:.CDvY|}7yOFb">
+                    <field name="VAR" id="vHUKFaYWkuLipXA-eqRT">newTable</field>
+                  </block>
+                </value>
+                <value name="FILENAME">
+                  <block type="text" id="h8ZCHn=gS3?z[-x4,EzI">
+                    <field name="TEXT">wallets.csv</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="text_print" id="*3unDtx1ul%Ap;rU)F_j">
+                    <value name="TEXT">
+                      <block type="text" id="%v0Sraad1*BFBi-Wj~vR">
+                        <field name="TEXT">Complete!</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    `,
+    title: "Automated Wallet Creation and CSV Export",
+    description: "This program is designed to automate the creation of multiple XRPL wallets and save the wallet information into a CSV file. The process starts by creating an empty table to store the wallet data. An initial row with placeholders for 'address' and 'secret' is added to the table. Then, a loop runs from 0 to 10, during which a new XRPL wallet is created in each iteration. The wallet information, specifically the 'address' and 'secret', is extracted and added as a new row to the table. Once all the wallets are created and their information is added to the table, the table is saved as a CSV file named 'wallets.csv'. Finally, the program prints a message 'Complete!' to indicate that the process is finished. This program demonstrates how to use loops, variable manipulation, and file operations within Blockly to automate complex tasks.",
+    categories: ["template","xrpl","table"]
   }
 ];
 
@@ -824,10 +1014,10 @@ export const lists_blocks = [
   {
     height: 50,
     block: `
-      <block type="array_init" x="0" y="0"></block>
+      <block type="lists_create_empty" x="0" y="0"></block>
     `,
-    title: "Initialize Array",
-    description: "Initialize an array.",
+    title: "Create Empty List",
+    description: "",
     categories: ["list"]
   },
   {
@@ -860,10 +1050,37 @@ export const lists_blocks = [
   {
     height: 50,
     block: `
+      <block type="lists_repeat" x="0" y="0"></block>
+    `,
+    title: "List Repeat",
+    description: "",
+    categories: ["list"]
+  },
+  {
+    height: 50,
+    block: `
       <block type="lists_isEmpty" x="0" y="0"></block>
     `,
     title: "List Is Empty",
     description: "Check if a list is empty.",
+    categories: ["list"]
+  },
+  {
+    height: 50,
+    block: `
+      <block type="lists_getIndex" x="0" y="0"></block>
+    `,
+    title: "List Get Index",
+    description: "",
+    categories: ["list"]
+  },
+  {
+    height: 50,
+    block: `
+      <block type="lists_indexOf" x="0" y="0"></block>
+    `,
+    title: "List Index of",
+    description: "",
     categories: ["list"]
   },
   {

@@ -54,7 +54,7 @@ const initialBlockDrawerMap : BlockDrawerMap = {
   animation: 300,
   logic: 300,
   loop: 300,
-  list: 300,
+  list: 320,
   variable: 300,
   function: 300,
 };

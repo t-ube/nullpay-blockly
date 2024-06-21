@@ -39,8 +39,10 @@ export class FieldTable extends Blockly.Field {
   showEditor_() {
     console.log('showEditor_');
     const editor = this.createEditor_();
-    Blockly.DropDownDiv.getContentDiv().appendChild(editor);
-    Blockly.DropDownDiv.getContentDiv().setAttribute('data-owner-id', this.uniqueId);
+    const contentDiv = Blockly.DropDownDiv.getContentDiv();
+    contentDiv.innerHTML = '';
+    contentDiv.appendChild(editor);
+    contentDiv.setAttribute('data-owner-id', this.uniqueId);
     Blockly.DropDownDiv.showPositionedByField(this, this.disposeEditor_.bind(this));
   }
 
@@ -49,11 +51,12 @@ export class FieldTable extends Blockly.Field {
     container.style.width = '300px';
     container.style.height = '200px';
     container.style.overflow = 'auto';
-
+  
     const table = document.createElement('table');
+    table.className = `table-block-content`;
     table.style.width = '100%';
     table.style.borderCollapse = 'collapse';
-
+  
     stringToArray(this.value_).forEach((row: any, rowIndex: number) => {
       const tr = document.createElement('tr');
       row.forEach((cell: any, cellIndex: number) => {
@@ -79,9 +82,9 @@ export class FieldTable extends Blockly.Field {
       });
       table.appendChild(tr);
     });
-
+  
     container.appendChild(table);
-
+  
     const loadButton = document.createElement('button');
     loadButton.innerText = 'Load from File';
     loadButton.className = `table-load-button ${this.uniqueId}`;
@@ -113,6 +116,11 @@ export class FieldTable extends Blockly.Field {
         const oldValue = this.getValue();
         this.setValue(arrayToString(rows));
         this.fireChangeEvent_(oldValue, this.value_);
+
+        const firstCell = Blockly.DropDownDiv.getContentDiv().querySelector('td[contenteditable="true"]');
+        if (firstCell) {
+          (firstCell as HTMLTableCellElement).focus();
+        }
       }
     };
     reader.readAsText(file);
@@ -136,6 +144,11 @@ export class FieldTable extends Blockly.Field {
       Blockly.DropDownDiv.getContentDiv().innerHTML = '';
       Blockly.DropDownDiv.getContentDiv().appendChild(editor);
       this.render_();
+
+      const firstCell = Blockly.DropDownDiv.getContentDiv().querySelector('td[contenteditable="true"]');
+      if (firstCell) {
+        (firstCell as HTMLTableCellElement).focus();
+      }
     }
   }
 
