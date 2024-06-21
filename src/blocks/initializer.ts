@@ -53,6 +53,7 @@ import { defineJsonGetValueBlock } from '@/blocks/json/jsonValueBlock';
 import { defineJsonToTextBlock } from '@/blocks/json/jsonToTextBlock';
 import { defineJsonTextToJsonBlock } from '@/blocks/json/jsonTextToJsonBlock';
 import { defineWaitForSecondsBlock, initInterpreterWaitForSeconds } from '@/blocks/control/waitForSecondsBlock';
+import { defineControlRunSpeedBlock, initInterpreterControlRunSpeed } from '@/blocks/control/controlRunSpeed';
 import { defineArrayAppendBlock } from '@/blocks/list/arrayAppendBlock';
 import { defineArrayInitBlock } from '@/blocks/list/arrayInitBlock';
 import { defineDynamicListCreate, defineDynamicTextJoin, defineDynamicIf } from '@/blocks/plugins/pluginDynamicConnection';
@@ -230,6 +231,7 @@ const createCustomBlocks = () => {
 
   // Control
   defineWaitForSecondsBlock();
+  defineControlRunSpeedBlock();
 
   // Time
   defineCurrentDateTimeBlock();
@@ -260,6 +262,7 @@ const createCustomBlocks = () => {
 
 const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterWaitForSeconds(interpreter, scope);
+  initInterpreterControlRunSpeed(interpreter, scope);
   initInterpreterXrplAccountInfo(interpreter, scope);
   initInterpreterXrplClientInitialize(interpreter, scope);
   initInterpreterXrplClientSubscribeAccountTxns(interpreter, scope);

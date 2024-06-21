@@ -830,7 +830,16 @@ export const control_blocks = [
       title: "Wait Seconds",
       description: "Wait for a specified number of seconds.",
       categories: ["control"]
-  }
+  },
+  {
+    height: 50,
+    block: `
+      <block type="control_run_speed" x="0" y="0"></block>
+    `,
+    title: "Run Speed",
+    description: "",
+    categories: ["control"]
+  },
 ];
 
 export const time_blocks = [

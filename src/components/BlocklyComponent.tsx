@@ -11,6 +11,7 @@ import { MainTabs } from '@/components/MainTabs';
 import FeatureModal from '@/components/FeatureModal';
 import { useReward } from 'react-rewards';
 import { setConfettiAnimationFunction } from '@/blocks/animation/confettiAnimationBlock';
+import { setControlRunSpeedFunction } from '@/blocks/control/controlRunSpeed';
 import BlocklySearchFlyout from '@/components/BlocklySearchFlyout';
 import BlocklyDrawer from '@/components/BlocklyDrawer';
 import { Sidebar } from '@/components/Sidebar';
@@ -60,6 +61,7 @@ const BlocklyComponent = () => {
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const { reward, isAnimating } = useReward("confettiItem", "confetti");
   const [isRunning, setIsRunning] = useState(false);
+  const runSpeedRef = useRef(1);
   const [duration, setDuration] = useState(0);
   const [openFeatures, setOpenFeatures] = useState(false);
   const [openFlyout, setOpenFlyout] = useState<boolean>(false);
@@ -84,7 +86,7 @@ const BlocklyComponent = () => {
     };
     setConfettiAnimationFunction(confettiAnimationInternal);
   }, [reward, isAnimating]);
-
+  
   useEffect(() => {
     if (isRunning && duration > 0) {
       const timer = setTimeout(() => {
@@ -165,6 +167,11 @@ const BlocklyComponent = () => {
 
     workspace.addChangeListener(updateCode);
 
+    const runSpeedTrigger = (speed: number) => {
+      runSpeedRef.current = speed;
+    };
+    setControlRunSpeedFunction(runSpeedTrigger);
+
     return () => {
       window.removeEventListener('resize', handleResize);
       workspace.removeChangeListener(updateCode);
@@ -223,18 +230,16 @@ const BlocklyComponent = () => {
       }
     }
 
-    /*
-    const stepCount = 100;
+    const stepsToRun = runSpeedRef.current;
     let hasMoreCode = true;
-    for (let i = 0; i < stepCount; i++) {
+    for (let i = 0; i < stepsToRun; i++) {
       hasMoreCode = interpreterTemp.step();
       if (!hasMoreCode) {
         break;
       }
     }
-    */
 
-    let hasMoreCode = interpreterTemp.step();
+    //let hasMoreCode = interpreterTemp.step();
     if (hasMoreCode) {
       myInterpreter.current = interpreterTemp;
       setTimeout(playCode, 1);
@@ -260,9 +265,10 @@ const BlocklyComponent = () => {
     } else if (playState === 'suspend') {
       suspendRef.current = true;
     } else if (playState === 'init') {
-
+      runSpeedRef.current = 1;
     } else if (playState === 'cancel') {
       cancelledRef.current = true;
+      runSpeedRef.current = 1;
     }
   }, [playState, playCode]);
 
