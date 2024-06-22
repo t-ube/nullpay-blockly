@@ -47,7 +47,12 @@ import {
 } from '@/blocks/xrpl/xrplExchangeAddressBlock';
 
 import { defineTextUtilInspectPrintBlock, initInterpreterTextUtilInspectPrint } from '@/blocks/text/textUtilInspectPrintBlock';
-import { defineUndefinedBlock, defineNullBlock } from '@/blocks/logic/logicBlock';
+import { 
+  defineUndefinedBlock,
+  defineNullBlock,
+  defineTrueBlock,
+  defineFalseBlock
+} from '@/blocks/logic/logicBlock';
 
 import { defineJsonGetValueBlock } from '@/blocks/json/jsonValueBlock';
 import { defineJsonToTextBlock } from '@/blocks/json/jsonToTextBlock';
@@ -62,6 +67,12 @@ import { defineXamanSimpleLogoutBlock, initInterpreterXamanSimpleLogout } from '
 import { defineXamanPaymentBlock, initInterpreterXamanPayment } from '@/blocks/xaman/xamanPaymentBlock';
 import { defineXamanWaitForSignatureBlock, initInterpreterXamanWaitForSignatureBlock } from '@/blocks/xaman/xamanWaitForSignatureBlock';
 import { defineConfettiAnimationBlock, initInterpreterConfettiAnimationFunctions  } from '@/blocks/animation/confettiAnimationBlock';
+import { defineTextEndsWithBlock,
+  initInterpreterTextStartsWith,
+  defineTextStartsWithBlock,
+  initInterpreterTextEndsWith
+} from '@/blocks/text/textCompareBlock';
+import { defineTextToUpperCaseBlock, defineTextToLowerCaseBlock } from '@/blocks/text/textConvertBlock';
 import { defineNumberToTextBlock } from '@/blocks/text/textNumberToTextBlock';
 import { defineTextToNumberBlock } from '@/blocks/text/textTextToNumberBlock';
 import {
@@ -209,6 +220,10 @@ const createCustomBlocks = () => {
   defineTextToNumberBlock();
   defineTextUtilInspectPrintBlock();
   defineNumberToTextBlock();
+  defineTextEndsWithBlock();
+  defineTextStartsWithBlock();
+  defineTextToUpperCaseBlock();
+  defineTextToLowerCaseBlock();
 
   // JSON
   defineJsonGetValueBlock();
@@ -247,6 +262,8 @@ const createCustomBlocks = () => {
   // Logic
   defineUndefinedBlock();
   defineNullBlock();
+  defineTrueBlock();
+  defineFalseBlock();
 
   // Animation
   defineConfettiAnimationBlock();
@@ -290,6 +307,8 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterTableGetRow(interpreter, scope);
   initInterpreterTableAddRow(interpreter, scope);
   initInterpreterTableCSVSave(interpreter, scope);
+  initInterpreterTextStartsWith(interpreter, scope);
+  initInterpreterTextEndsWith(interpreter, scope);
 }
 
 const initInterpreterEx = (interpreter: Interpreter, scope: any, logArea:HTMLTextAreaElement | null) => {

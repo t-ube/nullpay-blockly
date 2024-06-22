@@ -595,6 +595,42 @@ export const text_blocks = [
       title: "Text to Number",
       description: "Convert a text string to a number.",
       categories: ["text"]
+  },
+  {
+      height: 50,
+      block: `
+        <block type="text_starts_with" x="0" y="0"></block>
+      `,
+      title: "Starts With",
+      description: "Checks if a text string starts with a specified prefix.",
+      categories: ["text"]
+  },
+  {
+    height: 50,
+    block: `
+      <block type="text_ends_with" x="0" y="0"></block>
+    `,
+    title: "Ends With",
+    description: "Checks if a text string ends with a specified suffix.",
+    categories: ["text"]
+  },
+  {
+    height: 50,
+    block: `
+      <block type="text_to_uppercase" x="0" y="0"></block>
+    `,
+    title: "Upper Case",
+    description: "Converts all the characters in a text string to uppercase.",
+    categories: ["text"]
+  },
+  {
+    height: 50,
+    block: `
+      <block type="text_to_lowercase" x="0" y="0"></block>
+    `,
+    title: "Lower Case",
+    description: "Converts all the characters in a text string to lowercase.",
+    categories: ["text"]
   }
 ];
 
@@ -985,6 +1021,24 @@ export const logic_blocks = [
     `,
     title: "Null",
     description: "Returns the null value, used to indicate the intentional absence of any object value.",
+    categories: ["logic"]
+  },
+  {
+    height: 50,
+    block: `
+      <block type="true" x="0" y="0"></block>
+    `,
+    title: "True",
+    description: "Returns the boolean value true.",
+    categories: ["logic"]
+  },
+  {
+    height: 50,
+    block: `
+      <block type="false" x="0" y="0"></block>
+    `,
+    title: "False",
+    description: "Returns the boolean value false.",
     categories: ["logic"]
   },
 ];
