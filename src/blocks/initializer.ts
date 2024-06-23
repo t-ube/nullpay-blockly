@@ -77,6 +77,9 @@ import {
   defineTextEndsWithBlock, initInterpreterTextStartsWith,
   defineTextStartsWithBlock, initInterpreterTextEndsWith
 } from '@/blocks/text/textCompareBlock';
+import {
+  defineTextOnetimeBlock
+} from '@/blocks/text/textPrivateBlock';
 import { defineTextToUpperCaseBlock, defineTextToLowerCaseBlock } from '@/blocks/text/textConvertBlock';
 import { defineNumberToTextBlock } from '@/blocks/text/textNumberToTextBlock';
 import { defineTextToNumberBlock } from '@/blocks/text/textTextToNumberBlock';
@@ -234,6 +237,7 @@ const createCustomBlocks = () => {
   defineTextStartsWithBlock();
   defineTextToUpperCaseBlock();
   defineTextToLowerCaseBlock();
+  defineTextOnetimeBlock();
 
   // JSON
   defineJsonGetValueBlock();

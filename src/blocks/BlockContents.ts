@@ -703,6 +703,15 @@ export const text_blocks = [
     title: "Lower Case",
     description: "Converts all the characters in a text string to lowercase.",
     categories: ["text"]
+  },
+  {
+    height: 23.5,
+    block: `
+      <block type="text_onetime_block" x="0" y="0"></block>
+    `,
+    title: "Private Block",
+    description: "Enter a one-time use string. The string will not be saved.",
+    categories: ["text"]
   }
 ];
 

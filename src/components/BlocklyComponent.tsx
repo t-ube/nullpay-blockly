@@ -99,6 +99,20 @@ const BlocklyComponent = () => {
   const handleSaveWorkspace = () => {
     console.log('handleSaveWorkspace');
     const xml = Blockly.Xml.workspaceToDom(workspace);
+
+    //
+    const blocks = xml.getElementsByTagName('block');
+    for (let i = 0; i < blocks.length; i++) {
+      if (blocks[i].getAttribute('type') === 'text_onetime_block') {
+        const fields = blocks[i].getElementsByTagName('field');
+        for (let j = 0; j < fields.length; j++) {
+          if (fields[j].getAttribute('name') === 'INPUT') {
+            fields[j].textContent = '';
+          }
+        }
+      }
+    }
+    //
     const xmlText = Blockly.Xml.domToPrettyText(xml);
     const blob = new Blob([xmlText], { type: 'text/xml' });
     const url = URL.createObjectURL(blob);
