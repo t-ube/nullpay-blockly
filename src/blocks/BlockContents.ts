@@ -127,6 +127,15 @@ export const xrpl_blocks = [
     categories: ["xrpl"]
   },
   {
+    height: 80,
+    block: `
+      <block type="xrpl_wallet_info" x="0" y="0"></block>
+    `,
+    title: "Wallet Info",
+    description: "Retrieve information about an XRPL wallet. Provide the wallet ID to get the address and secret.",
+    categories: ["xrpl"]
+  },
+  {
     height: 183,
     block: `
       <block type="xrpl_payment_transaction" x="0" y="0"></block>
@@ -169,6 +178,69 @@ export const xrpl_blocks = [
     `,
     title: "Ripple Epoch to DateTime",
     description: "Convert Ripple epoch time to date and time.",
+    categories: ["xrpl"]
+  },
+  {
+    height: 50,
+    block: `
+      <block type="xrpl_token_select" x="0" y="0"></block>
+    `,
+    title: "XRPL Token Select",
+    description: "Select an issued token on the XRPL from the dropdown.",
+    categories: ["xrpl"]
+  },
+  {
+    height: 96,
+    block: `
+      <block type="xrpl_create_new_token" x="0" y="0"></block>
+    `,
+    title: "XRPL Create New Token",
+    description: "Create a new token on the XRPL by specifying the issuer address, currency code, and total supply.",
+    categories: ["xrpl"]
+  },
+  {
+    height: 50,
+    block: `
+      <block type="xrpl_rippling_txn" x="0" y="0"></block>
+    `,
+    title: "XRPL Rippling Transaction",
+    description: "Create a rippling transaction for the XRPL. Specify whether to enable or disable rippling and the address to set this for.",
+    categories: ["xrpl"]
+  },
+  {
+    height: 99,
+    block: `
+      <block type="xrpl_client_autofill" x="0" y="0"></block>
+    `,
+    title: "XRPL Transaction Autofill",
+    description: "Automatically fill in a transaction using the specified XRPL client. Define the XRPL client and the transaction to autofill.",
+    categories: ["xrpl"]
+  },
+  {
+    height: 99,
+    block: `
+      <block type="xrpl_trust_set_txn" x="0" y="0"></block>
+    `,
+    title: "XRPL Trust Set",
+    description: "Create a trust line setting transaction for the XRPL. Specify the token and the address to set the trust line for.",
+    categories: ["xrpl"]
+  },
+  {
+    height: 120,
+    block: `
+      <block type="xrpl_payment_token_txn" x="0" y="0"></block>
+    `,
+    title: "XRPL Payment Token",
+    description: "Create a payment transaction on the XRPL. Specify the token, account address, destination address, and amount for the transaction.",
+    categories: ["xrpl"]
+  },
+  {
+    height: 123,
+    block: `
+      <block type="xrpl_easy_submit" x="0" y="0"></block>
+    `,
+    title: "XRPL Easy Submit",
+    description: "Submit a transaction to the XRPL with autofill capability. Specify the XRPL client, wallet, and transaction. The transaction will be automatically filled with necessary details and the result will be stored in the specified variable.",
     categories: ["xrpl"]
   },
   {

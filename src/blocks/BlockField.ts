@@ -1,5 +1,20 @@
 import * as Blockly from 'blockly/core';
 
+interface BlockCheckTypeMap {
+  [key: string]: string;
+}
+
+export const blockCheckType : BlockCheckTypeMap = {
+  number: "Number",
+  string: "String",
+  table: "Table",
+  array: "Array",
+  json: "JSON",
+  datetime: "Datetime",
+  xrplToken: "XrplToken",
+  xrplClient: "Client",
+  xrplTxnPayload: "XrplPayload",
+}
 
 export function newTitleLabel (fieldName:string) : Blockly.FieldLabel {
   return new Blockly.FieldLabel(fieldName, "title-label");

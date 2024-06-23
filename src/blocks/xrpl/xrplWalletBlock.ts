@@ -1,10 +1,10 @@
 // xrplWalletBlock.ts
+import { Wallet as xrplWallet } from 'xrpl';
 import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
-import { Wallet as xrplWallet } from 'xrpl';
 import { xrplWalletInstances } from '@/blocks/xrpl/xrplWallet';
-import { newTitleLabel, newArgsLabel, newOutputLabel } from '@/blocks/BlockField';
+import { newTitleLabel, newArgsLabel, newOutputLabel, blockCheckType } from '@/blocks/BlockField';
 
 export const defineXrplLoadWalletBlock = () => {
   Blockly.Blocks['xrpl_load_wallet'] = {
@@ -12,7 +12,7 @@ export const defineXrplLoadWalletBlock = () => {
       this.appendDummyInput()
         .appendField(newTitleLabel("Load wallet"));
       this.appendValueInput("SEED")
-        .setCheck('String')
+        .setCheck(blockCheckType.string)
         .appendField(newArgsLabel("Wallet seed"));
       this.appendDummyInput()
         .appendField(newOutputLabel("XRPL wallet"))
@@ -65,10 +65,10 @@ export const defineXrplWalletSignBlock = () => {
       this.appendDummyInput()
         .appendField(newTitleLabel("Sign wallet"));
       this.appendValueInput("WALLET")
-        .setCheck('String')
+        .setCheck(blockCheckType.string)
         .appendField(newArgsLabel("XRPL wallet"));
       this.appendValueInput("TRANSACTION")
-        .setCheck('JSON')
+        .setCheck(blockCheckType.json)
         .appendField(newArgsLabel("Transaction"));
       this.appendDummyInput()
         .appendField(newOutputLabel("Signed"))
@@ -113,4 +113,66 @@ export function initInterpreterXrplWalletSign(interpreter:any, globalObject:any)
     }
   };
   interpreter.setProperty(globalObject, 'signXrplWallet', interpreter.createAsyncFunction(wrapper));
+}
+
+// Wallet Info
+export const defineXrplWalletInfoBlock = () => {
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "xrpl_wallet_info",
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_label",
+          "text": "Wallet info",
+          "class": "title-label"
+        }
+      ],
+      "message1": "%1 %2",
+      "args1": [
+        {
+          "type": "field_label",
+          "text": "XRPL wallet",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "WALLET",
+          "check": blockCheckType.string
+        }
+      ],
+      "output": blockCheckType.string,
+      "inputsInline": false,
+      "colour": BlockColors.xrpl,
+      "tooltip": "Retrieve information about an XRPL wallet",
+      "helpUrl": ""
+    }
+  ]);
+
+  javascriptGenerator.forBlock['xrpl_wallet_info'] = function(block, generator) {
+    const wallet = generator.valueToCode(block, 'WALLET', Order.NONE) || '""';
+    const code = `xrplWalletInfo(${wallet})`;
+    return [code, Order.ATOMIC];
+  };
+};
+
+export function initInterpreterXrplWalletInfo(interpreter: any, globalObject: any) {
+  javascriptGenerator.addReservedWords('xrplWalletInfo');
+  const wrapper = function (walletID: string) {
+    try {
+      console.log(walletID);
+      const wallet = getXrplWallet(walletID);
+      if (!wallet) {
+        throw new Error(`Wallet not found for ID: ${walletID}`);
+      }
+      const walletInfo = {
+        address : wallet.classicAddress,
+        secret : wallet.seed,
+      };
+      return interpreter.nativeToPseudo(walletInfo);
+    } catch (error) {
+      console.error('Failed to sign XRPL wallet:', error);
+    }
+  };
+  interpreter.setProperty(globalObject, 'xrplWalletInfo', interpreter.createNativeFunction(wrapper));
 }

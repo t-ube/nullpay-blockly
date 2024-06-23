@@ -23,29 +23,36 @@ import { defineXrplAccountInfoBlock, initInterpreterXrplAccountInfo } from '@/bl
 //import { defineXrplClientSubscribeStreamsTxnsBlock, initInterpreterXrplClientSubscribeStreamsTxns } from '@/blocks/xrpl/xrplClientSubscribeStreamsTxnsBlock';
 import { defineXrplClientInitializeBlock, initInterpreterXrplClientInitialize } from '@/blocks/xrpl/xrplClientInitializeBlock';
 import {
-  defineXrplClientSubscribeAccountTxnsBlock,
-  initInterpreterXrplClientSubscribeAccountTxns,
-  defineXrplClientUnsubscribeAccountTxnsBlock,
-  initInterpreterXrplClientUnsubscribeAccountTxns
+  defineXrplClientSubscribeAccountTxnsBlock, initInterpreterXrplClientSubscribeAccountTxns,
+  defineXrplClientUnsubscribeAccountTxnsBlock, initInterpreterXrplClientUnsubscribeAccountTxns
 } from '@/blocks/xrpl/xrplClientSubscribeAccountTxnsBlock';
 import {
-  defineXrplPaymentTxnBlock,
-  initInterpreterXrplPaymentTxn
+  defineXrplPaymentTxnBlock, initInterpreterXrplPaymentTxn,
+  defineXrplPaymentTokenTxnBlock, initInterpreterXrplPaymentTokenTxn
 } from '@/blocks/xrpl/xrplPaymentTransactionBlock';
 import {
-  defineXrplLoadWalletBlock,
-  initInterpreterXrplLoadWallet,
-  defineXrplWalletSignBlock,
-  initInterpreterXrplWalletSign
+  defineXrplLoadWalletBlock, initInterpreterXrplLoadWallet,
+  defineXrplWalletSignBlock, initInterpreterXrplWalletSign,
+  defineXrplWalletInfoBlock, initInterpreterXrplWalletInfo
 } from '@/blocks/xrpl/xrplWalletBlock';
-
 import {
-  defineXrplClientSubmitBlock, initInterpreterXrplClientSubmit
+  defineXrplTokenSelectBlock,
+  defineXrplCreateNewTokenBlock, initInterpreterXrplCreateNewToken,
+} from '@/blocks/xrpl/xrplTokenBlock';
+import {
+  defineXrplRipplingTxnBlock, initInterpreterXrplRipplingTxn,
+} from '@/blocks/xrpl/xrplAccountSetTransactionBlock';
+import {
+  defineXrplClientSubmitBlock, initInterpreterXrplClientSubmit,
+  defineXrplClientAutoFillBlock, initInterpreterXrplClientAutofill,
+  defineXrplEasySubmitBlock, initInterpreterXrplEasySubmit
 } from '@/blocks/xrpl/xrplClientSubmitBlock';
+import {
+  defineXrplTrustSetTxnBlock, initInterpreterXrplTrustSetTxn
+} from '@/blocks/xrpl/xrplTrustSetTransactionBlock';
 import {
   defineXrplExchangeAddressBlock
 } from '@/blocks/xrpl/xrplExchangeAddressBlock';
-
 import { defineTextUtilInspectPrintBlock, initInterpreterTextUtilInspectPrint } from '@/blocks/text/textUtilInspectPrintBlock';
 import { 
   defineUndefinedBlock,
@@ -53,7 +60,6 @@ import {
   defineTrueBlock,
   defineFalseBlock
 } from '@/blocks/logic/logicBlock';
-
 import { defineJsonGetValueBlock } from '@/blocks/json/jsonValueBlock';
 import { defineJsonToTextBlock } from '@/blocks/json/jsonToTextBlock';
 import { defineJsonTextToJsonBlock } from '@/blocks/json/jsonTextToJsonBlock';
@@ -67,24 +73,20 @@ import { defineXamanSimpleLogoutBlock, initInterpreterXamanSimpleLogout } from '
 import { defineXamanPaymentBlock, initInterpreterXamanPayment } from '@/blocks/xaman/xamanPaymentBlock';
 import { defineXamanWaitForSignatureBlock, initInterpreterXamanWaitForSignatureBlock } from '@/blocks/xaman/xamanWaitForSignatureBlock';
 import { defineConfettiAnimationBlock, initInterpreterConfettiAnimationFunctions  } from '@/blocks/animation/confettiAnimationBlock';
-import { defineTextEndsWithBlock,
-  initInterpreterTextStartsWith,
-  defineTextStartsWithBlock,
-  initInterpreterTextEndsWith
+import { 
+  defineTextEndsWithBlock, initInterpreterTextStartsWith,
+  defineTextStartsWithBlock, initInterpreterTextEndsWith
 } from '@/blocks/text/textCompareBlock';
 import { defineTextToUpperCaseBlock, defineTextToLowerCaseBlock } from '@/blocks/text/textConvertBlock';
 import { defineNumberToTextBlock } from '@/blocks/text/textNumberToTextBlock';
 import { defineTextToNumberBlock } from '@/blocks/text/textTextToNumberBlock';
 import {
   defineTableEmptyBlock,
-  defineTableGetRowBlock,
+  defineTableGetRowBlock, initInterpreterTableGetRow,
   defineTableRowCountBlock,
   defineTextToTableBlock,
-  defineTableGetColumnBlock,
-  defineTableAddRowBlock,
-  initInterpreterTableGetColumn,
-  initInterpreterTableGetRow,
-  initInterpreterTableAddRow
+  defineTableGetColumnBlock, initInterpreterTableGetColumn,
+  defineTableAddRowBlock, initInterpreterTableAddRow
  } from '@/blocks/table/tableBlock';
  import { defineCsvBlock, defineCSVSaveBlock, initInterpreterTableCSVSave  } from '@/blocks/table/tableCsvBlock';
  import { defineCurrentDateTimeBlock, initInterpreterCurrentDateTime } from '@/blocks/time/getCurrentDateTimeBlock';
@@ -202,10 +204,18 @@ const createCustomBlocks = () => {
   defineXrplClientSubscribeAccountTxnsBlock();
   defineXrplClientUnsubscribeAccountTxnsBlock();
   defineXrplLoadWalletBlock();
+  defineXrplEasySubmitBlock();
   defineXrplWalletSignBlock();
+  defineXrplWalletInfoBlock();
   defineXrplPaymentTxnBlock();
+  defineXrplPaymentTokenTxnBlock();
   defineXrplClientSubmitBlock();
+  defineXrplClientAutoFillBlock();
   defineXrplExchangeAddressBlock();
+  defineXrplTokenSelectBlock();
+  defineXrplCreateNewTokenBlock();
+  defineXrplRipplingTxnBlock();
+  defineXrplTrustSetTxnBlock();
 
   // Xaman Wallet
   defineXamanSimpleLoginBlock();
@@ -289,8 +299,12 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterXrplRequestCustomFaucet(interpreter, scope);
   initInterpreterXrplLoadWallet(interpreter, scope);
   initInterpreterXrplWalletSign(interpreter, scope);
+  initInterpreterXrplWalletInfo(interpreter, scope);
+  initInterpreterXrplEasySubmit(interpreter, scope);
   initInterpreterXrplClientSubmit(interpreter, scope);
+  initInterpreterXrplClientAutofill(interpreter, scope);
   initInterpreterXrplPaymentTxn(interpreter, scope);
+  initInterpreterXrplPaymentTokenTxn(interpreter, scope);
   initInterpreterXamanSimpleLogin(interpreter, scope);
   initInterpreterXamanSimpleLogout(interpreter, scope);
   initInterpreterXamanPayment(interpreter, scope);
@@ -309,6 +323,9 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterTableCSVSave(interpreter, scope);
   initInterpreterTextStartsWith(interpreter, scope);
   initInterpreterTextEndsWith(interpreter, scope);
+  initInterpreterXrplCreateNewToken(interpreter, scope);
+  initInterpreterXrplRipplingTxn(interpreter, scope);
+  initInterpreterXrplTrustSetTxn(interpreter, scope);
 }
 
 const initInterpreterEx = (interpreter: Interpreter, scope: any, logArea:HTMLTextAreaElement | null) => {
