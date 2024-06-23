@@ -6,7 +6,7 @@ export const defineTextOnetimeBlock = () => {
   Blockly.defineBlocksWithJsonArray([
     {
       "type": "text_onetime_block",
-      "message0": "One time text %1",
+      "message0": "One-time text %1",
       "args0": [
         {
           "type": "field_input",
