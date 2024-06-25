@@ -736,6 +736,63 @@ export const math_blocks = [
   }
 ];
 
+export const supabase_blocks = [
+  {
+    height: 98.5,
+    block: `
+      <block type="supabase_create_client" x="0" y="0"></block>
+    `,
+    title: "Initialize Supabase Client",
+    description: "This block initializes a Supabase client using the provided URL and Anon key. The client is used to interact with the Supabase backend services. Ensure to save the client instance to a variable for further operations.",
+    categories: ["supabase"]
+  },
+  {
+    height: 194.5,
+    block: `
+      <block type="supabase_select" x="0" y="0"></block>
+    `,
+    title: "Supabase Select",
+    description: "This block performs a SELECT query on the specified Supabase table. You can specify the columns to retrieve, apply various conditions for filtering the results, and output the selected data to a variable. It supports conditions like equal to, greater than, less than, and more.",
+    categories: ["supabase"]
+  },
+  {
+    height: 123,
+    block: `
+      <block type="supabase_insert" x="0" y="0"></block>
+    `,
+    title: "Supabase Insert",
+    description: "This block inserts data into the specified Supabase table. The data must be provided in JSON format. Ensure the data matches the table schema to avoid errors. You can handle any errors by outputting them to a variable.",
+    categories: ["supabase"]
+  },
+  {
+    height: 194.5,
+    block: `
+      <block type="supabase_update" x="0" y="0"></block>
+    `,
+    title: "Supabase Update",
+    description: "This block updates data in the specified Supabase table based on the given filter conditions. The data to update must be in JSON format. Various conditions like equal to, greater than, and less than can be applied to filter the rows that need to be updated.",
+    categories: ["supabase"]
+  },
+  {
+    height: 170.5,
+    block: `
+      <block type="supabase_delete" x="0" y="0"></block>
+    `,
+    title: "Supabase Delete",
+    description: "This block deletes data from the specified Supabase table based on the provided filter conditions. Conditions like equal to, greater than, and less than can be applied to specify which rows to delete. Errors during the delete operation can be captured in a variable.",
+    categories: ["supabase"]
+  },
+  {
+    height: 50,
+    block: `
+      <block type="supabase_text_to_json" x="0" y="0"></block>
+    `,
+    title: "Text to JSON",
+    description: "This block converts plain text to a JSON object. It is useful for preparing data before inserting or updating it in the Supabase database. The JSON object can be used in subsequent database operations.",
+    categories: ["supabase"]
+  },
+];
+
 export const table_blocks = [
   {
     height: 25,

@@ -13,7 +13,7 @@ import { BlockColors } from '@/blocks/BlockColors';
 import {
   xrpl_blocks, xaman_blocks, text_blocks, math_blocks,
   control_blocks, table_blocks, time_blocks, json_blocks, animation_blocks,
-  logic_blocks, loop_blocks, lists_blocks
+  logic_blocks, loop_blocks, lists_blocks, supabase_blocks
 } from '@/blocks/BlockContents';
 
 const FireNav = styled(List)<{ component?: React.ElementType }>({
@@ -54,6 +54,7 @@ const initialBlockTypesMap: BlockTypesMap = {
   logic: logic_blocks,
   loop: loop_blocks,
   list: lists_blocks,
+  supabase: supabase_blocks,
 };
 
 export default function BlocklySidebarTest() {

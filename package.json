@@ -21,6 +21,7 @@
     "@mui/icons-material": "^5.15.19",
     "@mui/material": "^5.15.19",
     "@mui/material-nextjs": "^5.15.11",
+    "@supabase/supabase-js": "^2.43.5",
     "@types/uuid": "^9.0.8",
     "blockly": "^11.0.0",
     "classnames": "^2.5.1",

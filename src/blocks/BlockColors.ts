@@ -16,6 +16,7 @@ export const BlockColors : BlockColorsMap = {
   logic: '#5B80A5',
   loop: '#5BA55B',
   list: '#745BA5',
+  supabase: '#2EB077',
   variable: '#A55B80',
   function: '#995BA5',
 };

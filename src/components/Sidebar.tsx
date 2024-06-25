@@ -67,6 +67,7 @@ export function Sidebar ({ setOpen, setFlyoutType }: SidebarProps) {
     { type: 'item', label: 'Logic', color: BlockColors.logic, onClick: handleFlyoutOpen('logic'), icon: BlockIcons.logic },
     { type: 'item', label: 'Loops', color: BlockColors.loop, onClick: handleFlyoutOpen('loop'), icon: BlockIcons.loop },
     { type: 'item', label: 'Lists', color: BlockColors.list, onClick: handleFlyoutOpen('list'), icon: BlockIcons.list },
+    { type: 'item', label: 'Supabase', color: BlockColors.supabase, onClick: handleFlyoutOpen('supabase'), icon: BlockIcons.supabase },
     { type: 'item', label: 'Variables', color: BlockColors.variable, onClick: handleFlyoutOpen('variable'), icon: BlockIcons.variable },
     { type: 'item', label: 'Functions', color: BlockColors.function, onClick: handleFlyoutOpen('function'), icon: BlockIcons.function },
   ];

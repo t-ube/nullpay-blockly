@@ -6,7 +6,7 @@ import PuzzleIcon from '@mui/icons-material/Extension';
 import { 
   xrpl_blocks, xaman_blocks, text_blocks, math_blocks,
   control_blocks, table_blocks, time_blocks, json_blocks, animation_blocks,
-  logic_blocks, loop_blocks, lists_blocks
+  logic_blocks, loop_blocks, lists_blocks, supabase_blocks
 } from '@/blocks/BlockContents';
 import { BlockColors } from '@/blocks/BlockColors';
 import { BlockIcons } from '@/blocks/BlockIcons';
@@ -36,6 +36,7 @@ const initialBlockTypesMap: BlockTypesMap = {
   logic: logic_blocks,
   loop: loop_blocks,
   list: lists_blocks,
+  supabase: supabase_blocks,
 };
 
 interface BlockDrawerMap {
@@ -55,6 +56,7 @@ const initialBlockDrawerMap : BlockDrawerMap = {
   logic: 300,
   loop: 300,
   list: 320,
+  supabase: 320,
   variable: 300,
   function: 300,
 };
@@ -76,6 +78,7 @@ const initialBlockTitleMap : BlockTitleMap = {
   logic: 'Logic',
   loop: 'Loops',
   list: 'Lists',
+  supabase: 'Supabase',
   variable: 'Variables',
   function: 'Functions',
 };

@@ -28,6 +28,7 @@ export const BlockIcons : BlockIconMap = {
   logic: ShuffleIcon,
   loop: RefreshIcon,
   list: ListIcon,
+  supabase: '/icons/supabase-logo.svg',
   variable: InputIcon,
   function: WidgetsIcon,
 };

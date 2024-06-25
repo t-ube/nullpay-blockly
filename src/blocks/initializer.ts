@@ -90,9 +90,17 @@ import {
   defineTextToTableBlock,
   defineTableGetColumnBlock, initInterpreterTableGetColumn,
   defineTableAddRowBlock, initInterpreterTableAddRow
- } from '@/blocks/table/tableBlock';
- import { defineCsvBlock, defineCSVSaveBlock, initInterpreterTableCSVSave  } from '@/blocks/table/tableCsvBlock';
- import { defineCurrentDateTimeBlock, initInterpreterCurrentDateTime } from '@/blocks/time/getCurrentDateTimeBlock';
+} from '@/blocks/table/tableBlock';
+import {
+  defineSupabaseCreateClientBlock, initInterpreterSupabaseCreateClient,
+  defineSupabaseInsertBlock, initInterpreterSupabaseInsert,
+  defineSupabaseTextToJsonBlock, initInterpreterSupabaseTextToJson,
+  defineSupabaseSelectBlock, initInterpreterSupabaseSelect,
+  defineSupabaseUpdateBlock, initInterpreterSupabaseUpdate,
+  defineSupabaseDeleteBlock, initInterpreterSupabaseDelete
+} from '@/blocks/supabase/supabaseClientBlock';
+import { defineCsvBlock, defineCSVSaveBlock, initInterpreterTableCSVSave  } from '@/blocks/table/tableCsvBlock';
+import { defineCurrentDateTimeBlock, initInterpreterCurrentDateTime } from '@/blocks/time/getCurrentDateTimeBlock';
 import { defineDatedatetimeToTextBlock, initInterpreterDatedatetimeToText } from '@/blocks/time/datetimeToTextBlock';
 import { defineCreateDateTimeBlock, initInterpreterCreateDateTime } from '@/blocks/time/createTimeBlock';
 import { defineAdjustDateTimeBlock, initInterpreterAdjustDateTime } from '@/blocks/time/adjustDateTimeBlock';
@@ -253,6 +261,12 @@ const createCustomBlocks = () => {
   defineTableAddRowBlock();
   defineCsvBlock();
   defineCSVSaveBlock();
+  defineSupabaseCreateClientBlock();
+  defineSupabaseInsertBlock();
+  defineSupabaseTextToJsonBlock();
+  defineSupabaseSelectBlock();
+  defineSupabaseUpdateBlock();
+  defineSupabaseDeleteBlock();
 
   // List
   defineArrayAppendBlock();
@@ -330,6 +344,12 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterXrplCreateNewToken(interpreter, scope);
   initInterpreterXrplRipplingTxn(interpreter, scope);
   initInterpreterXrplTrustSetTxn(interpreter, scope);
+  initInterpreterSupabaseCreateClient(interpreter, scope);
+  initInterpreterSupabaseInsert(interpreter, scope);
+  initInterpreterSupabaseTextToJson(interpreter, scope);
+  initInterpreterSupabaseSelect(interpreter, scope);
+  initInterpreterSupabaseUpdate(interpreter, scope);
+  initInterpreterSupabaseDelete(interpreter, scope);
 }
 
 const initInterpreterEx = (interpreter: Interpreter, scope: any, logArea:HTMLTextAreaElement | null) => {
