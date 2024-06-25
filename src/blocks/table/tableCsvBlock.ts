@@ -4,7 +4,7 @@ import { FieldTable } from '@/blocks/table/TableField';
 import { BlockColors } from '@/blocks/BlockColors';
 
 export const defineCsvBlock = () => {
-  Blockly.Blocks['table_input_csv'] = {
+  Blockly.Blocks['table_load_csv'] = {
     init: function () {
       this.appendDummyInput()
         .appendField('CSV')
@@ -16,7 +16,7 @@ export const defineCsvBlock = () => {
     }
   };
 
-  javascriptGenerator.forBlock['table_input_csv'] = function (block, generator) {
+  javascriptGenerator.forBlock['table_load_csv'] = function (block, generator) {
     const tableField = block.getField('TABLE') as FieldTable;
     const table = tableField.getValue();
     return [JSON.stringify(table), Order.ATOMIC];

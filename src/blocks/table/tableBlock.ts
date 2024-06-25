@@ -1,7 +1,7 @@
 import * as Blockly from 'blockly';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
-import { newTitleLabel, newArgsLabel, newOutputLabel } from '@/blocks/BlockField';
+import { newTitleLabel, newArgsLabel, newOutputLabel, blockCheckType } from '@/blocks/BlockField';
 
 // Table Empty
 export const defineTableEmptyBlock = () => {
@@ -106,22 +106,8 @@ export const defineTableGetColumnBlock = () => {
           "check": "Number"
         }
       ],
-      "message3": "%1 %2",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "Column data (List)",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "VAR",
-          "variable": "columnData"
-        }
-      ],
+      "output": blockCheckType.array,
       "inputsInline": false,
-      "previousStatement": null,
-      "nextStatement": null,
       "colour": BlockColors.table,
       "tooltip": "Returns a list (array) of the specified column from the table",
       "helpUrl": ""
@@ -132,32 +118,27 @@ export const defineTableGetColumnBlock = () => {
     const array = generator.valueToCode(block, 'TABLE', Order.NONE) || '[]';
     const columnCode = generator.valueToCode(block, 'COLUMN', Order.NONE) || '1';
     const column = parseInt(columnCode, 10);
-    if (generator.nameDB_ === undefined) {
-      return `tableGetColumn(JSON.stringify(${array}), ${column-1}, '');\n`;
-    }
-    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
-    const code = `tableGetColumn(JSON.stringify(${array}), ${column-1}, '${variable}');\n`;
-    return code;
+    const code = `tableGetColumn(JSON.stringify(${array}), ${column-1})`;
+    return [code, Order.ATOMIC];
   };
 };
 
 export function initInterpreterTableGetColumn(interpreter:any, globalObject:any) {
   javascriptGenerator.addReservedWords('tableGetColumn');
-  const wrapper = async function (arrayText:string, column:number, variable:any, callback:any) {
+  const wrapper = function (arrayText:string, column:number) {
     try {
       const array = JSON.parse(arrayText);
       if (array.length === 0 || column < 0 || column >= array[0].length) {
         throw new Error('Column index is out of range');
       }
       const result = array.map((row:any) => row[column]);
-      interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(result));
-      callback();
+      return interpreter.nativeToPseudo(result);
     } catch (error) {
       console.error(`Failed to subscribe: ${error}`);
-      callback();
+      return interpreter.nativeToPseudo([]);
     }
   };
-  interpreter.setProperty(globalObject, 'tableGetColumn', interpreter.createAsyncFunction(wrapper));
+  interpreter.setProperty(globalObject, 'tableGetColumn', interpreter.createNativeFunction(wrapper));
 }
 
 // Get Row
@@ -199,22 +180,8 @@ export const defineTableGetRowBlock = () => {
           "check": "Number"
         }
       ],
-      "message3": "%1 %2",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "Row data (List)",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "VAR",
-          "variable": "rowData"
-        }
-      ],
+      "output": blockCheckType.array,
       "inputsInline": false,
-      "previousStatement": null,
-      "nextStatement": null,
       "colour": BlockColors.table,
       "tooltip": "Returns a list (array) of the specified row from the table",
       "helpUrl": ""
@@ -225,32 +192,27 @@ export const defineTableGetRowBlock = () => {
     const tableData = generator.valueToCode(block, 'TABLE', Order.NONE) || '[]';
     const rowCode = generator.valueToCode(block, 'ROW', Order.NONE) || '1';
     const row = parseInt(rowCode, 10) - 1; // 1-based to 0-based index
-    if (generator.nameDB_ === undefined) {
-      return `tableGetRow(JSON.stringify(${tableData}), ${row}, '');\n`;
-    }
-    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
-    const code = `tableGetRow(JSON.stringify(${tableData}), ${row}, '${variable}');\n`;
-    return code;
+    const code = `tableGetRow(JSON.stringify(${tableData}), ${row})`;
+    return [code, Order.ATOMIC];
   };
 };
 
 export function initInterpreterTableGetRow(interpreter:any, globalObject:any) {
   javascriptGenerator.addReservedWords('tableGetRow');
-  const wrapper = async function (arrayText:string, row:number, variable:any, callback:any) {
+  const wrapper = function (arrayText:string, row:number, variable:any, callback:any) {
     try {
       const array = JSON.parse(arrayText);
       if (array.length === 0 || row < 0 || row >= array.length) {
         throw new Error('Row index is out of range');
       }
       const result = array[row];
-      interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(result));
-      callback();
+      return interpreter.nativeToPseudo(result);
     } catch (error) {
       console.error(`Failed to retrieve row: ${error}`);
-      callback();
+      return interpreter.nativeToPseudo([]);
     }
   };
-  interpreter.setProperty(globalObject, 'tableGetRow', interpreter.createAsyncFunction(wrapper));
+  interpreter.setProperty(globalObject, 'tableGetRow', interpreter.createNativeFunction(wrapper));
 }
 
 // Add Row to Table
@@ -292,22 +254,8 @@ export const defineTableAddRowBlock = () => {
           "check": "Array"
         }
       ],
-      "message3": "%1 %2",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "New Table",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "VAR",
-          "variable": "newTabe"
-        }
-      ],
+      "output": blockCheckType.array,
       "inputsInline": false,
-      "previousStatement": null,
-      "nextStatement": null,
       "colour": BlockColors.table,
       "tooltip": "Adds a row to the end of the table",
       "helpUrl": ""
@@ -317,30 +265,25 @@ export const defineTableAddRowBlock = () => {
   javascriptGenerator.forBlock['table_add_row'] = function (block, generator) {
     const table = generator.valueToCode(block, 'TABLE', Order.NONE) || '[]';
     const row = generator.valueToCode(block, 'ROW', Order.NONE) || '[]';
-    if (generator.nameDB_ === undefined) {
-      return `tableAddRow(JSON.stringify(${table}), JSON.stringify(${row}), '');\n`;
-    }
-    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
-    const code = `tableAddRow(JSON.stringify(${table}), JSON.stringify(${row}), '${variable}');\n`;
-    return code;
+    const code = `tableAddRow(JSON.stringify(${table}), JSON.stringify(${row}))`;
+    return [code, Order.ATOMIC];
   };
 };
 
 export function initInterpreterTableAddRow(interpreter:any, globalObject:any) {
   javascriptGenerator.addReservedWords('tableAddRow');
-  const wrapper = async function (arrayText:string, rowText:string, variable:any, callback:any) {
+  const wrapper = function (arrayText:string, rowText:string) {
     try {
       const table = JSON.parse(arrayText);
       const row = JSON.parse(rowText);
       table.push(row);
-      interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(table));
-      callback();
+      return interpreter.nativeToPseudo(table);
     } catch (error) {
-      console.error(`Failed to retrieve row: ${error}`);
-      callback();
+      console.error(`Failed to add row: ${error}`);
+      return interpreter.nativeToPseudo([]);
     }
   };
-  interpreter.setProperty(globalObject, 'tableAddRow', interpreter.createAsyncFunction(wrapper));
+  interpreter.setProperty(globalObject, 'tableAddRow', interpreter.createNativeFunction(wrapper));
 }
 
 

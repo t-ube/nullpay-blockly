@@ -5,8 +5,8 @@ export const xrpl_blocks = [
     block: `
       <block type="xrpl_create_account" x="0" y="0"></block>
     `,
-    title: "XRPL Create Account",
-    description: "Create a new XRPL account using the selected network.",
+    title: "XRPL Generate Wallet",
+    description: "This block generates a new wallet on the XRPL (XRP Ledger). The generated wallet includes a unique address and a corresponding secret key, which can be used for transactions on the XRPL network. Note that the wallet needs to be activated by funding it with the minimum reserve amount before it can be used for transactions. Ensure to store the generated keys securely.",
     categories: ["xrpl"]
   },
   {
@@ -799,26 +799,26 @@ export const table_blocks = [
     block: `
       <block type="table_empty" x="0" y="0"></block>
     `,
-    title: "Table",
-    description: "",
+    title: "Create Empty Table",
+    description: "This block initializes an empty table. It can be used as a starting point for creating and manipulating tables in your project.",
     categories: ["table"]
   },
   {
       height: 25,
       block: `
-        <block type="table_input_csv" x="0" y="0"></block>
+        <block type="table_load_csv" x="0" y="0"></block>
       `,
-      title: "Table",
-      description: "",
-      categories: ["table"]
+    title: "Load CSV",
+    description: "This block loads data from a CSV file into a table. Use this block to import CSV data for analysis and manipulation within your project.",
+    categories: ["table"]
   },
   {
     height: 48,
     block: `
       <block type="csv_to_table" x="0" y="0"></block>
     `,
-    title: "Table",
-    description: "",
+    title: "Convert CSV to Table",
+    description: "This block converts a CSV formatted string into a table. It is useful for transforming raw CSV data into a structured table format for further processing.",
     categories: ["table"]
   },
   {
@@ -826,8 +826,8 @@ export const table_blocks = [
     block: `
       <block type="table_get_row" x="0" y="0"></block>
     `,
-    title: "Table",
-    description: "",
+    title: "Table Row",
+    description: "This block retrieves a row from a specified table. Use it to access and manipulate individual rows of data within your table.",
     categories: ["table"]
   },
   {
@@ -835,8 +835,8 @@ export const table_blocks = [
     block: `
       <block type="table_get_column" x="0" y="0"></block>
     `,
-    title: "Table",
-    description: "",
+    title: "Table Column",
+    description: "This block retrieves a column from a specified table. Use it to access and manipulate individual columns of data within your table.",
     categories: ["table"]
   },
   {
@@ -844,8 +844,8 @@ export const table_blocks = [
     block: `
       <block type="table_add_row" x="0" y="0"></block>
     `,
-    title: "Table",
-    description: "",
+    title: "Add Row to Table",
+    description: "This block adds a new row to a specified table. Use it to append new data entries to your table.",
     categories: ["table"]
   },
   {
@@ -853,144 +853,147 @@ export const table_blocks = [
     block: `
       <block type="table_csv_save" x="0" y="0"></block>
     `,
-    title: "Table CSV Save",
-    description: "",
+    title: "Save Table to CSV",
+    description: "This block saves a table to a CSV file. Use it to export your table data into a CSV file for external use or backup.",
     categories: ["table"]
   },
   {
     height: 471,
     block: `
-      <variables>
-        <variable id="vHUKFaYWkuLipXA-eqRT">newTable</variable>
-        <variable id="(lW_F+JQ3xijMjT(fNB_">i</variable>
-        <variable id="45(Oig9he3qprkqRAy)?">walletInfo</variable>
-        <variable id="JIchN7D{RHv1PS=h?t-b">newRow</variable>
-      </variables>
-      <block type="table_add_row" id="#f$80#FXI2]9*Vqdg::d" x="0" y="0">
-        <field name="VAR" id="vHUKFaYWkuLipXA-eqRT">newTable</field>
-        <value name="TABLE">
-          <block type="table_empty" id="s5^+*^+v\`[%{\`ht#K0Mu"></block>
-        </value>
-        <value name="ROW">
-          <block type="dynamic_list_create" id="h;,iQiw^_V0/(ty03QxF">
-            <mutation items="2"></mutation>
-            <value name="ADD0">
-              <block type="text" id=".u_z(A[cb7}_!ODsdy/-">
-                <field name="TEXT">address</field>
-              </block>
-            </value>
-            <value name="ADD1">
-              <block type="text" id="dAv?_nEr2e#H.\`^i(yS=">
-                <field name="TEXT">secret</field>
-              </block>
-            </value>
-          </block>
-        </value>
-        <next>
-          <block type="controls_for" id="D!9D7xP2X9Io!YowjWiL">
-            <field name="VAR" id="(lW_F+JQ3xijMjT(fNB_">i</field>
-            <value name="FROM">
-              <block type="math_number" id="(vH@P?}.pah|j6/Upfo4">
-                <field name="NUM">0</field>
-              </block>
-            </value>
-            <value name="TO">
-              <block type="math_number" id="Gli:*FqvnGWo!y=50[)p">
-                <field name="NUM">10</field>
-              </block>
-            </value>
-            <value name="BY">
-              <block type="math_number" id="pV*74{s(6h6xQ#7CY{4u">
-                <field name="NUM">1</field>
-              </block>
-            </value>
-            <statement name="DO">
-              <block type="xrpl_create_account" id="4p,Nq[,|$R]$6n=RxJcw">
-                <field name="VAR" id="45(Oig9he3qprkqRAy)?">walletInfo</field>
-                <next>
-                  <block type="variables_set" id="{sAp6b^Sig1FH^Zbmvxi">
-                    <field name="VAR" id="JIchN7D{RHv1PS=h?t-b">newRow</field>
-                    <value name="VALUE">
-                      <block type="dynamic_list_create" id="UR;?\`q$$%=;NQ~DifS8G">
-                        <mutation items="2"></mutation>
-                        <value name="ADD0">
-                          <block type="json_get_value" id="+oPFp*mxG;7[SPp(%iq-">
-                            <value name="VAR">
-                              <block type="variables_get" id="xg5GJmzKG{lmX(0tag2h">
-                                <field name="VAR" id="45(Oig9he3qprkqRAy)?">walletInfo</field>
-                              </block>
-                            </value>
-                            <value name="KEY">
-                              <block type="text" id="lI@3Y{p-5;2a9Aa.NrB$">
-                                <field name="TEXT">address</field>
-                              </block>
-                            </value>
-                          </block>
-                        </value>
-                        <value name="ADD1">
-                          <block type="json_get_value" id="WgXq4rLIQ~jIH@e{o%Hb">
-                            <value name="VAR">
-                              <block type="variables_get" id="+Qxpi)@d@QTT[hxrVa:u">
-                                <field name="VAR" id="45(Oig9he3qprkqRAy)?">walletInfo</field>
-                              </block>
-                            </value>
-                            <value name="KEY">
-                              <block type="text" id="nJd/q06P8Qc|dTa,I.Tn">
-                                <field name="TEXT">secret</field>
-                              </block>
-                            </value>
-                          </block>
-                        </value>
-                      </block>
-                    </value>
-                    <next>
-                      <block type="table_add_row" id="oQ]%cJH4({@K+bzQ=r+Q">
-                        <field name="VAR" id="vHUKFaYWkuLipXA-eqRT">newTable</field>
-                        <value name="TABLE">
-                          <block type="variables_get" id="f~C_a0tAz+*m[S*yXv*A">
-                            <field name="VAR" id="vHUKFaYWkuLipXA-eqRT">newTable</field>
-                          </block>
-                        </value>
-                        <value name="ROW">
-                          <block type="variables_get" id="^y8h^|.H$Zb4M!}C0h)D">
-                            <field name="VAR" id="JIchN7D{RHv1PS=h?t-b">newRow</field>
-                          </block>
-                        </value>
-                      </block>
-                    </next>
-                  </block>
-                </next>
-              </block>
-            </statement>
-            <next>
-              <block type="table_csv_save" id=",i,w:+;H+%7-ntn[dm@=">
-                <value name="TABLE">
-                  <block type="variables_get" id="|BI9v4t:.CDvY|}7yOFb">
-                    <field name="VAR" id="vHUKFaYWkuLipXA-eqRT">newTable</field>
-                  </block>
-                </value>
-                <value name="FILENAME">
-                  <block type="text" id="h8ZCHn=gS3?z[-x4,EzI">
-                    <field name="TEXT">wallets.csv</field>
-                  </block>
-                </value>
-                <next>
-                  <block type="text_print" id="*3unDtx1ul%Ap;rU)F_j">
-                    <value name="TEXT">
-                      <block type="text" id="%v0Sraad1*BFBi-Wj~vR">
-                        <field name="TEXT">Complete!</field>
-                      </block>
-                    </value>
-                  </block>
-                </next>
-              </block>
-            </next>
-          </block>
-        </next>
-      </block>
+    <variables>
+      <variable id="q.hZdolqKqT?:^6~O,[%">wallets</variable>
+      <variable id="Q@U=mDF62Q=nEa(6(9Sj">i</variable>
+      <variable id="YOSm)NsKAOYz[s9.5H5,">walletInfo</variable>
+    </variables>
+    <block type="variables_set" id="v(m.VQzRUr7XIc_(b.kl" x="0" y="0">
+      <field name="VAR" id="q.hZdolqKqT?:^6~O,[%">wallets</field>
+      <value name="VALUE">
+        <block type="table_empty" id="3:2][p5HV+i^$oMhG}$0"></block>
+      </value>
+      <next>
+        <block type="variables_set" id="||QV4rglE6}~|mtp%IjX">
+          <field name="VAR" id="q.hZdolqKqT?:^6~O,[%">wallets</field>
+          <value name="VALUE">
+            <block type="table_add_row" id="mbEyrWICynSb%p*K:l;z">
+              <value name="TABLE">
+                <block type="variables_get" id="AA6mmyG2KHxPgV)0Qvs8">
+                  <field name="VAR" id="q.hZdolqKqT?:^6~O,[%">wallets</field>
+                </block>
+              </value>
+              <value name="ROW">
+                <block type="dynamic_list_create" id="C%tyFR9IQp.-DhXYqa9o">
+                  <mutation items="2"></mutation>
+                  <value name="ADD0">
+                    <block type="text" id="O,38!.V$?2BG+X^2HA($">
+                      <field name="TEXT">address</field>
+                    </block>
+                  </value>
+                  <value name="ADD1">
+                    <block type="text" id="=3AY1I|,bO|/2ST-/ig6">
+                      <field name="TEXT">secret</field>
+                    </block>
+                  </value>
+                </block>
+              </value>
+            </block>
+          </value>
+          <next>
+            <block type="control_run_speed" id="?o/cOV60o5.R;QIpD5P)">
+              <field name="SPEED">1000</field>
+              <next>
+                <block type="controls_for" id="#zbNUAe-!fyD5(TMf.w7">
+                  <field name="VAR" id="Q@U=mDF62Q=nEa(6(9Sj">i</field>
+                  <value name="FROM">
+                    <block type="math_number" id="rzng,;]S_A|Q\`O)v6pB)">
+                      <field name="NUM">1</field>
+                    </block>
+                  </value>
+                  <value name="TO">
+                    <block type="math_number" id=".q}uVDo2GD$*lH5a-^ie">
+                      <field name="NUM">100</field>
+                    </block>
+                  </value>
+                  <value name="BY">
+                    <block type="math_number" id="3HH\`ALFF](3bC^KRRWVk">
+                      <field name="NUM">1</field>
+                    </block>
+                  </value>
+                  <statement name="DO">
+                    <block type="xrpl_create_account" id="]vw@V{#^T_aNGo;,V9wx">
+                      <field name="VAR" id="YOSm)NsKAOYz[s9.5H5,">walletInfo</field>
+                      <next>
+                        <block type="variables_set" id="|#Z94{wAj6m\`Uz1R~N-f">
+                          <field name="VAR" id="q.hZdolqKqT?:^6~O,[%">wallets</field>
+                          <value name="VALUE">
+                            <block type="table_add_row" id="EiAW4[~5DSl4h8]W96G=">
+                              <value name="TABLE">
+                                <block type="variables_get" id="PJly,659X9HC}_+qx@7R">
+                                  <field name="VAR" id="q.hZdolqKqT?:^6~O,[%">wallets</field>
+                                </block>
+                              </value>
+                              <value name="ROW">
+                                <block type="dynamic_list_create" id="wLNvmiiH.VG33nWAACNA">
+                                  <mutation items="2"></mutation>
+                                  <value name="ADD0">
+                                    <block type="json_get_value" id="MeC)$^:^zH3%rR=W)Seb">
+                                      <value name="VAR">
+                                        <block type="variables_get" id="72OxRs6\`#}GaQ/-t-S{B">
+                                          <field name="VAR" id="YOSm)NsKAOYz[s9.5H5,">walletInfo</field>
+                                        </block>
+                                      </value>
+                                      <value name="KEY">
+                                        <block type="text" id="]1i2Y?yKx_Z^0sUsi$3U">
+                                          <field name="TEXT">address</field>
+                                        </block>
+                                      </value>
+                                    </block>
+                                  </value>
+                                  <value name="ADD1">
+                                    <block type="json_get_value" id="^A^F+|~CBi~t:UviMm5O">
+                                      <value name="VAR">
+                                        <block type="variables_get" id="Zcvb7GD}hLN0w_3H:HpP">
+                                          <field name="VAR" id="YOSm)NsKAOYz[s9.5H5,">walletInfo</field>
+                                        </block>
+                                      </value>
+                                      <value name="KEY">
+                                        <block type="text" id="MNVy*iqAOCB!Jui7_,L{">
+                                          <field name="TEXT">secret</field>
+                                        </block>
+                                      </value>
+                                    </block>
+                                  </value>
+                                </block>
+                              </value>
+                            </block>
+                          </value>
+                        </block>
+                      </next>
+                    </block>
+                  </statement>
+                  <next>
+                    <block type="table_csv_save" id="@y}Vb?d7/:1w/Ynf;]o\`">
+                      <value name="TABLE">
+                        <block type="variables_get" id=",uaOx\`Og71I,$3fWF2|q">
+                          <field name="VAR" id="q.hZdolqKqT?:^6~O,[%">wallets</field>
+                        </block>
+                      </value>
+                      <value name="FILENAME">
+                        <block type="text" id="8Ra4x]+8jcLC]EW+$B_3">
+                          <field name="TEXT">wallets.csv</field>
+                        </block>
+                      </value>
+                    </block>
+                  </next>
+                </block>
+              </next>
+            </block>
+          </next>
+        </block>
+      </next>
+    </block>
     `,
     title: "Automated Wallet Creation and CSV Export",
-    description: "This program is designed to automate the creation of multiple XRPL wallets and save the wallet information into a CSV file. The process starts by creating an empty table to store the wallet data. An initial row with placeholders for 'address' and 'secret' is added to the table. Then, a loop runs from 0 to 10, during which a new XRPL wallet is created in each iteration. The wallet information, specifically the 'address' and 'secret', is extracted and added as a new row to the table. Once all the wallets are created and their information is added to the table, the table is saved as a CSV file named 'wallets.csv'. Finally, the program prints a message 'Complete!' to indicate that the process is finished. This program demonstrates how to use loops, variable manipulation, and file operations within Blockly to automate complex tasks.",
+    description: "This template automates the creation of 100 XRPL wallets and exports the wallet information (address and secret) to a CSV file. It initializes an empty table, generates wallets in a loop with a speed setting of 1000 (higher values result in faster execution), adds the wallet information to the table, and finally saves the table as a CSV file. This is useful for bulk wallet generation and exporting wallet credentials for further use.",
     categories: ["template","xrpl","table"]
   }
 ];

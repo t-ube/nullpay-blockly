@@ -166,7 +166,7 @@ const toolbox = `
       <block type="text_to_json"></block>
     </category>
     <category name="Table" colour="%{BKY_LOOPS_HUE}">
-      <block type="table_input_csv"></block>
+      <block type="table_load_csv"></block>
     </category>
     <category name="Animation" colour="${BlockColors.animation}">
       <block type="confetti_animation"></block>
