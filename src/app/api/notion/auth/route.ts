@@ -13,16 +13,16 @@ export async function GET(req: Request) {
   const credentials = Buffer.from(`${process.env.NEXT_PUBLIC_NOTION_OAUTH_CLIENT_ID}:${process.env.NEXT_PUBLIC_NOTION_OAUTH_CLIENT_SECRET}`).toString('base64');
 
   const response = await fetch('https://api.notion.com/v1/oauth/token', {
-    method: 'POST',
+    method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
       Authorization: `Basic ${credentials}`,
     },
     body: JSON.stringify({
-      grant_type: 'authorization_code',
-      code: code,
-      redirect_uri: process.env.NEXT_PUBLIC_NOTION_REDIRECT_URI,
+      "grant_type": "authorization_code",
+      "code": code,
+      "redirect_uri": process.env.NEXT_PUBLIC_NOTION_REDIRECT_URI,
     }),
   });
 
