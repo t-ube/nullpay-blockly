@@ -1,9 +1,9 @@
 export const runtime = 'edge';
 
-export async function POST(req: Request) {
+export async function GET(req: Request) {
+  const { searchParams, protocol, host } = new URL(req.url);
   const credentials = Buffer.from(`${process.env.NEXT_PUBLIC_NOTION_OAUTH_CLIENT_ID}:${process.env.NEXT_PUBLIC_NOTION_OAUTH_CLIENT_SECRET}`).toString('base64');
-  const body = await req.json();
-  const code = body.code;
+  const code = searchParams.get('code');
 
   if (!code || typeof code !== 'string') {
     return new Response(JSON.stringify({ message: "Invalid code" }), {
