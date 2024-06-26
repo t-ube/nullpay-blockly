@@ -13,7 +13,13 @@ const NotionCallback = () => {
     if (error) {
       console.error('OAuth error:', error);
     } else if (code) {
-      fetch(`/api/notion/auth?code=${code}`)
+      fetch('/api/notion/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ code }),
+      })
         .then(response => response.json())
         .then(data => {
           if (data.error) {
