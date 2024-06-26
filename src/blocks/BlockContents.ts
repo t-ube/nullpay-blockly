@@ -876,6 +876,24 @@ export const table_blocks = [
     categories: ["table"]
   },
   {
+    height: 74.5,
+    block: `
+      <block type="notion_create_client" x="0" y="0"></block>
+    `,
+    title: "Initialize Notion Client",
+    description: "",
+    categories: ["notion"]
+  },
+  {
+    height: 146.5,
+    block: `
+      <block type="notion_create_database" x="0" y="0"></block>
+    `,
+    title: "Notion Create Database",
+    description: "",
+    categories: ["notion"]
+  },
+  {
     height: 471,
     block: `
     <variables>

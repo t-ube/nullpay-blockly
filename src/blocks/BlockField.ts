@@ -15,6 +15,7 @@ export const blockCheckType : BlockCheckTypeMap = {
   xrplClient: "Client",
   xrplTxnPayload: "XrplPayload",
   supabaseClient: "supabaseClient",
+  notionClient: "notionClient",
 }
 
 export function newTitleLabel (fieldName:string) : Blockly.FieldLabel {

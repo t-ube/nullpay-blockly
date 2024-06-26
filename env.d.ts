@@ -5,6 +5,9 @@ interface CloudflareEnv {
     NEXT_PUBLIC_XUMM_API_KEY:string,
     NEXT_PUBLIC_XUMM_API_SECRET:string,
     NEXT_PUBLIC_XUMM_API_REDIRECT_URI:string,
+    NEXT_PUBLIC_NOTION_CLIENT_ID:string,
+    NEXT_PUBLIC_NOTION_CLIENT_SECRET:string,
+    NEXT_PUBLIC_NOTION_REDIRECT_URI:string,
 }
 
 namespace NodeJS {
@@ -12,5 +15,8 @@ namespace NodeJS {
         NEXT_PUBLIC_XUMM_API_KEY: string,
         NEXT_PUBLIC_XUMM_API_SECRET: string,
         NEXT_PUBLIC_XUMM_API_REDIRECT_URI: string,
+        NEXT_PUBLIC_NOTION_CLIENT_ID:string,
+        NEXT_PUBLIC_NOTION_CLIENT_SECRET:string,
+        NEXT_PUBLIC_NOTION_REDIRECT_URI:string,
     }
 }
