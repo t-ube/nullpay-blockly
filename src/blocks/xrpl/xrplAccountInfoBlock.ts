@@ -15,7 +15,7 @@ export const defineXrplAccountInfoBlock = () => {
         .appendField(newArgsLabel("XRPL client"));
       this.appendValueInput("ADDRESS")
         .setCheck('String')
-        .appendField(newArgsLabel("Address"));
+        .appendField(newArgsLabel("Account address"));
       this.appendDummyInput()
         .appendField(newOutputLabel("Account info"))
         .appendField(new Blockly.FieldVariable("accountInfo"), "VAR");

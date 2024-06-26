@@ -66,7 +66,7 @@ export const defineXrplCreateNewTokenBlock = () => {
       "args0": [
         {
           "type": "field_label",
-          "text": "New Token",
+          "text": "New token",
           "class": "title-label"
         }
       ],

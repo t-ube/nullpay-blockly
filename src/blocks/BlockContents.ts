@@ -235,6 +235,24 @@ export const xrpl_blocks = [
     categories: ["xrpl"]
   },
   {
+    height: 120,
+    block: `
+      <block type="xrpl_buy_token_offer_txn" x="0" y="0"></block>
+    `,
+    title: "XRPL Buy Offer",
+    description: "",
+    categories: ["xrpl"]
+  },
+  {
+    height: 120,
+    block: `
+      <block type="xrpl_sale_token_offer_txn" x="0" y="0"></block>
+    `,
+    title: "XRPL Sale Offer",
+    description: "",
+    categories: ["xrpl"]
+  },
+  {
     height: 123,
     block: `
       <block type="xrpl_easy_submit" x="0" y="0"></block>

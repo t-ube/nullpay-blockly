@@ -124,7 +124,7 @@ export const defineXrplEasySubmitBlock = () => {
       "args0": [
         {
           "type": "field_label",
-          "text": "Easy Submit",
+          "text": "Easy submit",
           "class": "title-label"
         }
       ],

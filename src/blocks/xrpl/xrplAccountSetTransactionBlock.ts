@@ -28,7 +28,7 @@ export const defineXrplRipplingTxnBlock = () => {
       "args1": [
         {
           "type": "field_label",
-          "text": "Address",
+          "text": "Account address",
           "class": "args-label"
         },
         {

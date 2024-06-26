@@ -43,6 +43,10 @@ import {
   defineXrplRipplingTxnBlock, initInterpreterXrplRipplingTxn,
 } from '@/blocks/xrpl/xrplAccountSetTransactionBlock';
 import {
+  defineBuyTokenOfferTxnBlock, initInterpreterBuyTokenOfferTxn,
+  defineSaleTokenOfferTxnBlock, initInterpreterSaleTokenOfferTxn
+} from '@/blocks/xrpl/xrplOfferTransactionBlock';
+import {
   defineXrplClientSubmitBlock, initInterpreterXrplClientSubmit,
   defineXrplClientAutoFillBlock, initInterpreterXrplClientAutofill,
   defineXrplEasySubmitBlock, initInterpreterXrplEasySubmit
@@ -227,6 +231,8 @@ const createCustomBlocks = () => {
   defineXrplCreateNewTokenBlock();
   defineXrplRipplingTxnBlock();
   defineXrplTrustSetTxnBlock();
+  defineBuyTokenOfferTxnBlock();
+  defineSaleTokenOfferTxnBlock();
 
   // Xaman Wallet
   defineXamanSimpleLoginBlock();
@@ -350,6 +356,8 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterSupabaseSelect(interpreter, scope);
   initInterpreterSupabaseUpdate(interpreter, scope);
   initInterpreterSupabaseDelete(interpreter, scope);
+  initInterpreterBuyTokenOfferTxn(interpreter, scope);
+  initInterpreterSaleTokenOfferTxn(interpreter, scope);
 }
 
 const initInterpreterEx = (interpreter: Interpreter, scope: any, logArea:HTMLTextAreaElement | null) => {

@@ -98,7 +98,7 @@ export const defineXrplPaymentTokenTxnBlock = () => {
       "args0": [
         {
           "type": "field_label",
-          "text": "Payment transaction",
+          "text": "Payment token transaction",
           "class": "title-label"
         }
       ],
@@ -145,7 +145,7 @@ export const defineXrplPaymentTokenTxnBlock = () => {
       "args4": [
         {
           "type": "field_label",
-          "text": "Amount",
+          "text": "Token amount",
           "class": "args-label"
         },
         {
