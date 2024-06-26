@@ -15,12 +15,13 @@ export async function GET(req: Request) {
   const response = await fetch('https://api.notion.com/v1/oauth/token', {
     method: 'POST',
     headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
       Authorization: `Basic ${credentials}`,
-      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       grant_type: 'authorization_code',
-      code,
+      code: code,
       redirect_uri: process.env.NEXT_PUBLIC_NOTION_REDIRECT_URI,
     }),
   });
