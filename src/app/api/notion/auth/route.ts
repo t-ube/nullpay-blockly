@@ -1,8 +1,12 @@
-import { NextResponse } from 'next/server';
-
 export const runtime = 'edge';
 
+import { NextResponse } from 'next/server';
+
 export async function GET(req: Request) {
+  const clientID = process.env.NEXT_PUBLIC_NOTION_CLIENT_ID;
+  const clientSecret = process.env.NEXT_PUBLIC_NOTION_CLIENT_SECRET;
+  const redirectURI = process.env.NEXT_PUBLIC_NOTION_REDIRECT_URI;
+
   const { searchParams } = new URL(req.url);
   const code = searchParams.get('code');
 
@@ -10,7 +14,7 @@ export async function GET(req: Request) {
     return NextResponse.json({ message: "Invalid code" }, { status: 400 });
   }
 
-  const credentials = Buffer.from(`${process.env.NEXT_PUBLIC_NOTION_OAUTH_CLIENT_ID}:${process.env.NEXT_PUBLIC_NOTION_OAUTH_CLIENT_SECRET}`).toString('base64');
+  const credentials = Buffer.from(`${clientID}:${clientSecret}`).toString('base64');
 
   const response = await fetch('https://api.notion.com/v1/oauth/token', {
     method: "POST",
@@ -22,7 +26,7 @@ export async function GET(req: Request) {
     body: JSON.stringify({
       "grant_type": "authorization_code",
       "code": code,
-      "redirect_uri": process.env.NEXT_PUBLIC_NOTION_REDIRECT_URI,
+      "redirect_uri": redirectURI,
     }),
   });
 
