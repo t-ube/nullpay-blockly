@@ -1,18 +1,16 @@
+import { NextResponse } from 'next/server';
+
 export const runtime = 'edge';
 
 export async function GET(req: Request) {
-  const { searchParams, protocol, host } = new URL(req.url);
-  const credentials = Buffer.from(`${process.env.NEXT_PUBLIC_NOTION_OAUTH_CLIENT_ID}:${process.env.NEXT_PUBLIC_NOTION_OAUTH_CLIENT_SECRET}`).toString('base64');
+  const { searchParams } = new URL(req.url);
   const code = searchParams.get('code');
 
   if (!code || typeof code !== 'string') {
-    return new Response(JSON.stringify({ message: "Invalid code" }), {
-      status: 400,
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    });
+    return NextResponse.json({ message: "Invalid code" }, { status: 400 });
   }
+
+  const credentials = Buffer.from(`${process.env.NEXT_PUBLIC_NOTION_OAUTH_CLIENT_ID}:${process.env.NEXT_PUBLIC_NOTION_OAUTH_CLIENT_SECRET}`).toString('base64');
 
   const response = await fetch('https://api.notion.com/v1/oauth/token', {
     method: 'POST',
@@ -30,18 +28,8 @@ export async function GET(req: Request) {
   const data = await response.json();
 
   if (data.error) {
-    return new Response(JSON.stringify({ message: data.error }), {
-      status: 500,
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    });
+    return NextResponse.json({ message: data.error }, { status: 500 });
   }
   
-  return new Response(JSON.stringify(data), {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/json',
-    }
-  });
+  return NextResponse.json(data, { status: 200 });
 }

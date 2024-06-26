@@ -1,10 +1,9 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, Suspense } from 'react';
+import { useEffect } from 'react';
 
 const NotionCallback = () => {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const code = searchParams.get('code');
   const error = searchParams.get('error');
@@ -39,12 +38,4 @@ const NotionCallback = () => {
   );
 };
 
-const NotionCallbackPage = () => {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <NotionCallback />
-    </Suspense>
-  );
-};
-
-export default NotionCallbackPage;
+export default NotionCallback;
