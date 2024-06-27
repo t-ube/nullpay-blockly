@@ -90,10 +90,10 @@ import { defineTextToNumberBlock } from '@/blocks/text/textTextToNumberBlock';
 import {
   defineTableEmptyBlock,
   defineTableGetRowBlock, initInterpreterTableGetRow,
-  defineTableRowCountBlock,
+  defineTableRowCountBlock, initInterpreterTableRowCount,
   defineTextToTableBlock,
   defineTableGetColumnBlock, initInterpreterTableGetColumn,
-  defineTableAddRowBlock, initInterpreterTableAddRow
+  defineTableAddRowBlock, initInterpreterTableAddRow,
 } from '@/blocks/table/tableBlock';
 import {
   defineSupabaseCreateClientBlock, initInterpreterSupabaseCreateClient,
@@ -342,6 +342,7 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterAdjustDateTime(interpreter, scope);
   initInterpreterCompareDateTime(interpreter, scope);
   initInterpreterTableGetColumn(interpreter, scope);
+  initInterpreterTableRowCount(interpreter, scope);
   initInterpreterTableGetRow(interpreter, scope);
   initInterpreterTableAddRow(interpreter, scope);
   initInterpreterTableCSVSave(interpreter, scope);

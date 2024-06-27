@@ -288,22 +288,42 @@ export function initInterpreterTableAddRow(interpreter:any, globalObject:any) {
 
 
 export const defineTableRowCountBlock = () => {
-  Blockly.Blocks['table_row_count'] = {
-    init: function () {
-      this.appendValueInput("TABLE")
-        .setCheck("String")
-        .appendField("Row count of table");
-      this.setOutput(true, 'Number');
-      this.setColour(BlockColors.table);
-      this.setTooltip('Returns the number of rows in the table');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "table_row_count",
+      "message0": "row count of table %1",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "TABLE",
+          "check": blockCheckType.array
+        }
+      ],
+      "output": blockCheckType.number,
+      "inputsInline": false,
+      "colour": BlockColors.table,
+      "tooltip": "Returns the number of rows in the table",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['table_row_count'] = function (block, generator) {
-    const tableData = generator.valueToCode(block, 'TABLE', Order.NONE) || '""';
-    const code = `(JSON.parse(${tableData}).length)`;
+    const tableData = generator.valueToCode(block, 'TABLE', Order.NONE) || '[]';
+    const code = `tableRowCount(JSON.stringify(${tableData}))`;
     return [code, Order.ATOMIC];
   };
 };
 
+export function initInterpreterTableRowCount(interpreter:any, globalObject:any) {
+  javascriptGenerator.addReservedWords('tableRowCount');
+  const wrapper = function (tableText:string) {
+    try {
+      const table = JSON.parse(tableText);
+      return interpreter.nativeToPseudo(table.length);
+    } catch (error) {
+      console.error(`Failed to add row: ${error}`);
+      return interpreter.nativeToPseudo(0);
+    }
+  };
+  interpreter.setProperty(globalObject, 'tableRowCount', interpreter.createNativeFunction(wrapper));
+}

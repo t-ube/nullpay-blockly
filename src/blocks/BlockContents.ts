@@ -858,6 +858,15 @@ export const table_blocks = [
     categories: ["table"]
   },
   {
+    height: 23.5,
+    block: `
+      <block type="table_row_count" x="0" y="0"></block>
+    `,
+    title: "Row Count of Table",
+    description: "This block returns the number of rows in the specified table.",
+    categories: ["table"]
+  },
+  {
     height: 100,
     block: `
       <block type="table_add_row" x="0" y="0"></block>
