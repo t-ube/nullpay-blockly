@@ -75,8 +75,14 @@ import { defineDynamicListCreate, defineDynamicTextJoin, defineDynamicIf } from 
 import { defineXamanSimpleLoginBlock, initInterpreterXamanSimpleLogin } from '@/blocks/xaman/xamanSimpleLoginBlock';
 import { defineXamanSimpleLogoutBlock, initInterpreterXamanSimpleLogout } from '@/blocks/xaman/xamanSimpleLogoutBlock';
 import { defineXamanPaymentBlock, initInterpreterXamanPayment } from '@/blocks/xaman/xamanPaymentBlock';
-import { defineXamanWaitForSignatureBlock, initInterpreterXamanWaitForSignatureBlock } from '@/blocks/xaman/xamanWaitForSignatureBlock';
-import { defineXamanStoreSetBlock, initInterpreterxamanStoreSet } from '@/blocks/xaman/xamanStoreBlock';
+import { 
+  defineXamanWaitForSignatureBlock, initInterpreterXamanWaitForSignatureBlock,
+} from '@/blocks/xaman/xamanWaitForSignatureBlock';
+import {
+  defineXamanStoreKeyBlock,
+  defineXamanStoreSetBlock, initInterpreterxamanStoreSet,
+  defineXamanStoreGetBlock, initInterpreterxamanStoreGet
+} from '@/blocks/xaman/xamanStoreBlock';
 import { defineConfettiAnimationBlock, initInterpreterConfettiAnimationFunctions  } from '@/blocks/animation/confettiAnimationBlock';
 import { 
   defineTextEndsWithBlock, initInterpreterTextStartsWith,
@@ -240,7 +246,9 @@ const createCustomBlocks = () => {
   defineXamanSimpleLogoutBlock();
   defineXamanPaymentBlock();
   defineXamanWaitForSignatureBlock();
+  defineXamanStoreKeyBlock();
   defineXamanStoreSetBlock();
+  defineXamanStoreGetBlock();
 
   // Math
   definePercentageBlock();
@@ -336,6 +344,7 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterXamanPayment(interpreter, scope);
   initInterpreterXamanWaitForSignatureBlock(interpreter, scope);
   initInterpreterxamanStoreSet(interpreter, scope);
+  initInterpreterxamanStoreGet(interpreter, scope);
   initInterpreterConfettiAnimationFunctions(interpreter, scope);
   initInterpreterCurrentDateTime(interpreter, scope);
   initInterpreterDatedatetimeToText(interpreter, scope);
