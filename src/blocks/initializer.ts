@@ -76,6 +76,7 @@ import { defineXamanSimpleLoginBlock, initInterpreterXamanSimpleLogin } from '@/
 import { defineXamanSimpleLogoutBlock, initInterpreterXamanSimpleLogout } from '@/blocks/xaman/xamanSimpleLogoutBlock';
 import { defineXamanPaymentBlock, initInterpreterXamanPayment } from '@/blocks/xaman/xamanPaymentBlock';
 import { defineXamanWaitForSignatureBlock, initInterpreterXamanWaitForSignatureBlock } from '@/blocks/xaman/xamanWaitForSignatureBlock';
+import { defineXamanStoreSetBlock, initInterpreterxamanStoreSet } from '@/blocks/xaman/xamanStoreBlock';
 import { defineConfettiAnimationBlock, initInterpreterConfettiAnimationFunctions  } from '@/blocks/animation/confettiAnimationBlock';
 import { 
   defineTextEndsWithBlock, initInterpreterTextStartsWith,
@@ -239,6 +240,7 @@ const createCustomBlocks = () => {
   defineXamanSimpleLogoutBlock();
   defineXamanPaymentBlock();
   defineXamanWaitForSignatureBlock();
+  defineXamanStoreSetBlock();
 
   // Math
   definePercentageBlock();
@@ -333,6 +335,7 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterXamanSimpleLogout(interpreter, scope);
   initInterpreterXamanPayment(interpreter, scope);
   initInterpreterXamanWaitForSignatureBlock(interpreter, scope);
+  initInterpreterxamanStoreSet(interpreter, scope);
   initInterpreterConfettiAnimationFunctions(interpreter, scope);
   initInterpreterCurrentDateTime(interpreter, scope);
   initInterpreterDatedatetimeToText(interpreter, scope);

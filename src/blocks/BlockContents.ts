@@ -520,6 +520,15 @@ export const xaman_blocks = [
       categories: ["xaman"]
   },
   {
+    height: 50,
+    block: `
+      <block type="xaman_store_set" x="0" y="0"></block>
+    `,
+    title: "Xaman Store Input",
+    description: "",
+    categories: ["xaman"]
+  },
+  {
     height: 447,
     block:`
     <variables>
