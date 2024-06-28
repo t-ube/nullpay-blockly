@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Modal, Box, Button, Typography, Fade, Stack, FormControlLabel, Checkbox, Divider } from '@mui/material';
-import { ReleaseInfo } from '@/types/featureType';
+import { IReleaseInfo } from '@/interfaces/IReleaseInfo';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { useMobile } from '@/contexts/MobileContext';
 
-interface FeatureModalProps {
-  releaseInfo: ReleaseInfo;
+interface IFeatureModalProps {
+  releaseInfo: IReleaseInfo;
 }
 
-const FeatureModal = ({ releaseInfo } : FeatureModalProps) => {
+const FeatureModal = ({ releaseInfo } : IFeatureModalProps) => {
   const { isMobile, isPortrait, isLoaded } = useMobile();
   const [open, setOpen] = useState(false);
   const [dontShowAgain, setDontShowAgain] = useLocalStorage(`dontShowReleaseInfo-${releaseInfo.version}`, false);

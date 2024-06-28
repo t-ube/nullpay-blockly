@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button, FormControlLabel, Checkbox } from '@mui/material';
 import useLocalStorage from '@/hooks/useLocalStorage';
 
-interface WelcomeDialogProps {
+interface IWelcomeDialogProps {
   onYes: () => void;
 }
 
-const WelcomeDialog: React.FC<WelcomeDialogProps> = ({ onYes }) => {
+const WelcomeDialog: React.FC<IWelcomeDialogProps> = ({ onYes }) => {
   const [open, setOpen] = useState(false);
   const [dontShowAgain, setDontShowAgain] = useLocalStorage('dontShowWelcomeDialog', false);
 

@@ -11,11 +11,11 @@ import WidgetsIcon from '@mui/icons-material/Widgets';
 import DataObjectIcon from '@mui/icons-material/DataObject';
 import GridOnIcon from '@mui/icons-material/GridOn';
 
-interface BlockIconMap {
+interface IBlockIconMap {
   [key: string]: string | React.ElementType;
 }
 
-export const BlockIcons : BlockIconMap = {
+export const BlockIcons : IBlockIconMap = {
   xrpl: '/icons/xrpl-logo.svg',
   xaman: '/icons/xaman-logo.jpg',
   text: TextFieldsIcon,

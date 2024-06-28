@@ -17,7 +17,7 @@ import BlocklyDrawer from '@/components/BlocklyDrawer';
 import { Sidebar } from '@/components/Sidebar';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { PlayState } from '@/components/HeaderButtons';
+import { PlayState } from '@/types/PlayStateType';
 import { dropBlockToWorkspace, addBlockToWorkspace } from '@/utils/BlocklyHelper';
 //import WelcomeDialog from '@/components/WelcomeDialog';
 import { DemoBlockXml } from '@/demos/demo-v0-r2-async-block';

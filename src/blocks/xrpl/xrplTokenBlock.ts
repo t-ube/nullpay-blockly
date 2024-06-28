@@ -2,10 +2,10 @@ import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { FieldDependentDropdown } from '@blockly/field-dependent-dropdown';
 import { BlockColors } from '@/blocks/BlockColors';
-import { xrplToken, xrplTokens } from '@/blocks/xrpl/xrplToken';
+import { IXrplToken, xrplTokens } from '@/blocks/xrpl/xrplToken';
 import { newTitleLabel, newArgsLabel, newOutputLabel, blockCheckType } from '@/blocks/BlockField';
 
-const convertToTokenMenu = (tokens: xrplToken[]): [string, string][] => {
+const convertToTokenMenu = (tokens: IXrplToken[]): [string, string][] => {
   tokens.sort((a, b) => {
     const aIsAlpha = /^[A-Za-z]/.test(a.currency_code);
     const bIsAlpha = /^[A-Za-z]/.test(b.currency_code);
@@ -129,7 +129,7 @@ export const defineXrplCreateNewTokenBlock = () => {
 export function initInterpreterXrplCreateNewToken(interpreter: any, globalObject: any) {
   javascriptGenerator.addReservedWords('xrplCreateNewToken');
   const wrapper = function (issuer: string, currencyCode: string, totalSupply: string) {
-    const transaction : xrplToken = {
+    const transaction : IXrplToken = {
       issuer: issuer,
       currency_code: currencyCode,
       total_supply: totalSupply

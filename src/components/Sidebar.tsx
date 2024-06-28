@@ -37,12 +37,12 @@ const ColoredCircle = styled('div')(({ color }: { color: string }) => ({
   borderRadius: '50%',
 }));
 
-interface SidebarProps {
+interface ISidebarProps {
   setOpen: (open: boolean) => void;
   setFlyoutType: (type: string | null) => void;
 }
 
-export function Sidebar ({ setOpen, setFlyoutType }: SidebarProps) {
+export function Sidebar ({ setOpen, setFlyoutType }: ISidebarProps) {
   const [openMenuName, setOpenMenuName] = useState<string>('');
 
   const handleFlyoutOpen = (type: string) => () => {

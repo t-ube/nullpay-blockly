@@ -1,17 +1,12 @@
 // @/blocks/AsyncBlockResult.ts
-
-export interface AsyncBlockResult {
-  success: boolean,
-  message: string,
-  responce: any
-};
+import { IAsyncBlockResult } from '@/interfaces/IAsyncBlockResult';
 
 export function getAsyncSuccess (responce: any) {
   return {
     success: true,
     message: 'success',
     responce: responce
-  } as AsyncBlockResult;
+  } as IAsyncBlockResult;
 }
 
 export function getAsyncError (message: string) {
@@ -19,5 +14,5 @@ export function getAsyncError (message: string) {
     success: false,
     message: message,
     responce: null
-  } as AsyncBlockResult;
+  } as IAsyncBlockResult;
 }

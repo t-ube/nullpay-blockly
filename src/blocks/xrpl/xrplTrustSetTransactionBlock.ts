@@ -2,7 +2,7 @@ import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { blockCheckType } from '@/blocks/BlockField';
-import { xrplToken } from '@/blocks/xrpl/xrplToken';
+import { IXrplToken } from '@/blocks/xrpl/xrplToken';
 
 // Define the block for setting XRPL Trust set
 export const defineXrplTrustSetTxnBlock = () => {
@@ -53,7 +53,7 @@ export const defineXrplTrustSetTxnBlock = () => {
 
   // JavaScript code generator for the XRPL trust set block
   javascriptGenerator.forBlock['xrpl_trust_set_txn'] = function(block, generator) {
-    const token = generator.valueToCode(block, 'TOKEN', Order.NONE) || {} as xrplToken;
+    const token = generator.valueToCode(block, 'TOKEN', Order.NONE) || {} as IXrplToken;
     const address = generator.valueToCode(block, 'ADDRESS', Order.NONE) || '""';
     const code = `xrplTrustSetTxn(JSON.stringify(${token}),${address})`;
     return [code, Order.ATOMIC];
@@ -64,7 +64,7 @@ export function initInterpreterXrplTrustSetTxn(interpreter: any, globalObject: a
   javascriptGenerator.addReservedWords('xrplTrustSetTxn');
   const wrapper = function (tokenText: string, address: string) {
     console.log(tokenText);
-    let token = JSON.parse(tokenText) as xrplToken;
+    let token = JSON.parse(tokenText) as IXrplToken;
     console.log(token);
     const transaction = {
       TransactionType: 'TrustSet',

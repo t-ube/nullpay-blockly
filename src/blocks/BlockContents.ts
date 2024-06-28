@@ -522,28 +522,28 @@ export const xaman_blocks = [
   {
     height: 23.5,
     block: `
-      <block type="xaman_store_key" x="0" y="0"></block>
+      <block type="xaman_variable_name" x="0" y="0"></block>
     `,
     title: "Xaman Store Key",
-    description: "Input a key for Xaman Store (at least 4 characters, a-z0-9). This key is used for storing and retrieving data.",
+    description: "Input a name for Xaman Variable (at least 3 characters, a-z0-9). This name is used for storing and retrieving data.",
     categories: ["xaman"]
   },
   {
     height: 98.5,
     block: `
-      <block type="xaman_store_set" x="0" y="0"></block>
+      <block type="xaman_variable_set" x="0" y="0"></block>
     `,
-    title: "Xaman Store Set",
-    description: "Stores user data in Xaman with the specified key. The data is saved as a JSON array.",
+    title: "Xaman Set Variable",
+    description: "Save user data in Xaman with the specified name. The data is saved as a text.",
     categories: ["xaman"]
   },
   {
-    height: 78.5,
+    height: 47.5,
     block: `
-      <block type="xaman_store_get" x="0" y="0"></block>
+      <block type="xaman_variable_get" x="0" y="0"></block>
     `,
-    title: "Xaman Store Get",
-    description: "Retrieves user data from Xaman using the specified key. The stored JSON array is converted back to its original form.",
+    title: "Xaman Get Variable",
+    description: "Retrieve user data from Xaman with the specified name. The data is returned as a text.",
     categories: ["xaman"]
   },
   {
@@ -639,7 +639,7 @@ export const xaman_blocks = [
     categories: ["template","xaman"]
   },
   {
-    height: 447,
+    height: 194,
     block: `
     <variables>
       <variable id="f*RJqcwAmU1=-p;r7jyF">userInfo</variable>
@@ -649,7 +649,7 @@ export const xaman_blocks = [
     <block type="xaman_simple_login" id="f-c+ed2:I0374,5%4m@K" x="0" y="0">
       <field name="VAR" id="f*RJqcwAmU1=-p;r7jyF">userInfo</field>
       <next>
-        <block type="xaman_store_set" id="7s9Ib[.,!hW)^8w-U=]8">
+        <block type="xaman_variable_set" id="7s9Ib[.,!hW)^8w-U=]8">
           <field name="STATUS" id="eTrPHu/(@J.;k2!Gdk2t">status</field>
           <value name="DATA">
             <block type="text" id="Tlb$uk_zd2oV0pcq$Xr{">
@@ -657,36 +657,29 @@ export const xaman_blocks = [
             </block>
           </value>
           <value name="KEY">
-            <block type="xaman_store_key" id="Ck90G#D51q.U~\`6J|VN{">
-              <field name="KEY">key1</field>
+            <block type="xaman_variable_name" id="Ck90G#D51q.U~\`6J|VN{">
+              <field name="KEY">name1</field>
             </block>
           </value>
           <next>
-            <block type="xaman_store_get" id="#yE3e3?-o{#P3g5v;Mo}">
-              <field name="DATA" id="Zq,w{khu7aT$#4e4Ug1V">data</field>
-              <field name="STATUS" id="eTrPHu/(@J.;k2!Gdk2t">status</field>
-              <value name="KEY">
-                <block type="xaman_store_key" id="SV5Up{.:t3nU}1i;1^O[">
-                  <field name="KEY">key1</field>
-                </block>
-              </value>
-              <next>
-                <block type="text_print" id="MWwV4ZivV;5pqp^9=qq\`">
-                  <value name="TEXT">
-                    <block type="variables_get" id="fI7j+\`Y0[%eRq!zAsUW(">
-                      <field name="VAR" id="Zq,w{khu7aT$#4e4Ug1V">data</field>
+            <block type="text_print" id="2b#k)S:*:Z?{OqAy)$Bp">
+              <value name="TEXT">
+                <block type="xaman_variable_get" id="byP+z,.C24TKMJLYB@x0">
+                  <value name="KEY">
+                    <block type="xaman_variable_name" id="Be9rEjKge/euNP$%JZeV">
+                      <field name="KEY">name1</field>
                     </block>
                   </value>
                 </block>
-              </next>
+              </value>
             </block>
           </next>
         </block>
       </next>
     </block>
     `,
-    title: "Xaman Store Data Template",
-    description: "This template logs in the user, stores a value with a key in Xaman, retrieves the value, and prints it. The key must be at least 4 characters long, consisting of lowercase letters and digits.",
+    title: "Xaman Variable Handling Template",
+    description: "This template demonstrates how to handle variables in Xaman. It includes logging in, setting a variable, and then retrieving and printing the variable value.",
     categories: ["template","xaman"]
   }
 ];

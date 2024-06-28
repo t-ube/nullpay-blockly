@@ -4,7 +4,7 @@ import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { getXrplClient } from '@/blocks/xrpl/xrplClientInitializeBlock';
 import { getXrplWallet } from '@/blocks/xrpl/xrplWalletBlock';
-import { xrplToken } from '@/blocks/xrpl/xrplToken';
+import { IXrplToken } from '@/blocks/xrpl/xrplToken';
 import { newTitleLabel, newArgsLabel, newOutputLabel, blockCheckType } from '@/blocks/BlockField';
 
 
@@ -164,7 +164,7 @@ export const defineXrplPaymentTokenTxnBlock = () => {
 
   // JavaScript code generator for Payment XRPL Token
   javascriptGenerator.forBlock['xrpl_payment_token_txn'] = function(block, generator) {
-    const token = generator.valueToCode(block, 'TOKEN', Order.NONE) || {} as xrplToken;
+    const token = generator.valueToCode(block, 'TOKEN', Order.NONE) || {} as IXrplToken;
     const account = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.NONE) || '""';
     const dest = generator.valueToCode(block, 'DEST_ADDRESS', Order.NONE) || '""';
     const amount = generator.valueToCode(block, 'AMOUNT', Order.NONE) || 0;
@@ -176,7 +176,7 @@ export const defineXrplPaymentTokenTxnBlock = () => {
 export function initInterpreterXrplPaymentTokenTxn(interpreter: any, globalObject: any) {
   javascriptGenerator.addReservedWords('xrplPaymentTokenTxn');
   const wrapper = function (tokenText: string, account: string, dest: string, amount: string) {
-    let token = JSON.parse(tokenText) as xrplToken;
+    let token = JSON.parse(tokenText) as IXrplToken;
     const transaction = {
       TransactionType: 'Payment',
       Account: account,

@@ -1,14 +1,13 @@
 import React from 'react';
 import { PlayIcon, PauseIcon, StopIcon, FolderOpenIcon, DocumentArrowDownIcon } from '@heroicons/react/24/solid';
+import { PlayState } from '@/types/PlayStateType';
 
-export type PlayState = 'start' | 'resume' | 'init' | 'cancel' | 'suspend';
-
-interface ButtonGroupProps {
+interface IButtonGroupProps {
   playState: PlayState;
   setPlayState: React.Dispatch<React.SetStateAction<PlayState>>;
 }
 
-const StartButton = ({ playState, setPlayState } : ButtonGroupProps) => {
+const StartButton = ({ playState, setPlayState } : IButtonGroupProps) => {
   if (playState === 'start' || playState === 'resume') {
     return null;
   } else if (playState === 'init' || playState === 'cancel') {
@@ -33,7 +32,7 @@ const StartButton = ({ playState, setPlayState } : ButtonGroupProps) => {
   );
 };
 
-const StopButton = ({ playState, setPlayState } : ButtonGroupProps) => {
+const StopButton = ({ playState, setPlayState } : IButtonGroupProps) => {
   if (playState === 'start' || playState === 'resume') {
     return (
       <button
@@ -48,7 +47,7 @@ const StopButton = ({ playState, setPlayState } : ButtonGroupProps) => {
   return null;
 };
 
-const EndButton = ({ setPlayState } : ButtonGroupProps) => {
+const EndButton = ({ setPlayState } : IButtonGroupProps) => {
   const isDisabled = false;
   return (
     <button
@@ -76,7 +75,7 @@ const LoadButton = () => (
   </button>
 );
 
-const ButtonGroup = ({ playState, setPlayState } : ButtonGroupProps) => (
+const ButtonGroup = ({ playState, setPlayState } : IButtonGroupProps) => (
   <>
     <StartButton playState={playState} setPlayState={setPlayState} />
     <StopButton playState={playState} setPlayState={setPlayState} />

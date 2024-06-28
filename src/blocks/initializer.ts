@@ -79,10 +79,10 @@ import {
   defineXamanWaitForSignatureBlock, initInterpreterXamanWaitForSignatureBlock,
 } from '@/blocks/xaman/xamanWaitForSignatureBlock';
 import {
-  defineXamanStoreKeyBlock,
-  defineXamanStoreSetBlock, initInterpreterxamanStoreSet,
-  defineXamanStoreGetBlock, initInterpreterxamanStoreGet
-} from '@/blocks/xaman/xamanStoreBlock';
+  defineXamanVariableKeyBlock,
+  defineXamanVariableSetBlock, initInterpreterXamanVariableSet,
+  defineXamanVariableGetBlock, initInterpreterXamanVariableGet,
+} from '@/blocks/xaman/xamanVariableBlock';
 import { defineConfettiAnimationBlock, initInterpreterConfettiAnimationFunctions  } from '@/blocks/animation/confettiAnimationBlock';
 import { 
   defineTextEndsWithBlock, initInterpreterTextStartsWith,
@@ -246,9 +246,9 @@ const createCustomBlocks = () => {
   defineXamanSimpleLogoutBlock();
   defineXamanPaymentBlock();
   defineXamanWaitForSignatureBlock();
-  defineXamanStoreKeyBlock();
-  defineXamanStoreSetBlock();
-  defineXamanStoreGetBlock();
+  defineXamanVariableKeyBlock();
+  defineXamanVariableSetBlock();
+  defineXamanVariableGetBlock();
 
   // Math
   definePercentageBlock();
@@ -343,8 +343,8 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterXamanSimpleLogout(interpreter, scope);
   initInterpreterXamanPayment(interpreter, scope);
   initInterpreterXamanWaitForSignatureBlock(interpreter, scope);
-  initInterpreterxamanStoreSet(interpreter, scope);
-  initInterpreterxamanStoreGet(interpreter, scope);
+  initInterpreterXamanVariableSet(interpreter, scope);
+  initInterpreterXamanVariableGet(interpreter, scope);
   initInterpreterConfettiAnimationFunctions(interpreter, scope);
   initInterpreterCurrentDateTime(interpreter, scope);
   initInterpreterDatedatetimeToText(interpreter, scope);

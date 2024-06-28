@@ -1,7 +1,7 @@
 import { Wallet } from 'xrpl';
 
-export interface XRPLWalletMap {
+export interface IXRPLWalletMap {
   [key: string]: Wallet;
 }
 
-export const xrplWalletInstances : XRPLWalletMap = {};
+export const xrplWalletInstances : IXRPLWalletMap = {};

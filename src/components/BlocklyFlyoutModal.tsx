@@ -8,18 +8,26 @@ import {
 } from '@/blocks/BlockContents';
 import '@/components/BlocklyFlyoutModal.css';
 
-interface Block {
+interface IFlyoutModalBlock {
   height: number;
   block: string;
   title: string;
   description: string;
 }
 
-interface BlockTypesMap {
-  [key: string]: Block[];
+interface IFlyoutModalBlockTypesMap {
+  [key: string]: IFlyoutModalBlock[];
 }
 
-const initialBlockTypesMap: BlockTypesMap = {
+interface IFlyoutModalProps {
+  onBlockSelected: (xml: Element, eventType: string, event: MouseEvent) => void;
+  setOpen: (open: boolean) => void;
+  open: boolean;
+  flyoutType: string | null;
+  mainWorkspace: Blockly.WorkspaceSvg;
+}
+
+const initialBlockTypesMap: IFlyoutModalBlockTypesMap = {
   xrpl: xrpl_blocks,
   xaman: xaman_blocks,
   text: text_blocks,
@@ -35,21 +43,13 @@ const initialBlockTypesMap: BlockTypesMap = {
   supabase: supabase_blocks,
 };
 
-interface FlyoutModalProps {
-  onBlockSelected: (xml: Element, eventType: string, event: MouseEvent) => void;
-  setOpen: (open: boolean) => void;
-  open: boolean;
-  flyoutType: string | null;
-  mainWorkspace: Blockly.WorkspaceSvg;
-}
-
 const toolbox = `
 <xml id="toolbox" style={{ display: 'none' }}>
 </xml>`;
 
-const BlocklyFlyoutModal = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspace }: FlyoutModalProps) => {
+const BlocklyFlyoutModal = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspace }: IFlyoutModalProps) => {
   const workspaceRefs = useRef<{ id: string, workspace: Blockly.WorkspaceSvg | null }[]>([]);
-  const [blockTypesMap, setBlockTypesMap] = useState<BlockTypesMap>(initialBlockTypesMap);
+  const [blockTypesMap, setBlockTypesMap] = useState<IFlyoutModalBlockTypesMap>(initialBlockTypesMap);
   const [dynamicUpdated, setDynamicUpdated] = useState(false);
   
   const handleClose = useCallback(() => {
@@ -98,7 +98,7 @@ const BlocklyFlyoutModal = ({ onBlockSelected, setOpen, open, flyoutType, mainWo
     if (open && flyoutType && !dynamicUpdated) {
       let blocks = blockTypesMap[flyoutType];
       if (flyoutType === 'variable' || flyoutType === 'function') {
-        const dynamicBlocks: Block[] = [];
+        const dynamicBlocks: IFlyoutModalBlock[] = [];
         if (flyoutType === 'variable') {
           const elements = Blockly.Variables.flyoutCategoryBlocks(mainWorkspace);
           elements.forEach(xml => {
@@ -199,7 +199,7 @@ const BlocklyFlyoutModal = ({ onBlockSelected, setOpen, open, flyoutType, mainWo
         boxShadow: 24,
         p: 4,
       }}>
-        {flyoutType && blockTypesMap[flyoutType]?.map((item: Block, index: number) => (
+        {flyoutType && blockTypesMap[flyoutType]?.map((item: IFlyoutModalBlock, index: number) => (
           <Box key={index} mb={3}>
             <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
               {item.title}
