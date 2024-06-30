@@ -679,7 +679,7 @@ export const xrpl_blocks = [
           </next>
         </block>
     `,
-    title: "XRPL Token Creation and Transaction Flow",
+    title: "XRPL Token Generation and Transaction Flow",
     description: "This template guides you through the entire process of creating and managing a token on the XRPL (XRP Ledger). It includes steps to create a token, initialize the XRPL client, request testnet funds, set up wallets, and execute transactions such as trust set and token offers. This comprehensive flow ensures you understand how to interact with the XRPL for token management and transactions.",
     categories: ["template","xrpl"]
   },
