@@ -8,7 +8,7 @@ export const defineXrplCreateAccountBlock = () => {
   Blockly.Blocks['xrpl_create_account'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField(newTitleLabel("Create account"));
+        .appendField(newTitleLabel("Generate wallet"));
       this.appendDummyInput()
         .appendField(newOutputLabel("Wallet info"))
         .appendField(new Blockly.FieldVariable("walletInfo"), "VAR");

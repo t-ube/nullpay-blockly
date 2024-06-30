@@ -22,8 +22,14 @@ export const FlyoutTheme = Blockly.Theme.defineTheme('customTheme', {
     json_blocks: {
       colourPrimary: BlockColors.json
     },
+    table_blocks: {
+      colourPrimary: BlockColors.table
+    },
     time_blocks: {
       colourPrimary: BlockColors.time
+    },
+    supabase_blocks: {
+      colourPrimary: BlockColors.supabase
     },
     variable_blocks: {
       colourPrimary: BlockColors.variable
@@ -85,8 +91,14 @@ export const BaseTheme = Blockly.Theme.defineTheme('customTheme', {
     json_blocks: {
       colourPrimary: BlockColors.json
     },
+    table_blocks: {
+      colourPrimary: BlockColors.table
+    },
     time_blocks: {
       colourPrimary: BlockColors.time
+    },
+    supabase_blocks: {
+      colourPrimary: BlockColors.supabase
     },
     variable_blocks: {
       colourPrimary: BlockColors.variable

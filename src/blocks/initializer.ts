@@ -4,7 +4,6 @@ import * as En from 'blockly/msg/en';
 import { javascriptGenerator } from 'blockly/javascript';
 import Interpreter from 'js-interpreter';
 import * as BlockDynamicConnection from '@blockly/block-dynamic-connection';
-import { ZoomToFitControl } from '@blockly/zoom-to-fit';
 import { 
   defineDateTimeToRippleEpoch,
   defineRippleEpochToDateTime,
@@ -21,49 +20,113 @@ import { defineXrplXrp2DropBlock, defineXrplDrop2XrpBlock } from '@/blocks/xrpl/
 import { defineXrplPaymentBlock } from '@/blocks/xrpl/xrplPaymentBlock';
 import { definePercentageBlock } from '@/blocks/math/percentageBlock'; 
 import { defineXrplAccountInfoBlock, initInterpreterXrplAccountInfo } from '@/blocks/xrpl/xrplAccountInfoBlock';
-//import { defineXrplClientSubscribeStreamsTxnsBlock, initInterpreterXrplClientSubscribeStreamsTxns } from '@/blocks/xrpl/xrplClientSubscribeStreamsTxnsBlock';
+//import { defineXrplSubscribeAllTxnBlock, initInterpreterXrplSubscribeAllTxn } from '@/blocks/xrpl/xrplSubscribeStreamsTxnBlock';
 import { defineXrplClientInitializeBlock, initInterpreterXrplClientInitialize } from '@/blocks/xrpl/xrplClientInitializeBlock';
 import {
-  defineXrplClientSubscribeAccountTxnsBlock,
-  initInterpreterXrplClientSubscribeAccountTxns,
-  defineXrplClientUnsubscribeAccountTxnsBlock,
-  initInterpreterXrplClientUnsubscribeAccountTxns
-} from '@/blocks/xrpl/xrplClientSubscribeAccountTxnsBlock';
+  defineXrplSubscribeAccountTxnBlock, initInterpreterXrplSubscribeAccountTxn,
+  defineXrplUnsubscribeAccountTxnBlock, initInterpreterXrplUnsubscribeAccountTxn
+} from '@/blocks/xrpl/xrplSubscribeAccountTxnBlock';
 import {
-  defineXrplPaymentTxnBlock,
-  initInterpreterXrplPaymentTxn
+  defineXrplSubscribeAllTxnBlock, initInterpreterXrplSubscribeAllTxn,
+  defineXrplUnsubscribeAllTxnBlock, initInterpreterXrplUnsubscribeAllTxn
+} from '@/blocks/xrpl/xrplSubscribeStreamsTxnBlock';
+import {
+  defineXrplPaymentTxnBlock, initInterpreterXrplPaymentTxn,
+  defineXrplPaymentTokenTxnBlock, initInterpreterXrplPaymentTokenTxn
 } from '@/blocks/xrpl/xrplPaymentTransactionBlock';
 import {
-  defineXrplLoadWalletBlock,
-  initInterpreterXrplLoadWallet,
-  defineXrplWalletSignBlock,
-  initInterpreterXrplWalletSign
+  defineXrplLoadWalletBlock, initInterpreterXrplLoadWallet,
+  defineXrplWalletSignBlock, initInterpreterXrplWalletSign,
+  defineXrplWalletInfoBlock, initInterpreterXrplWalletInfo
 } from '@/blocks/xrpl/xrplWalletBlock';
-
 import {
-  defineXrplClientSubmitBlock, initInterpreterXrplClientSubmit
-} from '@/blocks/xrpl/xrplClientSubmitBlock';
+  defineXrplTokenSelectBlock,
+  defineXrplCreateNewTokenBlock, initInterpreterXrplCreateNewToken,
+} from '@/blocks/xrpl/xrplTokenBlock';
+import {
+  defineXrplRipplingTxnBlock, initInterpreterXrplRipplingTxn,
+} from '@/blocks/xrpl/xrplAccountSetTransactionBlock';
+import {
+  defineBuyTokenOfferTxnBlock, initInterpreterBuyTokenOfferTxn,
+  defineSaleTokenOfferTxnBlock, initInterpreterSaleTokenOfferTxn
+} from '@/blocks/xrpl/xrplOfferTransactionBlock';
+import {
+  defineXrplClientSubmitBlock, initInterpreterXrplClientSubmit,
+  defineXrplClientAutoFillBlock, initInterpreterXrplClientAutofill,
+  defineXrplEasySubmitBlock, initInterpreterXrplEasySubmit,
+  defineXrplTxCommandBlock, initInterpreterXrplTxCommand,
+  defineXrplAccountLinesCommandBlock, initInterpreterXrplAccountLinesCommand
+} from '@/blocks/xrpl/xrplSubmitBlock';
+import {
+  defineXrplTrustSetTxnBlock, initInterpreterXrplTrustSetTxn
+} from '@/blocks/xrpl/xrplTrustSetTransactionBlock';
 import {
   defineXrplExchangeAddressBlock
 } from '@/blocks/xrpl/xrplExchangeAddressBlock';
-
+import {
+  defineXrplGetTxnInfoBlock, initInterpreterXrplGetTxnInfoBlock,
+  defineXrplExtractOfferCreateTxnBlock, initInterpreterXrplExtractOfferCreateTxnBlock
+} from '@/blocks/xrpl/xrplAnalyticsTxnBlock';
+import {
+  defineXrplTxnTypeSelectBlock
+} from '@/blocks/xrpl/xrplTransactionTypeBlock';
 import { defineTextUtilInspectPrintBlock, initInterpreterTextUtilInspectPrint } from '@/blocks/text/textUtilInspectPrintBlock';
-import { defineUndefinedBlock, defineNullBlock } from '@/blocks/logic/logicBlock';
-
+import { 
+  defineUndefinedBlock,
+  defineNullBlock,
+  defineTrueBlock,
+  defineFalseBlock
+} from '@/blocks/logic/logicBlock';
 import { defineJsonGetValueBlock } from '@/blocks/json/jsonValueBlock';
 import { defineJsonToTextBlock } from '@/blocks/json/jsonToTextBlock';
-import { defineJsonTextToJsonBlock } from '@/blocks/json/jsonTextToJsonBlock';
+import {
+  defineJsonTextToJsonBlock,
+  defineJsonTextBlock, initInterpreterJsonText
+} from '@/blocks/json/jsonTextToJsonBlock';
 import { defineWaitForSecondsBlock, initInterpreterWaitForSeconds } from '@/blocks/control/waitForSecondsBlock';
+import { defineControlRunSpeedBlock, initInterpreterControlRunSpeed } from '@/blocks/control/controlRunSpeed';
 import { defineArrayAppendBlock } from '@/blocks/list/arrayAppendBlock';
 import { defineArrayInitBlock } from '@/blocks/list/arrayInitBlock';
 import { defineDynamicListCreate, defineDynamicTextJoin, defineDynamicIf } from '@/blocks/plugins/pluginDynamicConnection';
 import { defineXamanSimpleLoginBlock, initInterpreterXamanSimpleLogin } from '@/blocks/xaman/xamanSimpleLoginBlock';
 import { defineXamanSimpleLogoutBlock, initInterpreterXamanSimpleLogout } from '@/blocks/xaman/xamanSimpleLogoutBlock';
 import { defineXamanPaymentBlock, initInterpreterXamanPayment } from '@/blocks/xaman/xamanPaymentBlock';
-import { defineXamanWaitForSignatureBlock, initInterpreterXamanWaitForSignatureBlock } from '@/blocks/xaman/xamanWaitForSignatureBlock';
+import { 
+  defineXamanWaitForSignatureBlock, initInterpreterXamanWaitForSignatureBlock,
+} from '@/blocks/xaman/xamanWaitForSignatureBlock';
+import {
+  defineXamanVariableKeyBlock,
+  defineXamanVariableSetBlock, initInterpreterXamanVariableSet,
+  defineXamanVariableGetBlock, initInterpreterXamanVariableGet,
+} from '@/blocks/xaman/xamanVariableBlock';
 import { defineConfettiAnimationBlock, initInterpreterConfettiAnimationFunctions  } from '@/blocks/animation/confettiAnimationBlock';
+import { 
+  defineTextEndsWithBlock, initInterpreterTextStartsWith,
+  defineTextStartsWithBlock, initInterpreterTextEndsWith
+} from '@/blocks/text/textCompareBlock';
+import {
+  defineTextOnetimeBlock
+} from '@/blocks/text/textPrivateBlock';
+import { defineTextToUpperCaseBlock, defineTextToLowerCaseBlock } from '@/blocks/text/textConvertBlock';
 import { defineNumberToTextBlock } from '@/blocks/text/textNumberToTextBlock';
 import { defineTextToNumberBlock } from '@/blocks/text/textTextToNumberBlock';
+import {
+  defineTableEmptyBlock,
+  defineTableGetRowBlock, initInterpreterTableGetRow,
+  defineTableRowCountBlock, initInterpreterTableRowCount,
+  defineTextToTableBlock,
+  defineTableGetColumnBlock, initInterpreterTableGetColumn,
+  defineTableAddRowBlock, initInterpreterTableAddRow,
+} from '@/blocks/table/tableBlock';
+import {
+  defineSupabaseCreateClientBlock, initInterpreterSupabaseCreateClient,
+  defineSupabaseInsertBlock, initInterpreterSupabaseInsert,
+  defineSupabaseTextToJsonBlock, initInterpreterSupabaseTextToJson,
+  defineSupabaseSelectBlock, initInterpreterSupabaseSelect,
+  defineSupabaseUpdateBlock, initInterpreterSupabaseUpdate,
+  defineSupabaseDeleteBlock, initInterpreterSupabaseDelete
+} from '@/blocks/supabase/supabaseClientBlock';
+import { defineCsvBlock, defineCSVSaveBlock, initInterpreterTableCSVSave  } from '@/blocks/table/tableCsvBlock';
 import { defineCurrentDateTimeBlock, initInterpreterCurrentDateTime } from '@/blocks/time/getCurrentDateTimeBlock';
 import { defineDatedatetimeToTextBlock, initInterpreterDatedatetimeToText } from '@/blocks/time/datetimeToTextBlock';
 import { defineCreateDateTimeBlock, initInterpreterCreateDateTime } from '@/blocks/time/createTimeBlock';
@@ -129,6 +192,9 @@ const toolbox = `
       <block type="json_to_text"></block>
       <block type="text_to_json"></block>
     </category>
+    <category name="Table" colour="%{BKY_LOOPS_HUE}">
+      <block type="table_load_csv"></block>
+    </category>
     <category name="Animation" colour="${BlockColors.animation}">
       <block type="confetti_animation"></block>
     </category>
@@ -146,6 +212,7 @@ const toolbox = `
       <block type="array_append"></block>
       <block type="dynamic_list_create"></block>
       <block type="lists_length"></block>
+      <block type="lists_repeat"></block>
       <block type="lists_isEmpty"></block>
       <block type="lists_sort"></block>
     </category>
@@ -160,38 +227,6 @@ const toolbox = `
 
 
 const createCustomBlocks = () => {
-  // Common
-  defineWaitForSecondsBlock();
-  definePercentageBlock();
-  defineConsoleLogBlock();
-  defineJsonGetValueBlock();
-  defineJsonToTextBlock();
-  defineJsonTextToJsonBlock();
-  defineArrayAppendBlock();
-  defineArrayInitBlock();
-  defineConfettiAnimationBlock();
-  defineNumberToTextBlock();
-  defineTextToNumberBlock();
-  defineTextUtilInspectPrintBlock();
-  defineUndefinedBlock();
-  defineNullBlock();
-
-  // Time
-  defineCurrentDateTimeBlock();
-  defineDatedatetimeToTextBlock();
-  defineCreateDateTimeBlock();
-  defineDateTimeToRippleEpoch();
-  defineRippleEpochToDateTime();
-  defineAdjustDateTimeBlock();
-  defineDateTimeTextFormatBlock();
-  defineTimezoneBlock();
-  defineCompareDateTimeBlock();
-
-  // Plugins
-  defineDynamicListCreate();
-  defineDynamicTextJoin();
-  defineDynamicIf();
-
   // XRPL & Xahau
   defineXrplNetworkWssSelectionBlock();
   defineXrplFaucetNetworkSelectionBlock();
@@ -204,39 +239,152 @@ const createCustomBlocks = () => {
   defineXrplPaymentBlock();
   defineXrplAccountInfoBlock();
   defineXrplClientInitializeBlock();
-  defineXrplClientSubscribeAccountTxnsBlock();
-  defineXrplClientUnsubscribeAccountTxnsBlock();
+  defineXrplSubscribeAccountTxnBlock();
+  defineXrplUnsubscribeAccountTxnBlock();
+  defineXrplSubscribeAllTxnBlock();
+  defineXrplUnsubscribeAllTxnBlock();
   defineXrplLoadWalletBlock();
+  defineXrplEasySubmitBlock();
+  defineXrplTxCommandBlock();
+  defineXrplAccountLinesCommandBlock();
   defineXrplWalletSignBlock();
+  defineXrplWalletInfoBlock();
   defineXrplPaymentTxnBlock();
+  defineXrplPaymentTokenTxnBlock();
   defineXrplClientSubmitBlock();
+  defineXrplClientAutoFillBlock();
   defineXrplExchangeAddressBlock();
+  defineXrplTokenSelectBlock();
+  defineXrplCreateNewTokenBlock();
+  defineXrplRipplingTxnBlock();
+  defineXrplTrustSetTxnBlock();
+  defineBuyTokenOfferTxnBlock();
+  defineSaleTokenOfferTxnBlock();
+  defineXrplGetTxnInfoBlock();
+  defineXrplExtractOfferCreateTxnBlock();
+  defineXrplTxnTypeSelectBlock();
 
   // Xaman Wallet
   defineXamanSimpleLoginBlock();
   defineXamanSimpleLogoutBlock();
   defineXamanPaymentBlock();
   defineXamanWaitForSignatureBlock();
+  defineXamanVariableKeyBlock();
+  defineXamanVariableSetBlock();
+  defineXamanVariableGetBlock();
+
+  // Math
+  definePercentageBlock();
+
+  // Text
+  defineTextToNumberBlock();
+  defineTextUtilInspectPrintBlock();
+  defineNumberToTextBlock();
+  defineTextEndsWithBlock();
+  defineTextStartsWithBlock();
+  defineTextToUpperCaseBlock();
+  defineTextToLowerCaseBlock();
+  defineTextOnetimeBlock();
+
+  // JSON
+  defineJsonGetValueBlock();
+  defineJsonToTextBlock();
+  defineJsonTextToJsonBlock();
+  defineJsonTextBlock();
+
+  // Table
+  defineTableEmptyBlock();
+  defineTableGetRowBlock();
+  defineTableRowCountBlock();
+  defineTextToTableBlock();
+  defineTableGetColumnBlock();
+  defineTableAddRowBlock();
+  defineCsvBlock();
+  defineCSVSaveBlock();
+  defineSupabaseCreateClientBlock();
+  defineSupabaseInsertBlock();
+  defineSupabaseTextToJsonBlock();
+  defineSupabaseSelectBlock();
+  defineSupabaseUpdateBlock();
+  defineSupabaseDeleteBlock();
+
+  // List
+  defineArrayAppendBlock();
+  defineArrayInitBlock();
+
+  // Control
+  defineWaitForSecondsBlock();
+  defineControlRunSpeedBlock();
+
+  // Time
+  defineCurrentDateTimeBlock();
+  defineDatedatetimeToTextBlock();
+  defineCreateDateTimeBlock();
+  defineDateTimeToRippleEpoch();
+  defineRippleEpochToDateTime();
+  defineAdjustDateTimeBlock();
+  defineDateTimeTextFormatBlock();
+  defineTimezoneBlock();
+  defineCompareDateTimeBlock();
+
+  // Logic
+  defineUndefinedBlock();
+  defineNullBlock();
+  defineTrueBlock();
+  defineFalseBlock();
+
+  // Animation
+  defineConfettiAnimationBlock();
+  
+  // Debug
+  defineConsoleLogBlock();
+  
+  // Plugins
+  defineDynamicListCreate();
+  defineDynamicTextJoin();
+  defineDynamicIf();
 }
 
 const initInterpreter = (interpreter: Interpreter, scope: any) => {
-  initInterpreterWaitForSeconds(interpreter, scope);
+
   initInterpreterXrplAccountInfo(interpreter, scope);
   initInterpreterXrplClientInitialize(interpreter, scope);
-  initInterpreterXrplClientSubscribeAccountTxns(interpreter, scope);
-  initInterpreterXrplClientUnsubscribeAccountTxns(interpreter, scope);
+  initInterpreterXrplSubscribeAccountTxn(interpreter, scope);
+  initInterpreterXrplUnsubscribeAccountTxn(interpreter, scope);
+  initInterpreterXrplSubscribeAllTxn(interpreter, scope);
   initInterpreterXrplCreateAccount(interpreter, scope);
   initInterpreterXrplRequestFaucet(interpreter, scope);
   initInterpreterXrplRequestCustomFaucet(interpreter, scope);
   initInterpreterXrplLoadWallet(interpreter, scope);
   initInterpreterXrplWalletSign(interpreter, scope);
+  initInterpreterXrplWalletInfo(interpreter, scope);
+  initInterpreterXrplEasySubmit(interpreter, scope);
   initInterpreterXrplClientSubmit(interpreter, scope);
+  initInterpreterXrplClientAutofill(interpreter, scope);
   initInterpreterXrplPaymentTxn(interpreter, scope);
+  initInterpreterXrplPaymentTokenTxn(interpreter, scope);
+  initInterpreterXrplCreateNewToken(interpreter, scope);
+  initInterpreterXrplRipplingTxn(interpreter, scope);
+  initInterpreterXrplTrustSetTxn(interpreter, scope);
+  initInterpreterXrplGetTxnInfoBlock(interpreter, scope);
+  initInterpreterBuyTokenOfferTxn(interpreter, scope);
+  initInterpreterSaleTokenOfferTxn(interpreter, scope);
+  initInterpreterXrplTxCommand(interpreter, scope);
+  initInterpreterXrplExtractOfferCreateTxnBlock(interpreter, scope);
+  initInterpreterXrplUnsubscribeAllTxn(interpreter, scope);
+  initInterpreterXrplAccountLinesCommand(interpreter, scope);
+
   initInterpreterXamanSimpleLogin(interpreter, scope);
   initInterpreterXamanSimpleLogout(interpreter, scope);
   initInterpreterXamanPayment(interpreter, scope);
   initInterpreterXamanWaitForSignatureBlock(interpreter, scope);
+  initInterpreterXamanVariableSet(interpreter, scope);
+  initInterpreterXamanVariableGet(interpreter, scope);
+
+  initInterpreterWaitForSeconds(interpreter, scope);
+  initInterpreterControlRunSpeed(interpreter, scope);
   initInterpreterConfettiAnimationFunctions(interpreter, scope);
+
   initInterpreterCurrentDateTime(interpreter, scope);
   initInterpreterDatedatetimeToText(interpreter, scope);
   initInterpreterCreateDateTime(interpreter, scope);
@@ -244,6 +392,23 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterRippleEpochToDateTime(interpreter, scope);
   initInterpreterAdjustDateTime(interpreter, scope);
   initInterpreterCompareDateTime(interpreter, scope);
+
+  initInterpreterTextStartsWith(interpreter, scope);
+  initInterpreterTextEndsWith(interpreter, scope);
+  initInterpreterJsonText(interpreter, scope);
+
+  initInterpreterTableGetColumn(interpreter, scope);
+  initInterpreterTableRowCount(interpreter, scope);
+  initInterpreterTableGetRow(interpreter, scope);
+  initInterpreterTableAddRow(interpreter, scope);
+  initInterpreterTableCSVSave(interpreter, scope);
+
+  initInterpreterSupabaseCreateClient(interpreter, scope);
+  initInterpreterSupabaseInsert(interpreter, scope);
+  initInterpreterSupabaseTextToJson(interpreter, scope);
+  initInterpreterSupabaseSelect(interpreter, scope);
+  initInterpreterSupabaseUpdate(interpreter, scope);
+  initInterpreterSupabaseDelete(interpreter, scope);
 }
 
 const initInterpreterEx = (interpreter: Interpreter, scope: any, logArea:HTMLTextAreaElement | null) => {

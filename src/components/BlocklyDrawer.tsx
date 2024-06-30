@@ -5,13 +5,13 @@ import { Drawer, Box, Typography, Divider, Dialog, DialogActions, DialogContent,
 import PuzzleIcon from '@mui/icons-material/Extension';
 import { 
   xrpl_blocks, xaman_blocks, text_blocks, math_blocks,
-  control_blocks, time_blocks, json_blocks, animation_blocks,
-  logic_blocks, loop_blocks, lists_blocks
+  control_blocks, table_blocks, time_blocks, json_blocks, animation_blocks,
+  logic_blocks, loop_blocks, lists_blocks, supabase_blocks
 } from '@/blocks/BlockContents';
 import { BlockColors } from '@/blocks/BlockColors';
 import { BlockIcons } from '@/blocks/BlockIcons';
 
-interface Block {
+interface IDrawerBlock {
   height: number;
   block: string;
   title: string;
@@ -19,66 +19,19 @@ interface Block {
   categories: string[];
 }
 
-interface BlockTypesMap {
-  [key: string]: Block[];
+interface IDrawerBlockTypesMap {
+  [key: string]: IDrawerBlock[];
 }
 
-const initialBlockTypesMap: BlockTypesMap = {
-  xrpl: xrpl_blocks,
-  xaman: xaman_blocks,
-  text: text_blocks,
-  math: math_blocks,
-  control: control_blocks,
-  time: time_blocks,
-  json: json_blocks,
-  animation: animation_blocks,
-  logic: logic_blocks,
-  loop: loop_blocks,
-  list: lists_blocks,
-};
-
-interface BlockDrawerMap {
+interface IDrawerBlockDrawerMap {
   [key: string]: number;
 }
 
-const initialBlockDrawerMap : BlockDrawerMap = {
-  xrpl: 350,
-  xaman: 300,
-  text: 300,
-  math: 300,
-  control: 300,
-  time: 320,
-  json: 300,
-  animation: 300,
-  logic: 300,
-  loop: 300,
-  list: 300,
-  variable: 300,
-  function: 300,
-};
-
-interface BlockTitleMap {
+interface IDrawerBlockTitleMap {
   [key: string]: string;
 }
 
-const initialBlockTitleMap : BlockTitleMap = {
-  xrpl: 'XRPL',
-  xaman: 'Xaman',
-  text: 'Text',
-  math: 'Math',
-  control: 'Control',
-  time: 'Time',
-  json: 'JSON',
-  animation: 'Animation',
-  logic: 'Logic',
-  loop: 'Loops',
-  list: 'Lists',
-  variable: 'Variables',
-  function: 'Functions',
-};
-
-
-interface BlocklyDrawerProps {
+interface IDrawerBlocklyDrawerProps {
   onBlockSelected: (xml: string, eventType: string, event: MouseEvent) => void;
   setOpen: (open: boolean) => void;
   open: boolean;
@@ -86,13 +39,65 @@ interface BlocklyDrawerProps {
   mainWorkspace: Blockly.WorkspaceSvg;
 }
 
+const initialBlockTypesMap: IDrawerBlockTypesMap = {
+  xrpl: xrpl_blocks,
+  xaman: xaman_blocks,
+  text: text_blocks,
+  math: math_blocks,
+  control: control_blocks,
+  table: table_blocks,
+  time: time_blocks,
+  json: json_blocks,
+  animation: animation_blocks,
+  logic: logic_blocks,
+  loop: loop_blocks,
+  list: lists_blocks,
+  supabase: supabase_blocks,
+};
+
+const initialBlockDrawerMap : IDrawerBlockDrawerMap = {
+  xrpl: 350,
+  xaman: 300,
+  text: 300,
+  math: 300,
+  control: 300,
+  table: 300,
+  time: 320,
+  json: 300,
+  animation: 300,
+  logic: 300,
+  loop: 300,
+  list: 320,
+  supabase: 320,
+  variable: 300,
+  function: 300,
+};
+
+const initialBlockTitleMap : IDrawerBlockTitleMap = {
+  xrpl: 'XRPL',
+  xaman: 'Xaman',
+  text: 'Text',
+  math: 'Math',
+  control: 'Control',
+  table: 'Table',
+  time: 'Time',
+  json: 'JSON',
+  animation: 'Animation',
+  logic: 'Logic',
+  loop: 'Loops',
+  list: 'Lists',
+  supabase: 'Supabase',
+  variable: 'Variables',
+  function: 'Functions',
+};
+
 const toolbox = `
 <xml id="toolbox" style={{ display: 'none' }}>
 </xml>`;
 
-const BlocklyDrawer = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspace }: BlocklyDrawerProps) => {
+const BlocklyDrawer = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspace }: IDrawerBlocklyDrawerProps) => {
   const workspaceRefs = useRef<{ id: string, workspace: Blockly.WorkspaceSvg | null }[]>([]);
-  const [blockTypesMap, setBlockTypesMap] = useState<BlockTypesMap>(initialBlockTypesMap);
+  const [blockTypesMap, setBlockTypesMap] = useState<IDrawerBlockTypesMap>(initialBlockTypesMap);
   const [dynamicUpdated, setDynamicUpdated] = useState(false);
   const [varDialogOpen, setVarDialogOpen] = useState(false);
   const [variableName, setVariableName] = useState("");
@@ -137,10 +142,10 @@ const BlocklyDrawer = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspa
 
   useEffect(() => {
     if (open && flyoutType && !dynamicUpdated) {
-      let blocks : Block[] = [];
+      let blocks : IDrawerBlock[] = [];
 
       if (flyoutType === 'variable' || flyoutType === 'function') {
-        const dynamicBlocks: Block[] = [];
+        const dynamicBlocks: IDrawerBlock[] = [];
         if (flyoutType === 'variable') {
           const elements = Blockly.Variables.flyoutCategoryBlocks(mainWorkspace);
           elements.forEach(xml => {
@@ -168,7 +173,7 @@ const BlocklyDrawer = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspa
         blocks = dynamicBlocks;
         setDynamicUpdated(true);
       } else {
-        const dynamicBlocks: Block[] = blockTypesMap[flyoutType].filter(block => !block.categories?.includes('template'));
+        const dynamicBlocks: IDrawerBlock[] = blockTypesMap[flyoutType].filter(block => !block.categories?.includes('template'));
         blocks = dynamicBlocks;
         setBlockTypesMap(prevMap => ({ ...prevMap, [flyoutType]: dynamicBlocks }));
         setDynamicUpdated(true);
@@ -293,13 +298,14 @@ const BlocklyDrawer = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspa
               </Button>
             </Box>
           }
-          {flyoutType && blockTypesMap[flyoutType]?.map((item: Block, index: number) => (
+          {flyoutType && blockTypesMap[flyoutType]?.map((item: IDrawerBlock, index: number) => (
             <Box key={index} mt={2} mb={3}>
               <Box id={`flyoutDiv_${index}`} sx={{ width: '100%', height: item.height, mb: 2 }} />
             </Box>
           ))}
         </Box>
       </Drawer>
+      {/* Variable Dialog */}
       <Dialog open={varDialogOpen} onClose={handleVarDialogClose}>
         <DialogTitle>Add Variable</DialogTitle>
         <DialogContent>

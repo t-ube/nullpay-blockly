@@ -94,3 +94,33 @@ body {
 .blocklyHtmlInput.blocklyTimeInput {
   min-width: 100px;
 }
+
+.jexcel_contextmenu {
+  display: none;
+}
+
+.table-load-button {
+  background-color: #009382;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: small;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.table-block-content {
+  font-size: small;
+}
+
+.table-load-button:hover {
+  background-color: #0E7570;
+}
+
+.blocklyDropDownArrow.blocklyArrowTop {
+  pointer-events: none;
+}

@@ -1,9 +1,9 @@
 import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
-import { exchangeAddress, exchangeAddresses } from '@/blocks/xrpl/xrplAddress';
+import { IExchangeAddress, exchangeAddresses } from '@/blocks/xrpl/xrplAddress';
 
-const convertToAddressMenu = (addresses: exchangeAddress[]): [string, string][] => {
+const convertToAddressMenu = (addresses: IExchangeAddress[]): [string, string][] => {
   return addresses.map(address => {
     const displayName = address.desc ? `${address.name}(${address.desc})` : address.name;
     return [displayName, address.account];

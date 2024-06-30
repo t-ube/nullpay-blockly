@@ -35,3 +35,38 @@ export const defineNullBlock = () => {
     return ['null', Order.ATOMIC];
   };
 };
+
+export const defineTrueBlock = () => {
+  Blockly.Blocks['true'] = {
+    init: function () {
+      this.appendDummyInput()
+        .appendField("true");
+      this.setOutput(true, null);
+      this.setColour(BlockColors.logic);
+      this.setTooltip('Returns the boolean value true.');
+      this.setHelpUrl('');
+    }
+  };
+
+  javascriptGenerator.forBlock['true'] = function (block, generator) {
+    return ['true', Order.ATOMIC];
+  };
+};
+
+export const defineFalseBlock = () => {
+  Blockly.Blocks['false'] = {
+    init: function () {
+      this.appendDummyInput()
+        .appendField("false");
+      this.setOutput(true, null);
+      this.setColour(BlockColors.logic);
+      this.setTooltip('Returns the boolean value false.');
+      this.setHelpUrl('');
+    }
+  };
+
+  javascriptGenerator.forBlock['false'] = function (block, generator) {
+    return ['false', Order.ATOMIC];
+  };
+};
+

@@ -1,21 +1,41 @@
-import React, { useEffect, forwardRef, ForwardedRef } from 'react';
+import React, { useEffect, useState, ForwardedRef } from 'react';
 import Image from 'next/image';
 import classNames from 'classnames';
-import { PlayIcon, PauseIcon, StopIcon, FolderOpenIcon, DocumentArrowDownIcon, MagnifyingGlassIcon } from '@heroicons/react/24/solid';
-import ButtonGroup, { PlayState } from '@/components/HeaderButtons';
-import { TextField, InputAdornment } from '@mui/material';
+import { MagnifyingGlassIcon, WalletIcon } from '@heroicons/react/24/solid';
+import { Box, TextField, InputAdornment, Menu, MenuItem, Typography } from '@mui/material';
+import { styled } from '@mui/system';
+import ButtonGroup from '@/components/HeaderButtons';
+import { formatAddress } from '@/utils/TextFormatter';
+import { XamanVariablesModal } from '@/components/XamanVariablesModal';
 import { useMobile } from '@/contexts/MobileContext';
+import { useAccount } from '@/contexts/AccountContext';
+import { IHeaderProps } from '@/interfaces/IHeaderProps';
 
-interface HeaderProps {
-  playState: PlayState;
-  setPlayState: React.Dispatch<React.SetStateAction<PlayState>>;
-  onSearchClick: () => void;
-  onSaveClick: () => void;
-  onLoadClick: () => void;
-}
 
-const Header = React.forwardRef(({ playState, setPlayState, onSearchClick, onSaveClick, onLoadClick }: HeaderProps, ref: ForwardedRef<HTMLElement>) => {
+const XamanButton = styled('button')(({ theme }) => ({
+  fontSize: '14px',
+  backgroundColor: '#0130CC',
+  color: 'white',
+  '&:hover': {
+    background: '#0130CC',
+    color: 'white',
+  },
+}));
+
+const MyMenuItem = styled(MenuItem)(({ theme }) => ({
+  fontSize: '14px',
+}));
+
+const Header = React.forwardRef(({ playState, setPlayState, onSearchClick, onSaveClick, onLoadClick }: IHeaderProps, ref: ForwardedRef<HTMLElement>) => {
   const { isMobile, isPortrait, isLoaded } = useMobile();
+  const { loggedIn, userAccount, userName, userPicture, signIn, logout } = useAccount();
+  const [isSmall, setIsSmall] = useState(false);
+  const [drawerVisible, setDrawerVisible] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  useEffect(() => {
+    setIsSmall(isMobile && !isPortrait);
+  }, [isMobile, isPortrait, isLoaded]);
 
   useEffect(() => {
     const headerHeight = ref && 'current' in ref && ref.current ? ref.current.offsetHeight : 0;
@@ -24,6 +44,77 @@ const Header = React.forwardRef(({ playState, setPlayState, onSearchClick, onSav
 
   if (!isLoaded) {
     return <div></div>;
+  }
+
+  const handleSignInXaman = async () => {
+    signIn();
+  };
+
+  const handleLogoutXaman = async () => {
+    logout();
+    setAnchorEl(null);
+  };
+
+  const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const getAccountMenu = () => {
+    return (
+      <Menu
+        sx={{ 
+          mt: '25px',
+          py: isMobile && isPortrait ? 0 : 1
+        }}
+        id="menu-appbar"
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+        disableScrollLock={true}
+      >
+        <MyMenuItem
+          sx={{
+            minHeight: isMobile && isPortrait ? '32px' : '48px'
+          }}
+          onClick={() => { setDrawerVisible(true); handleMenuClose(); }}
+        >
+          <Typography
+            textAlign="center"
+            variant="body2"
+            color="textPrimary"
+          >
+            {'Settings'}
+          </Typography>
+        </MyMenuItem>
+        <MyMenuItem
+          sx={{
+            minHeight: isMobile && isPortrait ? '32px' : '48px'
+          }}
+          onClick={handleLogoutXaman}
+        >
+          <Typography
+            textAlign="center"
+            variant="body2"
+            color="textPrimary"
+          >
+            {'Logout'}
+          </Typography>
+        </MyMenuItem>
+      </Menu>
+    )
   }
 
   return (
@@ -73,6 +164,38 @@ const Header = React.forwardRef(({ playState, setPlayState, onSearchClick, onSav
           style={{ width: '300px' }}
         />
       </div>
+
+      {loggedIn ? (
+        <>
+          <XamanButton
+            color="inherit"
+            className='flex items-center px-1 py-1 text-xs rounded shadow transition duration-200 ml-auto font-bold'
+            onClick={handleMenuClick}
+          >
+            <Box
+              component="img"
+              src="/icons/xaman-logo.jpg"
+              alt="Xaman Icon"
+              sx={{
+                height: 20,
+                width: 20,
+                marginRight: isMobile ? 0 : 1,
+              }}
+            />
+            {!isMobile && formatAddress(userAccount)}
+          </XamanButton>
+          {getAccountMenu()}
+        </>
+      ) : (
+        <button
+          color="inherit"
+          className='flex items-center px-2 py-1 text-sm rounded shadow text-white bg-gray-500 hover:bg-gray-700 transition duration-200 ml-auto'
+          onClick={handleSignInXaman}
+        >
+          <WalletIcon className="h-4 w-4 mr-1" />{!isMobile && "Connect"}
+        </button>
+      )}
+      <XamanVariablesModal visible={drawerVisible} onClose={() => setDrawerVisible(false)} />
     </header>
   );
 });

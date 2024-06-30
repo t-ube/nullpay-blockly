@@ -1,10 +1,12 @@
+import { Transaction } from 'xrpl';
 import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
-import { getXrplClient } from './xrplClientInitializeBlock';
-import { getXrplWallet } from './xrplWalletBlock';
-import { Transaction } from 'xrpl';
-import { newTitleLabel, newArgsLabel, newOutputLabel } from '@/blocks/BlockField';
+import { getXrplClient } from '@/blocks/xrpl/xrplClientInitializeBlock';
+import { getXrplWallet } from '@/blocks/xrpl/xrplWalletBlock';
+import { IXrplToken } from '@/blocks/xrpl/xrplToken';
+import { newTitleLabel, newArgsLabel, newOutputLabel, blockCheckType } from '@/blocks/BlockField';
+
 
 export const defineXrplPaymentTxnBlock = () => {
   Blockly.Blocks['xrpl_payment_transaction'] = {
@@ -84,4 +86,108 @@ export function initInterpreterXrplPaymentTxn(interpreter: any, globalObject: an
   };
 
   interpreter.setProperty(globalObject, 'createPaymentTransaction', interpreter.createAsyncFunction(wrapper));
+}
+
+
+// Define the block for Payment XRPL Token
+export const defineXrplPaymentTokenTxnBlock = () => {
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "xrpl_payment_token_txn",
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_label",
+          "text": "Payment token transaction",
+          "class": "title-label"
+        }
+      ],
+      "message1": "%1 %2",
+      "args1": [
+        {
+          "type": "field_label",
+          "text": "Token",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "TOKEN",
+          "check": blockCheckType.xrplToken
+        }
+      ],
+      "message2": "%1 %2",
+      "args2": [
+        {
+          "type": "field_label",
+          "text": "Account address",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "ACCOUNT_ADDRESS",
+          "check": "String"
+        }
+      ],
+      "message3": "%1 %2",
+      "args3": [
+        {
+          "type": "field_label",
+          "text": "Destination address",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "DEST_ADDRESS",
+          "check": "String"
+        }
+      ],
+      "message4": "%1 %2",
+      "args4": [
+        {
+          "type": "field_label",
+          "text": "Token amount",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "AMOUNT",
+          "check": "Number"
+        }
+      ],
+      "output": blockCheckType.xrplTxnPayload,
+      "inputsInline": false,
+      "colour": BlockColors.xrpl,
+      "tooltip": "Create a payment transaction on the XRPL",
+      "helpUrl": ""
+    }
+  ]);
+
+  // JavaScript code generator for Payment XRPL Token
+  javascriptGenerator.forBlock['xrpl_payment_token_txn'] = function(block, generator) {
+    const token = generator.valueToCode(block, 'TOKEN', Order.NONE) || {} as IXrplToken;
+    const account = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.NONE) || '""';
+    const dest = generator.valueToCode(block, 'DEST_ADDRESS', Order.NONE) || '""';
+    const amount = generator.valueToCode(block, 'AMOUNT', Order.NONE) || 0;
+    const code = `xrplPaymentTokenTxn(JSON.stringify(${token}),${account},${dest},String(${amount}))`;
+    return [code, Order.ATOMIC];
+  };
+};
+
+export function initInterpreterXrplPaymentTokenTxn(interpreter: any, globalObject: any) {
+  javascriptGenerator.addReservedWords('xrplPaymentTokenTxn');
+  const wrapper = function (tokenText: string, account: string, dest: string, amount: string) {
+    let token = JSON.parse(tokenText) as IXrplToken;
+    const transaction = {
+      TransactionType: 'Payment',
+      Account: account,
+      Destination: dest,
+      Amount: {
+        issuer: token.issuer,
+        currency: token.currency_code,
+        value: amount
+      }
+    };
+    return interpreter.nativeToPseudo(transaction);
+  };
+  interpreter.setProperty(globalObject, 'xrplPaymentTokenTxn', interpreter.createNativeFunction(wrapper));
 }

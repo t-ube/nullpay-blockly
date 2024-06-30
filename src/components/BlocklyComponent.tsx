@@ -11,16 +11,20 @@ import { MainTabs } from '@/components/MainTabs';
 import FeatureModal from '@/components/FeatureModal';
 import { useReward } from 'react-rewards';
 import { setConfettiAnimationFunction } from '@/blocks/animation/confettiAnimationBlock';
+import { setControlRunSpeedFunction } from '@/blocks/control/controlRunSpeed';
 import BlocklySearchFlyout from '@/components/BlocklySearchFlyout';
 import BlocklyDrawer from '@/components/BlocklyDrawer';
 import { Sidebar } from '@/components/Sidebar';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { PlayState } from '@/components/HeaderButtons';
+import { PlayState } from '@/types/PlayStateType';
 import { dropBlockToWorkspace, addBlockToWorkspace } from '@/utils/BlocklyHelper';
 //import WelcomeDialog from '@/components/WelcomeDialog';
-import { DemoBlockXml } from '@/demos/demo-v0-r2-async-block';
-import { releaseInfo as initialReleaseInfo } from '@/features/features-v0-r2';
+//import { DemoBlockXml } from '@/demos/demo-v0-r2-async-block';
+import { DemoV0R3CsvLoadXml } from '@/demos/demo-v0-r3-csv-load';
+import { DemoV0R3Supabase } from '@/demos/demo-v0-r3-supabase';
+import { DemoV0R3Xaman } from '@/demos/demo-v0-r3-xaman';
+import { releaseInfo as initialReleaseInfo } from '@/features/features-v0-r3';
 import { useMobile } from '@/contexts/MobileContext';
 
 type clientFramePos = {
@@ -60,6 +64,7 @@ const BlocklyComponent = () => {
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const { reward, isAnimating } = useReward("confettiItem", "confetti");
   const [isRunning, setIsRunning] = useState(false);
+  const runSpeedRef = useRef(1);
   const [duration, setDuration] = useState(0);
   const [openFeatures, setOpenFeatures] = useState(false);
   const [openFlyout, setOpenFlyout] = useState<boolean>(false);
@@ -84,7 +89,7 @@ const BlocklyComponent = () => {
     };
     setConfettiAnimationFunction(confettiAnimationInternal);
   }, [reward, isAnimating]);
-
+  
   useEffect(() => {
     if (isRunning && duration > 0) {
       const timer = setTimeout(() => {
@@ -97,6 +102,20 @@ const BlocklyComponent = () => {
   const handleSaveWorkspace = () => {
     console.log('handleSaveWorkspace');
     const xml = Blockly.Xml.workspaceToDom(workspace);
+
+    //
+    const blocks = xml.getElementsByTagName('block');
+    for (let i = 0; i < blocks.length; i++) {
+      if (blocks[i].getAttribute('type') === 'text_onetime_block') {
+        const fields = blocks[i].getElementsByTagName('field');
+        for (let j = 0; j < fields.length; j++) {
+          if (fields[j].getAttribute('name') === 'INPUT') {
+            fields[j].textContent = '';
+          }
+        }
+      }
+    }
+    //
     const xmlText = Blockly.Xml.domToPrettyText(xml);
     const blob = new Blob([xmlText], { type: 'text/xml' });
     const url = URL.createObjectURL(blob);
@@ -165,6 +184,11 @@ const BlocklyComponent = () => {
 
     workspace.addChangeListener(updateCode);
 
+    const runSpeedTrigger = (speed: number) => {
+      runSpeedRef.current = speed;
+    };
+    setControlRunSpeedFunction(runSpeedTrigger);
+
     return () => {
       window.removeEventListener('resize', handleResize);
       workspace.removeChangeListener(updateCode);
@@ -210,7 +234,7 @@ const BlocklyComponent = () => {
     if (suspendRef.current) {
       setTimeout(() => {
         playCode();
-      }, 10);
+      }, 1);
       return;
     }
 
@@ -223,10 +247,19 @@ const BlocklyComponent = () => {
       }
     }
 
-    let hasMoreCode = interpreterTemp.step();
+    const stepsToRun = runSpeedRef.current;
+    let hasMoreCode = true;
+    for (let i = 0; i < stepsToRun; i++) {
+      hasMoreCode = interpreterTemp.step();
+      if (!hasMoreCode) {
+        break;
+      }
+    }
+
+    //let hasMoreCode = interpreterTemp.step();
     if (hasMoreCode) {
       myInterpreter.current = interpreterTemp;
-      setTimeout(playCode, 10);
+      setTimeout(playCode, 1);
     } else {
       clearHighlight();
       myInterpreter.current = null;
@@ -249,9 +282,10 @@ const BlocklyComponent = () => {
     } else if (playState === 'suspend') {
       suspendRef.current = true;
     } else if (playState === 'init') {
-
+      runSpeedRef.current = 1;
     } else if (playState === 'cancel') {
       cancelledRef.current = true;
+      runSpeedRef.current = 1;
     }
   }, [playState, playCode]);
 
@@ -342,11 +376,29 @@ const BlocklyComponent = () => {
   };
 
   // Release info //
-  const handleShowDemo = useCallback(() => {
-    const blockDom = Blockly.utils.xml.textToDom(DemoBlockXml);
+  const handleShowDemoCSVLoad = useCallback(() => {
+    const blockDom = Blockly.utils.xml.textToDom(DemoV0R3CsvLoadXml);
+    if (Blockly && workspace && blockDom) {
+      Blockly.Xml.domToWorkspace(blockDom, workspace);
+      workspace.setScale(0.9);
+      workspace.scrollCenter();
+    }
+  }, []);
+
+  const handleShowDemoSupabase = useCallback(() => {
+    const blockDom = Blockly.utils.xml.textToDom(DemoV0R3Supabase);
     if (Blockly && workspace && blockDom) {
       Blockly.Xml.domToWorkspace(blockDom, workspace);
       workspace.setScale(0.8);
+      workspace.scrollCenter();
+    }
+  }, []);
+
+  const handleShowDemoXaman = useCallback(() => {
+    const blockDom = Blockly.utils.xml.textToDom(DemoV0R3Xaman);
+    if (Blockly && workspace && blockDom) {
+      Blockly.Xml.domToWorkspace(blockDom, workspace);
+      workspace.setScale(0.9);
       workspace.scrollCenter();
     }
   }, []);
@@ -355,7 +407,11 @@ const BlocklyComponent = () => {
     ...initialReleaseInfo,
     features: initialReleaseInfo.features.map((feature) => ({
       ...feature,
-      onDemoEvent: feature.title === "Subscribe Block Added" ? handleShowDemo : undefined,
+      onDemoEvent:
+      feature.title === "CSV Table Block Added" ? handleShowDemoCSVLoad
+      : feature.title === "Supabase Block Added" ? handleShowDemoSupabase
+      : feature.title === "Xaman Variable Block Added" ? handleShowDemoXaman
+      : undefined,
     })),
   };
 
