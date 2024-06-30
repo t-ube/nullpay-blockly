@@ -47,7 +47,6 @@ export function initInterpreterXrplClientInitialize(interpreter:any, globalObjec
     try {
       await client.connect();
       xrplClientInstances[variable] = client;
-      console.log(`client: ${util.inspect(client, { showHidden: false, depth: null, colors: true })}`);
       interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(variable));
       console.log('XRPL Client initialized and connected to server:', server);
       callback();

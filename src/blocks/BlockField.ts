@@ -10,6 +10,7 @@ export const blockCheckType : IBlockCheckTypeMap = {
   table: "Table",
   array: "Array",
   json: "JSON",
+  boolean: "Boolean",
   datetime: "Datetime",
   xrplToken: "XrplToken",
   xrplClient: "Client",

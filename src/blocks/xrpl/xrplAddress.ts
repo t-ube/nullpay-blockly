@@ -76,6 +76,7 @@ export const exchangeAddresses : IExchangeAddress[] = [
   {name:"Bitrota",account:"r3TUjts6GFTbdZ3wnCv1DbiQUGF9xrH5EP",desc:""},
   {name:"Bitrue",account:"raLPjTYeGezfdb6crXZzcC8RkLBEwbBHJ5",desc:""},
   {name:"Bitrue",account:"rNrFVnR47ZinYNBGtrbk8Xcgp2FHkGfDYi",desc:"Cold"},
+  {name:"Bitrue",account:"rfKsmLP6sTfVGDvga6rW6XbmSFUzc3G9f3",desc:"3"},
   {name:"Bitsane",account:"rGTFFFJB3iPJEitfTrZeht7Dr4VAnjQ9m",desc:""},
   {name:"Bitsdaq",account:"rNh4YSHxzuPb3QhcV7EWime6Jc5C8YcRYH",desc:""},
   {name:"Bitsler",account:"rsekGH9p9neiPxym2TMJhqaCzHFuokenTU",desc:""},
