@@ -117,8 +117,7 @@ export const defineTableGetColumnBlock = () => {
   javascriptGenerator.forBlock['table_get_column'] = function (block,  generator) {
     const array = generator.valueToCode(block, 'TABLE', Order.NONE) || '[]';
     const columnCode = generator.valueToCode(block, 'COLUMN', Order.NONE) || '1';
-    const column = parseInt(columnCode, 10);
-    const code = `tableGetColumn(JSON.stringify(${array}), ${column-1})`;
+    const code = `tableGetColumn(JSON.stringify(${array}), parseInt(${columnCode},10)-1)`;
     return [code, Order.ATOMIC];
   };
 };
@@ -191,15 +190,14 @@ export const defineTableGetRowBlock = () => {
   javascriptGenerator.forBlock['table_get_row'] = function (block, generator) {
     const tableData = generator.valueToCode(block, 'TABLE', Order.NONE) || '[]';
     const rowCode = generator.valueToCode(block, 'ROW', Order.NONE) || '1';
-    const row = parseInt(rowCode, 10) - 1; // 1-based to 0-based index
-    const code = `tableGetRow(JSON.stringify(${tableData}), ${row})`;
+    const code = `tableGetRow(JSON.stringify(${tableData}), parseInt(${rowCode},10)-1)`;
     return [code, Order.ATOMIC];
   };
 };
 
 export function initInterpreterTableGetRow(interpreter:any, globalObject:any) {
   javascriptGenerator.addReservedWords('tableGetRow');
-  const wrapper = function (arrayText:string, row:number, variable:any, callback:any) {
+  const wrapper = function (arrayText:string, row:number) {
     try {
       const array = JSON.parse(arrayText);
       if (array.length === 0 || row < 0 || row >= array.length) {

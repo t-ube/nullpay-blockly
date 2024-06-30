@@ -54,7 +54,8 @@ import {
   defineXrplClientSubmitBlock, initInterpreterXrplClientSubmit,
   defineXrplClientAutoFillBlock, initInterpreterXrplClientAutofill,
   defineXrplEasySubmitBlock, initInterpreterXrplEasySubmit,
-  defineXrplTxCommandBlock, initInterpreterXrplTxCommand
+  defineXrplTxCommandBlock, initInterpreterXrplTxCommand,
+  defineXrplAccountLinesCommandBlock, initInterpreterXrplAccountLinesCommand
 } from '@/blocks/xrpl/xrplSubmitBlock';
 import {
   defineXrplTrustSetTxnBlock, initInterpreterXrplTrustSetTxn
@@ -245,6 +246,7 @@ const createCustomBlocks = () => {
   defineXrplLoadWalletBlock();
   defineXrplEasySubmitBlock();
   defineXrplTxCommandBlock();
+  defineXrplAccountLinesCommandBlock();
   defineXrplWalletSignBlock();
   defineXrplWalletInfoBlock();
   defineXrplPaymentTxnBlock();
@@ -370,6 +372,7 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterXrplTxCommand(interpreter, scope);
   initInterpreterXrplExtractOfferCreateTxnBlock(interpreter, scope);
   initInterpreterXrplUnsubscribeAllTxn(interpreter, scope);
+  initInterpreterXrplAccountLinesCommand(interpreter, scope);
 
   initInterpreterXamanSimpleLogin(interpreter, scope);
   initInterpreterXamanSimpleLogout(interpreter, scope);

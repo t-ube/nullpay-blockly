@@ -47,6 +47,7 @@ export const EditableXamanUserData = ({ userData, setUserData, errors }: { userD
               size="small"
               fullWidth
               error={!!localErrors[item.id] || !!errors[item.id]}
+              autoComplete="off"
             />
             <TextField
               value={item.value}
@@ -56,6 +57,7 @@ export const EditableXamanUserData = ({ userData, setUserData, errors }: { userD
               variant="outlined"
               size="small"
               fullWidth
+              autoComplete="off"
             />
             <Button onClick={() => handleDelete(item.id)} variant="outlined" color="error">x</Button>
           </Box>

@@ -63,9 +63,7 @@ export const defineXrplTrustSetTxnBlock = () => {
 export function initInterpreterXrplTrustSetTxn(interpreter: any, globalObject: any) {
   javascriptGenerator.addReservedWords('xrplTrustSetTxn');
   const wrapper = function (tokenText: string, address: string) {
-    console.log(tokenText);
     let token = JSON.parse(tokenText) as IXrplToken;
-    console.log(token);
     const transaction = {
       TransactionType: 'TrustSet',
       Account: address,
