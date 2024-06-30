@@ -898,8 +898,8 @@ export const xrpl_blocks = [
     </next>
   </block>
     `,
-    title: "Extract and Print XRPL Transaction",
-    description: "A template for initializing an XRPL client, fetching a transaction using a hash, extracting transaction information, and processing offer create transactions. The block sequence demonstrates connecting to the XRPL network, retrieving transaction details, and parsing specific transaction types for further analysis or actions.",
+    title: "Analyze Offer Create Transaction",
+    description: "A template for initializing an XRPL client, retrieving a transaction by hash, extracting transaction details, and analyzing offer create transactions. This block sequence demonstrates connecting to the XRPL network, fetching transaction data, and parsing specific transaction types for detailed analysis or further actions.",
     categories: ["template","xrpl"]
   },
   {
