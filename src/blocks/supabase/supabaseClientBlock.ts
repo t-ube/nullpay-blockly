@@ -63,7 +63,7 @@ export const defineSupabaseCreateClientBlock = () => {
       "previousStatement": null,
       "nextStatement": null,
       "colour": BlockColors.supabase,
-      "tooltip": "",
+      "tooltip": "Create a Supabase client using the specified URL and anon key",
       "helpUrl": ""
     }
   ]);
@@ -211,7 +211,7 @@ export const defineSupabaseInsertBlock = () => {
       "previousStatement": null,
       "nextStatement": null,
       "colour": BlockColors.supabase,
-      "tooltip": "",
+      "tooltip": "Insert data into a specified table in Supabase",
       "helpUrl": ""
     }
   ]);

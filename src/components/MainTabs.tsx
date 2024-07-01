@@ -16,13 +16,13 @@ const TransparentPaper = styled(Paper)(({ theme }) => ({
   },
 }));
 
-interface Props {
+interface ITabProps {
   page: string;
   onTabChange: (newValue: string) => void;
   children?: ReactNode;
 }
 
-export function MainTabs({ page, onTabChange, children }: Props) {
+export function MainTabs({ page, onTabChange, children }: ITabProps) {
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     onTabChange(newValue);
   };

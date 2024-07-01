@@ -1,11 +1,11 @@
 // xrplAddress.ts
-export interface exchangeAddress {
+export interface IExchangeAddress {
   name: string;     // Exchange name
   account: string;  // Exchange account
   desc: string;     // Description
 };
 
-export const exchangeAddresses : exchangeAddress[] = [
+export const exchangeAddresses : IExchangeAddress[] = [
   {name:"50x",account:"rQhNdbQpKL1rgrFKCyrqS6Er4nvu7dwWgi",desc:""},
   {name:"58 COIN",account:"rKSU67YATC7hJ8Y3CU4GKPBDhQYS2sQ5hG",desc:""},
   {name:"6X",account:"rPTRsvXTFfXiqoXsAj9nzNkyspUnosDNHi",desc:""},
@@ -76,6 +76,7 @@ export const exchangeAddresses : exchangeAddress[] = [
   {name:"Bitrota",account:"r3TUjts6GFTbdZ3wnCv1DbiQUGF9xrH5EP",desc:""},
   {name:"Bitrue",account:"raLPjTYeGezfdb6crXZzcC8RkLBEwbBHJ5",desc:""},
   {name:"Bitrue",account:"rNrFVnR47ZinYNBGtrbk8Xcgp2FHkGfDYi",desc:"Cold"},
+  {name:"Bitrue",account:"rfKsmLP6sTfVGDvga6rW6XbmSFUzc3G9f3",desc:"3"},
   {name:"Bitsane",account:"rGTFFFJB3iPJEitfTrZeht7Dr4VAnjQ9m",desc:""},
   {name:"Bitsdaq",account:"rNh4YSHxzuPb3QhcV7EWime6Jc5C8YcRYH",desc:""},
   {name:"Bitsler",account:"rsekGH9p9neiPxym2TMJhqaCzHFuokenTU",desc:""},

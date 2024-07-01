@@ -1,11 +1,11 @@
 // xrplToken.ts
-export interface xrplToken {
+export interface IXrplToken {
     issuer: string;            // Issuer address
     total_supply: string;      // Total supply
     currency_code: string;     // Currency code
 };
 
-export const xrplTokens : xrplToken[] = [
+export const xrplTokens : IXrplToken[] = [
     {
         issuer: "rKk7mu1dNB25fsPEJ4quoQd5B8QmaxewKi",
         total_supply: "6241627495.325173",

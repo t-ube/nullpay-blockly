@@ -27,7 +27,7 @@ export const defineControlRunSpeedBlock = () => {
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(BlockColors.control);
-      this.setTooltip('Set the execution speed');
+      this.setTooltip('Set the program execution speed (1-1000)');
       this.setHelpUrl('');
     }
   };

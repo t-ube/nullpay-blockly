@@ -1,15 +1,16 @@
 import * as Blockly from 'blockly/core';
 
-interface BlockCheckTypeMap {
+interface IBlockCheckTypeMap {
   [key: string]: string;
 }
 
-export const blockCheckType : BlockCheckTypeMap = {
+export const blockCheckType : IBlockCheckTypeMap = {
   number: "Number",
   string: "String",
   table: "Table",
   array: "Array",
   json: "JSON",
+  boolean: "Boolean",
   datetime: "Datetime",
   xrplToken: "XrplToken",
   xrplClient: "Client",

@@ -1,20 +1,10 @@
-import React, { useEffect, forwardRef, ForwardedRef } from 'react';
-import Image from 'next/image';
-import classNames from 'classnames';
-import { PlayIcon, PauseIcon, StopIcon, FolderOpenIcon, DocumentArrowDownIcon, MagnifyingGlassIcon } from '@heroicons/react/24/solid';
-import ButtonGroup, { PlayState } from '@/components/FooterButtons';
-import { TextField, InputAdornment } from '@mui/material';
+import React, { useEffect, ForwardedRef } from 'react';
+import ButtonGroup from '@/components/FooterButtons';
 import { useMobile } from '@/contexts/MobileContext';
+import { IFooterProps } from '@/interfaces/IFooterProps';
 
-interface FooterProps {
-  playState: PlayState;
-  setPlayState: React.Dispatch<React.SetStateAction<PlayState>>;
-  onSearchClick: () => void;
-  onSaveClick: () => void;
-  onLoadClick: () => void;
-}
 
-const Footer = React.forwardRef(({ playState, setPlayState, onSearchClick, onSaveClick, onLoadClick }: FooterProps, ref: ForwardedRef<HTMLElement>) => {
+const Footer = React.forwardRef(({ playState, setPlayState, onSearchClick, onSaveClick, onLoadClick }: IFooterProps, ref: ForwardedRef<HTMLElement>) => {
   const { isMobile, isPortrait, isLoaded } = useMobile();
 
   useEffect(() => {

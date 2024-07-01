@@ -2,7 +2,7 @@ import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { blockCheckType } from '@/blocks/BlockField';
-import { xrplToken } from '@/blocks/xrpl/xrplToken';
+import { IXrplToken } from '@/blocks/xrpl/xrplToken';
 
 // Define the block for BuyOffer
 export const defineBuyTokenOfferTxnBlock = () => {
@@ -79,7 +79,7 @@ export const defineBuyTokenOfferTxnBlock = () => {
 
   javascriptGenerator.forBlock['xrpl_buy_token_offer_txn'] = function(block, generator) {
     const account = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.NONE) || '""';
-    const token = generator.valueToCode(block, 'TOKEN', Order.NONE) || {} as xrplToken;
+    const token = generator.valueToCode(block, 'TOKEN', Order.NONE) || {} as IXrplToken;
     const tokenAmount = generator.valueToCode(block, 'TOKEN_AMOUNT', Order.NONE) || 0;
     const xrpAmount = generator.valueToCode(block, 'XRP_AMOUNT', Order.NONE) || 0;
     const code = `xrplBuyTokenOfferTxn(${account}, JSON.stringify(${token}), String(${tokenAmount}), String(${xrpAmount}))`;
@@ -90,7 +90,7 @@ export const defineBuyTokenOfferTxnBlock = () => {
 export function initInterpreterBuyTokenOfferTxn(interpreter: any, globalObject: any) {
   javascriptGenerator.addReservedWords('xrplBuyTokenOfferTxn');
   const wrapper = function(account: string, tokenText: string, tokenAmount: string, xrpAmount: string) {
-    let token = JSON.parse(tokenText) as xrplToken;
+    let token = JSON.parse(tokenText) as IXrplToken;
     const transaction = {
       TransactionType: 'OfferCreate',
       Account: account,
@@ -181,7 +181,7 @@ export const defineSaleTokenOfferTxnBlock = () => {
 
   javascriptGenerator.forBlock['xrpl_sale_token_offer_txn'] = function(block, generator) {
     const account = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.NONE) || '""';
-    const token = generator.valueToCode(block, 'TOKEN', Order.NONE) || {} as xrplToken;
+    const token = generator.valueToCode(block, 'TOKEN', Order.NONE) || {} as IXrplToken;
     const tokenAmount = generator.valueToCode(block, 'TOKEN_AMOUNT', Order.NONE) || 0;
     const xrpAmount = generator.valueToCode(block, 'XRP_AMOUNT', Order.NONE) || 0;
     const code = `xrplSaleTokenOfferTxn(${account}, JSON.stringify(${token}), String(${tokenAmount}), String(${xrpAmount}))`;
@@ -192,7 +192,7 @@ export const defineSaleTokenOfferTxnBlock = () => {
 export function initInterpreterSaleTokenOfferTxn(interpreter: any, globalObject: any) {
   javascriptGenerator.addReservedWords('xrplSaleTokenOfferTxn');
   const wrapper = function(account: string, tokenText: string, tokenAmount: string, xrpAmount: string) {
-    let token = JSON.parse(tokenText) as xrplToken;
+    let token = JSON.parse(tokenText) as IXrplToken;
     const transaction = {
       TransactionType: 'OfferCreate',
       Account: account,

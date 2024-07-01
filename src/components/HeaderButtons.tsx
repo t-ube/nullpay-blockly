@@ -1,30 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { PlayIcon, PauseIcon, StopIcon, FolderOpenIcon, DocumentArrowDownIcon } from '@heroicons/react/24/solid';
 import { useMobile } from '@/contexts/MobileContext';
+import { IButtonProps, IDocButtonProps, IButtonGroupProps } from '@/interfaces/IHeaderProps';
 
-export type PlayState = 'start' | 'resume' | 'init' | 'cancel' | 'suspend';
-
-interface ButtonGroupProps {
-  playState: PlayState;
-  setPlayState: React.Dispatch<React.SetStateAction<PlayState>>;
-  onSaveClick: () => void;
-  onLoadClick: () => void;
-}
-
-interface ButtonProps {
-  playState: PlayState;
-  setPlayState: React.Dispatch<React.SetStateAction<PlayState>>;
-  isSmall: boolean;
-}
-
-interface DocButtonProps {
-  onClick: () => void;
-  isSmall: boolean;
-}
 
 const buttonClass = "flex items-center px-2 py-1 text-sm bg-teal-500 text-white rounded shadow hover:bg-teal-700 transition duration-200";
 
-const StartButton = ({ playState, setPlayState, isSmall } : ButtonProps) => {
+const StartButton = ({ playState, setPlayState, isSmall } : IButtonProps) => {
   if (playState === 'start' || playState === 'resume') {
     return null;
   } else if (playState === 'init' || playState === 'cancel') {
@@ -49,7 +31,7 @@ const StartButton = ({ playState, setPlayState, isSmall } : ButtonProps) => {
   );
 };
 
-const StopButton = ({ playState, setPlayState, isSmall } : ButtonProps) => {
+const StopButton = ({ playState, setPlayState, isSmall } : IButtonProps) => {
   if (playState === 'start' || playState === 'resume') {
     return (
       <button
@@ -64,7 +46,7 @@ const StopButton = ({ playState, setPlayState, isSmall } : ButtonProps) => {
   return null;
 };
 
-const EndButton = ({ setPlayState, isSmall } : ButtonProps) => {
+const EndButton = ({ setPlayState, isSmall } : IButtonProps) => {
   const isDisabled = false;
   return (
     <button
@@ -75,12 +57,12 @@ const EndButton = ({ setPlayState, isSmall } : ButtonProps) => {
       disabled={isDisabled}
       onClick={() => setPlayState('cancel')}
     >
-      <StopIcon className="h-4 w-4 mr-1" />{!isSmall && "End"}
+      <StopIcon className="h-4 w-4 mr-1"/>{!isSmall && "End"}
     </button>
   );
 };
 
-const SaveButton = ({ onClick, isSmall }: DocButtonProps) => (
+const SaveButton = ({ onClick, isSmall }: IDocButtonProps) => (
   <button
     id="saveWorkspaceButton"
     className="flex items-center px-2 py-1 text-sm bg-indigo-500 text-white rounded shadow hover:bg-indigo-700 transition duration-200"
@@ -90,7 +72,7 @@ const SaveButton = ({ onClick, isSmall }: DocButtonProps) => (
   </button>
 );
 
-const LoadButton = ({ onClick, isSmall }: DocButtonProps) => (
+const LoadButton = ({ onClick, isSmall }: IDocButtonProps) => (
   <button
     id="loadWorkspaceButton"
     className="flex items-center px-2 py-1 text-sm bg-purple-500 text-white rounded shadow hover:bg-purple-700 transition duration-200"
@@ -100,7 +82,7 @@ const LoadButton = ({ onClick, isSmall }: DocButtonProps) => (
   </button>
 );
 
-const ButtonGroup = ({ playState, setPlayState, onSaveClick, onLoadClick } : ButtonGroupProps) => {
+const ButtonGroup = ({ playState, setPlayState, onSaveClick, onLoadClick } : IButtonGroupProps) => {
   const { isMobile, isPortrait, isLoaded } = useMobile();
   const [ isSmall, setIsSmall] = useState(false);
 
@@ -110,12 +92,12 @@ const ButtonGroup = ({ playState, setPlayState, onSaveClick, onLoadClick } : But
 
   return (
     <div className="flex items-center px-2 space-x-1">
-      <StartButton isSmall={isSmall} playState={playState} setPlayState={setPlayState} />
-      <StopButton isSmall={isSmall} playState={playState} setPlayState={setPlayState} />
-      <EndButton isSmall={isSmall} playState={playState} setPlayState={setPlayState} />
+      <StartButton isSmall={isMobile} playState={playState} setPlayState={setPlayState} />
+      <StopButton isSmall={isMobile} playState={playState} setPlayState={setPlayState} />
+      <EndButton isSmall={isMobile} playState={playState} setPlayState={setPlayState} />
       <div className="border-l border-gray-300 h-6 mx-2"></div>
-      <SaveButton isSmall={isSmall} onClick={onSaveClick} />
-      <LoadButton isSmall={isSmall} onClick={onLoadClick}/>
+      <SaveButton isSmall={isMobile} onClick={onSaveClick} />
+      <LoadButton isSmall={isMobile} onClick={onLoadClick}/>
     </div>
   );
 }

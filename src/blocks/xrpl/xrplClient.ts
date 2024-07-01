@@ -1,18 +1,18 @@
 import { Client } from 'xrpl';
 import { EventTypes } from 'xrpl/dist/npm/models/methods/subscribe';
 
-export interface XRPLClientMap {
+export interface IXRPLClientMap {
   [key: string]: Client;
 }
 
-export interface XRPLClientEventListener {
+export interface IXRPLClientEventListener {
   type: EventTypes;
   listener: (data: any) => void;
 }
 
-export interface XRPLClientEventListenMap {
-  [id: string]: XRPLClientEventListener[];
+export interface IXRPLClientEventListenMap {
+  [id: string]: IXRPLClientEventListener[];
 }
 
-export const xrplClientInstances : XRPLClientMap = {};
-export const xrplClientEventListeners: XRPLClientEventListenMap = {};
+export const xrplClientInstances : IXRPLClientMap = {};
+export const xrplClientEventListeners: IXRPLClientEventListenMap = {};

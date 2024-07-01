@@ -1,6 +1,6 @@
-import { ReleaseInfo } from '@/types/featureType';
+import { IReleaseInfo } from '@/interfaces/IReleaseInfo';
 
-export const releaseInfo : ReleaseInfo = {
+export const releaseInfo : IReleaseInfo = {
   version: 'v0-r2',
   displayVersion: '0.2',
   features: [

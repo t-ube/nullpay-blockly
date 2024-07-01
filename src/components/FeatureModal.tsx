@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Modal, Box, Button, Typography, Fade, Stack, FormControlLabel, Checkbox, Divider } from '@mui/material';
-import { ReleaseInfo } from '@/types/featureType';
+import { IReleaseInfo } from '@/interfaces/IReleaseInfo';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { useMobile } from '@/contexts/MobileContext';
 
-interface FeatureModalProps {
-  releaseInfo: ReleaseInfo;
+interface IFeatureModalProps {
+  releaseInfo: IReleaseInfo;
 }
 
-const FeatureModal = ({ releaseInfo } : FeatureModalProps) => {
+const FeatureModal = ({ releaseInfo } : IFeatureModalProps) => {
   const { isMobile, isPortrait, isLoaded } = useMobile();
   const [open, setOpen] = useState(false);
   const [dontShowAgain, setDontShowAgain] = useLocalStorage(`dontShowReleaseInfo-${releaseInfo.version}`, false);
@@ -79,12 +79,26 @@ const FeatureModal = ({ releaseInfo } : FeatureModalProps) => {
                 <Typography variant="h6" textAlign="center" mb={2}>{feature.title}</Typography>
                 <Box textAlign="center" mb={2}>
                   {feature.image.endsWith('.mp4') ? (
-                    <video width="100%" height="auto"  controls autoPlay loop muted>
+                    <video width="100%" height="auto" controls autoPlay loop muted style={{ maxHeight: '360px' }}>
                       <source src={feature.image} type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
                   ) : (
-                    <Image src={feature.image} alt={feature.title} width={isMobile ? 200 : 300} height={isMobile ? 200 : 300} objectFit="contain" />
+                    <Box
+                      minHeight={'300px'}
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Image
+                        src={feature.image}
+                        alt={feature.title}
+                        width={isMobile ? 200 : 400}
+                        height={isMobile ? 200 : 400}
+                        objectFit="contain"
+                        style={{ display: 'block', margin: '0 auto' }}
+                      />
+                    </Box>
                   )}
                 </Box>
                 <Typography variant="body1" textAlign="left" mb={2} sx={{ mx: isMobile ? 2 : 4 }}>
