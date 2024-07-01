@@ -69,10 +69,7 @@ export function initInterpreterNotionCreateClient(interpreter: any, globalObject
   javascriptGenerator.addReservedWords('notionCreateClient');
   const wrapper = async function (key: string, variable:any, callback:any) {
     try {
-      const notion = new Client({
-        auth: key
-      })
-      notionClientInstances[variable] = notion;
+      notionClientInstances[variable] = key;
       interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(variable));
       console.log('Notion Client initialized:', variable);
       callback();
@@ -192,19 +189,29 @@ export function initInterpreterNotionCreateDatabase(interpreter:any, globalObjec
     try {
       const notion = getNotionClient(clientKey);
       const parseData = JSON.parse(properties);
-      const response = await notion.databases.create({
-        parent: {
-          type: "page_id",
-          page_id: pageId
+      const response = await fetch('/api/notion/v1/databases/', {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${notion}`,
+          "Content-Type": "application/json",
+          "Notion-Version": "2022-06-28"
         },
-        is_inline: true,
-        title: [
-          {
-            type: "text",
-            text: { content: title }
-          }
-        ],
-        properties: parseData
+        body: JSON.stringify({
+          "parent": {
+            "type": "page_id",
+            "page_id": pageId
+          },
+          "title": [
+            {
+              "type": "text",
+              "text": {
+                  "content": title,
+                  "link": null
+              }
+            }
+          ],
+          "properties": parseData
+        }),
       });
       interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(getAsyncSuccess(response)));
       callback();
