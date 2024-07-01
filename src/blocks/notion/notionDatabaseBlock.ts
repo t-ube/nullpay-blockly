@@ -1,4 +1,3 @@
-const { Client } = require("@notionhq/client");
 import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
