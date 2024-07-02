@@ -40,13 +40,13 @@ const NotionSignInModal = ({ open, onClose, onTokenReceived }: ISignInModalProps
               } else {
                 console.log('Token exchange success:', data);
                 
-                const fetchData = async () => {
+                const fetchData = async (token: string) => {
                   try {
                     const state = await xamanPkce.state();
                     if (state?.me) {
                       const { sdk } = state;
-                      await sdk.jwtUserdata.set('notion', [data.access_token]);
-                      onTokenReceived(data.access_token);
+                      await sdk.jwtUserdata.set('notion', [token]);
+                      onTokenReceived(token);
                       authWindow.close();
                       clearInterval(authCheckInterval);
                       onClose();
@@ -57,7 +57,8 @@ const NotionSignInModal = ({ open, onClose, onTokenReceived }: ISignInModalProps
                     console.error('Failed to save notion token:', error);
                   }
                 };
-                fetchData();
+                
+                fetchData(data.access_token);
               }
             })
             .catch(console.error);
