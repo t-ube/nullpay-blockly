@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import SignInModal from '@/components/NotionSignInModal';
+import NotionSignInModal from '@/components/NotionSignInModal';
 import { Button } from '@mui/material';
+import xamanPkce from '@/utils/XamanPkce';
 
 export default function SignIn() {
   //const notionAuthUrl = `https://api.notion.com/v1/oauth/authorize?owner=user&client_id=${process.env.NEXT_PUBLIC_NOTION_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_NOTION_REDIRECT_URI}&response_type=code`;
@@ -20,7 +21,20 @@ export default function SignIn() {
   const handleTokenReceived = (token: string) => {
     setToken(token);
     console.log('Token received:', token);
-    // ここでトークンを処理するロジックを追加できます
+    const fetchData = async () => {
+      try {
+        const state = await xamanPkce.state();
+        if (state?.me) {
+          const { sdk } = state;
+          await sdk.jwtUserdata.set('notion', [token]);
+        } else {
+          throw new Error('Not logged in');
+        }
+      } catch (error) {
+        console.error('Failed to save notion token:', error);
+      }
+    };
+    fetchData();
   };
   
   return (
@@ -32,7 +46,7 @@ export default function SignIn() {
         <Button variant="contained" color="primary" onClick={handleOpen}>
           Sign In with Notion
         </Button>
-        <SignInModal open={open} onClose={handleClose} onTokenReceived={handleTokenReceived} />
+        <NotionSignInModal open={open} onClose={handleClose} onTokenReceived={handleTokenReceived} />
         {token && <p>Received token: {token}</p>}
       </div>
     </div>
