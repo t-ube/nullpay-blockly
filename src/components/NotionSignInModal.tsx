@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Typography } from '@mui/material';
+import xamanPkce from '@/utils/XamanPkce';
 
 interface ISignInModalProps {
   open: boolean;
@@ -26,10 +27,40 @@ const NotionSignInModal = ({ open, onClose, onTokenReceived }: ISignInModalProps
           const url = new URL(authWindow.location.href);
           const code = url.searchParams.get('code');
           if (code) {
-            onTokenReceived(code);
-            authWindow.close();
-            clearInterval(authCheckInterval);
-            onClose();
+            fetch(`/api/auth/notion?code=${code}`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              }
+            })
+            .then(response => response.json())
+            .then(data => {
+              if (data.error) {
+                console.error('Token exchange error:', data.error);
+              } else {
+                console.log('Token exchange success:', data);
+                
+                const fetchData = async () => {
+                  try {
+                    const state = await xamanPkce.state();
+                    if (state?.me) {
+                      const { sdk } = state;
+                      await sdk.jwtUserdata.set('notion', [data.access_token]);
+                      onTokenReceived(data.access_token);
+                      authWindow.close();
+                      clearInterval(authCheckInterval);
+                      onClose();
+                    } else {
+                      throw new Error('Not logged in');
+                    }
+                  } catch (error) {
+                    console.error('Failed to save notion token:', error);
+                  }
+                };
+                fetchData();
+              }
+            })
+            .catch(console.error);
           }
         }
       } catch (error) {

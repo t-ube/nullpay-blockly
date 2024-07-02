@@ -12,6 +12,7 @@ const NotionCallback = () => {
     if (error) {
       console.error('OAuth error:', error);
     } else if (code) {
+      /*
       fetch(`/api/auth/notion?code=${code}`, {
         method: 'GET',
         headers: {
@@ -27,6 +28,7 @@ const NotionCallback = () => {
         }
       })
       .catch(console.error);
+       */
     }
   }, [code, error]);
 
