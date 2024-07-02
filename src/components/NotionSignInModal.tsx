@@ -9,6 +9,29 @@ interface ISignInModalProps {
 }
 
 const NotionSignInModal = ({ open, onClose, onTokenReceived }: ISignInModalProps) => {
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    if (token) {
+      const fetchData = async () => {
+        try {
+          const state = await xamanPkce.state();
+          if (state?.me) {
+            const { sdk } = state;
+            await sdk.jwtUserdata.set('notion', [token]);
+            onTokenReceived(token);
+            onClose();
+          } else {
+            throw new Error('Not logged in');
+          }
+        } catch (error) {
+          console.error('Failed to save notion token:', error);
+        }
+      };
+      fetchData();
+    }
+  }, [token, onTokenReceived, onClose]);
+
   const handleAuth = () => {
     const width = 600;
     const height = 600;
@@ -37,24 +60,9 @@ const NotionSignInModal = ({ open, onClose, onTokenReceived }: ISignInModalProps
                 console.error('Token exchange error:', data.error);
               } else {
                 console.log('Token exchange success:', data);
-                const fetchData = async (token: string) => {
-                  try {
-                    const state = await xamanPkce.state();
-                    if (state?.me) {
-                      const { sdk } = state;
-                      await sdk.jwtUserdata.set('notion', [token]);
-                      onTokenReceived(token);
-                      authWindow.close();
-                      clearInterval(authCheckInterval);
-                      onClose();
-                    } else {
-                      throw new Error('Not logged in');
-                    }
-                  } catch (error) {
-                    console.error('Failed to save notion token:', error);
-                  }
-                };
-                fetchData(data.access_token);
+                setToken(data.access_token);
+                authWindow.close();
+                clearInterval(authCheckInterval);
               }
             })
             .catch(console.error);
