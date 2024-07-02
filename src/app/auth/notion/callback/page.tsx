@@ -1,15 +1,14 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState, Suspense } from 'react';
+import xamanPkce from '@/utils/XamanPkce';
 
 const NotionCallback = () => {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const code = searchParams.get('code');
   const error = searchParams.get('error');
-  const [payloadUrl, setPayloadUrl] = useState('');
-  const [payloadUuid, setPayloadUuid] = useState('');
+  const [accessToken, setAccessToken] = useState('');
 
   useEffect(() => {
     if (error) {
@@ -21,17 +20,31 @@ const NotionCallback = () => {
           'Content-Type': 'application/json',
         }
       })
-        .then(response => response.json())
-        .then(data => {
-          if (data.error) {
-            console.error('Token exchange error:', data.error);
-          } else {
-            console.log('Token exchange success:', data);
-            setPayloadUrl(data.payloadUrl);
-            setPayloadUuid(data.payloadUuid);
-          }
-        })
-        .catch(console.error);
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          console.error('Token exchange error:', data.error);
+        } else {
+          console.log('Token exchange success:', data);
+          setAccessToken(data.access_token);
+
+          const fetchData = async () => {
+            try {
+              const state = await xamanPkce.state();
+              if (state?.me) {
+                const { sdk } = state;
+                await sdk.jwtUserdata.set('notion', data.access_token);
+              } else {
+                throw new Error('Not logged in');
+              }
+            } catch (error) {
+              console.error('Failed to save notion token:', error);
+            }
+          };
+          fetchData();
+        }
+      })
+      .catch(console.error);
     }
   }, [code, error]);
 
@@ -39,7 +52,7 @@ const NotionCallback = () => {
     <>
       <h1>Notion OAuth Callback</h1>
       {error ? <p>Authentication failed: {error}</p> : <p>Processing authentication...</p>}
-      {payloadUrl && <a href={payloadUrl}>Complete Sign-In with Xaman</a>}
+      {accessToken && {accessToken}}
     </>
   );
 };

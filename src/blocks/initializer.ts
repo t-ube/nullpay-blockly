@@ -128,7 +128,8 @@ import {
 } from '@/blocks/supabase/supabaseClientBlock';
 import {
   defineNotionCreateClientBlock, initInterpreterNotionCreateClient,
-  defineNotionCreateDatabaseBlock, initInterpreterNotionCreateDatabase
+  defineNotionCreateDatabaseBlock, initInterpreterNotionCreateDatabase,
+  defineNotionAddRecordBlock, initInterpreterNotionAddRecord
 } from '@/blocks/notion/notionDatabaseBlock';
 import { defineCsvBlock, defineCSVSaveBlock, initInterpreterTableCSVSave  } from '@/blocks/table/tableCsvBlock';
 import { defineCurrentDateTimeBlock, initInterpreterCurrentDateTime } from '@/blocks/time/getCurrentDateTimeBlock';
@@ -317,6 +318,7 @@ const createCustomBlocks = () => {
   // Notion
   defineNotionCreateClientBlock();
   defineNotionCreateDatabaseBlock();
+  defineNotionAddRecordBlock();
 
   // List
   defineArrayAppendBlock();
@@ -419,11 +421,12 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterSupabaseSelect(interpreter, scope);
   initInterpreterSupabaseUpdate(interpreter, scope);
   initInterpreterSupabaseDelete(interpreter, scope);
-  
+
   initInterpreterBuyTokenOfferTxn(interpreter, scope);
   initInterpreterSaleTokenOfferTxn(interpreter, scope);
   initInterpreterNotionCreateClient(interpreter, scope);
   initInterpreterNotionCreateDatabase(interpreter, scope);
+  initInterpreterNotionAddRecord(interpreter, scope);
 }
 
 const initInterpreterEx = (interpreter: Interpreter, scope: any, logArea:HTMLTextAreaElement | null) => {

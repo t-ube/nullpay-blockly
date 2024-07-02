@@ -1,6 +1,4 @@
 import { NextResponse } from 'next/server';
-import xaman from '@/lib/xaman';
-import { XummTransactionType } from 'xumm-sdk/dist/src/types';
 
 export const runtime = 'edge';
 
@@ -38,15 +36,5 @@ export async function GET(req: Request) {
     return NextResponse.json({ message: data.error }, { status: 500 });
   }
 
-  const payload = {
-    txjson: {
-      TransactionType: "SignIn" as XummTransactionType,
-      Memo: [{
-        MemoData: Buffer.from(JSON.stringify({ notion: data }), 'utf8').toString('hex'),
-      }]
-    } 
-  };
-  const createdPayload = await xaman.payload.create(payload);
-
-  return NextResponse.json({ payloadUrl: createdPayload?.next.always, payloadUuid: createdPayload?.uuid }, { status: 200 });
+  return NextResponse.json({ data: data }, { status: 200 });
 }

@@ -1615,6 +1615,15 @@ export const table_blocks = [
     categories: ["notion"]
   },
   {
+    height: 146.5,
+    block: `
+      <block type="notion_add_record" x="0" y="0"></block>
+    `,
+    title: "Notion Add Record",
+    description: "",
+    categories: ["notion"]
+  },
+  {
     height: 471,
     block: `
     <variables>
