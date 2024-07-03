@@ -126,11 +126,13 @@ import {
   defineSupabaseUpdateBlock, initInterpreterSupabaseUpdate,
   defineSupabaseDeleteBlock, initInterpreterSupabaseDelete
 } from '@/blocks/supabase/supabaseClientBlock';
+/*
 import {
   defineNotionCreateClientBlock, initInterpreterNotionCreateClient,
   defineNotionCreateDatabaseBlock, initInterpreterNotionCreateDatabase,
   defineNotionAddRecordBlock, initInterpreterNotionAddRecord
 } from '@/blocks/notion/notionDatabaseBlock';
+*/
 import { defineCsvBlock, defineCSVSaveBlock, initInterpreterTableCSVSave  } from '@/blocks/table/tableCsvBlock';
 import { defineCurrentDateTimeBlock, initInterpreterCurrentDateTime } from '@/blocks/time/getCurrentDateTimeBlock';
 import { defineDatedatetimeToTextBlock, initInterpreterDatedatetimeToText } from '@/blocks/time/datetimeToTextBlock';
@@ -316,9 +318,9 @@ const createCustomBlocks = () => {
   defineSupabaseDeleteBlock();
 
   // Notion
-  defineNotionCreateClientBlock();
-  defineNotionCreateDatabaseBlock();
-  defineNotionAddRecordBlock();
+  //defineNotionCreateClientBlock();
+  //defineNotionCreateDatabaseBlock();
+  //defineNotionAddRecordBlock();
 
   // List
   defineArrayAppendBlock();
@@ -424,9 +426,9 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
 
   initInterpreterBuyTokenOfferTxn(interpreter, scope);
   initInterpreterSaleTokenOfferTxn(interpreter, scope);
-  initInterpreterNotionCreateClient(interpreter, scope);
-  initInterpreterNotionCreateDatabase(interpreter, scope);
-  initInterpreterNotionAddRecord(interpreter, scope);
+  //initInterpreterNotionCreateClient(interpreter, scope);
+  //initInterpreterNotionCreateDatabase(interpreter, scope);
+  //initInterpreterNotionAddRecord(interpreter, scope);
 }
 
 const initInterpreterEx = (interpreter: Interpreter, scope: any, logArea:HTMLTextAreaElement | null) => {

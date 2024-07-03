@@ -12,23 +12,6 @@ const NotionCallback = () => {
     if (error) {
       console.error('OAuth error:', error);
     } else if (code) {
-      /*
-      fetch(`/api/auth/notion?code=${code}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.error) {
-          console.error('Token exchange error:', data.error);
-        } else {
-          console.log('Token exchange success:', data);
-        }
-      })
-      .catch(console.error);
-       */
     }
   }, [code, error]);
 

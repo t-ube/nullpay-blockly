@@ -1596,6 +1596,7 @@ export const table_blocks = [
     description: "This block saves a table to a CSV file. Use it to export your table data into a CSV file for external use or backup.",
     categories: ["table"]
   },
+  /*
   {
     height: 74.5,
     block: `
@@ -1623,6 +1624,7 @@ export const table_blocks = [
     description: "",
     categories: ["notion"]
   },
+  */
   {
     height: 471,
     block: `
