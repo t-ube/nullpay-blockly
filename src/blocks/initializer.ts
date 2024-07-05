@@ -77,12 +77,16 @@ import {
   defineTrueBlock,
   defineFalseBlock
 } from '@/blocks/logic/logicBlock';
-import { defineJsonGetValueBlock } from '@/blocks/json/jsonValueBlock';
-import { defineJsonToTextBlock } from '@/blocks/json/jsonToTextBlock';
-import {
+import { 
+  defineJsonGetValueBlock,
+  defineJsonToTextBlock,
+  defineJsonToTextV2Block,
   defineJsonTextToJsonBlock,
-  defineJsonTextBlock, initInterpreterJsonText
-} from '@/blocks/json/jsonTextToJsonBlock';
+  defineJsonInputJsonBlock, initInterpreterJsonInputJson,
+  defineDynamicJsonBlock, initInterpreterDynamicJson,
+  defineJsonKeyValueBlock,
+  defineJsonTextToJsonV2Block, initInterpreterJsonTextToJsonV2
+} from '@/blocks/json/jsonValueBlock';
 import { defineWaitForSecondsBlock, initInterpreterWaitForSeconds } from '@/blocks/control/waitForSecondsBlock';
 import { defineControlRunSpeedBlock, initInterpreterControlRunSpeed } from '@/blocks/control/controlRunSpeed';
 import { defineArrayAppendBlock } from '@/blocks/list/arrayAppendBlock';
@@ -296,8 +300,12 @@ const createCustomBlocks = () => {
   // JSON
   defineJsonGetValueBlock();
   defineJsonToTextBlock();
+  defineJsonToTextV2Block();
   defineJsonTextToJsonBlock();
-  defineJsonTextBlock();
+  defineJsonInputJsonBlock();
+  defineDynamicJsonBlock();
+  defineJsonKeyValueBlock();
+  defineJsonTextToJsonV2Block();
 
   // Table
   defineTableEmptyBlock();
@@ -409,7 +417,9 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
 
   initInterpreterTextStartsWith(interpreter, scope);
   initInterpreterTextEndsWith(interpreter, scope);
-  initInterpreterJsonText(interpreter, scope);
+  initInterpreterJsonInputJson(interpreter, scope);
+  initInterpreterDynamicJson(interpreter, scope);
+  initInterpreterJsonTextToJsonV2(interpreter, scope);
 
   initInterpreterTableGetColumn(interpreter, scope);
   initInterpreterTableRowCount(interpreter, scope);

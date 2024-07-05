@@ -20,4 +20,5 @@ export const BlockColors : IBlockColorsMap = {
   notion: '#2EB077',
   variable: '#A55B80',
   function: '#995BA5',
+  legacy: '#A74E4E',
 };

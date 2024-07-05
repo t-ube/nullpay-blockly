@@ -1937,10 +1937,46 @@ export const json_blocks = [
   {
     height: 23.5,
     block: `
-      <block type="json_text_block" x="0" y="0"></block>
+      <block type="json_input_block" x="0" y="0"></block>
     `,
     title: "Text to JSON",
     description: "Convert text to a JSON object.",
+    categories: ["json"]
+  },
+  {
+    height: 50,
+    block: `
+      <block type="dynamic_json_create" x="0" y="0"></block>
+    `,
+    title: "Dynamic JSON",
+    description: "",
+    categories: ["json"]
+  },
+  {
+    height: 50,
+    block: `
+      <block type="json_key_value" x="0" y="0"></block>
+    `,
+    title: "JSON Key-Value",
+    description: "",
+    categories: ["json"]
+  },
+  {
+    height: 50,
+    block: `
+      <block type="text_to_json_v2" x="0" y="0"></block>
+    `,
+    title: "Text to JSON",
+    description: "Convert text to a JSON object.",
+    categories: ["json"]
+  },
+  {
+    height: 50,
+    block: `
+      <block type="json_to_text_v2" x="0" y="0"></block>
+    `,
+    title: "JSON to Text",
+    description: "Convert a JSON object to text.",
     categories: ["json"]
   },
   {
@@ -1955,21 +1991,21 @@ export const json_blocks = [
   {
     height: 50,
     block: `
-      <block type="json_to_text" x="0" y="0"></block>
+      <block type="text_to_json" x="0" y="0"></block>
     `,
-    title: "JSON to Text",
-    description: "Convert a JSON object to text.",
+    title: "Text to JSON string",
+    description: "Convert text to a JSON string.",
     categories: ["json"]
   },
   {
     height: 50,
     block: `
-      <block type="text_to_json" x="0" y="0"></block>
+      <block type="json_to_text" x="0" y="0"></block>
     `,
-    title: "Text to JSON",
-    description: "Convert text to a JSON object.",
+    title: "JSON to Text",
+    description: "Convert a JSON string to text.",
     categories: ["json"]
-  }
+  },
 ];
 
 export const animation_blocks = [
