@@ -1,3 +1,4 @@
+// @/blocks/BlockIcons.ts
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import CalculateIcon from '@mui/icons-material/Calculate';

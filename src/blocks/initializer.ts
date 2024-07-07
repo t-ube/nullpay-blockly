@@ -157,7 +157,6 @@ import { defineTimezoneBlock } from '@/blocks/time/timezoneBlock';
 import { defineCompareDateTimeBlock, initInterpreterCompareDateTime } from '@/blocks/time/compareDateTimeBlock';
 import { defineConsoleLogBlock } from '@/blocks/debug/consoleLogBlock';
 import { BlockColors } from '@/blocks/BlockColors';
-import { BaseTheme } from '@/blocks/BlocklyTheme';
 
 let workspace:Blockly.WorkspaceSvg;
 let flyout:Blockly.WorkspaceSvg;

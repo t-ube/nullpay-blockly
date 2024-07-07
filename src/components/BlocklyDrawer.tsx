@@ -3,25 +3,10 @@ import Image from 'next/image';
 import * as Blockly from 'blockly/core';
 import { Drawer, Box, Typography, Divider, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Button } from '@mui/material';
 import PuzzleIcon from '@mui/icons-material/Extension';
-import { 
-  xrpl_blocks, xaman_blocks, text_blocks, math_blocks,
-  control_blocks, table_blocks, time_blocks, json_blocks, animation_blocks,
-  logic_blocks, loop_blocks, lists_blocks, supabase_blocks
-} from '@/blocks/BlockContents';
+import { initialBlockTypesMap } from '@/blocks/BlockContents';
+import { IBaseBlock, IBlockTypesMap } from "@/interfaces/IBaseBlock";
 import { BlockColors } from '@/blocks/BlockColors';
 import { BlockIcons } from '@/blocks/BlockIcons';
-
-interface IDrawerBlock {
-  height: number;
-  block: string;
-  title: string;
-  description: string;
-  categories: string[];
-}
-
-interface IDrawerBlockTypesMap {
-  [key: string]: IDrawerBlock[];
-}
 
 interface IDrawerBlockDrawerMap {
   [key: string]: number;
@@ -38,22 +23,6 @@ interface IDrawerBlocklyDrawerProps {
   flyoutType: string | null;
   mainWorkspace: Blockly.WorkspaceSvg;
 }
-
-const initialBlockTypesMap: IDrawerBlockTypesMap = {
-  xrpl: xrpl_blocks,
-  xaman: xaman_blocks,
-  text: text_blocks,
-  math: math_blocks,
-  control: control_blocks,
-  table: table_blocks,
-  time: time_blocks,
-  json: json_blocks,
-  animation: animation_blocks,
-  logic: logic_blocks,
-  loop: loop_blocks,
-  list: lists_blocks,
-  supabase: supabase_blocks,
-};
 
 const initialBlockDrawerMap : IDrawerBlockDrawerMap = {
   xrpl: 350,
@@ -91,13 +60,9 @@ const initialBlockTitleMap : IDrawerBlockTitleMap = {
   function: 'Functions',
 };
 
-const toolbox = `
-<xml id="toolbox" style={{ display: 'none' }}>
-</xml>`;
-
 const BlocklyDrawer = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspace }: IDrawerBlocklyDrawerProps) => {
   const workspaceRefs = useRef<{ id: string, workspace: Blockly.WorkspaceSvg | null }[]>([]);
-  const [blockTypesMap, setBlockTypesMap] = useState<IDrawerBlockTypesMap>(initialBlockTypesMap);
+  const [blockTypesMap, setBlockTypesMap] = useState<IBlockTypesMap<IBaseBlock>>(initialBlockTypesMap);
   const [dynamicUpdated, setDynamicUpdated] = useState(false);
   const [varDialogOpen, setVarDialogOpen] = useState(false);
   const [variableName, setVariableName] = useState("");
@@ -142,10 +107,10 @@ const BlocklyDrawer = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspa
 
   useEffect(() => {
     if (open && flyoutType && !dynamicUpdated) {
-      let blocks : IDrawerBlock[] = [];
+      let blocks : IBaseBlock[] = [];
 
       if (flyoutType === 'variable' || flyoutType === 'function') {
-        const dynamicBlocks: IDrawerBlock[] = [];
+        const dynamicBlocks: IBaseBlock[] = [];
         if (flyoutType === 'variable') {
           const elements = Blockly.Variables.flyoutCategoryBlocks(mainWorkspace);
           elements.forEach(xml => {
@@ -173,7 +138,7 @@ const BlocklyDrawer = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspa
         blocks = dynamicBlocks;
         setDynamicUpdated(true);
       } else {
-        const dynamicBlocks: IDrawerBlock[] = blockTypesMap[flyoutType].filter(block => !block.categories?.includes('template'));
+        const dynamicBlocks: IBaseBlock[] = blockTypesMap[flyoutType].filter(block => !block.categories?.includes('template'));
         blocks = dynamicBlocks;
         setBlockTypesMap(prevMap => ({ ...prevMap, [flyoutType]: dynamicBlocks }));
         setDynamicUpdated(true);
@@ -298,7 +263,7 @@ const BlocklyDrawer = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspa
               </Button>
             </Box>
           }
-          {flyoutType && blockTypesMap[flyoutType]?.map((item: IDrawerBlock, index: number) => (
+          {flyoutType && blockTypesMap[flyoutType]?.map((item: IBaseBlock, index: number) => (
             <Box key={index} mt={2} mb={3}>
               <Box id={`flyoutDiv_${index}`} sx={{ width: '100%', height: item.height, mb: 2 }} />
             </Box>
