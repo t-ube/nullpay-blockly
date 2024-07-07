@@ -1944,21 +1944,30 @@ export const json_blocks = [
     categories: ["json"]
   },
   {
-    height: 50,
+    height: 70,
     block: `
-      <block type="dynamic_json_create" x="0" y="0"></block>
+      <block type="json_set_key_values" x="0" y="0"></block>
     `,
-    title: "Dynamic JSON",
-    description: "",
+    title: "Set JSON Key-Value List",
+    description: "Set a list of JSON key-value pairs.",
     categories: ["json"]
   },
   {
     height: 50,
     block: `
-      <block type="json_key_value" x="0" y="0"></block>
+      <block type="dynamic_json_key_values" x="0" y="0"></block>
     `,
-    title: "JSON Key-Value",
-    description: "",
+    title: "Dynamic JSON Key-Value List",
+    description: "Create a dynamic list of JSON key-value pairs.",
+    categories: ["json"]
+  },
+  {
+    height: 50,
+    block: `
+      <block type="json_key_value_pair" x="0" y="0"></block>
+    `,
+    title: "JSON Key-Value Pair",
+    description: "Create a single JSON key-value pair.",
     categories: ["json"]
   },
   {

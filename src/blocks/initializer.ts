@@ -83,10 +83,20 @@ import {
   defineJsonToTextV2Block,
   defineJsonTextToJsonBlock,
   defineJsonInputJsonBlock, initInterpreterJsonInputJson,
-  defineDynamicJsonBlock, initInterpreterDynamicJson,
+  defineDynamicJsonKVsBlock,
   defineJsonKeyValueBlock,
-  defineJsonTextToJsonV2Block, initInterpreterJsonTextToJsonV2
+  defineJsonTextToJsonV2Block, initInterpreterJsonTextToJsonV2,
+  defineJsonSetKVsBlock, initInterpreterJsonSetKVs,
 } from '@/blocks/json/jsonValueBlock';
+/*
+import {
+  defineJsonEditorBlock,
+  defineJsonPopupBlock,
+} from '@/blocks/dev/devModalBlock';
+*/
+import {
+  defineFormModalBlock, initInterpreterFormModal
+} from '@/blocks/form/formBlock';
 import { defineWaitForSecondsBlock, initInterpreterWaitForSeconds } from '@/blocks/control/waitForSecondsBlock';
 import { defineControlRunSpeedBlock, initInterpreterControlRunSpeed } from '@/blocks/control/controlRunSpeed';
 import { defineArrayAppendBlock } from '@/blocks/list/arrayAppendBlock';
@@ -303,9 +313,16 @@ const createCustomBlocks = () => {
   defineJsonToTextV2Block();
   defineJsonTextToJsonBlock();
   defineJsonInputJsonBlock();
-  defineDynamicJsonBlock();
+  defineDynamicJsonKVsBlock();
   defineJsonKeyValueBlock();
   defineJsonTextToJsonV2Block();
+  defineJsonSetKVsBlock();
+
+  //defineJsonEditorBlock();
+  //defineJsonPopupBlock();
+
+  // Modal
+  defineFormModalBlock();
 
   // Table
   defineTableEmptyBlock();
@@ -418,8 +435,8 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterTextStartsWith(interpreter, scope);
   initInterpreterTextEndsWith(interpreter, scope);
   initInterpreterJsonInputJson(interpreter, scope);
-  initInterpreterDynamicJson(interpreter, scope);
   initInterpreterJsonTextToJsonV2(interpreter, scope);
+  initInterpreterJsonSetKVs(interpreter, scope);
 
   initInterpreterTableGetColumn(interpreter, scope);
   initInterpreterTableRowCount(interpreter, scope);
@@ -439,6 +456,7 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   //initInterpreterNotionCreateClient(interpreter, scope);
   //initInterpreterNotionCreateDatabase(interpreter, scope);
   //initInterpreterNotionAddRecord(interpreter, scope);
+  initInterpreterFormModal(interpreter, scope);
 }
 
 const initInterpreterEx = (interpreter: Interpreter, scope: any, logArea:HTMLTextAreaElement | null) => {

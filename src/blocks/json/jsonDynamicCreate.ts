@@ -23,9 +23,9 @@ const DYNAMIC_JSON_CREATE_MIXIN = {
     this.setColour(BlockColors.json);
     this.addFirstInput();
     for (let i = 1; i < this.minInputs; i++) {
-      this.appendValueInput(`ADD${i}`).setCheck(blockCheckType.jsonKV);
+      this.appendValueInput(`ADD${i}`).setCheck(blockCheckType.jsonKv);
     }
-    this.setOutput(true, blockCheckType.json);
+    this.setOutput(true, blockCheckType.jsonKvArray);
     this.setTooltip('Create a dynamic JSON object');
   },
 
@@ -71,7 +71,7 @@ const DYNAMIC_JSON_CREATE_MIXIN = {
       const inputNames = items.split(',');
       this.inputList = [];
       inputNames.forEach((name) => this.appendValueInput(name).setCheck('String'));
-      this.inputList[0].appendField('JSON key-values');
+      this.inputList[0].appendField('JSON Key-Values');
     }
   },
 
@@ -86,7 +86,7 @@ const DYNAMIC_JSON_CREATE_MIXIN = {
       this.minInputs,
     );
     for (let i = this.minInputs; i < this.itemCount; i++) {
-      this.appendValueInput('ADD' + i).setCheck(blockCheckType.jsonKV);
+      this.appendValueInput('ADD' + i).setCheck(blockCheckType.jsonKv);
     }
   },
 
@@ -124,7 +124,7 @@ const DYNAMIC_JSON_CREATE_MIXIN = {
 
     this.itemCount = state['itemCount'] ?? 0;
     for (let i = this.minInputs; i < this.itemCount; i++) {
-      this.appendValueInput('ADD' + i).setCheck(blockCheckType.jsonKV);
+      this.appendValueInput('ADD' + i).setCheck(blockCheckType.jsonKv);
     }
   },
 
@@ -184,7 +184,7 @@ const DYNAMIC_JSON_CREATE_MIXIN = {
     if (insertIndex == null) {
       return;
     }
-    this.appendValueInput(`ADD${Blockly.utils.idGenerator.genUid()}`).setCheck(blockCheckType.jsonKV);
+    this.appendValueInput(`ADD${Blockly.utils.idGenerator.genUid()}`).setCheck(blockCheckType.jsonKv);
     this.moveNumberedInputBefore(this.inputList.length - 1, insertIndex);
   },
 
@@ -246,7 +246,7 @@ const DYNAMIC_JSON_CREATE_MIXIN = {
     if (firstConn) input.connection?.connect(firstConn);
 
     for (let i = 1; i < targetConns.length; i++) {
-      const input = this.appendValueInput(`ADD${i}`).setCheck(blockCheckType.jsonKV);
+      const input = this.appendValueInput(`ADD${i}`).setCheck(blockCheckType.jsonKv);
 
       const targetConn = targetConns[i];
       if (targetConn) input.connection?.connect(targetConn);
@@ -259,7 +259,7 @@ const DYNAMIC_JSON_CREATE_MIXIN = {
    * @returns The added input.
    */
   addFirstInput(this: DynamicJsonCreateBlock): Blockly.Input {
-    return this.appendValueInput('ADD0').appendField('JSON key-values');
+    return this.appendValueInput('ADD0').appendField('JSON Key-Values');
   },
 
   /**
@@ -274,4 +274,4 @@ const DYNAMIC_JSON_CREATE_MIXIN = {
   },
 };
 
-Blockly.Blocks['dynamic_json_create'] = DYNAMIC_JSON_CREATE_MIXIN;
+Blockly.Blocks['dynamic_json_key_values'] = DYNAMIC_JSON_CREATE_MIXIN;

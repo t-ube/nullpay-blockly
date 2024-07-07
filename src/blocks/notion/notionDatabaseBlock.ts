@@ -90,7 +90,7 @@ export const defineNotionCreateClientBlock = () => {
       "previousStatement": null,
       "nextStatement": null,
       "colour": BlockColors.notion,
-      "tooltip": "",
+      "tooltip": "Create a Notion client using the specified API key",
       "helpUrl": ""
     }
   ]);
@@ -336,7 +336,7 @@ export const defineNotionAddRecordBlock = () => {
       "previousStatement": null,
       "nextStatement": null,
       "colour": BlockColors.notion,
-      "tooltip": "Create a new Notion database",
+      "tooltip": "Create a new Notion record",
       "helpUrl": ""
     }
   ]);

@@ -111,6 +111,67 @@ export function initInterpreterJsonTextToJsonV2(interpreter: any, globalObject: 
   interpreter.setProperty(globalObject, 'TextToJsonV2', interpreter.createNativeFunction(wrapper));
 }
 
+export const defineJsonSetKVsBlock = () => {
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "json_set_key_values",
+      "message0": "Set JSON %1",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "BASE_JSON",
+          "check": blockCheckType.json
+        }
+      ],
+      "message1": "%1 %2",
+      "args1": [
+        {
+          "type": "field_label",
+          "text": "Key-Values",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "KEY_VALUES",
+          "check": blockCheckType.jsonKvArray
+        }
+      ],
+      "inputsInline": false,
+      "output": blockCheckType.json,
+      "colour": BlockColors.json,
+      "tooltip": "Set a list of JSON key-value pairs",
+      "helpUrl": ""
+    }
+  ]);
+
+  javascriptGenerator.forBlock['json_set_key_values'] = function (block, generator) {
+    const baseJson = generator.valueToCode(block, 'BASE_JSON', Order.ATOMIC) || '{}';
+    const keyValues = generator.valueToCode(block, 'KEY_VALUES', Order.ATOMIC) || '[]';
+    const code = `jsonSetKVs(JSON.stringify(${baseJson}), JSON.stringify(${keyValues}))`;
+    return [code, Order.NONE];
+  };
+};
+
+export function initInterpreterJsonSetKVs(interpreter:any, globalObject:any) {
+  javascriptGenerator.addReservedWords('jsonSetKVs');
+  const wrapper = function (jsonText:string, kvArrayText:string) {
+    try {
+      const json = JSON.parse(jsonText);
+      const kvArray = JSON.parse(kvArrayText);
+      const newJson = {...json, ...kvArray.reduce((obj:any, item:any) => {
+        const key = Object.keys(item)[0];
+        obj[key] = item[key];
+        return obj;
+      }, {})};
+      return interpreter.nativeToPseudo(newJson);
+    } catch (error) {
+      console.error(`Failed to parse json: ${jsonText},${kvArrayText}`, error);
+      return interpreter.nativeToPseudo({});
+    }
+  };
+  interpreter.setProperty(globalObject, 'jsonSetKVs', interpreter.createNativeFunction(wrapper));
+}
+
 export const defineJsonGetValueBlock = () => {
   Blockly.Blocks['json_get_value'] = {
     init: function () {
@@ -135,44 +196,23 @@ export const defineJsonGetValueBlock = () => {
   };
 };
 
-export const defineDynamicJsonBlock = () => {
-  javascriptGenerator.forBlock['dynamic_json_create'] = function (block:any, generator) {
-    // Initialize an empty array to store the items
+export const defineDynamicJsonKVsBlock = () => {
+  javascriptGenerator.forBlock['dynamic_json_key_values'] = function (block:any, generator) {
     let elements = [];
     for (let i = 0; i < block.itemCount; i++) {
-      //const input = block.getInput(`ADD${i}`);
       const value = generator.valueToCode(block, `ADD${i}`, Order.NONE) || 'null';
-      elements.push(value);
+      if (value !== 'null')
+        elements.push(value);
     }
-    // Join all elements with commas to form the array code
-    const code = `dynamicJson(JSON.stringify([${elements.join(',')}]))`;
+    const code = `[${elements.join(',')}]`;
     return [code, Order.ATOMIC];
   };
 };
 
-export function initInterpreterDynamicJson(interpreter:any, globalObject:any) {
-  javascriptGenerator.addReservedWords('dynamicJson');
-  const wrapper = function (kvArrayText:string) {
-    try {
-      const kvArray = JSON.parse(kvArrayText);
-      const json = kvArray.reduce((obj:any, item:any) => {
-        const key = Object.keys(item)[0];
-        obj[key] = item[key];
-        return obj;
-      }, {});
-      return interpreter.nativeToPseudo(json);
-    } catch (error) {
-      console.error(`Failed to parse json: ${kvArrayText}`, error);
-      return interpreter.nativeToPseudo({});
-    }
-  };
-  interpreter.setProperty(globalObject, 'dynamicJson', interpreter.createNativeFunction(wrapper));
-}
-
 export const defineJsonKeyValueBlock = () => {
   Blockly.defineBlocksWithJsonArray([
     {
-      "type": "json_key_value",
+      "type": "json_key_value_pair",
       "message0": "%1:%2",
       "args0": [
         {
@@ -187,14 +227,14 @@ export const defineJsonKeyValueBlock = () => {
         }
       ],
       "inputsInline": true,
-      "output": blockCheckType.jsonKV,
+      "output": blockCheckType.jsonKv,
       "colour": BlockColors.json,
-      "tooltip": "Create a JSON key-value pair",
+      "tooltip": "Create a single JSON key-value pair",
       "helpUrl": ""
     }
   ]);
 
-  javascriptGenerator.forBlock['json_key_value'] = function (block, generator) {
+  javascriptGenerator.forBlock['json_key_value_pair'] = function (block, generator) {
     const key = generator.valueToCode(block, 'KEY', Order.ATOMIC) || '""';
     const valueCode:string | null = generator.valueToCode(block, 'VALUE', Order.ATOMIC) || null;
     let outputValue:any = '';
