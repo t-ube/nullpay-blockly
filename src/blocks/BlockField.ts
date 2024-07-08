@@ -19,6 +19,8 @@ export const blockCheckType : IBlockCheckTypeMap = {
   xrplTxnPayload: "XrplPayload",
   supabaseClient: "supabaseClient",
   notionClient: "notionClient",
+  webapiHeaders: "webapiHeaders",
+  urlParam: "urlParam",
 }
 
 export function newTitleLabel (fieldName:string) : Blockly.FieldLabel {

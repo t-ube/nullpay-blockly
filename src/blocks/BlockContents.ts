@@ -1841,6 +1841,53 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       categories: ["template","xrpl","table"]
     }
   ],
+  webapi: [
+    {
+      height: 146.5,
+      block: `
+        <block type="webapi_request" x="0" y="0"></block>
+      `,
+      title: "Web API Request",
+      description: "Sends a Web API request and stores the response in a variable.",
+      categories: ["webapi"]
+    },
+    {
+      height: 50,
+      block: `
+        <block type="dynamic_webapi_headers" x="0" y="0"></block>
+      `,
+      title: "HTTP Headers",
+      description: "",
+      categories: ["webapi"]
+    },
+    {
+      height: 50,
+      block: `
+        <block type="webapi_header" x="0" y="0"></block>
+      `,
+      title: "HTTP Header Key-Value Piar",
+      description: "",
+      categories: ["webapi"]
+    },
+    {
+      height: 50,
+      block: `
+        <block type="webapi_url_params" x="0" y="0"></block>
+      `,
+      title: "URL Parameters",
+      description: "",
+      categories: ["webapi"]
+    },
+    {
+      height: 50,
+      block: `
+        <block type="webapi_url_param" x="0" y="0"></block>
+      `,
+      title: "URL Parameter",
+      description: "",
+      categories: ["webapi"]
+    }
+  ],
   control: [
     {
         height: 50,

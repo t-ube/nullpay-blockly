@@ -3,14 +3,19 @@ export const runtime = 'edge'
 
 export async function POST(req: Request) {
   try {
-    const payload = await req.json();
+    const requestJson = await req.json();
+    let payload: { method: string; headers?: Record<string, string>; body?: string } = {
+      method: requestJson.method
+    };
 
-    const response = await fetch(payload.url, {
-      method: payload.method,
-      headers: payload.headers,
-      body: JSON.stringify(payload.body),
-    });
+    if (requestJson.headers) {
+      payload.headers = requestJson.headers;
+    }
+    if (requestJson.body) {
+      payload.body = JSON.stringify(requestJson.body);
+    }
 
+    const response = await fetch(requestJson.url, payload);
     const data = await response.json();
 
     if (!response.ok) {

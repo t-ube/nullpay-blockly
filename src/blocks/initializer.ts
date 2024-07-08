@@ -140,6 +140,14 @@ import {
   defineSupabaseUpdateBlock, initInterpreterSupabaseUpdate,
   defineSupabaseDeleteBlock, initInterpreterSupabaseDelete
 } from '@/blocks/supabase/supabaseClientBlock';
+import {
+  defineWebApiRequestBlock, initInterpreterWebApiRequest,
+  defineDynamicWebApiHeadersBlock,
+  defineWebApiHeaderBlock,
+  defineWebApiKvBlock,
+  defineWebApiUrlParametersBlock, initInterpreterWebApiUrlParameters
+} from '@/blocks/webapi/webapiBlock';
+
 /*
 import {
   defineNotionCreateClientBlock, initInterpreterNotionCreateClient,
@@ -341,6 +349,13 @@ const createCustomBlocks = () => {
   defineSupabaseUpdateBlock();
   defineSupabaseDeleteBlock();
 
+  // Web API
+  defineWebApiRequestBlock();
+  defineDynamicWebApiHeadersBlock();
+  defineWebApiHeaderBlock();
+  defineWebApiKvBlock();
+  defineWebApiUrlParametersBlock();
+
   // Notion
   //defineNotionCreateClientBlock();
   //defineNotionCreateDatabaseBlock();
@@ -449,6 +464,9 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterSupabaseSelect(interpreter, scope);
   initInterpreterSupabaseUpdate(interpreter, scope);
   initInterpreterSupabaseDelete(interpreter, scope);
+
+  initInterpreterWebApiRequest(interpreter, scope);
+  initInterpreterWebApiUrlParameters(interpreter, scope);
 
   initInterpreterBuyTokenOfferTxn(interpreter, scope);
   initInterpreterSaleTokenOfferTxn(interpreter, scope);

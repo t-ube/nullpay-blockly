@@ -16,6 +16,7 @@ export const BlockColors : IBlockColorsMap = {
   logic: '#5B80A5',
   loop: '#5BA55B',
   list: '#745BA5',
+  webapi: '#546e7a',
   supabase: '#2EB077',
   notion: '#2EB077',
   form: '#7248B9',
