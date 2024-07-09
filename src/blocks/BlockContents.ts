@@ -1888,15 +1888,62 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       categories: ["webapi"]
     }
   ],
+  chart: [
+    {
+      height: 98.5,
+      block: `
+        <block type="chart_order_book_block" x="0" y="0"></block>
+      `,
+      title: "View Order Book Chart",
+      description: "Displays an order book chart with the given title, trading pair, and bid/ask data.",
+      categories: ["chart"]
+    },
+    {
+      height: 23.5,
+      block: `
+        <block type="chart_random_order_book_data" x="0" y="0"></block>
+      `,
+      title: "Random Order Book Data",
+      description: "Generates random order book data for use in the order book chart.",
+      categories: ["chart"]
+    },
+    {
+      height: 23.5,
+      block: `
+        <block type="chart_bitbank_depth_to_order_book" x="0" y="0"></block>
+      `,
+      title: "Convert Bitbak Depth to Bids & Asks",
+      description: "Converts a Bitbank depth data structure to the format required for the order book chart.",
+      categories: ["chart"]
+    },
+    {
+      height: 23.5,
+      block: `
+        <block type="chart_bitrue_depth_to_order_book" x="0" y="0"></block>
+      `,
+      title: "Convert Bitrue Depth to Bids & Asks",
+      description: "Converts a Bitrue depth data structure to the format required for the order book chart.",
+      categories: ["chart"]
+    },
+    {
+      height: 47.5,
+      block: `
+        <block type="chart_extract_balanced_order_book" x="0" y="0"></block>
+      `,
+      title: "Extract Balanced Bids & Asks",
+      description: "Extracts the bids and asks from an order book data structure, limiting the number of items per side.",
+      categories: ["chart"]
+    }
+  ],
   control: [
     {
-        height: 50,
-        block: `
-          <block type="wait_seconds" x="0" y="0"></block>
-        `,
-        title: "Wait Seconds",
-        description: "Wait for a specified number of seconds.",
-        categories: ["control"]
+      height: 50,
+      block: `
+        <block type="wait_seconds" x="0" y="0"></block>
+      `,
+      title: "Wait Seconds",
+      description: "Wait for a specified number of seconds.",
+      categories: ["control"]
     },
     {
       height: 50,

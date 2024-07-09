@@ -4,6 +4,8 @@ import { BlockColors } from '@/blocks/BlockColors';
 import { blockCheckType } from '@/blocks/BlockField';
 import { FieldModal } from '@/blocks/dev/FieldModal';
 import { FieldPopup } from '@/blocks/dev/FieldPopup';
+//import { TradingPopupField, TradingData } from '@/blocks/dev/TradingPopupField';
+//import { BaseModalField } from '@/blocks/dev/BaseModalField';
 
 export const defineJsonEditorBlock = () => {
   Blockly.Blocks['json_editor_block'] = {

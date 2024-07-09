@@ -68,6 +68,7 @@ export function Sidebar ({ setOpen, setFlyoutType }: ISidebarProps) {
     { type: 'item', label: 'Loops', color: BlockColors.loop, onClick: handleFlyoutOpen('loop'), icon: BlockIcons.loop },
     { type: 'item', label: 'Lists', color: BlockColors.list, onClick: handleFlyoutOpen('list'), icon: BlockIcons.list },
     { type: 'item', label: 'Web API', color: BlockColors.webapi, onClick: handleFlyoutOpen('webapi'), icon: BlockIcons.webapi },
+    { type: 'item', label: 'Chart', color: BlockColors.chart, onClick: handleFlyoutOpen('chart'), icon: BlockIcons.chart },
     { type: 'item', label: 'Supabase', color: BlockColors.supabase, onClick: handleFlyoutOpen('supabase'), icon: BlockIcons.supabase },
     { type: 'item', label: 'Variables', color: BlockColors.variable, onClick: handleFlyoutOpen('variable'), icon: BlockIcons.variable },
     { type: 'item', label: 'Functions', color: BlockColors.function, onClick: handleFlyoutOpen('function'), icon: BlockIcons.function },

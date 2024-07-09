@@ -28,6 +28,9 @@ export const FlyoutTheme = Blockly.Theme.defineTheme('customTheme', {
     webapi_blocks: {
       colourPrimary: BlockColors.webapi
     },
+    chart_blocks: {
+      colourPrimary: BlockColors.chart
+    },
     time_blocks: {
       colourPrimary: BlockColors.time
     },

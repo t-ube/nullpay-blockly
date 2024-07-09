@@ -88,12 +88,17 @@ import {
   defineJsonTextToJsonV2Block, initInterpreterJsonTextToJsonV2,
   defineJsonSetKVsBlock, initInterpreterJsonSetKVs,
 } from '@/blocks/json/jsonValueBlock';
-/*
 import {
   defineJsonEditorBlock,
   defineJsonPopupBlock,
 } from '@/blocks/dev/devModalBlock';
-*/
+import {
+  defineChartOrderBookBlock, initInterpreterChartOrderBook,
+  defineChartRandomOrderBookDataBlock, initInterpreterChartRandomOrderBookData,
+  defineChartBitbankDepthToOrderBookBlock, initInterpreterChartBitbankDepthToOrderBook,
+  defineChartextractBalancedOrderBookBlock, initInterpreterChartExtractBalancedOrderBook,
+  defineChartBitrueDepthToOrderBookBlock, initInterpreterChartBitrueDepthToOrderBook
+} from '@/blocks/chart/chartBlock';
 import {
   defineFormModalBlock, initInterpreterFormModal
 } from '@/blocks/form/formBlock';
@@ -327,6 +332,11 @@ const createCustomBlocks = () => {
 
   //defineJsonEditorBlock();
   //defineJsonPopupBlock();
+  defineChartOrderBookBlock();
+  defineChartRandomOrderBookDataBlock();
+  defineChartBitbankDepthToOrderBookBlock();
+  defineChartextractBalancedOrderBookBlock();
+  defineChartBitrueDepthToOrderBookBlock();
 
   // Modal
   defineFormModalBlock();
@@ -474,6 +484,11 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   //initInterpreterNotionCreateDatabase(interpreter, scope);
   //initInterpreterNotionAddRecord(interpreter, scope);
   initInterpreterFormModal(interpreter, scope);
+  initInterpreterChartOrderBook(interpreter, scope);
+  initInterpreterChartRandomOrderBookData(interpreter, scope);
+  initInterpreterChartBitbankDepthToOrderBook(interpreter, scope);
+  initInterpreterChartExtractBalancedOrderBook(interpreter, scope);
+  initInterpreterChartBitrueDepthToOrderBook(interpreter, scope);
 }
 
 const initInterpreterEx = (interpreter: Interpreter, scope: any, logArea:HTMLTextAreaElement | null) => {
