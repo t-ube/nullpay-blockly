@@ -51,6 +51,7 @@ class CustomModal {
     modal.style.backgroundColor = '#fff';
     modal.style.border = '1px solid #ccc';
     modal.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+    modal.style.minHeight = '40px';
     modal.style.maxHeight = 'calc(100% - 40px)';
     modal.style.maxWidth = 'calc(100% - 40px)';
     modal.style.overflow = 'auto';
@@ -62,9 +63,8 @@ class CustomModal {
 
   createContentDiv() {
     const contentDiv = document.createElement('div');
-    contentDiv.style.backgroundColor = '#fff';
+    contentDiv.style.backgroundColor = '#23232F';
     contentDiv.style.border = '1px solid #ccc';
-    //contentDiv.style.padding = '20px';
     contentDiv.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
     contentDiv.style.maxHeight = 'calc(100% - 40px)';
     contentDiv.style.maxWidth = 'calc(100%)';
@@ -102,7 +102,7 @@ export class ChartModalField extends Blockly.Field {
   isCreated: boolean = false;
   oldValue: any;
   originalKeyMap: any = null;
-  customModal: CustomModal;
+  customModal: CustomModal | null;
   maxTextLength: number = 14;
   chartData: any | null = null;
   chartTitle: string = '';
@@ -114,7 +114,7 @@ export class ChartModalField extends Blockly.Field {
     this.oldValue = value;
     this.setValue(value);
     this.updateDisplayText();
-    this.customModal = new CustomModal();
+    this.customModal = null;
   }
 
   async showModalAtRuntime(data:string, title:string, currencyPair:string): Promise<void> {
@@ -130,6 +130,9 @@ export class ChartModalField extends Blockly.Field {
   showEditor_() {
     if (this.isClosing) {
       return;
+    }
+    if (!this.customModal) {
+      this.customModal = new CustomModal();
     }
     const editor = this.createEditor_();
     if (editor) {
@@ -403,6 +406,16 @@ export class ChartModalField extends Blockly.Field {
           this.chart = Highcharts.chart(this.chartElement, options);
         }
       }
+    } else {
+      const noDataMessage = document.createElement('div');
+      noDataMessage.textContent = 'No data available';
+      noDataMessage.style.padding = '20px';
+      noDataMessage.style.color = '#FFF';
+      noDataMessage.style.textAlign = 'center';
+      if (this.chartElement) {
+        this.chartElement.innerHTML = '';
+        this.chartElement.appendChild(noDataMessage);
+      }
     }
   }
 
@@ -412,7 +425,7 @@ export class ChartModalField extends Blockly.Field {
     }
     this.enableBlocklyShortcuts();
     this.isClosing = true;
-    this.customModal.hide();
+    this.customModal?.hide();
     this.isClosing = false;
   }
 

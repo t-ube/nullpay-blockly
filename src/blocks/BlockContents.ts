@@ -1841,6 +1841,35 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       categories: ["template","xrpl","table"]
     }
   ],
+  form: [
+    {
+      height: 51,
+      block: `
+        <block type="form_modal_block" x="0" y="0"></block>
+      `,
+      title: "Form Modal",
+      description: "",
+      categories: ["form"]
+    },
+    {
+      height: 23.5,
+      block: `
+        <block type="form_submitted" x="0" y="0"></block>
+      `,
+      title: "Form Submitted",
+      description: "",
+      categories: ["form"]
+    },
+    {
+      height: 71.5,
+      block: `
+        <block type="form_variable_get" x="0" y="0"></block>
+      `,
+      title: "Form Get Variable",
+      description: "",
+      categories: ["form"]
+    },
+  ],
   webapi: [
     {
       height: 146.5,

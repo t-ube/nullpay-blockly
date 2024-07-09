@@ -3,8 +3,9 @@
 import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
-import { blockCheckType } from '@/blocks/BlockField';
-import { FieldForm, getDefaultFormValue, IFormValue } from '@/blocks/form/FieldForm';
+import { FieldForm, getDefaultFormValue } from '@/blocks/form/FieldForm';
+import { IFormResult } from '@/interfaces/IForm';
+import { newTitleLabel, newArgsLabel, newOutputLabel, blockCheckType } from '@/blocks/BlockField';
 
 export const defineFormModalBlock = () => {
   Blockly.Blocks['form_modal_block'] = {
@@ -12,7 +13,11 @@ export const defineFormModalBlock = () => {
       this.appendDummyInput()
         .appendField('Form')
         .appendField(new FieldForm(getDefaultFormValue()), 'INPUT');
-      this.setOutput(true, blockCheckType.json);
+      this.appendDummyInput()
+        .appendField(newOutputLabel("Result"))
+        .appendField(new Blockly.FieldVariable("result"), "VAR");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
       this.setColour(BlockColors.form);
       this.setTooltip('Input a JSON of values');
       this.setHelpUrl('');
@@ -20,12 +25,17 @@ export const defineFormModalBlock = () => {
   };
 
   javascriptGenerator.forBlock['form_modal_block'] = function(block, generator) {
-    const code = `formShowModal('${block.id}')`;
-    return [code, Order.FUNCTION_CALL];
+    if (generator.nameDB_ === undefined) {
+      const code = `formShowModal('${block.id}','');\n`;
+      return code;
+    }
+    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const code = `formShowModal('${block.id}','${variable}');\n`;
+    return code;
   };
 };
 
-async function showFormModal(blockId: string): Promise<IFormValue> {
+async function showFormModal(blockId: string): Promise<IFormResult> {
   const workspace = Blockly.getMainWorkspace();
   const block = workspace.getBlockById(blockId);
   if (block) {
@@ -37,31 +47,140 @@ async function showFormModal(blockId: string): Promise<IFormValue> {
 
 export function initInterpreterFormModal(interpreter: any, globalObject: any) {
   javascriptGenerator.addReservedWords('formShowModal');
-  const wrapper = function(blockId: string, callback: (result: IFormValue) => void) {
+  const wrapper = function(blockId: string, variable: any, callback:any) {
+    showFormModal(blockId).then(result => {
+      interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(result));
+      callback();
+    });
+  };
+  interpreter.setProperty(globalObject, 'formShowModal', interpreter.createAsyncFunction(wrapper));
+}
+/*
+export function initInterpreterFormModal(interpreter: any, globalObject: any) {
+  javascriptGenerator.addReservedWords('formShowModal');
+  const wrapper = function(blockId: string, variable: any, callback: (result: IFormResult) => void) {
     showFormModal(blockId).then(result => {
       callback(interpreter.nativeToPseudo(result));
     });
   };
   interpreter.setProperty(globalObject, 'formShowModal', interpreter.createAsyncFunction(wrapper));
 }
-
-/*
-export const defineFormModalBlock = () => {
-  Blockly.Blocks['form_modal_block'] = {
-    init: function () {
-      this.appendDummyInput()
-        .appendField('Form')
-        .appendField(new FieldForm(getDefaultFormValue()), 'INPUT');
-      this.setOutput(true, blockCheckType.json);
-      this.setColour(BlockColors.json);
-      this.setTooltip('Input a JSON of values');
-      this.setHelpUrl('');
+*/
+export const defineFormSubmittedBlock = () => {
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "form_submitted",
+      "message0": "form submitted %1",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "FORM_RESULT",
+          "check": blockCheckType.json
+        }
+      ],
+      "output": blockCheckType.boolean,
+      "inputsInline": false,
+      "colour": BlockColors.form,
+      "tooltip": "",
+      "helpUrl": ""
     }
-  };
+  ]);
 
-  javascriptGenerator.forBlock['form_modal_block'] = function(block, generator) {
-    const input = block.getFieldValue('INPUT');
-    return [JSON.stringify(input), Order.ATOMIC];
+  javascriptGenerator.forBlock['form_submitted'] = function (block, generator) {
+    const result = generator.valueToCode(block, 'FORM_RESULT', Order.ATOMIC) || '{}';
+    const code = `formSubmitted(JSON.stringify(${result}))`;
+    return [code, Order.ATOMIC];
   };
 };
-*/
+
+export function initInterpreterFormSubmitted(interpreter: any, globalObject: any) {
+  javascriptGenerator.addReservedWords('formSubmitted');
+  const wrapper = function (resultText: string) {
+    try {
+      const json = JSON.parse(resultText) as IFormResult;
+      if (json.return.submit === true) {
+        return interpreter.nativeToPseudo(true);
+      }
+      return interpreter.nativeToPseudo(false);
+    } catch (error) {
+      console.error(`Failed to convert: ${resultText}`,error);
+      return interpreter.nativeToPseudo(false);
+    }
+  };
+  interpreter.setProperty(globalObject, 'formSubmitted', interpreter.createNativeFunction(wrapper));
+}
+
+export const defineFormVariableGetBlock = () => {
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "form_variable_get",
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_label",
+          "text": "Form get variable",
+          "class": "title-label"
+        }
+      ],
+      "message1": "%1 %2",
+      "args1": [
+        {
+          "type": "field_label",
+          "text": "Form result",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "FORM_RESULT",
+          "check": blockCheckType.json
+        }
+      ],
+      "message2": "%1 %2",
+      "args2": [
+        {
+          "type": "field_label",
+          "text": "Variable name",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "NAME",
+          "check": blockCheckType.string
+        }
+      ],
+      "output": [blockCheckType.string, blockCheckType.number, null],
+      "inputsInline": false,
+      "colour": BlockColors.form,
+      "tooltip": "Gets variable from form with the specified key",
+      "helpUrl": ""
+    }
+  ]);
+
+  javascriptGenerator.forBlock['form_variable_get'] = function (block, generator) {
+    const result = generator.valueToCode(block, 'FORM_RESULT', Order.ATOMIC) || '{}';
+    const name = generator.valueToCode(block, 'NAME', Order.NONE) || '""';
+    const code = `formVariableGet(JSON.stringify(${result}),${name})`;
+    return [code, Order.ATOMIC];
+  };
+};
+
+export function initInterpreterFormVariableGet(interpreter: any, globalObject: any) {
+  javascriptGenerator.addReservedWords('formVariableGet');
+  const wrapper = function (resultText: string, name:string) {
+    try {
+      const json = JSON.parse(resultText) as IFormResult;
+      if (json.return.submit === true) {
+        console.log(json.items);
+        const item = Object.values(json.items).find(item => item.name.default === name);
+        if (item) {
+          return interpreter.nativeToPseudo(item.value);
+        }
+      }
+      return interpreter.nativeToPseudo(null);
+    } catch (error) {
+      console.error(`Failed to convert: ${resultText}`,error);
+      return interpreter.nativeToPseudo(null);
+    }
+  };
+  interpreter.setProperty(globalObject, 'formVariableGet', interpreter.createNativeFunction(wrapper));
+}

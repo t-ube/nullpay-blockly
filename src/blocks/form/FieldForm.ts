@@ -7,35 +7,12 @@ import {
   createStylishIconButton,
   createDeleteButton
 } from '@/blocks/form/FormButtonHelper';
+import { IFormValue, IFormItem, IFormResult } from '@/interfaces/IForm';
 
-interface IFormItem {
-  key: string,
-  value: string | number | null | boolean | object,
-  name: {
-    default: string,
-    "en-US"?: string,
-    "ja-JP"?: string,
-  },
-  description: {
-    default: string,
-    "en-US"?: string,
-    "ja-JP"?: string,
-  }
-}
 
-export interface IFormValue {
-  editable: boolean,
-  title: {
-    default: string,
-    "en-US"?: string,
-    "ja-JP"?: string,
-  },
-  items: { [key: string]: IFormItem }
-}
-
-export function getDefaultFormValue () : IFormValue {
+export function getDefaultFormValue () : IFormResult {
   return (
-    { editable: true, title: { default: 'Form Title' }, items: {} }
+    { editable: true, title: { default: 'Form Title' }, items: {}, return: {submit: false} }
   );
 }
 
@@ -136,7 +113,7 @@ class FieldForm extends Blockly.Field {
   navigator: Navigator = window.navigator;
   selectedCell: string[] = [];
   originalKeyMap: any = null;
-  customModal: CustomModal;
+  customModal: CustomModal | null;
   formValues: IFormValue;
   currentLanguage: string = 'en-US';
   formId: string;
@@ -152,12 +129,12 @@ class FieldForm extends Blockly.Field {
     this.formId = uuidv4();
     this.buttonContainerId = uuidv4();
     this.formValues = value;
+    this.customModal = null;
     this.setValue(value);
     this.updateDisplayText();
-    this.customModal = new CustomModal();
   }
 
-  async showModalAtRuntime(): Promise<IFormValue> {
+  async showModalAtRuntime(): Promise<IFormResult> {
     return new Promise((resolve) => {
       const modal = new CustomModal(false);
       const container = this.createEditor_(true);
@@ -198,6 +175,9 @@ class FieldForm extends Blockly.Field {
     if (this.isClosing) {
       return;
     }
+    if (!this.customModal) {
+      this.customModal = new CustomModal();
+    }
     const editor = this.createEditor_();
     if (editor) {
       this.customModal.getContentDiv().innerHTML = '';
@@ -211,6 +191,7 @@ class FieldForm extends Blockly.Field {
     if (this.isCreated && this.editorContainer) {
       return isRuntime ? this.updateEditorForRuntime(this.editorContainer) : this.updateEditorForEditing(this.editorContainer);
     }
+    console.log("createEditor_: First");
   
     const container = document.createElement('div');
     container.style.width = '400px';
@@ -218,13 +199,11 @@ class FieldForm extends Blockly.Field {
     container.style.overflow = 'auto';
     container.style.position = 'relative';
   
-    if (!isRuntime) {
-      const toggleContainer = this.createToggleSwitch();
-      toggleContainer.style.marginLeft = 'auto';
-      toggleContainer.style.marginRight = '0px';
-      toggleContainer.style.marginBottom = '10px';
-      container.appendChild(toggleContainer);
-    }
+    const toggleContainer = this.createToggleSwitch();
+    toggleContainer.style.marginLeft = 'auto';
+    toggleContainer.style.marginRight = '0px';
+    toggleContainer.style.marginBottom = '10px';
+    container.appendChild(toggleContainer);
   
     const form = document.createElement('form');
     form.id = this.formId;
@@ -271,8 +250,10 @@ class FieldForm extends Blockly.Field {
   
     this.isCreated = true;
     this.editorContainer = container;
+
+    this.checkDuplicateNames(form);
   
-    return container;
+    return isRuntime ? this.updateEditorForRuntime(this.editorContainer) : this.updateEditorForEditing(this.editorContainer);
   }
 
   updateEditorForEditing(container: HTMLElement): HTMLElement {
@@ -619,6 +600,7 @@ class FieldForm extends Blockly.Field {
     const newItem: IFormItem = {
       key: key,
       value: "",
+      type: "string",
       name: { default: name },
       description: { default: 'New Description' }
     };
@@ -634,6 +616,7 @@ class FieldForm extends Blockly.Field {
     const newItem: IFormItem = {
       key: key,
       value: 0,
+      type: "number",
       name: { default: name },
       description: { default: 'New Description' }
     };
@@ -756,7 +739,9 @@ class FieldForm extends Blockly.Field {
           items[itemKey].name.default = value.toString();
         }
       } else if (items[key]) {
-        items[key].value = isNaN(Number(value)) ? value : Number(value);
+        items[key].value = items[key].type === "number" ? Number(value)
+        : items[key].type === "string" ? value
+        : null
       }
     });
 
@@ -783,7 +768,7 @@ class FieldForm extends Blockly.Field {
     }
     this.enableBlocklyShortcuts();
     this.isClosing = true;
-    this.customModal.hide();
+    this.customModal?.hide();
     this.isClosing = false;
   }
 

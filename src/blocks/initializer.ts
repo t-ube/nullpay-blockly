@@ -100,7 +100,9 @@ import {
   defineChartBitrueDepthToOrderBookBlock, initInterpreterChartBitrueDepthToOrderBook
 } from '@/blocks/chart/chartBlock';
 import {
-  defineFormModalBlock, initInterpreterFormModal
+  defineFormModalBlock, initInterpreterFormModal,
+  defineFormSubmittedBlock, initInterpreterFormSubmitted,
+  defineFormVariableGetBlock, initInterpreterFormVariableGet
 } from '@/blocks/form/formBlock';
 import { defineWaitForSecondsBlock, initInterpreterWaitForSeconds } from '@/blocks/control/waitForSecondsBlock';
 import { defineControlRunSpeedBlock, initInterpreterControlRunSpeed } from '@/blocks/control/controlRunSpeed';
@@ -340,6 +342,8 @@ const createCustomBlocks = () => {
 
   // Modal
   defineFormModalBlock();
+  defineFormSubmittedBlock();
+  defineFormVariableGetBlock();
 
   // Table
   defineTableEmptyBlock();
@@ -484,6 +488,9 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   //initInterpreterNotionCreateDatabase(interpreter, scope);
   //initInterpreterNotionAddRecord(interpreter, scope);
   initInterpreterFormModal(interpreter, scope);
+  initInterpreterFormSubmitted(interpreter, scope);
+  initInterpreterFormVariableGet(interpreter, scope);
+
   initInterpreterChartOrderBook(interpreter, scope);
   initInterpreterChartRandomOrderBookData(interpreter, scope);
   initInterpreterChartBitbankDepthToOrderBook(interpreter, scope);

@@ -13,6 +13,7 @@ import DataObjectIcon from '@mui/icons-material/DataObject';
 import GridOnIcon from '@mui/icons-material/GridOn';
 import ApiIcon from '@mui/icons-material/Api';
 import BarChartIcon from '@mui/icons-material/BarChart';
+import FeedIcon from '@mui/icons-material/Feed';
 
 interface IBlockIconMap {
   [key: string]: string | React.ElementType;
@@ -31,6 +32,7 @@ export const BlockIcons : IBlockIconMap = {
   logic: ShuffleIcon,
   loop: RefreshIcon,
   list: ListIcon,
+  form: FeedIcon,
   webapi: ApiIcon,
   chart: BarChartIcon,
   supabase: '/icons/supabase-logo.svg',
