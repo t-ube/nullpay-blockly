@@ -26,7 +26,7 @@ const DYNAMIC_HEADER_CREATE_MIXIN = {
       this.appendValueInput(`ADD${i}`).setCheck(blockCheckType.jsonKv);
     }
     this.setOutput(true, blockCheckType.webapiHeaders);
-    this.setTooltip('Create a HTTP headers');
+    this.setTooltip('Create HTTP headers');
   },
 
   /**

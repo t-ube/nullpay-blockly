@@ -53,7 +53,12 @@ export const defineJsonToTextV2Block = () => {
         {
           "type": "input_value",
           "name": "JSON",
-          "check": blockCheckType.json
+          "check": [
+            blockCheckType.json, 
+            blockCheckType.xrplTxnPayload,
+            blockCheckType.xrplToken,
+            blockCheckType.xrplTokenAmount,
+          ]
         }
       ],
       "output": blockCheckType.string,

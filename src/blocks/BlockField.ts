@@ -15,6 +15,7 @@ export const blockCheckType : IBlockCheckTypeMap = {
   boolean: "Boolean",
   datetime: "Datetime",
   xrplToken: "XrplToken",
+  xrplTokenAmount: "XrplTokenAmount",
   xrplClient: "Client",
   xrplTxnPayload: "XrplPayload",
   supabaseClient: "supabaseClient",

@@ -277,7 +277,7 @@ export const defineWebApiKvBlock = () => {
       "inputsInline": true,
       "output": blockCheckType.urlParam,
       "colour": BlockColors.webapi,
-      "tooltip": "",
+      "tooltip": "Create a single URL query pamaeter key-value pair",
       "helpUrl": ""
     }
   ]);

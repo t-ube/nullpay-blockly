@@ -19,7 +19,7 @@ export const defineFormModalBlock = () => {
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(BlockColors.form);
-      this.setTooltip('Input a JSON of values');
+      this.setTooltip('Create and display a form');
       this.setHelpUrl('');
     }
   };
@@ -81,7 +81,7 @@ export const defineFormSubmittedBlock = () => {
       "output": blockCheckType.boolean,
       "inputsInline": false,
       "colour": BlockColors.form,
-      "tooltip": "",
+      "tooltip": "Check if a form has been submitted. Accepts a JSON form result object as input and outputs 'true' if the form was submitted, 'false' otherwise.",
       "helpUrl": ""
     }
   ]);
@@ -151,7 +151,7 @@ export const defineFormVariableGetBlock = () => {
       "output": [blockCheckType.string, blockCheckType.number, null],
       "inputsInline": false,
       "colour": BlockColors.form,
-      "tooltip": "Gets variable from form with the specified key",
+      "tooltip": "Get the value of a variable from a submitted form",
       "helpUrl": ""
     }
   ]);

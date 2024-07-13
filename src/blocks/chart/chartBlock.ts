@@ -69,7 +69,7 @@ export const defineChartRandomOrderBookDataBlock = () => {
   Blockly.Blocks['chart_random_order_book_data'] = {
     init: function() {
       this.appendDummyInput()
-          .appendField("Random Order Book Data");
+          .appendField("Random bids & asks");
       this.setOutput(true, "Object");
       this.setColour(BlockColors.chart);
       this.setTooltip('Generates random order book data for use in the order book chart');

@@ -222,6 +222,42 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
     {
       height: 50,
       block: `
+        <block type="xrpl_token_amount_set" x="0" y="0"></block>
+      `,
+      title: "XRPL Token Amount",
+      description: "Set the amount of a token. Specify the information of the newly created token and its value.",
+      categories: ["xrpl"]
+    },
+    {
+      height: 50,
+      block: `
+        <block type="xrpl_token_amount_arithmetic" x="0" y="0"></block>
+      `,
+      title: "XRPL Token Amount Arithmetic",
+      description: "Perform arithmetic operations on XRPL token amounts.This block allows you to add, subtract, multiply, or divide an XRPL token amount by a given value. The 'TOKEN' input can be an XRPL token amount object, a number, or a string representation of a number. The 'OPERATOR' dropdown selects the arithmetic operation to perform, and the 'VALUE' input specifies the number to apply the operation to.The output of this block is a new XRPL token amount object with the result of the arithmetic operation.",
+      categories: ["xrpl"]
+    },
+    {
+      height: 98.5,
+      block: `
+        <block type="xrpl_clio_nft_info" x="0" y="0"></block>
+      `,
+      title: "XRPL Get NFT Info",
+      description: "Get information about an NFT (Non-Fungible Token) on the XRPL using the Clio API service.This block allows you to fetch details about a specific NFT, including its owner, metadata, and other properties. The 'XRPL client' input specifies the client connection to the XRPL, which is required to interact with the Clio API. The 'NFT ID' input is the unique identifier of the NFT you want to retrieve information for.The block outputs the status of the operation ('success' or 'error') and the response data from the Clio API, which can be used for further processing in your program. Note: Using this block requires an active connection to the Clio API service, which provides access to the XRPL data.",
+      categories: ["xrpl"]
+    },
+    {
+      height: 143.5,
+      block: `
+        <block type="xrpl_nftoken_buy_offer" x="0" y="0"></block>
+      `,
+      title: "XRPL NFT Buy offer Payload",
+      description: "This block creates an NFT buy offer payload that includes the specified information about the token and its value. The generated payload can be used to submit an NFT buy offer transaction on the XRPL network.",
+      categories: ["xrpl"]
+    },
+    {
+      height: 50,
+      block: `
         <block type="xrpl_rippling_txn" x="0" y="0"></block>
       `,
       title: "XRPL Rippling Transaction",
@@ -316,6 +352,15 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Read Transaction info",
       description: "Retrieve transaction information and store it in separate variables.",
+      categories: ["xrpl"]
+    },
+    {
+      height: 98.5,
+      block: `
+        <block type="xrpl_nft_buy_offers" x="0" y="0"></block>
+      `,
+      title: "XRPL Get NFT Buy Offers",
+      description: "Get the current buy offers for a specific NFT (Non-Fungible Token) on the XRPL.This block allows you to retrieve the list of active buy offers for a given NFT. The 'XRPL client' input specifies the connection to the XRPL, which is required to make the API request. The 'NFT ID' input is the unique identifier of the NFT you want to fetch the buy offers for.The block outputs the status of the operation ('success' or 'error') and the response data from the API, which contains the list of buy offers for the specified NFT. This information can be used for further processing or decision-making in your program. Note: Using this block requires an active connection to the XRPL and the ability to make the necessary API requests to fetch the buy offer data.",
       categories: ["xrpl"]
     },
     {
@@ -444,7 +489,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                         <field name="VAR" id="bxPm,KY=-@8vtu*bSGsp">issuerWallet</field>
                                       </block>
                                     </value>
-                                    <value name="TRANSACTION">
+                                    <value name="PAYLOAD">
                                       <block type="xrpl_rippling_txn" id="t*yU?=oC%].mFct)8{N_">
                                         <field name="RIPPLING">ENABLE</field>
                                         <value name="ADDRESS">
@@ -515,7 +560,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                         <field name="VAR" id="xMBzI7UBn!L3](uO_[sm">userWallet</field>
                                                       </block>
                                                     </value>
-                                                    <value name="TRANSACTION">
+                                                    <value name="PAYLOAD">
                                                       <block type="xrpl_trust_set_txn" id="\$^z21d,u*nnCB(_(7U\$]">
                                                         <value name="TOKEN">
                                                           <block type="variables_get" id="=nE\$BGkDwF45#N!LSZB0">
@@ -542,7 +587,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                             <field name="VAR" id="xMBzI7UBn!L3](uO_[sm">userWallet</field>
                                                           </block>
                                                         </value>
-                                                        <value name="TRANSACTION">
+                                                        <value name="PAYLOAD">
                                                           <block type="xrpl_buy_token_offer_txn" id="FIB(nUf,@e%(pd0w9eeb">
                                                             <value name="ACCOUNT_ADDRESS">
                                                               <block type="variables_get" id="XPqhM#Ljg6_u(%{+5:qU">
@@ -579,7 +624,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                 <field name="VAR" id="bxPm,KY=-@8vtu*bSGsp">issuerWallet</field>
                                                               </block>
                                                             </value>
-                                                            <value name="TRANSACTION">
+                                                            <value name="PAYLOAD">
                                                               <block type="xrpl_sale_token_offer_txn" id="UXj7\`J@]Da+|D38AdCSM">
                                                                 <value name="ACCOUNT_ADDRESS">
                                                                   <block type="variables_get" id="|bOfsJN14/#g]a.^3ZI+">
@@ -703,7 +748,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       <value name="SERVER">
         <block type="xrpl_network_wss_selection" id="F4aUDcaP%cN[tf)la4.C">
           <field name="NETWORK_TYPE">xrpl</field>
-          <field name="CONNECTION">wss://xrpl.ws</field>
+          <field name="CONNECTION">wss://xrplcluster.com</field>
         </block>
       </value>
       <next>
@@ -969,7 +1014,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
               <value name="SERVER">
                 <block type="xrpl_network_wss_selection" id="6MjF0aai[X_)@BZ@D5tL">
                   <field name="NETWORK_TYPE">xrpl</field>
-                  <field name="CONNECTION">wss://xrpl.ws</field>
+                  <field name="CONNECTION">wss://xrplcluster.com</field>
                 </block>
               </value>
               <next>
@@ -1150,6 +1195,15 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
         title: "Xaman Payment",
         description: "Process a payment using the Xaman system.",
         categories: ["xaman"]
+    },
+    {
+      height: 74.5,
+      block: `
+        <block type="xaman_payload_set" x="0" y="0"></block>
+      `,
+      title: "Xaman Payload",
+      description: "Set a new payload for the Xaman XRPL wallet integration.This block allows you to create a new Xaman transaction payload, which can then be used to initiate a transaction on the XRP Ledger. The 'Payload' input should be a JSON object representing the transaction details, such as the recipient, amount, and other metadata.When the block is executed, it will attempt to create the new payload using the Xaman SDK. If successful, the block will output the status ('success') and the unique identifier (UUID) of the created payload. This payload ID can be used to further interact with the Xaman wallet integration, such as signing and submitting the transaction. Note: This block requires the user to be logged in to the Xaman wallet in order to create a new payload. If the user is not logged in, the block will output an error status.",
+      categories: ["xaman"]
     },
     {
         height: 80,
@@ -1445,22 +1499,31 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
   ],
   math: [
     {
-        height: 50,
-        block: `
-          <block type="math_number" x="0" y="0"></block>
-        `,
-        title: "Number",
-        description: "Define a number.",
-        categories: ["math"]
+      height: 50,
+      block: `
+        <block type="math_number" x="0" y="0"></block>
+      `,
+      title: "Number",
+      description: "Define a number.",
+      categories: ["math"]
     },
     {
-        height: 50,
-        block: `
-          <block type="percentage" x="0" y="0"></block>
-        `,
-        title: "Percentage",
-        description: "Calculate a percentage.",
-        categories: ["math"]
+      height: 50,
+      block: `
+        <block type="math_arithmetic" x="0" y="0"></block>
+      `,
+      title: "Number",
+      description: "Math arithmetic",
+      categories: ["math"]
+    },
+    {
+      height: 50,
+      block: `
+        <block type="percentage" x="0" y="0"></block>
+      `,
+      title: "Percentage",
+      description: "Calculate a percentage.",
+      categories: ["math"]
     }
   ],
   supabase: [
@@ -1848,7 +1911,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
         <block type="form_modal_block" x="0" y="0"></block>
       `,
       title: "Form Modal",
-      description: "",
+      description: "Create and display a form. You can add editable input fields to the form, allowing the user to enter variables. When the program is executed, the form will be displayed, and the user will be prompted to provide input.",
       categories: ["form"]
     },
     {
@@ -1857,7 +1920,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
         <block type="form_submitted" x="0" y="0"></block>
       `,
       title: "Form Submitted",
-      description: "",
+      description: "Check if a form has been submitted. This block takes the result of a form submission as input, represented as a JSON object. It then checks the 'submit' property of the 'return' object within the form result. If the 'submit' property is 'true', the block outputs 'true', indicating that the form was successfully submitted. If the 'submit' property is 'false' or an error occurs while parsing the input, the block outputs 'false'. This block can be used to control the flow of your program based on the submission status of a form. For example, you could use it to execute different actions or display different UI elements depending on whether the form was submitted or not.",
       categories: ["form"]
     },
     {
@@ -1866,7 +1929,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
         <block type="form_variable_get" x="0" y="0"></block>
       `,
       title: "Form Get Variable",
-      description: "",
+      description: "Get the value of a variable from a submitted form. The block will search the form result for an item (field) that matches the specified variable name, and output the value of that item. The value can be a string, number, or null if the variable is not found. This block is useful when you need to access the values of individual fields from a submitted form, for example to use those values in further processing or to display them in your application.",
       categories: ["form"]
     },
   ],
@@ -1886,7 +1949,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
         <block type="dynamic_webapi_headers" x="0" y="0"></block>
       `,
       title: "HTTP Headers",
-      description: "",
+      description: "Create HTTP headers.",
       categories: ["webapi"]
     },
     {
@@ -1895,7 +1958,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
         <block type="webapi_header" x="0" y="0"></block>
       `,
       title: "HTTP Header Key-Value Piar",
-      description: "",
+      description: "Create a single HTTP header key-value pair.",
       categories: ["webapi"]
     },
     {
@@ -1904,7 +1967,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
         <block type="webapi_url_params" x="0" y="0"></block>
       `,
       title: "URL Parameters",
-      description: "",
+      description: "Create URL query pamaeters.",
       categories: ["webapi"]
     },
     {
@@ -1913,7 +1976,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
         <block type="webapi_url_param" x="0" y="0"></block>
       `,
       title: "URL Parameter",
-      description: "",
+      description: "Create a single URL query pamaeter key-value pair.",
       categories: ["webapi"]
     }
   ],
@@ -1932,7 +1995,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       block: `
         <block type="chart_random_order_book_data" x="0" y="0"></block>
       `,
-      title: "Random Order Book Data",
+      title: "Random Bids & Asks",
       description: "Generates random order book data for use in the order book chart.",
       categories: ["chart"]
     },
@@ -2309,6 +2372,15 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "Sort List",
       description: "Sort a list.",
       categories: ["list"]
-    }
+    },
+    {
+      height: 71.5,
+      block: `
+        <block type="lists_sort_json_value" x="0" y="0"></block>
+      `,
+      title: "Sort JSON List",
+      description: "Sort a list of JSON objects by a specified key. This block takes a JSON array as input and allows you to sort the items in the array based on the value of a particular key. You can specify the type of sorting (numeric, alphabetic, or alphabetic with case-insensitive) as well as the sort order (ascending or descending). The 'Key' input specifies the property of the JSON objects that you want to sort by. The 'Type' dropdown allows you to choose the sorting algorithm, and the 'Order' dropdown lets you select ascending or descending order. The output of this block is the sorted JSON array. This can be useful when you need to present data in a specific order, for example, displaying a list of items sorted by price or name.",
+      categories: ["list"]
+    },
   ]
 };

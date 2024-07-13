@@ -13,7 +13,7 @@ export const defineXrplRipplingTxnBlock = () => {
       "args0": [
         {
           "type": "field_label",
-          "text": "Rippling transaction"
+          "text": "Rippling payload"
         },
         {
           "type": "field_dropdown",

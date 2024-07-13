@@ -25,8 +25,12 @@ class CustomModal {
   modal: HTMLDivElement;
   backdrop: HTMLDivElement;
   private closeOnOutsideClick: boolean;
+  onShow?: () => void;
+  onHide?: () => void;
 
-  constructor(closeOnOutsideClick: boolean = true) {
+  constructor(closeOnOutsideClick: boolean = true, onShow?: () => void, onHide?: () => void) {
+    this.onShow = onShow;
+    this.onHide = onHide;
     this.contentDiv = this.createContentDiv();
     this.backdrop = this.createBackdrop();
     this.modal = this.createModal();
@@ -85,11 +89,13 @@ class CustomModal {
   showByField(field: Field) {
     this.modal.style.display = 'block';
     this.backdrop.style.display = 'block';
+    this.onShow?.();
   }
 
   hide() {
     this.modal.style.display = 'none';
     this.backdrop.style.display = 'none';
+    this.onHide?.();
   }
 
   handleOutsideClick(event: MouseEvent) {
@@ -176,7 +182,11 @@ class FieldForm extends Blockly.Field {
       return;
     }
     if (!this.customModal) {
-      this.customModal = new CustomModal();
+      this.customModal = new CustomModal(
+        true,
+        this.disableBlocklyShortcuts.bind(this),
+        this.enableBlocklyShortcuts.bind(this)
+      );
     }
     const editor = this.createEditor_();
     if (editor) {
@@ -187,11 +197,9 @@ class FieldForm extends Blockly.Field {
   }
 
   createEditor_(isRuntime: boolean = false) {
-    this.disableBlocklyShortcuts();
     if (this.isCreated && this.editorContainer) {
       return isRuntime ? this.updateEditorForRuntime(this.editorContainer) : this.updateEditorForEditing(this.editorContainer);
     }
-    console.log("createEditor_: First");
   
     const container = document.createElement('div');
     container.style.width = '400px';
@@ -766,7 +774,6 @@ class FieldForm extends Blockly.Field {
     if (this.isClosing) {
       return;
     }
-    this.enableBlocklyShortcuts();
     this.isClosing = true;
     this.customModal?.hide();
     this.isClosing = false;
