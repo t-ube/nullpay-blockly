@@ -11,7 +11,7 @@ export const DemoV0R4WebApi = `
     <field name="RESPONSE" id="F45NtRZ%d(~g4(ZaO3r0">response</field>
     <value name="URL">
       <block type="text" id="Cstk%+c2-zEABkEe6{@_">
-        <field name="TEXT"> https://openapi.bitrue.com/api/v1/depth?symbol=XRPUSDT</field>
+        <field name="TEXT">https://openapi.bitrue.com/api/v1/depth?symbol=XRPUSDT</field>
       </block>
     </value>
     <next>
