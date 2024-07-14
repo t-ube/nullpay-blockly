@@ -675,7 +675,7 @@ class FieldForm extends Blockly.Field {
     nameInput.style.marginRight = '10px';
     nameInput.style.padding = '5px';
     nameInput.addEventListener('input', () => {
-      if (editable) {
+      if (this.value_.editable) {
         item.name.default = nameInput.value;
         this.updateFormValues(form);
       }

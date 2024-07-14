@@ -2471,6 +2471,71 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       description: "Get the value of a variable from a submitted form. The block will search the form result for an item (field) that matches the specified variable name, and output the value of that item. The value can be a string, number, or null if the variable is not found. This block is useful when you need to access the values of individual fields from a submitted form, for example to use those values in further processing or to display them in your application.",
       categories: ["form"]
     },
+    {
+      height: 204,
+      block: `
+      <variables>
+        <variable id=";z!a2xC^GeJya%K349f$">result</variable>
+      </variables>
+      <block type="form_modal_block" id="/yh?qxZS5|wvO)Ua*~(S" x="0" y="0">
+        <field name="INPUT">{"editable":false,"title":{"default":"Form Title"},"items":{"label_0":{"key":"label_0","value":"ABC","type":"string","name":{"default":"Param1"},"description":{"default":"New Description"}}}}</field>
+        <field name="VAR" id=";z!a2xC^GeJya%K349f$">result</field>
+        <next>
+          <block type="dynamic_if" id=";q_fdtZar$B04v?F_VEP">
+            <mutation else="1"></mutation>
+            <value name="IF0">
+              <block type="form_submitted" id="Fze8yGSp#TqSb-s|;A7%">
+                <value name="FORM_RESULT">
+                  <block type="variables_get" id="Lds_9W*eitD~,z%4-#@:">
+                    <field name="VAR" id=";z!a2xC^GeJya%K349f$">result</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="text_print" id="noO.(y9Rl)[r6@Vg/v|P">
+                <value name="TEXT">
+                  <block type="text" id="D~\`S,5_}5_Hy[/aR^]In">
+                    <field name="TEXT">submitted</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="text_print" id="I9#y/i)|$N4fnR;,SB@j">
+                    <value name="TEXT">
+                      <block type="form_variable_get" id="-_fN_!Z;ukoi#Jo}2l-I">
+                        <value name="FORM_RESULT">
+                          <block type="variables_get" id="a)U![Co7|:/7{2EPOi$L">
+                            <field name="VAR" id=";z!a2xC^GeJya%K349f$">result</field>
+                          </block>
+                        </value>
+                        <value name="NAME">
+                          <block type="text" id="c1+-UU()ma}Z2Y8~Hi0\`">
+                            <field name="TEXT">Param1</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <statement name="ELSE">
+              <block type="text_print" id="KxFCfl6L-7s(@kbFQh_P">
+                <value name="TEXT">
+                  <block type="text" id="r!VB03@K4Ln!Z]*Vk~v%">
+                    <field name="TEXT">cancel</field>
+                  </block>
+                </value>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+      `,
+      title: "Simple Form Example",
+      description: "This template displays a simple form modal with a single input field labeled 'Param1'. When the form is submitted, the block prints the submitted status and the value of the 'Param1' field. If the form is canceled, the block prints a 'cancel' message instead. This example demonstrates the usage of the form functionality in the visual programming environment.",
+      categories: ["template","form"]
+    }
   ],
   webapi: [
     {
@@ -2517,6 +2582,67 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "URL Parameter",
       description: "Create a single URL query pamaeter key-value pair.",
       categories: ["webapi"]
+    },
+    {
+      height: 178,
+      block: `
+      <variables>
+        <variable id="mH8M!zR%-;U1BP:knR\`l">status</variable>
+        <variable id="W93PPi!RiI_5Gr.(M~qv">response</variable>
+      </variables>
+      <block type="webapi_request" id="s}8;)Cm%2$98Hsus!+.!" x="0" y="0">
+        <field name="METHOD">POST</field>
+        <field name="BODY_FORMAT">json</field>
+        <field name="STATUS" id="mH8M!zR%-;U1BP:knR\`l">status</field>
+        <field name="RESPONSE" id="W93PPi!RiI_5Gr.(M~qv">response</field>
+        <value name="URL">
+          <block type="text" id="ko~LK]h2IEB)%a.zzpLZ">
+            <field name="TEXT">&lt;URL&gt;</field>
+          </block>
+        </value>
+        <value name="HEADERS">
+          <block type="dynamic_webapi_headers" id="+}~Z:HFS:UmKFQv.dk8:">
+            <mutation items="2"></mutation>
+            <value name="ADD0">
+              <block type="webapi_header" id="32JsK/a%52B+!T^_l~c!">
+                <value name="KEY">
+                  <block type="text" id="!2T_]85?_vYgaUXAzke8">
+                    <field name="TEXT">Authorization</field>
+                  </block>
+                </value>
+                <value name="VALUE">
+                  <block type="text" id="(iuU3g2Qspweu}rkDDoH">
+                    <field name="TEXT">&lt;Token&gt;</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="ADD1">
+              <block type="webapi_header" id="c~Le[W]hfj3(AnZ3HWdP">
+                <value name="KEY">
+                  <block type="text" id="1b=dLO%CCiAcl)F0|?DV">
+                    <field name="TEXT">Test</field>
+                  </block>
+                </value>
+                <value name="VALUE">
+                  <block type="text" id="}Vc=:=Z.}LqD2lA1RhJC">
+                    <field name="TEXT">Data</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="BODY">
+          <block type="json_input_block" id="KnNhwiSOzciirKAd$o4n">
+            <field name="INPUT">{"data":"test"}</field>
+          </block>
+        </value>
+      </block>
+      `,
+      title: "Custom API Request",
+      description: "This template allows you to make a custom POST request to an API endpoint of your choice. You can specify the URL, add headers (such as an Authorization token), and include a JSON payload in the request body. The status and response from the API call are stored in the respective variables for further processing.",
+      categories: ["template","webapi"]
     }
   ],
   chart: [
@@ -2564,6 +2690,70 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "Extract Balanced Bids & Asks",
       description: "Extracts the bids and asks from an order book data structure, limiting the number of items per side.",
       categories: ["chart"]
+    },
+    {
+      height: 314,
+      block: `
+        <variables>
+          <variable id="?if}UM_(hRl+^E.~#@S=">status</variable>
+          <variable id="F45NtRZ%d(~g4(ZaO3r0">response</variable>
+        </variables>
+        <block type="controls_whileUntil" id=":clCTs/YNCAf,[qXsoLh" x="0" y="0">
+          <field name="MODE">WHILE</field>
+          <value name="BOOL">
+            <block type="true" id="jqp:gfPIkj]xxI|s]]/="></block>
+          </value>
+          <statement name="DO">
+            <block type="webapi_request" id="~3veFu$19_YR*,ZAH~xp">
+              <field name="METHOD">GET</field>
+              <field name="BODY_FORMAT">json</field>
+              <field name="STATUS" id="?if}UM_(hRl+^E.~#@S=">status</field>
+              <field name="RESPONSE" id="F45NtRZ%d(~g4(ZaO3r0">response</field>
+              <value name="URL">
+                <block type="text" id="Cstk%+c2-zEABkEe6{@_">
+                  <field name="TEXT">https://public.bitbank.cc/xrp_jpy/depth</field>
+                </block>
+              </value>
+              <next>
+                <block type="chart_order_book_block" id="XCs[{GNn~K\`|iG?dY*BA">
+                  <field name="INPUT">"Title"</field>
+                  <value name="TITLE">
+                    <block type="text" id="isz!3TeB;@\`}^CIL.bx@">
+                      <field name="TEXT">Order book live chart</field>
+                    </block>
+                  </value>
+                  <value name="PAIR">
+                    <block type="text" id="v^MV!cI9u,t.D1Zx:]z,">
+                      <field name="TEXT">XRP/JPY</field>
+                    </block>
+                  </value>
+                  <value name="DATA">
+                    <block type="chart_extract_balanced_order_book" id="4N]*ouot!!N-S:?,5Gc4">
+                      <value name="ORDERBOOK">
+                        <block type="chart_bitbank_depth_to_order_book" id="uhWh26a$:2lu{b(Yi4iY">
+                          <value name="DEPTH">
+                            <block type="variables_get" id="/AJO-W3#V^|9Un{L.Od6">
+                              <field name="VAR" id="F45NtRZ%d(~g4(ZaO3r0">response</field>
+                            </block>
+                          </value>
+                        </block>
+                      </value>
+                      <value name="LIMIT">
+                        <block type="math_number" id="9W\`42hyJqQ!(a|]k@I9)">
+                          <field name="NUM">10</field>
+                        </block>
+                      </value>
+                    </block>
+                  </value>
+                </block>
+              </next>
+            </block>
+          </statement>
+        </block>
+      `,
+      title: "Live Orderbook Chart",
+      description: "This template fetches the current order book data from the Bitbank cryptocurrency exchange API and displays a live chart showing the buy and sell orders. The chart is updated every 3 seconds to provide real-time order book information for the XRP/JPY trading pair.",
+      categories: ["template","chart","webapi"]
     }
   ],
   control: [
