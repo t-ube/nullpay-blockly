@@ -64,7 +64,7 @@ export const DemoBlockXml = `
         <value name="SERVER">
           <block type="xrpl_network_wss_selection" id="6MjF0aai[X_)@BZ@D5tL">
             <field name="NETWORK_TYPE">xrpl</field>
-            <field name="CONNECTION">wss://xrpl.ws</field>
+            <field name="CONNECTION">wss://xrplcluster.com</field>
           </block>
         </value>
         <next>

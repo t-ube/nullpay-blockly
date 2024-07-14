@@ -1,0 +1,43 @@
+{
+  "editable": false,
+  "title": { "default": "Form Title" },
+  "items": {
+    "label_0": {
+      "key": "label_0",
+      "value": 0,
+      "name": { "default": "Text 1" },
+      "description": { "default": "New Description" }
+    },
+    "label_1": {
+      "key": "label_1",
+      "value": 0,
+      "name": { "default": "Text 2" },
+      "description": { "default": "New Description" }
+    },
+    "label_2": {
+      "key": "label_2",
+      "value": 0,
+      "name": { "default": "Text 3" },
+      "description": { "default": "New Description" }
+    },
+    "label_3": {
+      "key": "label_3",
+      "value": 0,
+      "name": { "default": "Number 1" },
+      "description": { "default": "New Description" }
+    },
+    "label_4": {
+      "key": "label_4",
+      "value": 0,
+      "name": { "default": "Number 2" },
+      "description": { "default": "New Description" }
+    },
+    "label_5": {
+      "key": "label_5",
+      "value": 0,
+      "name": { "default": "Number 3" },
+      "description": { "default": "New Description" }
+    }
+  },
+  "return": { "submit": true }
+}

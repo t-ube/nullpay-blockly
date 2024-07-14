@@ -138,7 +138,6 @@ export class FieldTable extends Blockly.Field {
   }
 
   forceRerender() {
-    console.log('forceRerender');
     if (Blockly.DropDownDiv.isVisible() && Blockly.DropDownDiv.getContentDiv().getAttribute('data-owner-id') === this.uniqueId) {
       const editor = this.createEditor_();
       Blockly.DropDownDiv.getContentDiv().innerHTML = '';

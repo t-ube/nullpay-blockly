@@ -21,10 +21,14 @@ import { PlayState } from '@/types/PlayStateType';
 import { dropBlockToWorkspace, addBlockToWorkspace } from '@/utils/BlocklyHelper';
 //import WelcomeDialog from '@/components/WelcomeDialog';
 //import { DemoBlockXml } from '@/demos/demo-v0-r2-async-block';
-import { DemoV0R3CsvLoadXml } from '@/demos/demo-v0-r3-csv-load';
-import { DemoV0R3Supabase } from '@/demos/demo-v0-r3-supabase';
-import { DemoV0R3Xaman } from '@/demos/demo-v0-r3-xaman';
-import { releaseInfo as initialReleaseInfo } from '@/features/features-v0-r3';
+//import { DemoV0R3CsvLoadXml } from '@/demos/demo-v0-r3-csv-load';
+//import { DemoV0R3Supabase } from '@/demos/demo-v0-r3-supabase';
+//import { DemoV0R3Xaman } from '@/demos/demo-v0-r3-xaman';
+import { DemoV0R4Chart } from '@/demos/demo-v0-r4-chart';
+import { DemoV0R4Form } from '@/demos/demo-v0-r4-form';
+import { DemoV0R4SemiAutoBid } from '@/demos/demo-v0-r4-semi-auto-bid';
+import { DemoV0R4WebApi } from '@/demos/demo-v0-r4-webapi';
+import { releaseInfo as initialReleaseInfo } from '@/features/features-v0-r4';
 import { useMobile } from '@/contexts/MobileContext';
 
 type clientFramePos = {
@@ -376,8 +380,8 @@ const BlocklyComponent = () => {
   };
 
   // Release info //
-  const handleShowDemoCSVLoad = useCallback(() => {
-    const blockDom = Blockly.utils.xml.textToDom(DemoV0R3CsvLoadXml);
+  const handleShowDemoChart = useCallback(() => {
+    const blockDom = Blockly.utils.xml.textToDom(DemoV0R4Chart);
     if (Blockly && workspace && blockDom) {
       Blockly.Xml.domToWorkspace(blockDom, workspace);
       workspace.setScale(0.9);
@@ -385,17 +389,26 @@ const BlocklyComponent = () => {
     }
   }, []);
 
-  const handleShowDemoSupabase = useCallback(() => {
-    const blockDom = Blockly.utils.xml.textToDom(DemoV0R3Supabase);
+  const handleShowDemoForm = useCallback(() => {
+    const blockDom = Blockly.utils.xml.textToDom(DemoV0R4Form);
     if (Blockly && workspace && blockDom) {
       Blockly.Xml.domToWorkspace(blockDom, workspace);
-      workspace.setScale(0.8);
+      workspace.setScale(0.9);
       workspace.scrollCenter();
     }
   }, []);
 
-  const handleShowDemoXaman = useCallback(() => {
-    const blockDom = Blockly.utils.xml.textToDom(DemoV0R3Xaman);
+  const handleShowDemoSemiAutoBid = useCallback(() => {
+    const blockDom = Blockly.utils.xml.textToDom(DemoV0R4SemiAutoBid);
+    if (Blockly && workspace && blockDom) {
+      Blockly.Xml.domToWorkspace(blockDom, workspace);
+      workspace.setScale(0.3);
+      workspace.scrollCenter();
+    }
+  }, []);
+
+  const handleShowDemoWebApi = useCallback(() => {
+    const blockDom = Blockly.utils.xml.textToDom(DemoV0R4WebApi);
     if (Blockly && workspace && blockDom) {
       Blockly.Xml.domToWorkspace(blockDom, workspace);
       workspace.setScale(0.9);
@@ -408,9 +421,10 @@ const BlocklyComponent = () => {
     features: initialReleaseInfo.features.map((feature) => ({
       ...feature,
       onDemoEvent:
-      feature.title === "CSV Table Block Added" ? handleShowDemoCSVLoad
-      : feature.title === "Supabase Block Added" ? handleShowDemoSupabase
-      : feature.title === "Xaman Variable Block Added" ? handleShowDemoXaman
+      feature.title === "Chart Block Added" ? handleShowDemoChart
+      : feature.title === "Form Block Added" ? handleShowDemoForm
+      : feature.title === "'Semi-Automatic Bid' Template Added" ? handleShowDemoSemiAutoBid
+      : feature.title === "Web API Block Added" ? handleShowDemoWebApi
       : undefined,
     })),
   };

@@ -5,7 +5,7 @@ import { BlockColors } from '@/blocks/BlockColors';
 import { getXrplClient } from '@/blocks/xrpl/xrplClientInitializeBlock';
 import { newTitleLabel, newArgsLabel, newOutputLabel, blockCheckType } from '@/blocks/BlockField';
 import { getXrplWallet } from '@/blocks/xrpl/xrplWalletBlock';
-import { SubmittableTransaction, AccountLinesRequest, AccountLinesResponse } from 'xrpl';
+import { SubmittableTransaction } from 'xrpl';
 
 export const defineXrplClientSubmitBlock = () => {
   Blockly.Blocks['xrpl_client_submit'] = {
@@ -67,16 +67,16 @@ export const defineXrplClientAutoFillBlock = () => {
   Blockly.Blocks['xrpl_client_autofill'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField(newTitleLabel("Transaction auto fill"));
+        .appendField(newTitleLabel("Payload auto fill"));
       this.appendValueInput("CLIENT")
         .setCheck('Client')
         .appendField(newArgsLabel("XRPL client"));
-      this.appendValueInput("TRANSACTION")
+      this.appendValueInput("PAYLOAD")
         .setCheck(blockCheckType.xrplTxnPayload)
-        .appendField(newArgsLabel("Transaction"));
+        .appendField(newArgsLabel("Payload"));
       this.appendDummyInput()
-        .appendField(newOutputLabel("New Transaction"))
-        .appendField(new Blockly.FieldVariable("newTxn"), "VAR");
+        .appendField(newOutputLabel("Filled Payload"))
+        .appendField(new Blockly.FieldVariable("filledPayload"), "VAR");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
@@ -88,24 +88,24 @@ export const defineXrplClientAutoFillBlock = () => {
   
   javascriptGenerator.forBlock['xrpl_client_autofill'] = function (block, generator) {
     const client = generator.valueToCode(block, 'CLIENT', Order.ATOMIC) || '""';
-    const transaction = generator.valueToCode(block, 'TRANSACTION', Order.ATOMIC) || '""';
+    const payload = generator.valueToCode(block, 'PAYLOAD', Order.ATOMIC) || '""';
     if (generator.nameDB_ === undefined) {
-      return `xrplClientAutofill(${client}, JSON.stringify(${transaction}), '');\n`;
+      return `xrplClientAutofill(${client}, JSON.stringify(${payload}), '');\n`;
     }
     const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
-    const code = `xrplClientAutofill(${client}, JSON.stringify(${transaction}), '${variable}');\n`;
+    const code = `xrplClientAutofill(${client}, JSON.stringify(${payload}), '${variable}');\n`;
     return code;
   };
 };
 
 export function initInterpreterXrplClientAutofill(interpreter:any, globalObject:any) {
   javascriptGenerator.addReservedWords('xrplClientAutofill');
-  const wrapper = async function (clientKey:string, txnText:string, variable:any, callback:any) {
+  const wrapper = async function (clientKey:string, payloadText:string, variable:any, callback:any) {
     const client = getXrplClient(clientKey);
     try {
-      const transaction = JSON.parse(txnText) as SubmittableTransaction;
-      const newTransaction = await client.autofill(transaction);
-      interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(newTransaction));
+      const payload = JSON.parse(payloadText) as SubmittableTransaction;
+      const filledPayload = await client.autofill(payload);
+      interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(filledPayload));
       callback();
     } catch (error) {
       console.error(`Failed to auto fill: ${error}`);
@@ -158,12 +158,12 @@ export const defineXrplEasySubmitBlock = () => {
       "args3": [
         {
           "type": "field_label",
-          "text": "Transaction",
+          "text": "Payload",
           "class": "args-label"
         },
         {
           "type": "input_value",
-          "name": "TRANSACTION",
+          "name": "PAYLOAD",
           "check": blockCheckType.xrplTxnPayload
         }
       ],
@@ -192,19 +192,19 @@ export const defineXrplEasySubmitBlock = () => {
   javascriptGenerator.forBlock['xrpl_easy_submit'] = function (block, generator) {
     const client = generator.valueToCode(block, 'CLIENT', Order.ATOMIC) || '""';
     const wallet = generator.valueToCode(block, 'WALLET', Order.ATOMIC) || '""';
-    const txnJSON = generator.valueToCode(block, 'TRANSACTION', Order.ATOMIC) || '{}';
+    const payloadJSON = generator.valueToCode(block, 'PAYLOAD', Order.ATOMIC) || '{}';
     if (generator.nameDB_ === undefined) {
-      return `xrplEasySubmit(${client}, ${wallet}, JSON.stringify(${txnJSON}), '');\n`;
+      return `xrplEasySubmit(${client}, ${wallet}, JSON.stringify(${payloadJSON}), '');\n`;
     }
     const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
-    const code = `xrplEasySubmit(${client}, ${wallet}, JSON.stringify(${txnJSON}), '${variable}');\n`;
+    const code = `xrplEasySubmit(${client}, ${wallet}, JSON.stringify(${payloadJSON}), '${variable}');\n`;
     return code;
   };
 };
 
 export function initInterpreterXrplEasySubmit(interpreter:any, globalObject:any) {
   javascriptGenerator.addReservedWords('xrplEasySubmit');
-  const wrapper = async function (clientKey:string, walletID:string, txJSON:string, variable:any, callback:any) {
+  const wrapper = async function (clientKey:string, walletID:string, payloadJSON:string, variable:any, callback:any) {
     try {
       const client = getXrplClient(clientKey);
       if (!client) {
@@ -214,8 +214,8 @@ export function initInterpreterXrplEasySubmit(interpreter:any, globalObject:any)
       if (!wallet) {
         throw new Error(`Wallet not found for ID: ${walletID}`);
       }
-      const newTransaction = await client.autofill(JSON.parse(txJSON));
-      const result = await client.submitAndWait(newTransaction,{ wallet: wallet });
+      const filledPayload = await client.autofill(JSON.parse(payloadJSON));
+      const result = await client.submitAndWait(filledPayload,{ wallet: wallet });
       interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(result));
       callback();
     } catch (error) {
@@ -321,102 +321,4 @@ export function initInterpreterXrplTxCommand(interpreter:any, globalObject:any) 
     callback(interpreter.nativeToPseudo(false));
   };
   interpreter.setProperty(globalObject, 'xrplTxCommand', interpreter.createAsyncFunction(wrapper));
-}
-
-
-// XRPL account_lines command
-export const defineXrplAccountLinesCommandBlock = () => {
-  Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_account_lines_command",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Get account lines",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "XRPL client",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "CLIENT",
-          "check": blockCheckType.xrplClient
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "Account address",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "ACCOUNT_ADDRESS",
-          "check": blockCheckType.string
-        }
-      ],
-      "message3": "%1 %2",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "Account lines",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "VAR",
-          "variable": "accountLines"
-        }
-      ],
-      "output": blockCheckType.boolean,
-      "inputsInline": false,
-      "colour": BlockColors.xrpl,
-      "tooltip": "Retrieve information about the trust lines associated with an XRPL account.",
-      "helpUrl": ""
-    }
-  ]);
-
-  javascriptGenerator.forBlock['xrpl_account_lines_command'] = function (block, generator) {
-    const client = generator.valueToCode(block, 'CLIENT', Order.ATOMIC) || '""';
-    const account = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.ATOMIC) || '""';
-    if (generator.nameDB_ === undefined) {
-      return `xrplAccountLinesCommand(${client}, ${account}, '')`;
-    }
-    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
-    const code = `xrplAccountLinesCommand(${client}, ${account}, '${variable}')`;
-    return [code, Order.ATOMIC];
-  };
-};
-
-export function initInterpreterXrplAccountLinesCommand(interpreter:any, globalObject:any) {
-  javascriptGenerator.addReservedWords('xrplAccountLinesCommand');
-  const wrapper = async function (clientKey:string, account:string, variable:any, callback:any) {
-    try {
-      const client = getXrplClient(clientKey);
-      if (!client) {
-        throw new Error(`Client not found for ID: ${clientKey}`);
-      }
-      const transaction = await client.request<AccountLinesRequest, AccountLinesResponse>({
-        command: 'account_lines',
-        account: account
-      });
-      if (transaction.result) {
-        interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(transaction.result));
-        callback(interpreter.nativeToPseudo(true));
-        return;
-      }
-    } catch (error) {
-      console.error('Failed to get transaction:', error);
-    }
-    callback(interpreter.nativeToPseudo(false));
-  };
-  interpreter.setProperty(globalObject, 'xrplAccountLinesCommand', interpreter.createAsyncFunction(wrapper));
 }

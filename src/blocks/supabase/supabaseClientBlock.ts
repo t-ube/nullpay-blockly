@@ -90,7 +90,7 @@ export function initInterpreterSupabaseCreateClient(interpreter: any, globalObje
       console.log('Supabase Client initialized:', variable);
       callback();
     } catch (error) {
-      console.error('Failed to initialize XRPL client:', error);
+      console.error('Failed to initialize Supabase client:', error);
       callback();
     }
   };

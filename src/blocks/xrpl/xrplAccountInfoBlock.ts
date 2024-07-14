@@ -1,9 +1,10 @@
 import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
-import { AccountInfoRequest } from 'xrpl';
+import { AccountInfoRequest, AccountLinesRequest, AccountLinesResponse } from 'xrpl';
 import { getXrplClient } from '@/blocks/xrpl/xrplClientInitializeBlock';
-import { newTitleLabel, newArgsLabel, newOutputLabel } from '@/blocks/BlockField';
+import { newTitleLabel, newArgsLabel, newOutputLabel, blockCheckType } from '@/blocks/BlockField';
+
 
 export const defineXrplAccountInfoBlock = () => {
   Blockly.Blocks['xrpl_account_info'] = {
@@ -57,4 +58,102 @@ export function initInterpreterXrplAccountInfo(interpreter:any, globalObject:any
     callback();
   };
   interpreter.setProperty(globalObject, 'xrplAccountInfo', interpreter.createAsyncFunction(wrapper));
+}
+
+
+// XRPL account_lines command
+export const defineXrplAccountLinesCommandBlock = () => {
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "xrpl_account_lines_command",
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_label",
+          "text": "Get account lines",
+          "class": "title-label"
+        }
+      ],
+      "message1": "%1 %2",
+      "args1": [
+        {
+          "type": "field_label",
+          "text": "XRPL client",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "CLIENT",
+          "check": blockCheckType.xrplClient
+        }
+      ],
+      "message2": "%1 %2",
+      "args2": [
+        {
+          "type": "field_label",
+          "text": "Account address",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "ACCOUNT_ADDRESS",
+          "check": blockCheckType.string
+        }
+      ],
+      "message3": "%1 %2",
+      "args3": [
+        {
+          "type": "field_label",
+          "text": "Account lines",
+          "class": "output-label"
+        },
+        {
+          "type": "field_variable",
+          "name": "VAR",
+          "variable": "accountLines"
+        }
+      ],
+      "output": blockCheckType.boolean,
+      "inputsInline": false,
+      "colour": BlockColors.xrpl,
+      "tooltip": "Retrieve information about the trust lines associated with an XRPL account.",
+      "helpUrl": ""
+    }
+  ]);
+
+  javascriptGenerator.forBlock['xrpl_account_lines_command'] = function (block, generator) {
+    const client = generator.valueToCode(block, 'CLIENT', Order.ATOMIC) || '""';
+    const account = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.ATOMIC) || '""';
+    if (generator.nameDB_ === undefined) {
+      return `xrplAccountLinesCommand(${client}, ${account}, '')`;
+    }
+    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const code = `xrplAccountLinesCommand(${client}, ${account}, '${variable}')`;
+    return [code, Order.ATOMIC];
+  };
+};
+
+export function initInterpreterXrplAccountLinesCommand(interpreter:any, globalObject:any) {
+  javascriptGenerator.addReservedWords('xrplAccountLinesCommand');
+  const wrapper = async function (clientKey:string, account:string, variable:any, callback:any) {
+    try {
+      const client = getXrplClient(clientKey);
+      if (!client) {
+        throw new Error(`Client not found for ID: ${clientKey}`);
+      }
+      const transaction = await client.request<AccountLinesRequest, AccountLinesResponse>({
+        command: 'account_lines',
+        account: account
+      });
+      if (transaction.result) {
+        interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(transaction.result));
+        callback(interpreter.nativeToPseudo(true));
+        return;
+      }
+    } catch (error) {
+      console.error('Failed to get transaction:', error);
+    }
+    callback(interpreter.nativeToPseudo(false));
+  };
+  interpreter.setProperty(globalObject, 'xrplAccountLinesCommand', interpreter.createAsyncFunction(wrapper));
 }

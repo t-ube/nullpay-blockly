@@ -4,10 +4,42 @@ import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { getXrplClient } from '@/blocks/xrpl/xrplClientInitializeBlock';
 import { getXrplWallet } from '@/blocks/xrpl/xrplWalletBlock';
-import { IXrplToken } from '@/blocks/xrpl/xrplToken';
+import { IXrplToken } from '@/interfaces/IXrplToken';
 import { newTitleLabel, newArgsLabel, newOutputLabel, blockCheckType } from '@/blocks/BlockField';
 
+/*
+export const defineXrplPaymentBlock = () => {
+  Blockly.Blocks['xrpl_payment'] = {
+    init: function () {
+      this.appendDummyInput()
+        .appendField("XRPL Payment");
+      this.appendValueInput("SENDER")
+        .setCheck('String')
+        .appendField("Sender");
+      this.appendValueInput("RECIPIENT")
+        .setCheck('String')
+        .appendField("Recipient");
+      this.appendValueInput("AMOUNT")
+        .setCheck('Number')
+        .appendField("Amount (drops)");
+      this.setInputsInline(false);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(BlockColors.xrpl);
+      this.setTooltip('Perform a payment');
+      this.setHelpUrl('');
+    }
+  };
 
+  javascriptGenerator.forBlock['xrpl_payment'] = function (block, generator) {
+    const sender = generator.valueToCode(block, 'SENDER', Order.ATOMIC) || '""';
+    const recipient = generator.valueToCode(block, 'RECIPIENT', Order.ATOMIC) || '""';
+    const amount = generator.valueToCode(block, 'AMOUNT', Order.ATOMIC) || '0';
+    const code = `performPayment(${sender}, ${recipient}, ${amount});\n`;
+    return code;
+  };
+};
+*/
 export const defineXrplPaymentTxnBlock = () => {
   Blockly.Blocks['xrpl_payment_transaction'] = {
     init: function () {
@@ -98,7 +130,7 @@ export const defineXrplPaymentTokenTxnBlock = () => {
       "args0": [
         {
           "type": "field_label",
-          "text": "Payment token transaction",
+          "text": "Payment token payload",
           "class": "title-label"
         }
       ],
@@ -177,7 +209,7 @@ export function initInterpreterXrplPaymentTokenTxn(interpreter: any, globalObjec
   javascriptGenerator.addReservedWords('xrplPaymentTokenTxn');
   const wrapper = function (tokenText: string, account: string, dest: string, amount: string) {
     let token = JSON.parse(tokenText) as IXrplToken;
-    const transaction = {
+    const payload = {
       TransactionType: 'Payment',
       Account: account,
       Destination: dest,
@@ -187,7 +219,7 @@ export function initInterpreterXrplPaymentTokenTxn(interpreter: any, globalObjec
         value: amount
       }
     };
-    return interpreter.nativeToPseudo(transaction);
+    return interpreter.nativeToPseudo(payload);
   };
   interpreter.setProperty(globalObject, 'xrplPaymentTokenTxn', interpreter.createNativeFunction(wrapper));
 }

@@ -10,12 +10,18 @@ export const blockCheckType : IBlockCheckTypeMap = {
   table: "Table",
   array: "Array",
   json: "JSON",
+  jsonKv: "JSONKv",
+  jsonKvArray: "JSONKvArray",
   boolean: "Boolean",
   datetime: "Datetime",
   xrplToken: "XrplToken",
+  xrplTokenAmount: "XrplTokenAmount",
   xrplClient: "Client",
   xrplTxnPayload: "XrplPayload",
   supabaseClient: "supabaseClient",
+  notionClient: "notionClient",
+  webapiHeaders: "webapiHeaders",
+  urlParam: "urlParam",
 }
 
 export function newTitleLabel (fieldName:string) : Blockly.FieldLabel {

@@ -3,26 +3,11 @@ import * as Blockly from 'blockly/core';
 import { Box, Modal, TextField, Typography, InputAdornment, Chip, Stack, IconButton, Tooltip } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import { MagnifyingGlassIcon, XCircleIcon, ArrowLeftCircleIcon, PlusIcon } from '@heroicons/react/24/solid';
-import {
-  xrpl_blocks, xaman_blocks, text_blocks, math_blocks,
-  control_blocks, table_blocks, time_blocks, json_blocks, animation_blocks,
-  logic_blocks, loop_blocks, lists_blocks, supabase_blocks
-} from '@/blocks/BlockContents';
+import { initialBlockTypesMap } from '@/blocks/BlockContents';
+import { IBaseBlock, IBlockTypesMap } from "@/interfaces/IBaseBlock";
 import { BlockColors } from '@/blocks/BlockColors';
 import { FlyoutTheme } from '@/blocks/BlocklyTheme';
 import { useMobile } from '@/contexts/MobileContext';
-
-interface IFlyoutBlock {
-  height: number;
-  block: string;
-  title: string;
-  description: string;
-  categories: string[];
-}
-
-interface IFlyoutBlockTypesMap {
-  [key: string]: IFlyoutBlock[];
-}
 
 interface IFlyoutModalProps {
   onBlockSelected: (xml: string, eventType: string, event: MouseEvent) => void;
@@ -31,26 +16,10 @@ interface IFlyoutModalProps {
   mainWorkspace: Blockly.WorkspaceSvg;
 }
 
-const initialBlockTypesMap: IFlyoutBlockTypesMap = {
-  xrpl: xrpl_blocks,
-  xaman: xaman_blocks,
-  text: text_blocks,
-  math: math_blocks,
-  control: control_blocks,
-  table: table_blocks,
-  time: time_blocks,
-  json: json_blocks,
-  animation: animation_blocks,
-  logic: logic_blocks,
-  loop: loop_blocks,
-  list: lists_blocks,
-  supabase: supabase_blocks,
-};
-
 const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: IFlyoutModalProps) => {
   const { isMobile, isLoaded } = useMobile();
   const workspaceRefs = useRef<{ id: string, workspace: Blockly.WorkspaceSvg | null }[]>([]);
-  const [blockTypesMap, setBlockTypesMap] = useState<IFlyoutBlockTypesMap>(initialBlockTypesMap);
+  const [blockTypesMap, setBlockTypesMap] = useState<IBlockTypesMap<IBaseBlock>>(initialBlockTypesMap);
   const [dynamicUpdated, setDynamicUpdated] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -120,7 +89,7 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
     workspaceRefs.current = [];
   }, []);
 
-  const createWorkspaces = useCallback((blocks: IFlyoutBlock[]) => {
+  const createWorkspaces = useCallback((blocks: IBaseBlock[]) => {
     if (blocks && blocks.length > 0) {
       blocks.forEach((item, i) => {
         const divId = `flyoutDiv_${i}`;
@@ -163,7 +132,7 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
     }
   }, [handleBlockClick, isMobile]);
 
-  const rankBlocks = (blocks: IFlyoutBlock[], term: string): IFlyoutBlock[] => {
+  const rankBlocks = (blocks: IBaseBlock[], term: string): IBaseBlock[] => {
     const terms = term.toLowerCase().split(' ').filter(t => t);
     return blocks.map(block => {
       const titleMatchCount = terms.filter(t => block.title.toLowerCase().includes(t)).length;
@@ -303,7 +272,7 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
           </Typography>
         )}
         <Box px={2}>
-        {filteredBlocks.map((item: IFlyoutBlock, index: number) => (
+        {filteredBlocks.map((item: IBaseBlock, index: number) => (
           <Box
             key={index} mt={3} mb={5}
             onMouseEnter={() => setHoveredIndex(index)}

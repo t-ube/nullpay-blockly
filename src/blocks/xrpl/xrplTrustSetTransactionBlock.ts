@@ -2,7 +2,7 @@ import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { blockCheckType } from '@/blocks/BlockField';
-import { IXrplToken } from '@/blocks/xrpl/xrplToken';
+import { IXrplToken } from '@/interfaces/IXrplToken';
 
 // Define the block for setting XRPL Trust set
 export const defineXrplTrustSetTxnBlock = () => {
@@ -13,7 +13,7 @@ export const defineXrplTrustSetTxnBlock = () => {
       "args0": [
         {
           "type": "field_label",
-          "text": "Trust set transaction",
+          "text": "Trust set payload",
           "class": "title-label"
         }
       ],

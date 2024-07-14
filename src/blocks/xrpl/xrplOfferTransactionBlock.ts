@@ -2,7 +2,7 @@ import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { blockCheckType } from '@/blocks/BlockField';
-import { IXrplToken } from '@/blocks/xrpl/xrplToken';
+import { IXrplToken } from '@/interfaces/IXrplToken';
 
 // Define the block for BuyOffer
 export const defineBuyTokenOfferTxnBlock = () => {
@@ -13,7 +13,7 @@ export const defineBuyTokenOfferTxnBlock = () => {
       "args0": [
         {
           "type": "field_label",
-          "text": "Buy token offer transaction",
+          "text": "Buy token offer payload",
           "class": "title-label"
         }
       ],
@@ -115,7 +115,7 @@ export const defineSaleTokenOfferTxnBlock = () => {
       "args0": [
         {
           "type": "field_label",
-          "text": "Sale token offer transaction",
+          "text": "Sale token offer payload",
           "class": "title-label"
         }
       ],
