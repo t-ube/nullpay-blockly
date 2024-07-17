@@ -149,6 +149,7 @@ import {
 import { defineTextToUpperCaseBlock, defineTextToLowerCaseBlock } from '@/blocks/text/textConvertBlock';
 import { defineNumberToTextBlock } from '@/blocks/text/textNumberToTextBlock';
 import { defineTextToNumberBlock } from '@/blocks/text/textTextToNumberBlock';
+import { defineTextBlockCommentBlock } from '@/blocks/text/textCommentBlock';
 import {
   defineTableEmptyBlock,
   defineTableGetRowBlock, initInterpreterTableGetRow,
@@ -347,6 +348,7 @@ const createCustomBlocks = () => {
   defineTextToUpperCaseBlock();
   defineTextToLowerCaseBlock();
   defineTextOnetimeBlock();
+  defineTextBlockCommentBlock();
 
   // JSON
   defineJsonGetValueBlock();

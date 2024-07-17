@@ -198,6 +198,7 @@ export const defineJsonGetValueBlock = () => {
     const key = generator.valueToCode(block, 'KEY', Order.ATOMIC) || '""';
     const code = `${variable}[${key}]`;
     return [code, Order.NONE];
+    //return [code, Order.MEMBER];
   };
 };
 

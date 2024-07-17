@@ -377,21 +377,21 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       block: `
         <variables>
           <variable id="K+=7kLss}zzFh+WDV|w4">userInfo</variable>
-          <variable id="gF*aYnq*HcLnh}aDPP$u">userAccount</variable>
+          <variable id="gF*aYnq*HcLnh}aDPP\$u">userAccount</variable>
           <variable id="GfI4b9ixq-b_FaGZ[gKV">result</variable>
           <variable id="a8odClXjH1#I}N7#T6SE">xrplClient</variable>
           <variable id="^C=-[p.p[Yv,Ydoajoxh">nftID</variable>
           <variable id="8I/xk/gsj-/y/X|Gv.sG">brokerAddress</variable>
           <variable id="#(CSK,Ivnl4\`=oNPQb.}">bidStep</variable>
-          <variable id="g$p.34oz2Ndzsh\`^\`8%n">startBid</variable>
+          <variable id="g\$p.34oz2Ndzsh\`^\`8%n">startBid</variable>
           <variable id="f5Q?cJ|ceq:VtvA\`W@2N">status</variable>
           <variable id="H8?7.T:4!\`hKG.w57*E^">response</variable>
-          <variable id="-,dV?p?EbB}Gm?~SUB*t">ownerAddess</variable>
+          <variable id="eSJu}OSb8qa\${afKZ/9m">ownerAddress</variable>
           <variable id="3ZAKt=2Sbga)Go6jb5u~">sortedOffers</variable>
-          <variable id="L*8JxJvWWO)aF+}m,c$w">buyPayload</variable>
+          <variable id="L*8JxJvWWO)aF+}m,c\$w">buyPayload</variable>
           <variable id="0r9JNHH9?h;Sp8A[R*JK">topOffer</variable>
           <variable id="}r8U68uAomtU|j6ig4wf">payloadID</variable>
-          <variable id="zDx^.:C$OkRI3Ukgi3Xb">highestBidAccount</variable>
+          <variable id="zDx^.:C\$OkRI3Ukgi3Xb">highestBidAccount</variable>
           <variable id="DJAIoI2uq.*U,y!Iv|b?">highestAmount</variable>
           <variable id="-9^X_9!F{?~WFtM=)|,|">newAmount</variable>
         </variables>
@@ -399,7 +399,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
           <field name="VAR" id="K+=7kLss}zzFh+WDV|w4">userInfo</field>
           <next>
             <block type="variables_set" id="AQ(;k.L#K/vCne~q?~mR">
-              <field name="VAR" id="gF*aYnq*HcLnh}aDPP$u">userAccount</field>
+              <field name="VAR" id="gF*aYnq*HcLnh}aDPP\$u">userAccount</field>
               <value name="VALUE">
                 <block type="json_get_value" id="@H??[~#b2O-8dBBaPTv1">
                   <value name="VAR">
@@ -421,9 +421,9 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                   <next>
                     <block type="dynamic_if" id="]s2boZttjzxl]\`P))u{:">
                       <value name="IF0">
-                        <block type="form_submitted" id="RvuGM4e=*$wGur,wt+t6">
+                        <block type="form_submitted" id="RvuGM4e=*\$wGur,wt+t6">
                           <value name="FORM_RESULT">
-                            <block type="variables_get" id="z.U$!RK~4#1$Y|Kd]wG$">
+                            <block type="variables_get" id="z.U\$!RK~4#1\$Y|Kd]wG\$">
                               <field name="VAR" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
                             </block>
                           </value>
@@ -444,7 +444,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                               <value name="VALUE">
                                 <block type="form_variable_get" id="Z5VJPz43P?ilaHuW_?~y">
                                   <value name="FORM_RESULT">
-                                    <block type="variables_get" id="0$T[In%t?i8+BUz_KF,\`">
+                                    <block type="variables_get" id="0\$T[In%t?i8+BUz_KF,\`">
                                       <field name="VAR" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
                                     </block>
                                   </value>
@@ -464,12 +464,12 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                     </block>
                                   </value>
                                   <next>
-                                    <block type="variables_set" id="N$uY/om~V.)knw%3e_cp">
+                                    <block type="variables_set" id="N\$uY/om~V.)knw%3e_cp">
                                       <field name="VAR" id="#(CSK,Ivnl4\`=oNPQb.}">bidStep</field>
                                       <value name="VALUE">
-                                        <block type="xrpl_xrp_to_drops" id="[Ywy~oB$Ti2o63u$s4A.">
+                                        <block type="xrpl_xrp_to_drops" id="[Ywy~oB\$Ti2o63u\$s4A.">
                                           <value name="AMOUNT">
-                                            <block type="form_variable_get" id="%5FPpvQy8YFb.fvNyz$R">
+                                            <block type="form_variable_get" id="%5FPpvQy8YFb.fvNyz\$R">
                                               <value name="FORM_RESULT">
                                                 <block type="variables_get" id="H,[WSBjn1SG_7\`y?72/I">
                                                   <field name="VAR" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
@@ -486,7 +486,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                       </value>
                                       <next>
                                         <block type="variables_set" id="H1Afu32L,GHV2{KgAiaS">
-                                          <field name="VAR" id="g$p.34oz2Ndzsh\`^\`8%n">startBid</field>
+                                          <field name="VAR" id="g\$p.34oz2Ndzsh\`^\`8%n">startBid</field>
                                           <value name="VALUE">
                                             <block type="xrpl_xrp_to_drops" id="C.m~-/ixxMZy9uXR))GT">
                                               <value name="AMOUNT">
@@ -520,12 +520,12 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                 </block>
                                               </value>
                                               <next>
-                                                <block type="variables_set" id="M,1AU;+*/EYC|m.k67hX">
-                                                  <field name="VAR" id="-,dV?p?EbB}Gm?~SUB*t">ownerAddess</field>
+                                                <block type="variables_set" id="JPd9~]_}zn3VeGp6%O0r">
+                                                  <field name="VAR" id="eSJu}OSb8qa\${afKZ/9m">ownerAddress</field>
                                                   <value name="VALUE">
                                                     <block type="json_get_value" id="0IX_5db]yF2]Q4]RtX@r">
                                                       <value name="VAR">
-                                                        <block type="variables_get" id="J)-:P.U_Dz%U$})i4UYE">
+                                                        <block type="variables_get" id="J)-:P.U_Dz%U\$})i4UYE">
                                                           <field name="VAR" id="H8?7.T:4!\`hKG.w57*E^">response</field>
                                                         </block>
                                                       </value>
@@ -544,12 +544,12 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                           <field name="OP">NEQ</field>
                                                           <value name="A">
                                                             <block type="variables_get" id="T@2uV_568~X3@a}HcfG%">
-                                                              <field name="VAR" id="-,dV?p?EbB}Gm?~SUB*t">ownerAddess</field>
+                                                              <field name="VAR" id="eSJu}OSb8qa\${afKZ/9m">ownerAddress</field>
                                                             </block>
                                                           </value>
                                                           <value name="B">
-                                                            <block type="variables_get" id="xn3$xh;jZ7?RDZB,2GVr">
-                                                              <field name="VAR" id="gF*aYnq*HcLnh}aDPP$u">userAccount</field>
+                                                            <block type="variables_get" id="xn3\$xh;jZ7?RDZB,2GVr">
+                                                              <field name="VAR" id="gF*aYnq*HcLnh}aDPP\$u">userAccount</field>
                                                             </block>
                                                           </value>
                                                         </block>
@@ -614,7 +614,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                     </block>
                                                                   </value>
                                                                   <next>
-                                                                    <block type="variables_set" id="v1;O$eEKa,.qgng0f$L.">
+                                                                    <block type="variables_set" id="v1;O\$eEKa,.qgng0f\$L.">
                                                                       <field name="VAR" id="0r9JNHH9?h;Sp8A[R*JK">topOffer</field>
                                                                       <value name="VALUE">
                                                                         <block type="lists_getIndex" id="e|U%Am7SeR[Q4kt9EoR4">
@@ -635,7 +635,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                       </value>
                                                                       <next>
                                                                         <block type="variables_set" id="#x(aKL@18d~Iaeq/q/oo">
-                                                                          <field name="VAR" id="zDx^.:C$OkRI3Ukgi3Xb">highestBidAccount</field>
+                                                                          <field name="VAR" id="zDx^.:C\$OkRI3Ukgi3Xb">highestBidAccount</field>
                                                                           <value name="VALUE">
                                                                             <block type="json_get_value" id="%/]u|EiUJ[S@a_q~Rgq6">
                                                                               <value name="VAR">
@@ -674,12 +674,12 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                                       <field name="OP">NEQ</field>
                                                                                       <value name="A">
                                                                                         <block type="variables_get" id="Vq5,]GY/JJ|g*Lo;R/9k">
-                                                                                          <field name="VAR" id="zDx^.:C$OkRI3Ukgi3Xb">highestBidAccount</field>
+                                                                                          <field name="VAR" id="zDx^.:C\$OkRI3Ukgi3Xb">highestBidAccount</field>
                                                                                         </block>
                                                                                       </value>
                                                                                       <value name="B">
                                                                                         <block type="variables_get" id="8J85Tci3sC]S:QE)-6QR">
-                                                                                          <field name="VAR" id="gF*aYnq*HcLnh}aDPP$u">userAccount</field>
+                                                                                          <field name="VAR" id="gF*aYnq*HcLnh}aDPP\$u">userAccount</field>
                                                                                         </block>
                                                                                       </value>
                                                                                     </block>
@@ -709,7 +709,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                                         <block type="variables_set" id="%\`[/Cq{~h.hy:7j(X0*(">
                                                                                           <field name="VAR" id="-9^X_9!F{?~WFtM=)|,|">newAmount</field>
                                                                                           <value name="VALUE">
-                                                                                            <block type="xrpl_token_amount_arithmetic" id="2W!d(2lWtzh*$Y}qquMb">
+                                                                                            <block type="xrpl_token_amount_arithmetic" id="2W!d(2lWtzh*\$Y}qquMb">
                                                                                               <field name="OPERATOR">+</field>
                                                                                               <value name="TOKEN">
                                                                                                 <block type="variables_get" id="R.xXId;3YbU7L%/!ZIz[">
@@ -717,7 +717,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                                                 </block>
                                                                                               </value>
                                                                                               <value name="VALUE">
-                                                                                                <block type="variables_get" id="tbB6?_:Y$M\`+1]-f.KUt">
+                                                                                                <block type="variables_get" id="tbB6?_:Y\$M\`+1]-f.KUt">
                                                                                                   <field name="VAR" id="#(CSK,Ivnl4\`=oNPQb.}">bidStep</field>
                                                                                                 </block>
                                                                                               </value>
@@ -725,12 +725,12 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                                           </value>
                                                                                           <next>
                                                                                             <block type="variables_set" id="}Y2]]LZ[.(Y]W4!Rx4EJ">
-                                                                                              <field name="VAR" id="L*8JxJvWWO)aF+}m,c$w">buyPayload</field>
+                                                                                              <field name="VAR" id="L*8JxJvWWO)aF+}m,c\$w">buyPayload</field>
                                                                                               <value name="VALUE">
                                                                                                 <block type="xrpl_nftoken_buy_offer" id="Pp@](4f.^%k=Ik_6#tV[">
                                                                                                   <value name="OWNER_ID">
                                                                                                     <block type="variables_get" id="\`X/E_RJ[RNkF]Uy4R2[T">
-                                                                                                      <field name="VAR" id="-,dV?p?EbB}Gm?~SUB*t">ownerAddess</field>
+                                                                                                      <field name="VAR" id="eSJu}OSb8qa\${afKZ/9m">ownerAddress</field>
                                                                                                     </block>
                                                                                                   </value>
                                                                                                   <value name="TOKEN_ID">
@@ -751,16 +751,16 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                                                 </block>
                                                                                               </value>
                                                                                               <next>
-                                                                                                <block type="xaman_payload_set" id="d$@,umhk2Oz+F=}Gtj/k">
+                                                                                                <block type="xaman_payload_set" id="d\$@,umhk2Oz+F=}Gtj/k">
                                                                                                   <field name="STATUS" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
                                                                                                   <field name="PAYLOAD_ID" id="}r8U68uAomtU|j6ig4wf">payloadID</field>
                                                                                                   <value name="PAYLOAD">
                                                                                                     <block type="variables_get" id="\`wTCT/pU+PX]9y@875@y">
-                                                                                                      <field name="VAR" id="L*8JxJvWWO)aF+}m,c$w">buyPayload</field>
+                                                                                                      <field name="VAR" id="L*8JxJvWWO)aF+}m,c\$w">buyPayload</field>
                                                                                                     </block>
                                                                                                   </value>
                                                                                                   <next>
-                                                                                                    <block type="xaman_wait_for_signature" id="~3g{mb9R?F;XdOYW5$}|">
+                                                                                                    <block type="xaman_wait_for_signature" id="~3g{mb9R?F;XdOYW5\$}|">
                                                                                                       <value name="PAYLOAD">
                                                                                                         <block type="variables_get" id="2r;XR8I/{i@[]\`N9K5xI">
                                                                                                           <field name="VAR" id="}r8U68uAomtU|j6ig4wf">payloadID</field>
@@ -787,13 +787,13 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                 </block>
                                                               </statement>
                                                               <statement name="ELSE">
-                                                                <block type="variables_set" id="yHgFVF3Y$@@v0mj7n)9v">
-                                                                  <field name="VAR" id="L*8JxJvWWO)aF+}m,c$w">buyPayload</field>
+                                                                <block type="variables_set" id="yHgFVF3Y\$@@v0mj7n)9v">
+                                                                  <field name="VAR" id="L*8JxJvWWO)aF+}m,c\$w">buyPayload</field>
                                                                   <value name="VALUE">
                                                                     <block type="xrpl_nftoken_buy_offer" id="vCo#Y[7lpY=3.-|FHqJC">
                                                                       <value name="OWNER_ID">
                                                                         <block type="variables_get" id="uD~%S*8=odMX?n=M\`iLy">
-                                                                          <field name="VAR" id="-,dV?p?EbB}Gm?~SUB*t">ownerAddess</field>
+                                                                          <field name="VAR" id="eSJu}OSb8qa\${afKZ/9m">ownerAddress</field>
                                                                         </block>
                                                                       </value>
                                                                       <value name="TOKEN_ID">
@@ -803,7 +803,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                       </value>
                                                                       <value name="AMOUNT">
                                                                         <block type="variables_get" id="Gu?\`z{T]=e5qCo2Kt]Td">
-                                                                          <field name="VAR" id="g$p.34oz2Ndzsh\`^\`8%n">startBid</field>
+                                                                          <field name="VAR" id="g\$p.34oz2Ndzsh\`^\`8%n">startBid</field>
                                                                         </block>
                                                                       </value>
                                                                       <value name="DESTINATION">
@@ -819,13 +819,13 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                       <field name="PAYLOAD_ID" id="}r8U68uAomtU|j6ig4wf">payloadID</field>
                                                                       <value name="PAYLOAD">
                                                                         <block type="variables_get" id="VhZfEuP!g.n#]g;zVD!S">
-                                                                          <field name="VAR" id="L*8JxJvWWO)aF+}m,c$w">buyPayload</field>
+                                                                          <field name="VAR" id="L*8JxJvWWO)aF+}m,c\$w">buyPayload</field>
                                                                         </block>
                                                                       </value>
                                                                       <next>
                                                                         <block type="xaman_wait_for_signature" id="Al]oC/yXHEF;z@D}%nd2">
                                                                           <value name="PAYLOAD">
-                                                                            <block type="variables_get" id="HisB-e/}OnVM\`k?$B^Z5">
+                                                                            <block type="variables_get" id="HisB-e/}OnVM\`k?\$B^Z5">
                                                                               <field name="VAR" id="}r8U68uAomtU|j6ig4wf">payloadID</field>
                                                                             </block>
                                                                           </value>
@@ -838,7 +838,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                               <next>
                                                                 <block type="wait_seconds" id="]f[0m)]+tG]\`xv~X(1X,">
                                                                   <value name="TIME">
-                                                                    <block type="math_number" id="$6~-~57vqv{L19ir:r6L">
+                                                                    <block type="math_number" id="\$6~-~57vqv{L19ir:r6L">
                                                                       <field name="NUM">5</field>
                                                                     </block>
                                                                   </value>
@@ -858,9 +858,9 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                       </value>
                                                                       <next>
                                                                         <block type="variables_set" id="TJu9SQ4jaI)|h2B=pMbK">
-                                                                          <field name="VAR" id="-,dV?p?EbB}Gm?~SUB*t">ownerAddess</field>
+                                                                          <field name="VAR" id="eSJu}OSb8qa\${afKZ/9m">ownerAddress</field>
                                                                           <value name="VALUE">
-                                                                            <block type="json_get_value" id="M1Xb$)lB\`f1:[D;bt8s0">
+                                                                            <block type="json_get_value" id="M1Xb\$)lB\`f1:[D;bt8s0">
                                                                               <value name="VAR">
                                                                                 <block type="variables_get" id="kAQFiuZ1m%oJ70FJ\`6FQ">
                                                                                   <field name="VAR" id="H8?7.T:4!\`hKG.w57*E^">response</field>
@@ -1946,58 +1946,58 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       categories: ["text"]
     },
     {
-        height: 70,
-        block: `
-          <block type="dynamic_text_join" x="0" y="0"></block>
-        `,
-        title: "Join Text",
-        description: "Join multiple text strings together.",
-        categories: ["text"]
+      height: 70,
+      block: `
+        <block type="dynamic_text_join" x="0" y="0"></block>
+      `,
+      title: "Join Text",
+      description: "Join multiple text strings together.",
+      categories: ["text"]
     },
     {
-        height: 50,
-        block: `
-          <block type="text_length" x="0" y="0"></block>
-        `,
-        title: "Text Length",
-        description: "Get the length of a text string.",
-        categories: ["text"]
+      height: 50,
+      block: `
+        <block type="text_length" x="0" y="0"></block>
+      `,
+      title: "Text Length",
+      description: "Get the length of a text string.",
+      categories: ["text"]
     },
     {
-        height: 50,
-        block: `
-          <block type="text_isEmpty" x="0" y="0"></block>
-        `,
-        title: "Text Is Empty",
-        description: "Check if a text string is empty.",
-        categories: ["text"]
+      height: 50,
+      block: `
+        <block type="text_isEmpty" x="0" y="0"></block>
+      `,
+      title: "Text Is Empty",
+      description: "Check if a text string is empty.",
+      categories: ["text"]
     },
     {
-        height: 50,
-        block: `
-          <block type="number_to_text" x="0" y="0"></block>
-        `,
-        title: "Number to Text",
-        description: "Convert a number to a text string.",
-        categories: ["text"]
+      height: 50,
+      block: `
+        <block type="number_to_text" x="0" y="0"></block>
+      `,
+      title: "Number to Text",
+      description: "Convert a number to a text string.",
+      categories: ["text"]
     },
     {
-        height: 50,
-        block: `
-          <block type="text_to_number" x="0" y="0"></block>
-        `,
-        title: "Text to Number",
-        description: "Convert a text string to a number.",
-        categories: ["text"]
+      height: 50,
+      block: `
+        <block type="text_to_number" x="0" y="0"></block>
+      `,
+      title: "Text to Number",
+      description: "Convert a text string to a number.",
+      categories: ["text"]
     },
     {
-        height: 50,
-        block: `
-          <block type="text_starts_with" x="0" y="0"></block>
-        `,
-        title: "Starts With",
-        description: "Checks if a text string starts with a specified prefix.",
-        categories: ["text"]
+      height: 50,
+      block: `
+        <block type="text_starts_with" x="0" y="0"></block>
+      `,
+      title: "Starts With",
+      description: "Checks if a text string starts with a specified prefix.",
+      categories: ["text"]
     },
     {
       height: 50,
@@ -2033,6 +2033,15 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Private Block",
       description: "Enter a one-time use string. The string will not be saved.",
+      categories: ["text"]
+    },
+    {
+      height: 36.5,
+      block: `
+        <block type="text_block_comment" x="0" y="0"></block>
+      `,
+      title: "Comment Out",
+      description: "",
       categories: ["text"]
     }
   ],
