@@ -177,6 +177,7 @@ const BlocklyDrawer = ({ onBlockSelected, onBlockSelectedV2, setOpen, open, flyo
                 Blockly.Xml.clearWorkspaceAndLoadFromXml(blockDom, workspace);
 
                 const block = workspace.getAllBlocks(false)[0];
+                block.contextMenu = false;
                 if (flyoutType !== 'variable' && flyoutType !== 'function') {
                   const blockSvg = block.getSvgRoot();
                   if (blockSvg) {

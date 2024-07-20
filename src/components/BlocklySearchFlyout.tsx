@@ -119,6 +119,11 @@ const BlocklySearchFlyout = ({ onBlockSelected, onBlockSelectedV2, setOpen, open
             const blockDom = Blockly.utils.xml.textToDom(`<xml>${item.block}</xml>`);
             Blockly.Xml.clearWorkspaceAndLoadFromXml(blockDom, workspace);
 
+            const allBlocks = workspace.getAllBlocks(false);
+            allBlocks.forEach(block => {
+              block.contextMenu = false;
+            });
+
             const block = workspace.getAllBlocks(false)[0];
             if (block) {
               const blockSvg = block.getSvgRoot();
