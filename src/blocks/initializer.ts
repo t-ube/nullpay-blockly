@@ -1,6 +1,9 @@
 import * as Blockly from 'blockly/core';
 import 'blockly/blocks';
 import * as En from 'blockly/msg/en';
+//import * as Ja from 'blockly/msg/ja';
+import * as CustomEn from '@/blocks/msg/en.json';
+//import * as CustomJa from '@/blocks/msg/ja.json';
 import { javascriptGenerator } from 'blockly/javascript';
 import Interpreter from 'js-interpreter';
 import * as BlockDynamicConnection from '@blockly/block-dynamic-connection';
@@ -599,6 +602,7 @@ const blocklyInit = () => {
   console.log('Initializing Blockly...');
 
   Blockly.setLocale(En);
+  Blockly.setLocale(CustomEn);
   //Blockly.utils.colour.setHsvSaturation(0.9);
   //Blockly.utils.colour.setHsvValue(0.6);
 

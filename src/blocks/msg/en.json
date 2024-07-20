@@ -1,0 +1,9 @@
+{
+  "BKY_CHART_ORDER_BOOK_TITLE": "Order book Chart %1",
+  "BKY_CHART_RANDOM_ORDER_BOOK_DATA_TITLE": "Random bids & asks",
+  "BKY_CHART_BITBANK_DEPTH_TO_BIDS_ASKS_TITLE": "Bitbank depth to bids & asks",
+  "BKY_CHART_BITRUE_DEPTH_TO_BIDS_ASKS_TITLE": "Bitrue depth to bids & asks",
+  "BKY_CHART_EXTRACT_BIDS_ASKS_TITLE": "Extract bids & asks",
+  "BKY_ANIMATION_CONFETTI_TITLE": "Confetti for %1 seconds",
+  "BKY_TEXT_BLOCK_COMMENT_TITLE": "block comment %1"
+}

@@ -21,7 +21,7 @@ export const defineConfettiAnimationBlock = () => {
   Blockly.defineBlocksWithJsonArray([
     {
       "type": "confetti_animation",
-      "message0": "Confetti for %1 seconds",
+      "message0": Blockly.Msg.BKY_ANIMATION_CONFETTI_TITLE,
       "args0": [
         {
           "type": "field_number",

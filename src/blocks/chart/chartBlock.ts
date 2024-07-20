@@ -18,7 +18,7 @@ export const defineChartOrderBookBlock = () => {
   Blockly.defineBlocksWithJsonArray([
     {
       "type": "chart_order_book_block",
-      "message0": "Order book Chart %1",
+      "message0": Blockly.Msg.BKY_CHART_ORDER_BOOK_TITLE,
       "args0": [
         {
           "type": "field_chart_modal",
@@ -90,7 +90,7 @@ export const defineChartRandomOrderBookDataBlock = () => {
   Blockly.defineBlocksWithJsonArray([
     {
       "type": "chart_random_order_book_data",
-      "message0": "Random bids & asks",
+      "message0": Blockly.Msg.BKY_CHART_RANDOM_ORDER_BOOK_DATA_TITLE,
       "output": "Object",
       "colour": BlockColors.chart,
       "tooltip": "Generates random order book data for use in the order book chart",
@@ -126,7 +126,7 @@ export const defineChartBitbankDepthToOrderBookBlock = () => {
       "args0": [
         {
           "type": "field_label",
-          "text": "Bitbank depth to bids & asks",
+          "text": Blockly.Msg.BKY_CHART_BITBANK_DEPTH_TO_BIDS_ASKS_TITLE,
           "class": "args-label"
         },
         {
@@ -172,7 +172,7 @@ export const defineChartBitrueDepthToOrderBookBlock = () => {
       "args0": [
         {
           "type": "field_label",
-          "text": "Bitrue depth to bids & asks",
+          "text": Blockly.Msg.BKY_CHART_BITRUE_DEPTH_TO_BIDS_ASKS_TITLE,
           "class": "args-label"
         },
         {
@@ -218,7 +218,7 @@ export const defineChartextractBalancedOrderBookBlock = () => {
       "args0": [
         {
           "type": "field_label",
-          "text": "Extract bids & asks",
+          "text": Blockly.Msg.BKY_CHART_EXTRACT_BIDS_ASKS_TITLE,
           "class": "args-label"
         },
         {

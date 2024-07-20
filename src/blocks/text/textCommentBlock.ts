@@ -6,7 +6,7 @@ export const defineTextBlockCommentBlock = () => {
   Blockly.defineBlocksWithJsonArray([
     {
       "type": "text_block_comment",
-      "message0": "block comment %1",
+      "message0": Blockly.Msg.BKY_TEXT_BLOCK_COMMENT_TITLE,
       "args0": [
         {
           "type": "input_statement",
