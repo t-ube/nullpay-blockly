@@ -103,10 +103,43 @@ const BlocklyComponent = () => {
     }
   }, [isRunning, duration]);
 
+  const handleSaveWorkspaceV2 = () => {
+    console.log('handleSaveWorkspaceV2');
+    const state = Blockly.serialization.workspaces.save(workspace);
+    //
+    const clearOneTimeBlocks = (block: any) => {
+      if (block.type === 'text_onetime_block') {
+        if (block.fields && 'INPUT' in block.fields) {
+          block.fields.INPUT = '';
+        }
+      }
+      if (block.inputs) {
+        Object.values(block.inputs).forEach((input: any) => {
+          if (input.block) {
+            clearOneTimeBlocks(input.block);
+          }
+        });
+      }
+      if (block.next && block.next.block) {
+        clearOneTimeBlocks(block.next.block);
+      }
+    };
+    state.blocks.blocks.forEach((block: any) => clearOneTimeBlocks(block));
+    //
+    const jsonState = JSON.stringify(state);
+    const blob = new Blob([jsonState], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'workspace.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
   const handleSaveWorkspace = () => {
     console.log('handleSaveWorkspace');
     const xml = Blockly.Xml.workspaceToDom(workspace);
-
     //
     const blocks = xml.getElementsByTagName('block');
     for (let i = 0; i < blocks.length; i++) {
@@ -135,16 +168,32 @@ const BlocklyComponent = () => {
     console.log('handleLoadWorkspace');
     const input = document.createElement('input');
     input.type = 'file';
-    input.accept = '.xml';
+    input.accept = '.xml, .json';
     input.onchange = (event) => {
       const file = (event.target as HTMLInputElement).files?.[0];
       if (file) {
         const reader = new FileReader();
         reader.onload = (e) => {
-          const xmlText = e.target?.result as string;
-          const xml = Blockly.utils.xml.textToDom(xmlText);
-          Blockly.Xml.clearWorkspaceAndLoadFromXml(xml, workspace);
-          workspace.scrollCenter();
+          const fileContent = e.target?.result as string;
+          if (file.type === 'application/json') {
+            try {
+              const json = JSON.parse(fileContent);
+              Blockly.serialization.workspaces.load(json, workspace);
+              workspace.scrollCenter();
+            } catch (error) {
+              console.error('Failed to load JSON:', error);
+            }
+          } else if (file.type === 'text/xml' || file.type === 'application/xml') {
+            try {
+              const xml = Blockly.utils.xml.textToDom(fileContent);
+              Blockly.Xml.clearWorkspaceAndLoadFromXml(xml, workspace);
+              workspace.scrollCenter();
+            } catch (error) {
+              console.error('Failed to load XML:', error);
+            }
+          } else {
+            console.error('Unsupported file type:', file.type);
+          }
         };
         reader.readAsText(file);
       }
@@ -436,7 +485,7 @@ const BlocklyComponent = () => {
           playState={playState}
           setPlayState={setPlayState}
           onSearchClick={handleSearchClick}
-          onSaveClick={handleSaveWorkspace}
+          onSaveClick={handleSaveWorkspaceV2}
           onLoadClick={handleLoadWorkspace}
           ref={headerRef}
         />
