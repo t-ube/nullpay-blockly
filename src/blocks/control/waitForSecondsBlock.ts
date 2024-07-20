@@ -3,20 +3,24 @@ import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 
 export const defineWaitForSecondsBlock = () => {
-  Blockly.Blocks['wait_seconds'] = {
-    init: function () {
-      this.appendValueInput("TIME")
-        .setCheck("Number")
-        .appendField("wait for");
-      this.appendDummyInput()
-        .appendField("seconds");
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(BlockColors.control);
-      this.setTooltip('Waits for the specified amount of seconds');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "wait_seconds",
+      "message0": "wait for %1 seconds",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "TIME",
+          "check": "Number"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": BlockColors.control,
+      "tooltip": "Waits for the specified amount of seconds",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['wait_seconds'] = function (block, generator) {
     const time = generator.valueToCode(block, 'TIME', Order.ATOMIC) || '1000';

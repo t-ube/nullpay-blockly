@@ -1,7 +1,7 @@
 import * as Blockly from 'blockly';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
-import { dayjs } from '@/blocks/time/DateTimeField';
+import { dayjs } from '@/blocks/time/field_datetime';
 
 export const defineDateTimeToRippleEpoch = () => {
   Blockly.Blocks['datetime_to_ripple_epoch'] = {

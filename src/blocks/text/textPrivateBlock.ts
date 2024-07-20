@@ -1,12 +1,13 @@
 import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
+import { blockCheckType } from '@/blocks/BlockField';
 
 export const defineTextOnetimeBlock = () => {
   Blockly.defineBlocksWithJsonArray([
     {
       "type": "text_onetime_block",
-      "message0": "One-time text %1",
+      "message0": "one-time text %1",
       "args0": [
         {
           "type": "field_input",
@@ -14,7 +15,7 @@ export const defineTextOnetimeBlock = () => {
           "text": ""
         }
       ],
-      "output": "String",
+      "output": blockCheckType.string,
       "colour": BlockColors.text,
       "tooltip": "Enter a one-time use string. The string will not be saved.",
       "helpUrl": ""

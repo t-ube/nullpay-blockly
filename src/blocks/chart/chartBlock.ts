@@ -2,7 +2,7 @@ import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { blockCheckType } from '@/blocks/BlockField';
-import { ChartModalField } from '@/blocks/chart/ChartModalField';
+import { FieldChartModal } from '@/blocks/chart/feild_chartmodal';
 import {
   generateBidAndAskData,
   convertBitbankDepthToOrderBookData,
@@ -12,30 +12,51 @@ import { IOrderBookData } from '@/interfaces/IOrderBook';
 import { IBitbankDepthResponce } from '@/interfaces/IBitbankAPI';
 import { IBitrueDepthResponce } from '@/interfaces/IBitrueAPI';
 
+Blockly.fieldRegistry.register('field_chart_modal', FieldChartModal);
 
 export const defineChartOrderBookBlock = () => {
-  Blockly.Blocks['chart_order_book_block'] = {
-    init: function () {
-      this.appendDummyInput()
-        .appendField('Order book Chart')
-        .appendField(new ChartModalField('Title'), 'INPUT');
-      this.appendValueInput("TITLE")
-        .setCheck(blockCheckType.string)
-        .appendField("Title");
-      this.appendValueInput("PAIR")
-        .setCheck(blockCheckType.string)
-        .appendField("Pair");
-      this.appendValueInput("DATA")
-        .setCheck(null)
-        .appendField("Bids & Asks");
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(BlockColors.chart);
-      this.setTooltip('Displays an order book chart with the given title, trading pair, and bid/ask data');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "chart_order_book_block",
+      "message0": "Order book Chart %1",
+      "args0": [
+        {
+          "type": "field_chart_modal",
+          "name": "INPUT",
+          "value": "Title"
+        }
+      ],
+      "message1": "Title %1",
+      "args1": [
+        {
+          "type": "input_value",
+          "name": "TITLE",
+          "check": blockCheckType.string
+        }
+      ],
+      "message2": "Pair %1",
+      "args2": [
+        {
+          "type": "input_value",
+          "name": "PAIR",
+          "check": blockCheckType.string
+        }
+      ],
+      "message3": "Bids & Asks %1",
+      "args3": [
+        {
+          "type": "input_value",
+          "name": "DATA",
+          "check": null
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": BlockColors.chart,
+      "tooltip": "Displays an order book chart with the given title, trading pair, and bid/ask data",
+      "helpUrl": ""
     }
-  };
-
+  ]);
   javascriptGenerator.forBlock['chart_order_book_block'] = function(block, generator) {
     const title = generator.valueToCode(block, 'TITLE', Order.ATOMIC) || '""';
     const pair = generator.valueToCode(block, 'PAIR', Order.ATOMIC) || '""';
@@ -49,7 +70,7 @@ async function showChartOrderBook(blockId: string, title: string, pair: string, 
   const workspace = Blockly.getMainWorkspace();
   const block = workspace.getBlockById(blockId);
   if (block) {
-    const field = block.getField('INPUT') as ChartModalField;
+    const field = block.getField('INPUT') as FieldChartModal;
     return await field.showModalAtRuntime(data, title, pair);
   }
   return;
@@ -66,16 +87,16 @@ export function initInterpreterChartOrderBook(interpreter: any, globalObject: an
 }
 
 export const defineChartRandomOrderBookDataBlock = () => {
-  Blockly.Blocks['chart_random_order_book_data'] = {
-    init: function() {
-      this.appendDummyInput()
-          .appendField("Random bids & asks");
-      this.setOutput(true, "Object");
-      this.setColour(BlockColors.chart);
-      this.setTooltip('Generates random order book data for use in the order book chart');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "chart_random_order_book_data",
+      "message0": "Random bids & asks",
+      "output": "Object",
+      "colour": BlockColors.chart,
+      "tooltip": "Generates random order book data for use in the order book chart",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['chart_random_order_book_data'] = function(block, generator) {
     const code = `chartRandomOrderBookData()`;

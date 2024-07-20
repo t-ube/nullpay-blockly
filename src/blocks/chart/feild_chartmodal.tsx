@@ -1,4 +1,4 @@
-// @/blocks/form/ChartModalField.ts
+// @/blocks/form/FieldChartModal.ts
 import * as Blockly from 'blockly';
 import { Field } from 'blockly';
 import Highcharts from 'highcharts';
@@ -100,7 +100,7 @@ class CustomModal {
   }
 }
 
-export class ChartModalField extends Blockly.Field {
+class FieldChartModal extends Blockly.Field {
   private chartElement: HTMLDivElement | null = null;
   private chart: Highcharts.Chart | null = null;
   isClosing: boolean = false;
@@ -498,6 +498,10 @@ export class ChartModalField extends Blockly.Field {
   protected getDisplayText_() {
     return this.getText_();
   }
+
+  static fromJson(_options: any): Blockly.Field<any> {
+    return new FieldChartModal( _options['value']);
+  }
 }
 
-Blockly.fieldRegistry.register('chart_modal_field', ChartModalField);
+export { FieldChartModal };

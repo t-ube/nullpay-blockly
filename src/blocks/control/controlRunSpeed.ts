@@ -19,18 +19,27 @@ export const controlRunSpeed = (speed: number) => {
 };
 
 export const defineControlRunSpeedBlock = () => {
-  Blockly.Blocks['control_run_speed'] = {
-    init: function () {
-      this.appendDummyInput()
-        .appendField("run speed")
-        .appendField(new Blockly.FieldNumber(1, 1, 1000, 1), "SPEED")
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(BlockColors.control);
-      this.setTooltip('Set the program execution speed (1-1000)');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "control_run_speed",
+      "message0": "run speed %1",
+      "args0": [
+        {
+          "type": "field_number",
+          "name": "SPEED",
+          "value": 1,
+          "min": 1,
+          "max": 1000,
+          "precision": 1
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": BlockColors.control,
+      "tooltip": "Set the program execution speed (1-1000)",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['control_run_speed'] = function (block, generator) {
     const speed = block.getFieldValue('SPEED');

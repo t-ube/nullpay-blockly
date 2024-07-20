@@ -3,16 +3,16 @@ import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 
 export const defineUndefinedBlock = () => {
-  Blockly.Blocks['undefined'] = {
-    init: function () {
-      this.appendDummyInput()
-        .appendField("undefined");
-      this.setOutput(true, null);
-      this.setColour(BlockColors.logic);
-      this.setTooltip('Returns the undefined value.');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "undefined",
+      "message0": "undefined",
+      "output": null,
+      "colour": BlockColors.logic,
+      "tooltip": "Returns the undefined value.",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['undefined'] = function (block, generator) {
     return ['undefined', Order.ATOMIC];
@@ -20,16 +20,16 @@ export const defineUndefinedBlock = () => {
 };
   
 export const defineNullBlock = () => {
-  Blockly.Blocks['null'] = {
-    init: function () {
-      this.appendDummyInput()
-        .appendField("null");
-      this.setOutput(true, null);
-      this.setColour(BlockColors.logic);
-      this.setTooltip('Returns the null value.');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "null",
+      "message0": "null",
+      "output": null,
+      "colour": BlockColors.logic,
+      "tooltip": "Returns the null value.",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['null'] = function (block, generator) {
     return ['null', Order.ATOMIC];
@@ -37,16 +37,16 @@ export const defineNullBlock = () => {
 };
 
 export const defineTrueBlock = () => {
-  Blockly.Blocks['true'] = {
-    init: function () {
-      this.appendDummyInput()
-        .appendField("true");
-      this.setOutput(true, null);
-      this.setColour(BlockColors.logic);
-      this.setTooltip('Returns the boolean value true.');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "true",
+      "message0": "true",
+      "output": null,
+      "colour": BlockColors.logic,
+      "tooltip": "Returns the boolean value true.",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['true'] = function (block, generator) {
     return ['true', Order.ATOMIC];
@@ -54,19 +54,18 @@ export const defineTrueBlock = () => {
 };
 
 export const defineFalseBlock = () => {
-  Blockly.Blocks['false'] = {
-    init: function () {
-      this.appendDummyInput()
-        .appendField("false");
-      this.setOutput(true, null);
-      this.setColour(BlockColors.logic);
-      this.setTooltip('Returns the boolean value false.');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "false",
+      "message0": "false",
+      "output": null,
+      "colour": BlockColors.logic,
+      "tooltip": "Returns the boolean value false.",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['false'] = function (block, generator) {
     return ['false', Order.ATOMIC];
   };
 };
-

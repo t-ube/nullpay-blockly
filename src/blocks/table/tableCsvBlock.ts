@@ -1,6 +1,6 @@
 import * as Blockly from 'blockly';
 import { javascriptGenerator, Order } from 'blockly/javascript';
-import { FieldTable } from '@/blocks/table/TableField';
+import { FieldTable } from '@/blocks/table/field_table';
 import { BlockColors } from '@/blocks/BlockColors';
 
 export const defineCsvBlock = () => {

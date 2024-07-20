@@ -897,8 +897,10 @@ class FieldForm extends Blockly.Field {
   protected getDisplayText_() {
     return this.getText_();
   }
-}
 
-Blockly.fieldRegistry.register('field_form', FieldForm);
+  static fromJson(_options: any): Blockly.Field<any> {
+    return new FieldForm( _options['value'] as IFormValue);
+  }
+}
 
 export { FieldForm };

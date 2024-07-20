@@ -178,20 +178,28 @@ export function initInterpreterJsonSetKVs(interpreter:any, globalObject:any) {
 }
 
 export const defineJsonGetValueBlock = () => {
-  Blockly.Blocks['json_get_value'] = {
-    init: function () {
-      this.appendValueInput("VAR")
-        .setCheck(null)
-        .appendField("Get JSON");
-      this.appendValueInput("KEY")
-        .setCheck("String")
-        .appendField("Key");
-      this.setOutput(true, null);
-      this.setColour(BlockColors.json);
-      this.setTooltip('Get the value from a JSON object by key');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "json_get_value",
+      "message0": "Get JSON %1 Key %2",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "VAR",
+          "check": null
+        },
+        {
+          "type": "input_value",
+          "name": "KEY",
+          "check": blockCheckType.string,
+        }
+      ],
+      "output": null,
+      "colour": BlockColors.json,
+      "tooltip": "Get the value from a JSON object by key",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['json_get_value'] = function (block, generator) {
     const variable = generator.valueToCode(block, 'VAR', Order.ATOMIC) || '{}';
@@ -255,17 +263,23 @@ export const defineJsonKeyValueBlock = () => {
 };
 
 export const defineJsonToTextBlock = () => {
-  Blockly.Blocks['json_to_text'] = {
-    init: function () {
-      this.appendValueInput("JSON")
-        .setCheck('String')
-        .appendField("JSON string to text");
-      this.setOutput(true, 'String');
-      this.setColour(BlockColors.legacy);
-      this.setTooltip('Convert a JSON string to a plain text');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "json_to_text",
+      "message0": "JSON string to text %1",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "JSON",
+          "check": blockCheckType.string
+        }
+      ],
+      "output": blockCheckType.string,
+      "colour": BlockColors.legacy,
+      "tooltip": "Convert a JSON string to a plain text",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['json_to_text'] = function (block, generator) {
     const jsonInput = generator.valueToCode(block, 'JSON', Order.ATOMIC) || '""';
@@ -275,17 +289,23 @@ export const defineJsonToTextBlock = () => {
 };
 
 export const defineJsonTextToJsonBlock = () => {
-  Blockly.Blocks['text_to_json'] = {
-      init: function () {
-      this.appendValueInput("TEXT")
-          .setCheck('String')
-          .appendField("text to JSON string");
-      this.setOutput(true, 'String');
-      this.setColour(BlockColors.legacy);
-      this.setTooltip('Convert a plain text to a JSON string');
-      this.setHelpUrl('');
-      }
-  };
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "text_to_json",
+      "message0": "text to JSON string %1",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "TEXT",
+          "check": blockCheckType.string
+        }
+      ],
+      "output": blockCheckType.string,
+      "colour": BlockColors.legacy,
+      "tooltip": "Convert a plain text to a JSON string",
+      "helpUrl": ""
+    }
+  ]);
 
   javascriptGenerator.forBlock['text_to_json'] = function (block, generator) {
       const textInput = generator.valueToCode(block, 'TEXT', Order.ATOMIC) || '""';

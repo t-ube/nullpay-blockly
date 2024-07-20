@@ -3,26 +3,45 @@
 import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
-import { FieldForm, getDefaultFormValue } from '@/blocks/form/FieldForm';
+import { FieldForm, getDefaultFormValue } from '@/blocks/form/field_form';
 import { IFormResult } from '@/interfaces/IForm';
-import { newTitleLabel, newArgsLabel, newOutputLabel, blockCheckType } from '@/blocks/BlockField';
+import { blockCheckType } from '@/blocks/BlockField';
+
+Blockly.fieldRegistry.register('field_form', FieldForm);
 
 export const defineFormModalBlock = () => {
-  Blockly.Blocks['form_modal_block'] = {
-    init: function () {
-      this.appendDummyInput()
-        .appendField('Form')
-        .appendField(new FieldForm(getDefaultFormValue()), 'INPUT');
-      this.appendDummyInput()
-        .appendField(newOutputLabel("Result"))
-        .appendField(new Blockly.FieldVariable("result"), "VAR");
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(BlockColors.form);
-      this.setTooltip('Create and display a form');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "form_modal_block",
+      "message0": "Form %1",
+      "args0": [
+        {
+          "type": "field_form",
+          "name": "INPUT",
+          "value": getDefaultFormValue()
+        }
+      ],
+      "message1": "%1 %2",
+      "args1": [
+        {
+          "type": "field_label",
+          "text": "Result",
+          "class": "args-label"
+        },
+        {
+          "type": "field_variable",
+          "name": "VAR",
+          "variable": "result"
+        }
+      ],
+      "inputsInline": false,
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": BlockColors.form,
+      "tooltip": "Create and display a form",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['form_modal_block'] = function(block, generator) {
     if (generator.nameDB_ === undefined) {

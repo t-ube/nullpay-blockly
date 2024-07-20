@@ -26,7 +26,7 @@ import {
   defineXrplClioNftInfoBlock, initInterpreterXrplClioNftInfo
 } from '@/blocks/xrpl/xrplClioServerBlock';
 import { defineXrplXrp2DropBlock, defineXrplDrop2XrpBlock } from '@/blocks/xrpl/xrplAmountBlock';
-import { definePercentageBlock } from '@/blocks/math/percentageBlock'; 
+import { definePercentageBlock } from '@/blocks/math/mathBlock'; 
 import { 
   defineXrplAccountInfoBlock,initInterpreterXrplAccountInfo,
   defineXrplAccountLinesCommandBlock, initInterpreterXrplAccountLinesCommand
@@ -82,7 +82,9 @@ import {
 import {
   defineNFTokenBuyOfferBlock, initInterpreterXrplNftokenBuyOffer
 } from '@/blocks/xrpl/xrplNFTokenBlock';
-import { defineTextUtilInspectPrintBlock, initInterpreterTextUtilInspectPrint } from '@/blocks/text/textUtilInspectPrintBlock';
+import { 
+  defineTextUtilInspectPrintBlock, initInterpreterTextUtilInspectPrint
+} from '@/blocks/text/textPrintBlock';
 import { 
   defineUndefinedBlock,
   defineNullBlock,
@@ -146,9 +148,12 @@ import {
 import {
   defineTextOnetimeBlock
 } from '@/blocks/text/textPrivateBlock';
-import { defineTextToUpperCaseBlock, defineTextToLowerCaseBlock } from '@/blocks/text/textConvertBlock';
-import { defineNumberToTextBlock } from '@/blocks/text/textNumberToTextBlock';
-import { defineTextToNumberBlock } from '@/blocks/text/textTextToNumberBlock';
+import { 
+  defineTextToUpperCaseBlock,
+  defineTextToLowerCaseBlock,
+  defineNumberToTextBlock,
+  defineTextToNumberBlock
+} from '@/blocks/text/textConvertBlock';
 import { defineTextBlockCommentBlock } from '@/blocks/text/textCommentBlock';
 import {
   defineTableEmptyBlock,
@@ -184,13 +189,15 @@ import {
 } from '@/blocks/notion/notionDatabaseBlock';
 */
 import { defineCsvBlock, defineCSVSaveBlock, initInterpreterTableCSVSave  } from '@/blocks/table/tableCsvBlock';
-import { defineCurrentDateTimeBlock, initInterpreterCurrentDateTime } from '@/blocks/time/getCurrentDateTimeBlock';
-import { defineDatedatetimeToTextBlock, initInterpreterDatedatetimeToText } from '@/blocks/time/datetimeToTextBlock';
-import { defineCreateDateTimeBlock, initInterpreterCreateDateTime } from '@/blocks/time/createTimeBlock';
-import { defineAdjustDateTimeBlock, initInterpreterAdjustDateTime } from '@/blocks/time/adjustDateTimeBlock';
-import { defineDateTimeTextFormatBlock } from '@/blocks/time/dateTimeTextFormatBlock';
-import { defineTimezoneBlock } from '@/blocks/time/timezoneBlock';
-import { defineCompareDateTimeBlock, initInterpreterCompareDateTime } from '@/blocks/time/compareDateTimeBlock';
+import {
+  defineCurrentDateTimeBlock, initInterpreterCurrentDateTime,
+  defineCreateDateTimeBlock, initInterpreterCreateDateTime,
+  defineAdjustDateTimeBlock, initInterpreterAdjustDateTime,
+  defineCompareDateTimeBlock, initInterpreterCompareDateTime,
+  defineDateTimeTextFormatBlock,
+  defineTimezoneBlock,
+  defineDatedatetimeToTextBlock, initInterpreterDatedatetimeToText
+} from '@/blocks/time/timeBlock';
 import { defineConsoleLogBlock } from '@/blocks/debug/consoleLogBlock';
 import { BlockColors } from '@/blocks/BlockColors';
 

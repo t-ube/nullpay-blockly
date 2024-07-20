@@ -41,8 +41,6 @@ export class FieldTime extends FieldTextInput {
   }
 }
 
-Blockly.fieldRegistry.register('field_time', FieldTime);
-
 export class FieldTimeWithSeconds extends FieldTextInput {
   constructor(value:any, validator = null) {
     super(value, validator);
@@ -77,8 +75,6 @@ export class FieldTimeWithSeconds extends FieldTextInput {
     }
   }
 }
-
-Blockly.fieldRegistry.register('field_time_with_seconds', FieldTimeWithSeconds);
 
 export const timezoneMenu:Blockly.MenuGenerator = [
   ["UTC", "UTC"],

@@ -5,18 +5,24 @@ import { BlockColors } from '@/blocks/BlockColors';
 
 
 export const defineArrayInitBlock = () => {
-  Blockly.Blocks['array_init'] = {
-    init: function () {
-      this.appendDummyInput()
-        .appendField("initialize array")
-        .appendField(new Blockly.FieldVariable("item"), "VAR");
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(blockCheckType.list);
-      this.setTooltip('Initializes an empty array');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "array_init",
+      "message0": "initialize array %1",
+      "args0": [
+        {
+          "type": "field_variable",
+          "name": "VAR",
+          "variable": "item"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": blockCheckType.list,
+      "tooltip": "Initializes an empty array",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['array_init'] = function (block, generator) {
     if (generator.nameDB_ === undefined) {
@@ -29,21 +35,29 @@ export const defineArrayInitBlock = () => {
 };
 
 export const defineArrayAppendBlock = () => {
-  Blockly.Blocks['array_append'] = {
-    init: function () {
-      this.appendValueInput("ARRAY")
-        .setCheck("Array")
-        .appendField("append to array");
-      this.appendValueInput("ITEM")
-        .setCheck(null)
-        .appendField("item");
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(BlockColors.list);
-      this.setTooltip('Append an item to an array');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "array_append",
+      "message0": "append to array %1 item %2",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "ARRAY",
+          "check": "Array"
+        },
+        {
+          "type": "input_value",
+          "name": "ITEM",
+          "check": null
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": BlockColors.list,
+      "tooltip": "Append an item to an array",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['array_append'] = function (block, generator) {
     const array = generator.valueToCode(block, 'ARRAY', Order.ATOMIC);
