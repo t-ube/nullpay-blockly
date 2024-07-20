@@ -55,6 +55,7 @@ const createBlockFromBlockText = (xmlString: string, workspace: Blockly.Workspac
   return [];
 };
 
+
 const createPointerEvent = (type: string, x: number, y: number): PointerEvent => {
   return new PointerEvent(type, {
     clientX: x,
@@ -158,6 +159,7 @@ const dropBlockToWorkspace = (workspace: Blockly.WorkspaceSvg, xml: string, even
   }
 };
 
+
 const addBlockToWorkspace = (workspace: Blockly.WorkspaceSvg, xml: string) => {
   const metrics = workspace.getMetrics();
   const { viewLeft, viewTop, viewWidth, viewHeight, contentWidth, contentTop, contentHeight } = metrics;
@@ -196,8 +198,94 @@ const createBlockFromFlyout = (workspace: Blockly.WorkspaceSvg, xml: Element, ev
   }
 };
 
+const createBlockFromBlockTextV2 = (jsonString: string, workspace: Blockly.WorkspaceSvg, wsCoordinates: { x: number; y: number }) : string[] => {
+  try {
+    const blockJson = JSON.parse(jsonString);
+    blockJson.x = wsCoordinates.x;
+    blockJson.y = wsCoordinates.y;
+    //console.log(blockJson);
+    Blockly.serialization.blocks.append(blockJson, workspace, {recordUndo : true});
+    if (blockJson.id) {
+      return [blockJson.id];
+    }
+  } catch (error) {
+    console.error('Error creating block:', error);
+    if (error instanceof Error) {
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+    }
+  }
+  return [];
+};
+
+const dropBlockToWorkspaceV2 = (workspace: Blockly.WorkspaceSvg, jsonString: string, event: MouseEvent) => {
+  const metrics = workspace.getMetrics();
+  const { viewLeft, viewTop, viewWidth, viewHeight, contentWidth, absoluteTop } = metrics;
+  const blocklyDiv = getBlocklyDiv();
+  if (!blocklyDiv) {
+    return;
+  }
+  const blocklyDivRect = blocklyDiv.getBoundingClientRect();
+  const x = event.clientX + blocklyDivRect.left + 10;
+  const y = event.clientY + blocklyDivRect.top + 30;
+  const dummyEvent = createDummyEvent(x, y, blocklyDivRect);
+  const svgPoint = calculateSvgPoint(dummyEvent, workspace);
+  const rel = workspace.getOriginOffsetInPixels();
+  const wsCoordinates = {
+    x: (svgPoint.x - rel.x) / workspace.scale,
+    y: (svgPoint.y - rel.y) / workspace.scale
+  };
+  const idList = createBlockFromBlockTextV2(jsonString, workspace, wsCoordinates);
+
+  if (idList.length > 0) {
+    const blockId = idList[0];
+    const block = workspace.getBlockById(blockId);
+    if (block) {
+      block.getSvgRoot().style.opacity = '0';
+      if (workspace.currentGesture_) {
+        workspace.currentGesture_.cancel();
+      }
+      const fakePointerDownEvent = createPointerEvent('pointerdown', x - blocklyDivRect.left, y - blocklyDivRect.top);
+      const fakePointerUpEvent = createPointerEvent('pointerup', x - blocklyDivRect.left, y - blocklyDivRect.top);
+      const blockSvgRoot = block.getSvgRoot();
+      if (blockSvgRoot) {
+        blockSvgRoot.dispatchEvent(fakePointerUpEvent);
+        setTimeout(() => {
+          blockSvgRoot.dispatchEvent(fakePointerDownEvent);
+          window.addEventListener('pointerup', handleTouchEnd(blockSvgRoot, workspace), { once: true });
+          setTimeout(() => {
+            block.getSvgRoot().style.opacity = '1';
+          }, 50);
+        }, 50);
+      }
+    }
+  }
+};
+
+const addBlockToWorkspaceV2 = (workspace: Blockly.WorkspaceSvg, jsonString: string) => {
+  const metrics = workspace.getMetrics();
+  const { viewLeft, viewTop, viewWidth, viewHeight, contentWidth, contentTop, contentHeight } = metrics;
+  const blocklyDiv = getBlocklyDiv();
+  if (!blocklyDiv) {
+    return;
+  }
+  const x = viewLeft + (viewWidth / 2);
+  const y = viewTop + (viewHeight / 2);
+  const wsCoordinates = {
+    x: x,
+    y: y
+  };
+  const idList = createBlockFromBlockTextV2(jsonString, workspace, wsCoordinates);
+  console.log(idList);
+  if (workspace.currentGesture_) {
+    workspace.currentGesture_.cancel();
+  }
+};
+
 export {
   dropBlockToWorkspace,
   addBlockToWorkspace,
-  createBlockFromFlyout
+  createBlockFromFlyout,
+  dropBlockToWorkspaceV2,
+  addBlockToWorkspaceV2,
 };

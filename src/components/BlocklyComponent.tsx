@@ -18,7 +18,10 @@ import { Sidebar } from '@/components/Sidebar';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { PlayState } from '@/types/PlayStateType';
-import { dropBlockToWorkspace, addBlockToWorkspace } from '@/utils/BlocklyHelper';
+import {
+  dropBlockToWorkspace, addBlockToWorkspace,
+  dropBlockToWorkspaceV2, addBlockToWorkspaceV2
+} from '@/utils/BlocklyHelper';
 //import WelcomeDialog from '@/components/WelcomeDialog';
 //import { DemoBlockXml } from '@/demos/demo-v0-r2-async-block';
 //import { DemoV0R3CsvLoadXml } from '@/demos/demo-v0-r3-csv-load';
@@ -124,7 +127,9 @@ const BlocklyComponent = () => {
         clearOneTimeBlocks(block.next.block);
       }
     };
-    state.blocks.blocks.forEach((block: any) => clearOneTimeBlocks(block));
+    if (state.blocks !== undefined && 'blocks' in state.blocks) {
+      state.blocks.blocks.forEach((block: any) => clearOneTimeBlocks(block));
+    }
     //
     const jsonState = JSON.stringify(state);
     const blob = new Blob([jsonState], { type: 'application/json' });
@@ -424,6 +429,14 @@ const BlocklyComponent = () => {
     }
   };
 
+  const handleBlockSelectedForDrawer2 = (json: string, eventType: string, event: MouseEvent): void => {
+    if (eventType === 'drag') {
+      dropBlockToWorkspaceV2(workspace, json, event);
+    } else {
+      addBlockToWorkspaceV2(workspace, json);
+    }
+  };
+
   const handleSearchClick = () => {
     setIsSearchModalOpen(true);
   };
@@ -507,6 +520,7 @@ const BlocklyComponent = () => {
               <div className="flex space-x-2 mb-2">
                 <BlocklyDrawer
                   onBlockSelected={handleBlockSelectedForDrawer}
+                  onBlockSelectedV2={handleBlockSelectedForDrawer2}
                   setOpen={setOpenFlyout}
                   open={openFlyout}
                   flyoutType={flyoutType}
@@ -514,6 +528,7 @@ const BlocklyComponent = () => {
                 />
                 <BlocklySearchFlyout 
                   onBlockSelected={handleBlockSelectedForDrawer}
+                  onBlockSelectedV2={handleBlockSelectedForDrawer2}
                   setOpen={setIsSearchModalOpen}
                   open={isSearchModalOpen}
                   mainWorkspace={workspace}

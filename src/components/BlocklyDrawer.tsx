@@ -18,6 +18,7 @@ interface IDrawerBlockTitleMap {
 
 interface IDrawerBlocklyDrawerProps {
   onBlockSelected: (xml: string, eventType: string, event: MouseEvent) => void;
+  onBlockSelectedV2: (json: string, eventType: string, event: MouseEvent) => void;
   setOpen: (open: boolean) => void;
   open: boolean;
   flyoutType: string | null;
@@ -66,7 +67,7 @@ const initialBlockTitleMap : IDrawerBlockTitleMap = {
   function: 'Functions',
 };
 
-const BlocklyDrawer = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspace }: IDrawerBlocklyDrawerProps) => {
+const BlocklyDrawer = ({ onBlockSelected, onBlockSelectedV2, setOpen, open, flyoutType, mainWorkspace }: IDrawerBlocklyDrawerProps) => {
   const workspaceRefs = useRef<{ id: string, workspace: Blockly.WorkspaceSvg | null }[]>([]);
   const [blockTypesMap, setBlockTypesMap] = useState<IBlockTypesMap<IBaseBlock>>(initialBlockTypesMap);
   const [dynamicUpdated, setDynamicUpdated] = useState(false);
@@ -95,20 +96,23 @@ const BlocklyDrawer = ({ onBlockSelected, setOpen, open, flyoutType, mainWorkspa
           while (parent = parentBlockSvg.getSurroundParent()) {
             parentBlockSvg = parent;
           }
-          const xml = Blockly.Xml.blockToDom(parentBlockSvg as Blockly.Block) as Element;
-          const xmlText = Blockly.Xml.domToText(xml);
+          //const xml = Blockly.Xml.blockToDom(parentBlockSvg as Blockly.Block) as Element;
+          //const xmlText = Blockly.Xml.domToText(xml);
+          const json = Blockly.serialization.blocks.save(parentBlockSvg as Blockly.Block);
+          const jsonText = JSON.stringify(json);
           const blockElement = parentBlockSvg.getSvgRoot();
           const rect = blockElement.getBoundingClientRect();
           let dummyEvent: any = {
             clientX: rect.left,
             clientY: rect.top
           };
-          onBlockSelected(xmlText, event.type, dummyEvent);
+          //onBlockSelected(xmlText, event.type, dummyEvent);
+          onBlockSelectedV2(jsonText, event.type, dummyEvent)
           handleClose();
         }
       }
     },
-    [onBlockSelected, handleClose]
+    [/*onBlockSelected,*/onBlockSelectedV2, handleClose]
   );
 
   useEffect(() => {

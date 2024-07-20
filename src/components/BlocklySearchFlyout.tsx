@@ -11,12 +11,13 @@ import { useMobile } from '@/contexts/MobileContext';
 
 interface IFlyoutModalProps {
   onBlockSelected: (xml: string, eventType: string, event: MouseEvent) => void;
+  onBlockSelectedV2: (json: string, eventType: string, event: MouseEvent) => void;
   setOpen: (open: boolean) => void;
   open: boolean;
   mainWorkspace: Blockly.WorkspaceSvg;
 }
 
-const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: IFlyoutModalProps) => {
+const BlocklySearchFlyout = ({ onBlockSelected, onBlockSelectedV2, setOpen, open, mainWorkspace }: IFlyoutModalProps) => {
   const { isMobile, isLoaded } = useMobile();
   const workspaceRefs = useRef<{ id: string, workspace: Blockly.WorkspaceSvg | null }[]>([]);
   const [blockTypesMap, setBlockTypesMap] = useState<IBlockTypesMap<IBaseBlock>>(initialBlockTypesMap);
@@ -41,20 +42,23 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
       if (workspace && (event.type === 'selected' || event.type === 'click' || event.type === 'drag')) {
         const blockSvg = workspace.getBlockById(event.blockId);
         if (blockSvg) {
-          const xml = Blockly.Xml.blockToDom(blockSvg as Blockly.Block) as Element;
-          const xmlText = Blockly.Xml.domToText(xml);
+          //const xml = Blockly.Xml.blockToDom(blockSvg as Blockly.Block) as Element;
+          //const xmlText = Blockly.Xml.domToText(xml);
+          const json = Blockly.serialization.blocks.save(blockSvg as Blockly.Block);
+          const jsonText = JSON.stringify(json);
           const blockElement = blockSvg.getSvgRoot();
           const rect = blockElement.getBoundingClientRect();
           let dummyEvent: any = {
             clientX: rect.left,
             clientY: rect.top
           };
-          onBlockSelected(xmlText, event.type, dummyEvent);
+          //onBlockSelected(xmlText, event.type, dummyEvent);
+          onBlockSelectedV2(jsonText, event.type, dummyEvent);
           handleClose();
         }
       }
     },
-    [onBlockSelected, handleClose]
+    [/*onBlockSelected,*/onBlockSelectedV2, handleClose]
   );
 
   const handleAddBlock = useCallback((workspaceId: string, blockId: string) => {
@@ -64,15 +68,18 @@ const BlocklySearchFlyout = ({ onBlockSelected, setOpen, open, mainWorkspace }: 
       if (blockSvgs && blockSvgs.length) {
         const blockSvg = blockSvgs[0];
         if (blockSvg) {
-          const xml = Blockly.Xml.blockToDom(blockSvg as Blockly.Block) as Element;
-          const xmlText = Blockly.Xml.domToText(xml);
+          //const xml = Blockly.Xml.blockToDom(blockSvg as Blockly.Block) as Element;
+          //const xmlText = Blockly.Xml.domToText(xml);
+          const json = Blockly.serialization.blocks.save(blockSvg as Blockly.Block);
+          const jsonText = JSON.stringify(json);
           const blockElement = blockSvg.getSvgRoot();
           const rect = blockElement.getBoundingClientRect();
           let dummyEvent: any = {
             clientX: rect.left,
             clientY: rect.top
           };
-          onBlockSelected(xmlText, 'click', dummyEvent);
+          //onBlockSelected(xmlText, 'click', dummyEvent);
+          onBlockSelectedV2(jsonText, 'click', dummyEvent);
           handleClose();
         }
       }
