@@ -2897,7 +2897,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       block: `
         <block type="json_input_block" x="0" y="0"></block>
       `,
-      title: "Text to JSON",
+      title: "JSON Object",
       description: "Convert text to a JSON object.",
       categories: ["json"]
     },
@@ -2960,7 +2960,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       block: `
         <block type="text_to_json" x="0" y="0"></block>
       `,
-      title: "Text to JSON string",
+      title: "Text to JSON string (Legacy)",
       description: "Convert text to a JSON string.",
       categories: ["json"]
     },
@@ -2969,7 +2969,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       block: `
         <block type="json_to_text" x="0" y="0"></block>
       `,
-      title: "JSON to Text",
+      title: "JSON to Text (Legacy)",
       description: "Convert a JSON string to text.",
       categories: ["json"]
     },

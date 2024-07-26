@@ -13,8 +13,9 @@ import { useReward } from 'react-rewards';
 import { setConfettiAnimationFunction } from '@/blocks/animation/confettiAnimationBlock';
 import { setControlRunSpeedFunction } from '@/blocks/control/controlRunSpeed';
 import BlocklySearchFlyout from '@/components/BlocklySearchFlyout';
-import BlocklyDrawer from '@/components/BlocklyDrawer';
-import { Sidebar } from '@/components/Sidebar';
+//import BlocklyDrawer from '@/components/BlocklyDrawer';
+//import { Sidebar } from '@/components/Sidebar';
+import { NewSidebar } from '@/components/NewSidebar';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { PlayState } from '@/types/PlayStateType';
@@ -75,7 +76,6 @@ const BlocklyComponent = () => {
   const [duration, setDuration] = useState(0);
   const [openFeatures, setOpenFeatures] = useState(false);
   const [openFlyout, setOpenFlyout] = useState<boolean>(false);
-  const [flyoutType, setFlyoutType] = useState<string | null>(null);
   const headerRef = useRef<HTMLElement>(null);
   const footerRef = useRef<HTMLElement>(null);
   const [clientFramePos, setClientFramePos] = useState<clientFramePos>({
@@ -518,14 +518,14 @@ const BlocklyComponent = () => {
                 <span id="confettiItem" style={{ zIndex: 99 }} />
               </div>
               <div className="flex space-x-2 mb-2">
-                <BlocklyDrawer
+                {/*<BlocklyDrawer
                   onBlockSelected={handleBlockSelectedForDrawer}
                   onBlockSelectedV2={handleBlockSelectedForDrawer2}
                   setOpen={setOpenFlyout}
                   open={openFlyout}
                   flyoutType={flyoutType}
                   mainWorkspace={workspace}
-                />
+                />*/}
                 <BlocklySearchFlyout 
                   onBlockSelected={handleBlockSelectedForDrawer}
                   onBlockSelectedV2={handleBlockSelectedForDrawer2}
@@ -593,7 +593,12 @@ const BlocklyComponent = () => {
             overflow: 'auto'
           }}
         >
-          <Sidebar setOpen={setOpenFlyout} setFlyoutType={setFlyoutType} />
+          <NewSidebar
+            onBlockSelectedV2={handleBlockSelectedForDrawer2}
+            open={openFlyout}
+            setOpen={setOpenFlyout}
+            mainWorkspace={workspace}
+          />
         </div>
       )}
       {/*<WelcomeDialog onYes={handleShowDemo} />*/}
