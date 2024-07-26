@@ -34,6 +34,7 @@ import { DemoV0R4SemiAutoBid } from '@/demos/demo-v0-r4-semi-auto-bid';
 import { DemoV0R4WebApi } from '@/demos/demo-v0-r4-webapi';
 import { releaseInfo as initialReleaseInfo } from '@/features/features-v0-r4';
 import { useMobile } from '@/contexts/MobileContext';
+import LogArea, { LogAreaHandle } from '@/components/LogArea';
 
 type clientFramePos = {
   headerHeight: number,
@@ -82,6 +83,7 @@ const BlocklyComponent = () => {
     headerHeight: 42,
     footerHeight: 27
   });
+  const logAreaRef = useRef<LogAreaHandle>(null);
 
   useInterval(() => {
     if (!isAnimating && isRunning) {
@@ -256,9 +258,7 @@ const BlocklyComponent = () => {
   const initApi = useCallback(async (interpreter: Interpreter, scope: any) => {
     const wrapper = (text: string) => {
       text = text ? text.toString() : '';
-      if (outputArea.current) {
-        outputArea.current.value += `\n${text}`;
-      }
+      logAreaRef.current?.append(text);
     };
     interpreter.setProperty(scope, 'alert', interpreter.createNativeFunction(wrapper));
 
@@ -278,13 +278,11 @@ const BlocklyComponent = () => {
   }, []);
 
   const playCode = useCallback(async () => {
-    
+
     if (cancelledRef.current) {
       clearHighlight();
       myInterpreter.current = null;
-      if (outputArea.current) {
-        outputArea.current.value += '\n<< Execution cancelled >>';
-      }
+      logAreaRef.current?.append('\n<< Execution cancelled >>');
       setPlayState('init');
       cancelledRef.current = false;
       return;
@@ -300,9 +298,7 @@ const BlocklyComponent = () => {
     if (!interpreterTemp) {
       const code = javascriptGenerator.workspaceToCode(workspace);
       interpreterTemp = new Interpreter(code, initApi);
-      if (outputArea.current) {
-        outputArea.current!.value = '';
-      }
+      logAreaRef.current?.clear();
     }
 
     const stepsToRun = runSpeedRef.current;
@@ -321,9 +317,7 @@ const BlocklyComponent = () => {
     } else {
       clearHighlight();
       myInterpreter.current = null;
-      if (outputArea.current) {
-        outputArea.current!.value += '\n\n<< Program complete >>';
-      }
+      logAreaRef.current?.append('\n\n<< Program complete >>');
       setPlayState('init');
     }
 
@@ -545,15 +539,7 @@ const BlocklyComponent = () => {
               <div className="flex-1 flex flex-col">
                 <MainTabs page={selectedTab} onTabChange={handleTabChange} />
                 <div style={{ display: selectedTab === 'log' ? 'flex' : 'none' }} className='py-1 flex-1 overflow-auto'>
-                  <textarea 
-                    ref={outputArea}
-                    id="outputArea"
-                    className="px-1 w-full h-full resize-none border"
-                    style={{ fontSize: '12px' }}
-                    readOnly
-                    spellCheck="false"
-                  >
-                  </textarea>
+                  <LogArea ref={logAreaRef} />
                 </div>
                 <div style={{ display: selectedTab === 'code' ? 'flex' : 'none' }} className='py-1 flex-1 overflow-auto'>
                   <textarea 
