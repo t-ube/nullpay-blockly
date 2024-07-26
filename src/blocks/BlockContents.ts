@@ -1,5 +1,5 @@
 // @/blocks/BlockContents.tsx
-import { IBaseBlock, IBlockTypesMap } from "@/interfaces/IBaseBlock";
+import { IBaseBlock, IBlockTypesMap, XRPLSubCategories } from "@/interfaces/IBaseBlock";
 
 export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
   xrpl: [
@@ -10,7 +10,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Generate Wallet",
       description: "This block generates a new wallet on the XRPL (XRP Ledger). The generated wallet includes a unique address and a corresponding secret key, which can be used for transactions on the XRPL network. Note that the wallet needs to be activated by funding it with the minimum reserve amount before it can be used for transactions. Ensure to store the generated keys securely.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.BASIC_OPERATIONS]
     },
     {
       height: 150,
@@ -19,7 +20,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Create Account and Custom Faucet Request",
       description: "Request funds from a custom XRPL faucet.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.FUNDING_OPERATIONS]
     },
     {
       height: 50,
@@ -28,7 +30,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Network Selection",
       description: "Select the WebSocket URL for the XRPL network.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.BASIC_OPERATIONS]
     },
     {
       height: 50,
@@ -37,7 +40,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Faucet Network Selection",
       description: "Select the faucet network for creating test accounts.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.FUNDING_OPERATIONS]
     },
     {
       height: 150,
@@ -46,7 +50,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Faucet Request",
       description: "Request funds from the default XRPL faucet.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.FUNDING_OPERATIONS]
     },
     {
       height: 50,
@@ -55,7 +60,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Address",
       description: "Define an XRPL address.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.BASIC_OPERATIONS]
     },
     {
       height: 50,
@@ -64,7 +70,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Exchange Address",
       description: "Define an XRPL exchange address.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.BASIC_OPERATIONS]
     },
     {
       height: 50,
@@ -73,7 +80,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRP to Drops",
       description: "Convert XRP to drops.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.FUNDING_OPERATIONS]
     },
     {
       height: 50,
@@ -82,7 +90,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Drops to XRP",
       description: "Convert drops to XRP.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.FUNDING_OPERATIONS]
     },
     {
       height: 80,
@@ -91,7 +100,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Initialize XRPL Client",
       description: "Initialize a new XRPL client to connect to the XRPL network.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.BASIC_OPERATIONS]
     },
     {
       height: 150,
@@ -100,7 +110,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Account Info",
       description: "Retrieve information about a specific XRPL account.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.ACCOUNT_INFORMATION]
     },
     {
       height: 131,
@@ -109,7 +120,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Subscribe Account Transactions",
       description: "Subscribe to transactions for a specific XRPL account to receive real-time updates.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.MONITORING]
     },
     {
       height: 100,
@@ -118,7 +130,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Unsubscribe Account Transactions",
       description: "Unsubscribe from transactions for a specific XRPL account to stop receiving updates.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.MONITORING]
     },
     {
       height: 131,
@@ -127,7 +140,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Subscribe All Transactions",
       description: "Subscribe to all transactions on the XRPL to receive real-time updates for every transaction.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.MONITORING]
     },
     {
       height: 100,
@@ -136,7 +150,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Unsubscribe All Transactions",
       description: "Unsubscribe from all transactions on the XRPL to stop receiving updates for every transaction.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.MONITORING]
     },
     {
       height: 80,
@@ -145,7 +160,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Load Wallet",
       description: "Load an existing wallet using a seed to manage XRPL accounts and transactions.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.BASIC_OPERATIONS]
     },
     {
       height: 80,
@@ -154,7 +170,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Wallet Info",
       description: "Retrieve information about an XRPL wallet. Provide the wallet ID to get the address and secret.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.BASIC_OPERATIONS]
     },
     {
       height: 183,
@@ -163,7 +180,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Payment Transaction",
       description: "Create and submit a payment transaction on the XRPL.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.TRANSACTIONS]
     },
     {
       height: 105,
@@ -172,7 +190,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Sign Wallet",
       description: "Sign a transaction with the wallet's private key to authorize it.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.TRANSACTIONS]
     },
     {
       height: 105,
@@ -181,7 +200,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Submit",
       description: "Submit a signed transaction to the XRPL network for processing.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.TRANSACTIONS]
     },
     {
       height: 50,
@@ -190,7 +210,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "DateTime to Ripple Epoch",
       description: "Convert a date and time to Ripple epoch time.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.TIME_OPERATIONS]
     },
     {
       height: 50,
@@ -199,7 +220,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Ripple Epoch to DateTime",
       description: "Convert Ripple epoch time to date and time.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.TIME_OPERATIONS]
     },
     {
       height: 50,
@@ -208,7 +230,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Token Select",
       description: "Select an issued token on the XRPL from the dropdown.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.TOKEN_OPERATIONS]
     },
     {
       height: 96,
@@ -217,7 +240,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Create New Token",
       description: "Create a new token on the XRPL by specifying the issuer address, currency code, and total supply.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.TOKEN_OPERATIONS]
     },
     {
       height: 50,
@@ -226,7 +250,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Token Amount",
       description: "Set the amount of a token. Specify the information of the newly created token and its value.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.TOKEN_OPERATIONS]
     },
     {
       height: 50,
@@ -235,7 +260,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Token Amount Arithmetic",
       description: "Perform arithmetic operations on XRPL token amounts.This block allows you to add, subtract, multiply, or divide an XRPL token amount by a given value. The 'TOKEN' input can be an XRPL token amount object, a number, or a string representation of a number. The 'OPERATOR' dropdown selects the arithmetic operation to perform, and the 'VALUE' input specifies the number to apply the operation to.The output of this block is a new XRPL token amount object with the result of the arithmetic operation.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.TOKEN_OPERATIONS]
     },
     {
       height: 98.5,
@@ -244,7 +270,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Get NFT Info",
       description: "Get information about an NFT (Non-Fungible Token) on the XRPL using the Clio API service.This block allows you to fetch details about a specific NFT, including its owner, metadata, and other properties. The 'XRPL client' input specifies the client connection to the XRPL, which is required to interact with the Clio API. The 'NFT ID' input is the unique identifier of the NFT you want to retrieve information for.The block outputs the status of the operation ('success' or 'error') and the response data from the Clio API, which can be used for further processing in your program. Note: Using this block requires an active connection to the Clio API service, which provides access to the XRPL data.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.NFT_OPERATIONS]
     },
     {
       height: 143.5,
@@ -253,25 +280,28 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL NFT Buy offer Payload",
       description: "This block creates an NFT buy offer payload that includes the specified information about the token and its value. The generated payload can be used to submit an NFT buy offer transaction on the XRPL network.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.NFT_OPERATIONS]
     },
     {
       height: 50,
       block: `
         <block type="xrpl_rippling_txn" x="0" y="0"></block>
       `,
-      title: "XRPL Rippling Transaction",
+      title: "XRPL Rippling",
       description: "Create a rippling transaction for the XRPL. Specify whether to enable or disable rippling and the address to set this for.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.TRUST_LINE_OPERATIONS]
     },
     {
       height: 99,
       block: `
         <block type="xrpl_client_autofill" x="0" y="0"></block>
       `,
-      title: "XRPL Transaction Autofill",
-      description: "Automatically fill in a transaction using the specified XRPL client. Define the XRPL client and the transaction to autofill.",
-      categories: ["xrpl"]
+      title: "XRPL Payload Autofill",
+      description: "Automatically fill in a transaction using the specified XRPL client. Define the XRPL client and the payload to autofill.",
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.TRANSACTIONS]
     },
     {
       height: 99,
@@ -280,7 +310,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Trust Set",
       description: "Create a trust line setting transaction for the XRPL. Specify the token and the address to set the trust line for.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.TRUST_LINE_OPERATIONS]
     },
     {
       height: 120,
@@ -289,7 +320,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Payment Token",
       description: "Create a payment transaction on the XRPL. Specify the token, account address, destination address, and amount for the transaction.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.TOKEN_OPERATIONS]
     },
     {
       height: 120,
@@ -298,7 +330,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Buy Offer",
       description: "Create a buy offer for tokens on the XRPL DEX.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.DEX_OPERATIONS]
     },
     {
       height: 120,
@@ -307,7 +340,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Sale Offer",
       description: "Create a sale offer for tokens on the XRPL DEX.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.DEX_OPERATIONS]
     },
     {
       height: 123,
@@ -316,7 +350,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Easy Submit",
       description: "Submit a transaction to the XRPL with autofill capability. Specify the XRPL client, wallet, and transaction. The transaction will be automatically filled with necessary details and the result will be stored in the specified variable.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.TRANSACTIONS]
     },
     {
       height: 23.5,
@@ -325,7 +360,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Transaction Type Select",
       description: "Select an XRPL transaction type from the dropdown.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.TRANSACTIONS]
     },
     {
       height: 93.5,
@@ -334,7 +370,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Get Transaction",
       description: "Retrieve a transaction from the XRPL using the specified client and transaction hash.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.TRANSACTIONS]
     },
     {
       height: 93.5,
@@ -343,7 +380,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Get Account Lines",
       description: "Retrieve information about the trust lines associated with an XRPL account.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.TRUST_LINE_OPERATIONS]
     },
     {
       height: 167.5,
@@ -352,7 +390,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Read Transaction info",
       description: "Retrieve transaction information and store it in separate variables.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.TRANSACTIONS]
     },
     {
       height: 98.5,
@@ -361,7 +400,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Get NFT Buy Offers",
       description: "Get the current buy offers for a specific NFT (Non-Fungible Token) on the XRPL.This block allows you to retrieve the list of active buy offers for a given NFT. The 'XRPL client' input specifies the connection to the XRPL, which is required to make the API request. The 'NFT ID' input is the unique identifier of the NFT you want to fetch the buy offers for.The block outputs the status of the operation ('success' or 'error') and the response data from the API, which contains the list of buy offers for the specified NFT. This information can be used for further processing or decision-making in your program. Note: Using this block requires an active connection to the XRPL and the ability to make the necessary API requests to fetch the buy offer data.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.NFT_OPERATIONS]
     },
     {
       height: 143.5,
@@ -370,7 +410,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "XRPL Extract Offer Create Transaction",
       description: "Extract and process an OfferCreate transaction from the XRPL into separate variables.",
-      categories: ["xrpl"]
+      categories: ["xrpl"],
+      subCategories: [XRPLSubCategories.DEX_OPERATIONS]
     },
     {
       height: 1829,
@@ -2060,7 +2101,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       block: `
         <block type="math_arithmetic" x="0" y="0"></block>
       `,
-      title: "Number",
+      title: "Number Arithmetic",
       description: "Math arithmetic",
       categories: ["math"]
     },

@@ -2,9 +2,10 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import * as Blockly from 'blockly/core';
 import { Drawer, Box, Typography, Divider, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Button } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import PuzzleIcon from '@mui/icons-material/Extension';
 import { initialBlockTypesMap } from '@/blocks/BlockContents';
-import { IBaseBlock, IBlockTypesMap } from "@/interfaces/IBaseBlock";
+import { IBaseBlock, XRPLSubCategories, translateSubCategory } from "@/interfaces/IBaseBlock";
 import { BlockColors } from '@/blocks/BlockColors';
 import { BlockIcons } from '@/blocks/BlockIcons';
 
@@ -69,10 +70,10 @@ const initialBlockTitleMap : IDrawerBlockTitleMap = {
 
 const BlocklyDrawer = ({ onBlockSelected, onBlockSelectedV2, setOpen, open, flyoutType, mainWorkspace }: IDrawerBlocklyDrawerProps) => {
   const workspaceRefs = useRef<{ id: string, workspace: Blockly.WorkspaceSvg | null }[]>([]);
-  const [blockTypesMap, setBlockTypesMap] = useState<IBlockTypesMap<IBaseBlock>>(initialBlockTypesMap);
   const [dynamicUpdated, setDynamicUpdated] = useState(false);
   const [varDialogOpen, setVarDialogOpen] = useState(false);
   const [variableName, setVariableName] = useState("");
+  const [categorizedBlocks, setCategorizedBlocks] = useState<{[key: string]: {[subCategory: string]: IBaseBlock[]}}>({});
 
   const handleClose = useCallback(() => {
     workspaceRefs.current.forEach(({ workspace }) => {
@@ -144,20 +145,43 @@ const BlocklyDrawer = ({ onBlockSelected, onBlockSelectedV2, setOpen, open, flyo
             });
           });
         }
-        setBlockTypesMap(prevMap => ({ ...prevMap, [flyoutType]: dynamicBlocks }));
         blocks = dynamicBlocks;
-        setDynamicUpdated(true);
       } else {
-        const dynamicBlocks: IBaseBlock[] = blockTypesMap[flyoutType].filter(block => !block.categories?.includes('template'));
-        blocks = dynamicBlocks;
-        setBlockTypesMap(prevMap => ({ ...prevMap, [flyoutType]: dynamicBlocks }));
-        setDynamicUpdated(true);
+        blocks = initialBlockTypesMap[flyoutType].filter(block => !block.categories?.includes('template'));
       }
+
+      const categorized = blocks.reduce((acc, block) => {
+        if (!acc[flyoutType]) {
+          acc[flyoutType] = {};
+        }
+        if (block.subCategories && block.subCategories.length > 0) {
+          block.subCategories.forEach(subCategory => {
+            if (!acc[flyoutType][subCategory]) {
+              acc[flyoutType][subCategory] = [];
+            }
+            acc[flyoutType][subCategory].push(block);
+          });
+        } else {
+          if (!acc[flyoutType]['uncategorized']) {
+            acc[flyoutType]['uncategorized'] = [];
+          }
+          acc[flyoutType]['uncategorized'].push(block);
+        }
+        return acc;
+      }, {} as {[key: string]: {[subCategory: string]: IBaseBlock[]}});
+
+      setCategorizedBlocks(categorized);
+      setDynamicUpdated(true);
 
       setTimeout(() => {
         if (blocks && blocks.length > 0) {
           blocks.forEach((item, i) => {
-            const divId = `flyoutDiv_${i}`;
+            let divId: string;
+            if (flyoutType !== 'variable' && flyoutType !== 'function') {
+              divId = `flyoutDiv_${item.title.replace(/\s+/g, '_')}`;
+            } else {
+              divId = `flyoutDiv_${i}`;
+            }
             const container = document.getElementById(divId);
             if (container) {
               const existingWorkspace = workspaceRefs.current.find(ws => ws.id === divId)?.workspace;
@@ -196,7 +220,7 @@ const BlocklyDrawer = ({ onBlockSelected, onBlockSelectedV2, setOpen, open, flyo
         }
       }, 0);
     }
-  }, [open, flyoutType, handleBlockClick, blockTypesMap, mainWorkspace, dynamicUpdated]);
+  }, [open, flyoutType, handleBlockClick, mainWorkspace, dynamicUpdated]);
 
   useEffect(() => {
     return () => {
@@ -248,38 +272,106 @@ const BlocklyDrawer = ({ onBlockSelected, onBlockSelectedV2, setOpen, open, flyo
         onClose={handleClose}
         anchor="left"
       >
-        <Box sx={{
-          width: flyoutType ? initialBlockDrawerMap[flyoutType] : 300,
-          maxHeight: '100vh',
-          overflowY: 'auto',
-          bgcolor: 'background.paper',
-          p: 4,
-          pt: 2,
-          pr: 2
-        }}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            {flyoutType ? getIcon(BlockIcons[flyoutType], BlockColors[flyoutType]) : <PuzzleIcon sx={{ color: '#ccc' }} />}
-            <Typography variant="subtitle1" px={1} sx={{ fontWeight: 'bold', color: '#333333', display: 'flex', alignItems: 'center' }}>
-              {flyoutType ? initialBlockTitleMap[flyoutType] : 'unknown'} {'Blocks'}
-            </Typography>
+        <ThemeProvider
+          theme={createTheme({
+            typography: {
+            fontFamily: [
+              'Google Sans',
+              'Noto Sans',
+              'Noto Sans JP',
+              'Noto Sans KR',
+              'Noto Naskh Arabic',
+              'Noto Sans Thai',
+              'Noto Sans Hebrew',
+              'Noto Sans Bengali',
+              'sans-serif',
+            ].join(','),
+          },
+          components: {
+            MuiCssBaseline: {
+              styleOverrides: `
+                @font-face {
+                  font-family: 'Google Sans';
+                  font-style: normal;
+                  font-weight: 400;
+                  src: local('Google Sans Regular'), local('GoogleSans-Regular'), url(https://fonts.gstatic.com/s/googlesans/v16/4UaGrENHsxJlGDuGo1OIlL3Kwp5eKQtGBlc.woff2) format('woff2');
+                }
+                body {
+                  -webkit-font-smoothing: antialiased;
+                  -moz-osx-font-smoothing: grayscale;
+                }
+              `,
+            }}
+          })}
+        >
+          <Box sx={{
+            width: flyoutType ? initialBlockDrawerMap[flyoutType] : 300,
+            maxHeight: '100vh',
+            overflowY: 'auto',
+            bgcolor: 'background.paper',
+            pl: 2,
+            pb: 4,
+            pt: 2,
+            pr: 2
+          }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              {flyoutType ? getIcon(BlockIcons[flyoutType], BlockColors[flyoutType]) : <PuzzleIcon sx={{ color: '#ccc' }} />}
+              <Typography variant="subtitle1" px={1} sx={{ fontWeight: 'bold', color: '#333333', display: 'flex', alignItems: 'center' }}>
+                {flyoutType ? initialBlockTitleMap[flyoutType] : 'unknown'} {'Blocks'}
+              </Typography>
+            </Box>
+            <Divider />
+            {flyoutType === 'variable' &&
+              <Box pl={1} pt={2} pb={3}>
+                <Button 
+                  onClick={() => setVarDialogOpen(true)} 
+                  sx={{fontSize: '0.675rem', backgroundColor: BlockColors.variable, color: '#FFFFFF', '&:hover': { backgroundColor: '#8F4D6D' } }}
+                >
+                  Add Variable
+                </Button>
+              </Box>
+            }
+            {flyoutType && categorizedBlocks[flyoutType] && Object.entries(categorizedBlocks[flyoutType]).map(([subCategory, blocks]) => (
+              <Box key={subCategory}>
+                {subCategory !== 'uncategorized' && (
+                  <Typography 
+                    variant="subtitle2" 
+                    sx={{ 
+                      fontWeight: 'bold', 
+                      mt: 3, 
+                      mb: 2, 
+                      display: 'flex',
+                      alignItems: 'center',
+                      '&::after': {
+                        content: '""',
+                        flex: 1,
+                        borderBottom: theme => `1px solid ${theme.palette.divider}`,
+                        marginLeft: 1,
+                      },
+                    }}
+                  >
+                    {translateSubCategory(subCategory as XRPLSubCategories, 'en')}
+                  </Typography>
+                )}
+                {blocks.map((item: IBaseBlock, index: number) => {
+                  const key = flyoutType === 'variable' || flyoutType === 'function' 
+                  ? `${flyoutType}_${index}`
+                  : item.title;
+                  return (
+                    <Box key={key} mt={2} mb={3}>
+                      <Box 
+                        id={flyoutType !== 'variable' && flyoutType !== 'function' 
+                          ? `flyoutDiv_${item.title.replace(/\s+/g, '_')}` 
+                          : `flyoutDiv_${index}`} 
+                        sx={{ width: '100%', height: item.height, mb: 2 }} 
+                      />
+                    </Box>
+                  )
+              })}
+              </Box>
+            ))}
           </Box>
-          <Divider />
-          {flyoutType === 'variable' &&
-            <Box pl={1} pt={2} pb={3}>
-              <Button 
-                onClick={() => setVarDialogOpen(true)} 
-                sx={{fontSize: '0.675rem', backgroundColor: BlockColors.variable, color: '#FFFFFF', '&:hover': { backgroundColor: '#8F4D6D' } }}
-              >
-                Add Variable
-              </Button>
-            </Box>
-          }
-          {flyoutType && blockTypesMap[flyoutType]?.map((item: IBaseBlock, index: number) => (
-            <Box key={index} mt={2} mb={3}>
-              <Box id={`flyoutDiv_${index}`} sx={{ width: '100%', height: item.height, mb: 2 }} />
-            </Box>
-          ))}
-        </Box>
+        </ThemeProvider>
       </Drawer>
       {/* Variable Dialog */}
       <Dialog open={varDialogOpen} onClose={handleVarDialogClose}>
