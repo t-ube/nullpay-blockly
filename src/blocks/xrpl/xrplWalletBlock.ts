@@ -7,24 +7,51 @@ import { xrplWalletInstances } from '@/blocks/xrpl/xrplWallet';
 import { newTitleLabel, newArgsLabel, newOutputLabel, blockCheckType } from '@/blocks/BlockField';
 
 export const defineXrplLoadWalletBlock = () => {
-  Blockly.Blocks['xrpl_load_wallet'] = {
-    init: function () {
-      this.appendDummyInput()
-        .appendField(newTitleLabel("Load wallet"));
-      this.appendValueInput("SEED")
-        .setCheck(blockCheckType.string)
-        .appendField(newArgsLabel("Wallet seed"));
-      this.appendDummyInput()
-        .appendField(newOutputLabel("XRPL wallet"))
-        .appendField(new Blockly.FieldVariable("xrplWallet"), "VAR");
-      this.setInputsInline(false);
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(BlockColors.xrpl);
-      this.setTooltip('Load an XRPL wallet using a seed and store it in a variable');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "xrpl_load_wallet",
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_label",
+          "text": "Load wallet",
+          "class": "title-label"
+        }
+      ],
+      "message1": "%1 %2",
+      "args1": [
+        {
+          "type": "field_label",
+          "text": "Wallet seed",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "SEED",
+          "check": blockCheckType.string
+        }
+      ],
+      "message2": "%1 %2",
+      "args2": [
+        {
+          "type": "field_label",
+          "text": "XRPL wallet",
+          "class": "output-label"
+        },
+        {
+          "type": "field_variable",
+          "name": "VAR",
+          "variable": "xrplWallet"
+        }
+      ],
+      "inputsInline": false,
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": BlockColors.xrpl,
+      "tooltip": "Load an XRPL wallet using a seed and store it in a variable",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['xrpl_load_wallet'] = function (block, generator) {
     const seed = generator.valueToCode(block, 'SEED', Order.ATOMIC) || '""';
@@ -60,28 +87,65 @@ export function getXrplWallet(variable:any) : xrplWallet {
 
 // Sign
 export const defineXrplWalletSignBlock = () => {
-  Blockly.Blocks['xrpl_wallet_sign'] = {
-    init: function () {
-      this.appendDummyInput()
-        .appendField(newTitleLabel("Sign wallet"));
-      this.appendValueInput("WALLET")
-        .setCheck(blockCheckType.string)
-        .appendField(newArgsLabel("XRPL wallet"));
-      this.appendValueInput("TRANSACTION")
-        .setCheck(blockCheckType.json)
-        .appendField(newArgsLabel("Transaction"));
-      this.appendDummyInput()
-        .appendField(newOutputLabel("Signed"))
-        .appendField(new Blockly.FieldVariable("signed"), "VAR");
-      this.setInputsInline(false);
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(BlockColors.xrpl);
-      this.setTooltip('Sign XRPL wallet');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "xrpl_wallet_sign",
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_label",
+          "text": "Sign wallet",
+          "class": "title-label"
+        }
+      ],
+      "message1": "%1 %2",
+      "args1": [
+        {
+          "type": "field_label",
+          "text": "XRPL wallet",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "WALLET",
+          "check": blockCheckType.string
+        }
+      ],
+      "message2": "%1 %2",
+      "args2": [
+        {
+          "type": "field_label",
+          "text": "Transaction",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "TRANSACTION",
+          "check": blockCheckType.json
+        }
+      ],
+      "message3": "%1 %2",
+      "args3": [
+        {
+          "type": "field_label",
+          "text": "Signed",
+          "class": "output-label"
+        },
+        {
+          "type": "field_variable",
+          "name": "VAR",
+          "variable": "signed"
+        }
+      ],
+      "inputsInline": false,
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": BlockColors.xrpl,
+      "tooltip": "Sign XRPL wallet",
+      "helpUrl": ""
     }
-  };
-
+  ]);
+ 
   javascriptGenerator.forBlock['xrpl_wallet_sign'] = function (block, generator) {
     const wallet = generator.valueToCode(block, 'WALLET', Order.ATOMIC) || '""';
     const txnJSON = generator.valueToCode(block, 'TRANSACTION', Order.ATOMIC) || '{}';
@@ -141,7 +205,7 @@ export const defineXrplWalletInfoBlock = () => {
           "check": blockCheckType.string
         }
       ],
-      "output": blockCheckType.string,
+      "output": blockCheckType.json,
       "inputsInline": false,
       "colour": BlockColors.xrpl,
       "tooltip": "Retrieve information about an XRPL wallet",
@@ -178,21 +242,38 @@ export function initInterpreterXrplWalletInfo(interpreter: any, globalObject: an
 }
 
 export const defineXrplCreateAccountBlock = () => {
-  Blockly.Blocks['xrpl_create_account'] = {
-    init: function () {
-      this.appendDummyInput()
-        .appendField(newTitleLabel("Generate wallet"));
-      this.appendDummyInput()
-        .appendField(newOutputLabel("Wallet info"))
-        .appendField(new Blockly.FieldVariable("walletInfo"), "VAR");
-      this.setInputsInline(false);
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(BlockColors.xrpl);
-      this.setTooltip('Create the account');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "xrpl_create_account",
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_label",
+          "text": "Generate wallet",
+          "class": "title-label"
+        }
+      ],
+      "message1": "%1 %2",
+      "args1": [
+        {
+          "type": "field_label",
+          "text": "Wallet info",
+          "class": "output-label"
+        },
+        {
+          "type": "field_variable",
+          "name": "VAR",
+          "variable": "walletInfo"
+        }
+      ],
+      "inputsInline": false,
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": BlockColors.xrpl,
+      "tooltip": "Create the account",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['xrpl_create_account'] = function (block, generator) {
     if (generator.nameDB_ === undefined) {

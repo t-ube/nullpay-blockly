@@ -3,31 +3,68 @@ import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { AccountInfoRequest, AccountLinesRequest, AccountLinesResponse } from 'xrpl';
 import { getXrplClient } from '@/blocks/xrpl/xrplClientInitializeBlock';
-import { newTitleLabel, newArgsLabel, newOutputLabel, blockCheckType } from '@/blocks/BlockField';
+import { blockCheckType } from '@/blocks/BlockField';
 
 
 export const defineXrplAccountInfoBlock = () => {
-  Blockly.Blocks['xrpl_account_info'] = {
-    init: function () {
-      this.appendDummyInput()
-        .appendField(newTitleLabel("Get account info"));
-      this.appendValueInput("CLIENT")
-        .setCheck('Client')
-        .appendField(newArgsLabel("XRPL client"));
-      this.appendValueInput("ADDRESS")
-        .setCheck('String')
-        .appendField(newArgsLabel("Account address"));
-      this.appendDummyInput()
-        .appendField(newOutputLabel("Account info"))
-        .appendField(new Blockly.FieldVariable("accountInfo"), "VAR");
-      this.setInputsInline(false);
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(BlockColors.xrpl);
-      this.setTooltip('Get the account info of the specified address and save to a variable');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "xrpl_account_info",
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_label",
+          "text": "Get account info",
+          "class": "title-label"
+        }
+      ],
+      "message1": "%1 %2",
+      "args1": [
+        {
+          "type": "field_label",
+          "text": "XRPL client",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "CLIENT",
+          "check": "Client"
+        }
+      ],
+      "message2": "%1 %2",
+      "args2": [
+        {
+          "type": "field_label",
+          "text": "Account address",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "ADDRESS",
+          "check": "String"
+        }
+      ],
+      "message3": "%1 %2",
+      "args3": [
+        {
+          "type": "field_label",
+          "text": "Account info",
+          "class": "output-label"
+        },
+        {
+          "type": "field_variable",
+          "name": "VAR",
+          "variable": "accountInfo"
+        }
+      ],
+      "inputsInline": false,
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": BlockColors.xrpl,
+      "tooltip": "Get the account info of the specified address and save to a variable",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['xrpl_account_info'] = function (block, generator) {
     const client = generator.valueToCode(block, 'CLIENT', Order.ATOMIC) || '""';

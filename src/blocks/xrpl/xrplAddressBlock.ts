@@ -44,17 +44,23 @@ const convertToAddressMenu = (addresses: IExchangeAddress[]): [string, string][]
 const exchangeAddressMenu: Blockly.MenuGenerator = convertToAddressMenu(exchangeAddresses);
 
 export const defineXrplExchangeAddressBlock = () => {
-  Blockly.Blocks['xrpl_exchange_address'] = {
-    init: function () {
-      this.appendDummyInput()
-        .appendField("XRPL exchange address")
-        .appendField(new Blockly.FieldDropdown(exchangeAddressMenu), "ADDRESS");
-      this.setOutput(true, 'String');
-      this.setColour(BlockColors.xrpl);
-      this.setTooltip('Select an exchange address from the dropdown');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "xrpl_exchange_address",
+      "message0": "XRPL exchange address %1",
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "ADDRESS",
+          "options": exchangeAddressMenu
+        }
+      ],
+      "output": "String",
+      "colour": BlockColors.xrpl,
+      "tooltip": "Select an exchange address from the dropdown",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['xrpl_exchange_address'] = function (block) {
     const address = block.getFieldValue('ADDRESS');

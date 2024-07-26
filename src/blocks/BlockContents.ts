@@ -11,6 +11,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Generate Wallet",
       description: "This block generates a new wallet on the XRPL (XRP Ledger). The generated wallet includes a unique address and a corresponding secret key, which can be used for transactions on the XRPL network. Note that the wallet needs to be activated by funding it with the minimum reserve amount before it can be used for transactions. Ensure to store the generated keys securely.",
       categories: ["xrpl"],
+      blockType: "xrpl_create_account",
       subCategories: [XRPLSubCategories.BASIC_OPERATIONS]
     },
     {
@@ -21,6 +22,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Create Account and Custom Faucet Request",
       description: "Request funds from a custom XRPL faucet.",
       categories: ["xrpl"],
+      blockType: "xrpl_request_custom_faucet",
       subCategories: [XRPLSubCategories.FUNDING_OPERATIONS]
     },
     {
@@ -31,6 +33,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Network Selection",
       description: "Select the WebSocket URL for the XRPL network.",
       categories: ["xrpl"],
+      blockType: "xrpl_network_wss_selection",
       subCategories: [XRPLSubCategories.BASIC_OPERATIONS]
     },
     {
@@ -41,6 +44,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Faucet Network Selection",
       description: "Select the faucet network for creating test accounts.",
       categories: ["xrpl"],
+      blockType: "xrpl_faucet_network_selection",
       subCategories: [XRPLSubCategories.FUNDING_OPERATIONS]
     },
     {
@@ -51,6 +55,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Faucet Request",
       description: "Request funds from the default XRPL faucet.",
       categories: ["xrpl"],
+      blockType: "xrpl_request_faucet",
       subCategories: [XRPLSubCategories.FUNDING_OPERATIONS]
     },
     {
@@ -61,6 +66,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Address",
       description: "Define an XRPL address.",
       categories: ["xrpl"],
+      blockType: "xrpl_address",
       subCategories: [XRPLSubCategories.BASIC_OPERATIONS]
     },
     {
@@ -71,6 +77,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Exchange Address",
       description: "Define an XRPL exchange address.",
       categories: ["xrpl"],
+      blockType: "xrpl_exchange_address",
       subCategories: [XRPLSubCategories.BASIC_OPERATIONS]
     },
     {
@@ -81,6 +88,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRP to Drops",
       description: "Convert XRP to drops.",
       categories: ["xrpl"],
+      blockType: "xrpl_xrp_to_drops",
       subCategories: [XRPLSubCategories.FUNDING_OPERATIONS]
     },
     {
@@ -91,6 +99,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "Drops to XRP",
       description: "Convert drops to XRP.",
       categories: ["xrpl"],
+      blockType: "xrpl_drops_to_xrp",
       subCategories: [XRPLSubCategories.FUNDING_OPERATIONS]
     },
     {
@@ -101,6 +110,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "Initialize XRPL Client",
       description: "Initialize a new XRPL client to connect to the XRPL network.",
       categories: ["xrpl"],
+      blockType: "xrpl_client_initialize",
       subCategories: [XRPLSubCategories.BASIC_OPERATIONS]
     },
     {
@@ -111,6 +121,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Account Info",
       description: "Retrieve information about a specific XRPL account.",
       categories: ["xrpl"],
+      blockType: "xrpl_account_info",
       subCategories: [XRPLSubCategories.ACCOUNT_INFORMATION]
     },
     {
@@ -121,6 +132,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "Subscribe Account Transactions",
       description: "Subscribe to transactions for a specific XRPL account to receive real-time updates.",
       categories: ["xrpl"],
+      blockType: "xrpl_subscribe_account_txn",
       subCategories: [XRPLSubCategories.MONITORING]
     },
     {
@@ -131,6 +143,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "Unsubscribe Account Transactions",
       description: "Unsubscribe from transactions for a specific XRPL account to stop receiving updates.",
       categories: ["xrpl"],
+      blockType: "xrpl_unsubscribe_account_txn",
       subCategories: [XRPLSubCategories.MONITORING]
     },
     {
@@ -141,6 +154,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "Subscribe All Transactions",
       description: "Subscribe to all transactions on the XRPL to receive real-time updates for every transaction.",
       categories: ["xrpl"],
+      blockType: "xrpl_subscribe_all_txn",
       subCategories: [XRPLSubCategories.MONITORING]
     },
     {
@@ -151,6 +165,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "Unsubscribe All Transactions",
       description: "Unsubscribe from all transactions on the XRPL to stop receiving updates for every transaction.",
       categories: ["xrpl"],
+      blockType: "xrpl_unsubscribe_all_txn",
       subCategories: [XRPLSubCategories.MONITORING]
     },
     {
@@ -161,6 +176,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "Load Wallet",
       description: "Load an existing wallet using a seed to manage XRPL accounts and transactions.",
       categories: ["xrpl"],
+      blockType: "xrpl_load_wallet",
       subCategories: [XRPLSubCategories.BASIC_OPERATIONS]
     },
     {
@@ -171,6 +187,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "Wallet Info",
       description: "Retrieve information about an XRPL wallet. Provide the wallet ID to get the address and secret.",
       categories: ["xrpl"],
+      blockType: "xrpl_wallet_info",
       subCategories: [XRPLSubCategories.BASIC_OPERATIONS]
     },
     {
@@ -181,6 +198,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "Payment Transaction",
       description: "Create and submit a payment transaction on the XRPL.",
       categories: ["xrpl"],
+      blockType: "xrpl_payment_transaction",
       subCategories: [XRPLSubCategories.TRANSACTIONS]
     },
     {
@@ -191,6 +209,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "Sign Wallet",
       description: "Sign a transaction with the wallet's private key to authorize it.",
       categories: ["xrpl"],
+      blockType: "xrpl_wallet_sign",
       subCategories: [XRPLSubCategories.TRANSACTIONS]
     },
     {
@@ -201,6 +220,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "Submit",
       description: "Submit a signed transaction to the XRPL network for processing.",
       categories: ["xrpl"],
+      blockType: "xrpl_client_submit",
       subCategories: [XRPLSubCategories.TRANSACTIONS]
     },
     {
@@ -211,6 +231,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "DateTime to Ripple Epoch",
       description: "Convert a date and time to Ripple epoch time.",
       categories: ["xrpl"],
+      blockType: "datetime_to_ripple_epoch",
       subCategories: [XRPLSubCategories.TIME_OPERATIONS]
     },
     {
@@ -221,6 +242,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "Ripple Epoch to DateTime",
       description: "Convert Ripple epoch time to date and time.",
       categories: ["xrpl"],
+      blockType: "ripple_epoch_to_datetime",
       subCategories: [XRPLSubCategories.TIME_OPERATIONS]
     },
     {
@@ -231,6 +253,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Token Select",
       description: "Select an issued token on the XRPL from the dropdown.",
       categories: ["xrpl"],
+      blockType: "xrpl_token_select",
       subCategories: [XRPLSubCategories.TOKEN_OPERATIONS]
     },
     {
@@ -241,6 +264,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Create New Token",
       description: "Create a new token on the XRPL by specifying the issuer address, currency code, and total supply.",
       categories: ["xrpl"],
+      blockType: "xrpl_create_new_token",
       subCategories: [XRPLSubCategories.TOKEN_OPERATIONS]
     },
     {
@@ -251,6 +275,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Token Amount",
       description: "Set the amount of a token. Specify the information of the newly created token and its value.",
       categories: ["xrpl"],
+      blockType: "xrpl_token_amount_set",
       subCategories: [XRPLSubCategories.TOKEN_OPERATIONS]
     },
     {
@@ -261,6 +286,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Token Amount Arithmetic",
       description: "Perform arithmetic operations on XRPL token amounts.This block allows you to add, subtract, multiply, or divide an XRPL token amount by a given value. The 'TOKEN' input can be an XRPL token amount object, a number, or a string representation of a number. The 'OPERATOR' dropdown selects the arithmetic operation to perform, and the 'VALUE' input specifies the number to apply the operation to.The output of this block is a new XRPL token amount object with the result of the arithmetic operation.",
       categories: ["xrpl"],
+      blockType: "xrpl_token_amount_arithmetic",
       subCategories: [XRPLSubCategories.TOKEN_OPERATIONS]
     },
     {
@@ -271,6 +297,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Get NFT Info",
       description: "Get information about an NFT (Non-Fungible Token) on the XRPL using the Clio API service.This block allows you to fetch details about a specific NFT, including its owner, metadata, and other properties. The 'XRPL client' input specifies the client connection to the XRPL, which is required to interact with the Clio API. The 'NFT ID' input is the unique identifier of the NFT you want to retrieve information for.The block outputs the status of the operation ('success' or 'error') and the response data from the Clio API, which can be used for further processing in your program. Note: Using this block requires an active connection to the Clio API service, which provides access to the XRPL data.",
       categories: ["xrpl"],
+      blockType: "xrpl_clio_nft_info",
       subCategories: [XRPLSubCategories.NFT_OPERATIONS]
     },
     {
@@ -281,6 +308,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL NFT Buy offer Payload",
       description: "This block creates an NFT buy offer payload that includes the specified information about the token and its value. The generated payload can be used to submit an NFT buy offer transaction on the XRPL network.",
       categories: ["xrpl"],
+      blockType: "xrpl_nftoken_buy_offer",
       subCategories: [XRPLSubCategories.NFT_OPERATIONS]
     },
     {
@@ -291,6 +319,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Rippling",
       description: "Create a rippling transaction for the XRPL. Specify whether to enable or disable rippling and the address to set this for.",
       categories: ["xrpl"],
+      blockType: "xrpl_rippling_txn",
       subCategories: [XRPLSubCategories.TRUST_LINE_OPERATIONS]
     },
     {
@@ -301,6 +330,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Payload Autofill",
       description: "Automatically fill in a transaction using the specified XRPL client. Define the XRPL client and the payload to autofill.",
       categories: ["xrpl"],
+      blockType: "xrpl_client_autofill",
       subCategories: [XRPLSubCategories.TRANSACTIONS]
     },
     {
@@ -311,6 +341,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Trust Set",
       description: "Create a trust line setting transaction for the XRPL. Specify the token and the address to set the trust line for.",
       categories: ["xrpl"],
+      blockType: "xrpl_trust_set_txn",
       subCategories: [XRPLSubCategories.TRUST_LINE_OPERATIONS]
     },
     {
@@ -321,6 +352,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Payment Token",
       description: "Create a payment transaction on the XRPL. Specify the token, account address, destination address, and amount for the transaction.",
       categories: ["xrpl"],
+      blockType: "xrpl_payment_token_txn",
       subCategories: [XRPLSubCategories.TOKEN_OPERATIONS]
     },
     {
@@ -331,6 +363,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Buy Offer",
       description: "Create a buy offer for tokens on the XRPL DEX.",
       categories: ["xrpl"],
+      blockType: "xrpl_buy_token_offer_txn",
       subCategories: [XRPLSubCategories.DEX_OPERATIONS]
     },
     {
@@ -341,6 +374,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Sale Offer",
       description: "Create a sale offer for tokens on the XRPL DEX.",
       categories: ["xrpl"],
+      blockType: "xrpl_sale_token_offer_txn",
       subCategories: [XRPLSubCategories.DEX_OPERATIONS]
     },
     {
@@ -351,6 +385,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Easy Submit",
       description: "Submit a transaction to the XRPL with autofill capability. Specify the XRPL client, wallet, and transaction. The transaction will be automatically filled with necessary details and the result will be stored in the specified variable.",
       categories: ["xrpl"],
+      blockType: "xrpl_easy_submit",
       subCategories: [XRPLSubCategories.TRANSACTIONS]
     },
     {
@@ -361,6 +396,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Transaction Type Select",
       description: "Select an XRPL transaction type from the dropdown.",
       categories: ["xrpl"],
+      blockType: "xrpl_txn_type_select",
       subCategories: [XRPLSubCategories.TRANSACTIONS]
     },
     {
@@ -371,6 +407,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Get Transaction",
       description: "Retrieve a transaction from the XRPL using the specified client and transaction hash.",
       categories: ["xrpl"],
+      blockType: "xrpl_tx_command",
       subCategories: [XRPLSubCategories.TRANSACTIONS]
     },
     {
@@ -381,6 +418,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Get Account Lines",
       description: "Retrieve information about the trust lines associated with an XRPL account.",
       categories: ["xrpl"],
+      blockType: "xrpl_account_lines_command",
       subCategories: [XRPLSubCategories.TRUST_LINE_OPERATIONS]
     },
     {
@@ -391,6 +429,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Read Transaction info",
       description: "Retrieve transaction information and store it in separate variables.",
       categories: ["xrpl"],
+      blockType: "xrpl_read_txn_info",
       subCategories: [XRPLSubCategories.TRANSACTIONS]
     },
     {
@@ -401,6 +440,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Get NFT Buy Offers",
       description: "Get the current buy offers for a specific NFT (Non-Fungible Token) on the XRPL.This block allows you to retrieve the list of active buy offers for a given NFT. The 'XRPL client' input specifies the connection to the XRPL, which is required to make the API request. The 'NFT ID' input is the unique identifier of the NFT you want to fetch the buy offers for.The block outputs the status of the operation ('success' or 'error') and the response data from the API, which contains the list of buy offers for the specified NFT. This information can be used for further processing or decision-making in your program. Note: Using this block requires an active connection to the XRPL and the ability to make the necessary API requests to fetch the buy offer data.",
       categories: ["xrpl"],
+      blockType: "xrpl_nft_buy_offers",
       subCategories: [XRPLSubCategories.NFT_OPERATIONS]
     },
     {
@@ -411,6 +451,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       title: "XRPL Extract Offer Create Transaction",
       description: "Extract and process an OfferCreate transaction from the XRPL into separate variables.",
       categories: ["xrpl"],
+      blockType: "xrpl_extract_offer_create_txn",
       subCategories: [XRPLSubCategories.DEX_OPERATIONS]
     },
     {
@@ -1750,31 +1791,34 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
   ],
   xaman: [
     {
-        height: 80,
-        block: `
-          <block type="xaman_simple_login" x="0" y="0"></block>
-        `,
-        title: "Xaman Simple Login",
-        description: "Perform a simple login to the Xaman system.",
-        categories: ["xaman"]
+      height: 80,
+      block: `
+        <block type="xaman_simple_login" x="0" y="0"></block>
+      `,
+      title: "Xaman Simple Login",
+      description: "Perform a simple login to the Xaman system.",
+      blockType: "xaman_simple_login",
+      categories: ["xaman"]
     },
     {
-        height: 50,
-        block: `
-          <block type="xaman_simple_logout" x="0" y="0"></block>
-        `,
-        title: "Xaman Simple Logout",
-        description: "Perform a simple logout from the Xaman system.",
-        categories: ["xaman"]
+      height: 50,
+      block: `
+        <block type="xaman_simple_logout" x="0" y="0"></block>
+      `,
+      title: "Xaman Simple Logout",
+      description: "Perform a simple logout from the Xaman system.",
+      blockType: "xaman_simple_logout",
+      categories: ["xaman"]
     },
     {
-        height: 200,
-        block: `
-          <block type="xaman_payment" x="0" y="0"></block>
-        `,
-        title: "Xaman Payment",
-        description: "Process a payment using the Xaman system.",
-        categories: ["xaman"]
+      height: 200,
+      block: `
+        <block type="xaman_payment" x="0" y="0"></block>
+      `,
+      title: "Xaman Payment",
+      description: "Process a payment using the Xaman system.",
+      blockType: "xaman_payment",
+      categories: ["xaman"]
     },
     {
       height: 74.5,
@@ -1783,7 +1827,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Xaman Payload",
       description: "Set a new payload for the Xaman XRPL wallet integration.This block allows you to create a new Xaman transaction payload, which can then be used to initiate a transaction on the XRP Ledger. The 'Payload' input should be a JSON object representing the transaction details, such as the recipient, amount, and other metadata.When the block is executed, it will attempt to create the new payload using the Xaman SDK. If successful, the block will output the status ('success') and the unique identifier (UUID) of the created payload. This payload ID can be used to further interact with the Xaman wallet integration, such as signing and submitting the transaction. Note: This block requires the user to be logged in to the Xaman wallet in order to create a new payload. If the user is not logged in, the block will output an error status.",
-      categories: ["xaman"]
+      categories: ["xaman"],
+      blockType: "xaman_payload_set",
     },
     {
         height: 80,
@@ -1792,7 +1837,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
         `,
         title: "Xaman Wait for Signature",
         description: "Wait for a signature in the Xaman system.",
-        categories: ["xaman"]
+        categories: ["xaman"],
+        blockType: "xaman_wait_for_signature",
     },
     {
       height: 23.5,
@@ -1801,7 +1847,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Xaman Store Key",
       description: "Input a name for Xaman Variable (at least 3 characters, a-z0-9). This name is used for storing and retrieving data.",
-      categories: ["xaman"]
+      categories: ["xaman"],
+      blockType: "xaman_variable_name",
     },
     {
       height: 98.5,
@@ -1810,7 +1857,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Xaman Set Variable",
       description: "Save user data in Xaman with the specified name. The data is saved as a text.",
-      categories: ["xaman"]
+      categories: ["xaman"],
+      blockType: "xaman_variable_set",
     },
     {
       height: 47.5,
@@ -1819,7 +1867,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Xaman Get Variable",
       description: "Retrieve user data from Xaman with the specified name. The data is returned as a text.",
-      categories: ["xaman"]
+      categories: ["xaman"],
+      blockType: "xaman_variable_get",
     },
     {
       height: 194,
@@ -1966,7 +2015,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
         `,
         title: "Text",
         description: "Define a text string.",
-        categories: ["text"]
+        categories: ["text"],
+        blockType: "text",
     },
     {
       height: 50,
@@ -1975,7 +2025,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Print Text",
       description: "Print text to the console.",
-      categories: ["text"]
+      categories: ["text"],
+      blockType: "text_print",
     },
     {
       height: 50,
@@ -1984,7 +2035,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Inspect and Print",
       description: "Inspect an object and print its structure to the console.",
-      categories: ["text"]
+      categories: ["text"],
+      blockType: "text_util_inspect_print",
     },
     {
       height: 70,
@@ -1993,7 +2045,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Join Text",
       description: "Join multiple text strings together.",
-      categories: ["text"]
+      categories: ["text"],
+      blockType: "dynamic_text_join",
     },
     {
       height: 50,
@@ -2002,7 +2055,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Text Length",
       description: "Get the length of a text string.",
-      categories: ["text"]
+      categories: ["text"],
+      blockType: "text_length",
     },
     {
       height: 50,
@@ -2011,7 +2065,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Text Is Empty",
       description: "Check if a text string is empty.",
-      categories: ["text"]
+      categories: ["text"],
+      blockType: "text_isEmpty",
     },
     {
       height: 50,
@@ -2020,7 +2075,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Number to Text",
       description: "Convert a number to a text string.",
-      categories: ["text"]
+      categories: ["text"],
+      blockType: "number_to_text",
     },
     {
       height: 50,
@@ -2029,7 +2085,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Text to Number",
       description: "Convert a text string to a number.",
-      categories: ["text"]
+      categories: ["text"],
+      blockType: "text_to_number",
     },
     {
       height: 50,
@@ -2038,7 +2095,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Starts With",
       description: "Checks if a text string starts with a specified prefix.",
-      categories: ["text"]
+      categories: ["text"],
+      blockType: "text_starts_with",
     },
     {
       height: 50,
@@ -2047,7 +2105,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Ends With",
       description: "Checks if a text string ends with a specified suffix.",
-      categories: ["text"]
+      categories: ["text"],
+      blockType: "text_ends_with",
     },
     {
       height: 50,
@@ -2056,7 +2115,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Upper Case",
       description: "Converts all the characters in a text string to uppercase.",
-      categories: ["text"]
+      categories: ["text"],
+      blockType: "text_to_uppercase",
     },
     {
       height: 50,
@@ -2065,7 +2125,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Lower Case",
       description: "Converts all the characters in a text string to lowercase.",
-      categories: ["text"]
+      categories: ["text"],
+      blockType: "text_to_lowercase",
     },
     {
       height: 23.5,
@@ -2074,7 +2135,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Private Block",
       description: "Enter a one-time use string. The string will not be saved.",
-      categories: ["text"]
+      categories: ["text"],
+      blockType: "text_onetime_block",
     },
     {
       height: 36.5,
@@ -2083,7 +2145,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Comment Out",
       description: "",
-      categories: ["text"]
+      categories: ["text"],
+      blockType: "text_block_comment",
     }
   ],
   math: [
@@ -2094,7 +2157,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Number",
       description: "Define a number.",
-      categories: ["math"]
+      categories: ["math"],
+      blockType: "math_number",
     },
     {
       height: 50,
@@ -2103,7 +2167,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Number Arithmetic",
       description: "Math arithmetic",
-      categories: ["math"]
+      categories: ["math"],
+      blockType: "math_arithmetic",
     },
     {
       height: 50,
@@ -2112,7 +2177,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Percentage",
       description: "Calculate a percentage.",
-      categories: ["math"]
+      categories: ["math"],
+      blockType: "percentage",
     }
   ],
   supabase: [
@@ -2123,7 +2189,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Initialize Supabase Client",
       description: "This block initializes a Supabase client using the provided URL and Anon key. The client is used to interact with the Supabase backend services. Ensure to save the client instance to a variable for further operations.",
-      categories: ["supabase"]
+      categories: ["supabase"],
+      blockType: "supabase_create_client",
     },
     {
       height: 194.5,
@@ -2132,7 +2199,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Supabase Select",
       description: "This block performs a SELECT query on the specified Supabase table. You can specify the columns to retrieve, apply various conditions for filtering the results, and output the selected data to a variable. It supports conditions like equal to, greater than, less than, and more.",
-      categories: ["supabase"]
+      categories: ["supabase"],
+      blockType: "supabase_select",
     },
     {
       height: 123,
@@ -2141,7 +2209,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Supabase Insert",
       description: "This block inserts data into the specified Supabase table. The data must be provided in JSON format. Ensure the data matches the table schema to avoid errors. You can handle any errors by outputting them to a variable.",
-      categories: ["supabase"]
+      categories: ["supabase"],
+      blockType: "supabase_insert",
     },
     {
       height: 194.5,
@@ -2150,7 +2219,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Supabase Update",
       description: "This block updates data in the specified Supabase table based on the given filter conditions. The data to update must be in JSON format. Various conditions like equal to, greater than, and less than can be applied to filter the rows that need to be updated.",
-      categories: ["supabase"]
+      categories: ["supabase"],
+      blockType: "supabase_update",
     },
     {
       height: 170.5,
@@ -2159,7 +2229,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Supabase Delete",
       description: "This block deletes data from the specified Supabase table based on the provided filter conditions. Conditions like equal to, greater than, and less than can be applied to specify which rows to delete. Errors during the delete operation can be captured in a variable.",
-      categories: ["supabase"]
+      categories: ["supabase"],
+      blockType: "supabase_delete",
     },
     {
       height: 50,
@@ -2168,7 +2239,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Text to JSON",
       description: "This block converts plain text to a JSON object. It is useful for preparing data before inserting or updating it in the Supabase database. The JSON object can be used in subsequent database operations.",
-      categories: ["supabase"]
+      categories: ["supabase"],
+      blockType: "supabase_text_to_json",
     },
   ],
   table: [
@@ -2179,7 +2251,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Create Empty Table",
       description: "This block initializes an empty table. It can be used as a starting point for creating and manipulating tables in your project.",
-      categories: ["table"]
+      categories: ["table"],
+      blockType: "table_empty",
     },
     {
         height: 25,
@@ -2188,7 +2261,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
         `,
       title: "Load CSV",
       description: "This block loads data from a CSV file into a table. Use this block to import CSV data for analysis and manipulation within your project.",
-      categories: ["table"]
+      categories: ["table"],
+      blockType: "table_load_csv",
     },
     {
       height: 48,
@@ -2197,7 +2271,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Convert CSV to Table",
       description: "This block converts a CSV formatted string into a table. It is useful for transforming raw CSV data into a structured table format for further processing.",
-      categories: ["table"]
+      categories: ["table"],
+      blockType: "csv_to_table",
     },
     {
       height: 100,
@@ -2206,7 +2281,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Table Row",
       description: "This block retrieves a row from a specified table. Use it to access and manipulate individual rows of data within your table.",
-      categories: ["table"]
+      categories: ["table"],
+      blockType: "table_get_row",
     },
     {
       height: 100,
@@ -2215,7 +2291,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Table Column",
       description: "This block retrieves a column from a specified table. Use it to access and manipulate individual columns of data within your table.",
-      categories: ["table"]
+      categories: ["table"],
+      blockType: "table_get_column",
     },
     {
       height: 23.5,
@@ -2224,7 +2301,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Row Count of Table",
       description: "This block returns the number of rows in the specified table.",
-      categories: ["table"]
+      categories: ["table"],
+      blockType: "table_row_count",
     },
     {
       height: 100,
@@ -2233,7 +2311,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Add Row to Table",
       description: "This block adds a new row to a specified table. Use it to append new data entries to your table.",
-      categories: ["table"]
+      categories: ["table"],
+      blockType: "table_add_row",
     },
     {
       height: 75,
@@ -2242,7 +2321,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Save Table to CSV",
       description: "This block saves a table to a CSV file. Use it to export your table data into a CSV file for external use or backup.",
-      categories: ["table"]
+      categories: ["table"],
+      blockType: "table_csv_save",
     },
     /*
     {
@@ -2501,7 +2581,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Form Modal",
       description: "Create and display a form. You can add editable input fields to the form, allowing the user to enter variables. When the program is executed, the form will be displayed, and the user will be prompted to provide input.",
-      categories: ["form"]
+      categories: ["form"],
+      blockType: "form_modal_block",
     },
     {
       height: 23.5,
@@ -2510,7 +2591,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Form Submitted",
       description: "Check if a form has been submitted. This block takes the result of a form submission as input, represented as a JSON object. It then checks the 'submit' property of the 'return' object within the form result. If the 'submit' property is 'true', the block outputs 'true', indicating that the form was successfully submitted. If the 'submit' property is 'false' or an error occurs while parsing the input, the block outputs 'false'. This block can be used to control the flow of your program based on the submission status of a form. For example, you could use it to execute different actions or display different UI elements depending on whether the form was submitted or not.",
-      categories: ["form"]
+      categories: ["form"],
+      blockType: "form_submitted",
     },
     {
       height: 71.5,
@@ -2519,7 +2601,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Form Get Variable",
       description: "Get the value of a variable from a submitted form. The block will search the form result for an item (field) that matches the specified variable name, and output the value of that item. The value can be a string, number, or null if the variable is not found. This block is useful when you need to access the values of individual fields from a submitted form, for example to use those values in further processing or to display them in your application.",
-      categories: ["form"]
+      categories: ["form"],
+      blockType: "form_variable_get",
     },
     {
       height: 204,
@@ -2595,7 +2678,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Web API Request",
       description: "Sends a Web API request and stores the response in a variable.",
-      categories: ["webapi"]
+      categories: ["webapi"],
+      blockType: "webapi_request",
     },
     {
       height: 50,
@@ -2604,7 +2688,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "HTTP Headers",
       description: "Create HTTP headers.",
-      categories: ["webapi"]
+      categories: ["webapi"],
+      blockType: "dynamic_webapi_headers",
     },
     {
       height: 50,
@@ -2613,7 +2698,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "HTTP Header Key-Value Piar",
       description: "Create a single HTTP header key-value pair.",
-      categories: ["webapi"]
+      categories: ["webapi"],
+      blockType: "webapi_header",
     },
     {
       height: 50,
@@ -2622,7 +2708,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "URL Parameters",
       description: "Create URL query pamaeters.",
-      categories: ["webapi"]
+      categories: ["webapi"],
+      blockType: "webapi_url_params",
     },
     {
       height: 50,
@@ -2631,7 +2718,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "URL Parameter",
       description: "Create a single URL query pamaeter key-value pair.",
-      categories: ["webapi"]
+      categories: ["webapi"],
+      blockType: "webapi_url_param",
     },
     {
       height: 178,
@@ -2703,7 +2791,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "View Order Book Chart",
       description: "Displays an order book chart with the given title, trading pair, and bid/ask data.",
-      categories: ["chart"]
+      categories: ["chart"],
+      blockType: "chart_order_book_block",
     },
     {
       height: 23.5,
@@ -2712,7 +2801,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Random Bids & Asks",
       description: "Generates random order book data for use in the order book chart.",
-      categories: ["chart"]
+      categories: ["chart"],
+      blockType: "chart_random_order_book_data",
     },
     {
       height: 23.5,
@@ -2721,7 +2811,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Convert Bitbak Depth to Bids & Asks",
       description: "Converts a Bitbank depth data structure to the format required for the order book chart.",
-      categories: ["chart"]
+      categories: ["chart"],
+      blockType: "chart_bitbank_depth_to_order_book",
     },
     {
       height: 23.5,
@@ -2730,7 +2821,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Convert Bitrue Depth to Bids & Asks",
       description: "Converts a Bitrue depth data structure to the format required for the order book chart.",
-      categories: ["chart"]
+      categories: ["chart"],
+      blockType: "chart_bitrue_depth_to_order_book",
     },
     {
       height: 47.5,
@@ -2739,7 +2831,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Extract Balanced Bids & Asks",
       description: "Extracts the bids and asks from an order book data structure, limiting the number of items per side.",
-      categories: ["chart"]
+      categories: ["chart"],
+      blockType: "chart_extract_balanced_order_book",
     },
     {
       height: 314,
@@ -2814,7 +2907,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Wait Seconds",
       description: "Wait for a specified number of seconds.",
-      categories: ["control"]
+      categories: ["control"],
+      blockType: "wait_seconds",
     },
     {
       height: 50,
@@ -2823,7 +2917,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Run Speed",
       description: "Set the execution speed of the program. The value can range from 1 to 1000, with higher values resulting in faster execution speeds.",
-      categories: ["control"]
+      categories: ["control"],
+      blockType: "control_run_speed",
     },
   ],
   time: [
@@ -2834,7 +2929,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Current DateTime",
       description: "Get the current date and time.",
-      categories: ["time"]
+      categories: ["time"],
+      blockType: "current_datetime",
     },
     {
       height: 100,
@@ -2843,7 +2939,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Create DateTime",
       description: "Create a date and time.",
-      categories: ["time"]
+      categories: ["time"],
+      blockType: "create_datetime",
     },
     {
       height: 100,
@@ -2852,7 +2949,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "DateTime to Text",
       description: "Convert a date and time to text.",
-      categories: ["time"]
+      categories: ["time"],
+      blockType: "datetime_to_text",
     },
     {
       height: 50,
@@ -2861,7 +2959,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Adjust DateTime",
       description: "Adjust a date and time by a specified amount.",
-      categories: ["time"]
+      categories: ["time"],
+      blockType: "adjust_datetime",
     },
     {
       height: 50,
@@ -2870,7 +2969,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "DateTime Text Format",
       description: "Format a date and time as text.",
-      categories: ["time"]
+      categories: ["time"],
+      blockType: "datetime_text_format",
     },
     {
       height: 50,
@@ -2879,7 +2979,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Timezone",
       description: "Set the timezone for date and time operations.",
-      categories: ["time"]
+      categories: ["time"],
+      blockType: "timezone_block",
     },
     {
       height: 50,
@@ -2888,7 +2989,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Compare DateTime",
       description: "Compare two dates and times.",
-      categories: ["time"]
+      categories: ["time"],
+      blockType: "compare_datetime",
     }
   ],
   json: [
@@ -2899,7 +3001,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "JSON Object",
       description: "Convert text to a JSON object.",
-      categories: ["json"]
+      categories: ["json"],
+      blockType: "json_input_block",
     },
     {
       height: 70,
@@ -2908,7 +3011,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Set JSON Key-Value List",
       description: "Set a list of JSON key-value pairs.",
-      categories: ["json"]
+      categories: ["json"],
+      blockType: "json_set_key_values",
     },
     {
       height: 50,
@@ -2917,7 +3021,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Dynamic JSON Key-Value List",
       description: "Create a dynamic list of JSON key-value pairs.",
-      categories: ["json"]
+      categories: ["json"],
+      blockType: "dynamic_json_key_values",
     },
     {
       height: 50,
@@ -2926,7 +3031,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "JSON Key-Value Pair",
       description: "Create a single JSON key-value pair.",
-      categories: ["json"]
+      categories: ["json"],
+      blockType: "json_key_value_pair",
     },
     {
       height: 50,
@@ -2935,7 +3041,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Text to JSON",
       description: "Convert text to a JSON object.",
-      categories: ["json"]
+      categories: ["json"],
+      blockType: "text_to_json_v2",
     },
     {
       height: 50,
@@ -2944,7 +3051,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "JSON to Text",
       description: "Convert a JSON object to text.",
-      categories: ["json"]
+      categories: ["json"],
+      blockType: "json_to_text_v2",
     },
     {
       height: 70,
@@ -2953,7 +3061,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "JSON Get Value",
       description: "Get a value from a JSON object.",
-      categories: ["json"]
+      categories: ["json"],
+      blockType: "json_get_value",
     },
     {
       height: 50,
@@ -2962,7 +3071,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Text to JSON string (Legacy)",
       description: "Convert text to a JSON string.",
-      categories: ["json"]
+      categories: ["json"],
+      blockType: "text_to_json",
     },
     {
       height: 50,
@@ -2971,7 +3081,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "JSON to Text (Legacy)",
       description: "Convert a JSON string to text.",
-      categories: ["json"]
+      categories: ["json"],
+      blockType: "json_to_text",
     },
   ],
   animation: [
@@ -2982,7 +3093,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Confetti Animation",
       description: "Show a confetti animation.",
-      categories: ["animation"]
+      categories: ["animation"],
+      blockType: "confetti_animation",
     }
   ],
   logic: [
@@ -2993,7 +3105,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "If Logic",
       description: "Create a conditional logic block.",
-      categories: ["logic"]
+      categories: ["logic"],
+      blockType: "dynamic_if",
     },
     {
       height: 50,
@@ -3002,7 +3115,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Logic Compare",
       description: "Compare two values.",
-      categories: ["logic"]
+      categories: ["logic"],
+      blockType: "logic_compare",
     },
     {
       height: 50,
@@ -3011,7 +3125,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Undefined",
       description: "Returns the undefined value, used to indicate the absence of a value.",
-      categories: ["logic"]
+      categories: ["logic"],
+      blockType: "undefined",
     },
     {
       height: 50,
@@ -3020,7 +3135,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Null",
       description: "Returns the null value, used to indicate the intentional absence of any object value.",
-      categories: ["logic"]
+      categories: ["logic"],
+      blockType: "null",
     },
     {
       height: 50,
@@ -3029,7 +3145,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "True",
       description: "Returns the boolean value true.",
-      categories: ["logic"]
+      categories: ["logic"],
+      blockType: "true",
     },
     {
       height: 50,
@@ -3038,7 +3155,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "False",
       description: "Returns the boolean value false.",
-      categories: ["logic"]
+      categories: ["logic"],
+      blockType: "false",
     },
   ],
   loop: [
@@ -3049,7 +3167,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "While/Until Loop",
       description: "Create a while or until loop.",
-      categories: ["loop"]
+      categories: ["loop"],
+      blockType: "controls_whileUntil",
     },
     {
       height: 80,
@@ -3058,7 +3177,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "For Loop",
       description: "Create a for loop.",
-      categories: ["loop"]
+      categories: ["loop"],
+      blockType: "controls_for",
     },
     {
       height: 80,
@@ -3067,7 +3187,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "ForEach Loop",
       description: "Create a for-each loop.",
-      categories: ["loop"]
+      categories: ["loop"],
+      blockType: "controls_forEach",
     }
   ],
   list: [
@@ -3078,7 +3199,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Create Empty List",
       description: "Create an empty list to store items.",
-      categories: ["list"]
+      categories: ["list"],
+      blockType: "lists_create_empty",
     },
     {
       height: 70,
@@ -3087,7 +3209,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Append to Array",
       description: "Append an item to an array.",
-      categories: ["list"]
+      categories: ["list"],
+      blockType: "array_append",
     },
     {
       height: 70,
@@ -3096,7 +3219,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Create List",
       description: "Create a dynamic list.",
-      categories: ["list"]
+      categories: ["list"],
+      blockType: "dynamic_list_create",
     },
     {
       height: 50,
@@ -3105,7 +3229,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "List Length",
       description: "Get the length of a list.",
-      categories: ["list"]
+      categories: ["list"],
+      blockType: "lists_length",
     },
     {
       height: 50,
@@ -3114,7 +3239,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "List Is Empty",
       description: "Check if a list is empty.",
-      categories: ["list"]
+      categories: ["list"],
+      blockType: "lists_isEmpty",
     },
     {
       height: 50,
@@ -3123,7 +3249,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "List Repeat",
       description: "Create a list with one item repeated a specified number of times.",
-      categories: ["list"]
+      categories: ["list"],
+      blockType: "lists_repeat",
     },
     {
       height: 50,
@@ -3132,7 +3259,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "List Get Index",
       description: "Retrieve an item at a specified position in a list.",
-      categories: ["list"]
+      categories: ["list"],
+      blockType: "lists_getIndex",
     },
     {
       height: 50,
@@ -3141,7 +3269,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "List Index of",
       description: "Find the index of the first/last occurrence of an item in a list.",
-      categories: ["list"]
+      categories: ["list"],
+      blockType: "lists_indexOf",
     },
     {
       height: 50,
@@ -3150,7 +3279,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Sort List",
       description: "Sort a list.",
-      categories: ["list"]
+      categories: ["list"],
+      blockType: "lists_sort",
     },
     {
       height: 71.5,
@@ -3159,7 +3289,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       `,
       title: "Sort JSON List",
       description: "Sort a list of JSON objects by a specified key. This block takes a JSON array as input and allows you to sort the items in the array based on the value of a particular key. You can specify the type of sorting (numeric, alphabetic, or alphabetic with case-insensitive) as well as the sort order (ascending or descending). The 'Key' input specifies the property of the JSON objects that you want to sort by. The 'Type' dropdown allows you to choose the sorting algorithm, and the 'Order' dropdown lets you select ascending or descending order. The output of this block is the sorted JSON array. This can be useful when you need to present data in a specific order, for example, displaying a list of items sorted by price or name.",
-      categories: ["list"]
+      categories: ["list"],
+      blockType: "lists_sort_json_value",
     },
   ]
 };

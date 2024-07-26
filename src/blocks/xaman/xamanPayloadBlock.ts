@@ -12,33 +12,89 @@ function stringToHex(str:string) {
 }
 
 export const defineXamanPaymentBlock = () => {
-  Blockly.Blocks['xaman_payment'] = {
-    init: function () {
-      this.appendDummyInput()
-        .appendField(newTitleLabel("Xaman payment"));
-      this.appendValueInput("DESTINATION")
-        .setCheck('String')
-        .appendField(newArgsLabel("Destination address"));
-      this.appendValueInput("AMOUNT")
-        .setCheck('Number')
-        .appendField(newArgsLabel("Amount (drops)"));
-      this.appendValueInput("MEMO")
-        .setCheck('String')
-        .appendField(newArgsLabel("Memo (optional)"));
-      this.appendDummyInput()
-        .appendField(newOutputLabel("Payload ID"))
-        .appendField(new Blockly.FieldVariable("payloadID"), "VAR");
-      this.appendDummyInput()
-        .appendField(newOutputLabel("Result"))
-        .appendField(new Blockly.FieldVariable("error"), "ERROR_VAR");
-      this.setInputsInline(false);
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(BlockColors.xaman);
-      this.setTooltip('Create a payment transaction with Xaman');
-      this.setHelpUrl('');
-    }
-  };
+  Blockly.defineBlocksWithJsonArray([
+  {
+    "type": "xaman_payment",
+    "message0": "%1",
+    "args0": [
+      {
+        "type": "field_label",
+        "text": "Xaman payment",
+        "class": "title-label"
+      }
+    ],
+    "message1": "%1 %2",
+    "args1": [
+      {
+        "type": "field_label",
+        "text": "Destination address",
+        "class": "args-label"
+      },
+      {
+        "type": "input_value",
+        "name": "DESTINATION",
+        "check": "String"
+      }
+    ],
+    "message2": "%1 %2",
+    "args2": [
+      {
+        "type": "field_label",
+        "text": "Amount (drops)",
+        "class": "args-label"
+      },
+      {
+        "type": "input_value",
+        "name": "AMOUNT",
+        "check": "Number"
+      }
+    ],
+    "message3": "%1 %2",
+    "args3": [
+      {
+        "type": "field_label",
+        "text": "Memo (optional)",
+        "class": "args-label"
+      },
+      {
+        "type": "input_value",
+        "name": "MEMO",
+        "check": "String"
+      }
+    ],
+    "message4": "%1 %2",
+    "args4": [
+      {
+        "type": "field_label",
+        "text": "Payload ID",
+        "class": "output-label"
+      },
+      {
+        "type": "field_variable",
+        "name": "VAR",
+        "variable": "payloadID"
+      }
+    ],
+    "message5": "%1 %2",
+    "args5": [
+      {
+        "type": "field_label",
+        "text": "Result",
+        "class": "output-label"
+      },
+      {
+        "type": "field_variable",
+        "name": "ERROR_VAR",
+        "variable": "error"
+      }
+    ],
+    "inputsInline": false,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": BlockColors.xaman,
+    "tooltip": "Create a payment transaction with Xaman",
+    "helpUrl": ""
+  }]);
 
   javascriptGenerator.forBlock['xaman_payment'] = function (block, generator) {
     const destination = generator.valueToCode(block, 'DESTINATION', Order.ATOMIC) || '""';
@@ -91,19 +147,35 @@ export function initInterpreterXamanPayment(interpreter:any, globalObject:any) {
 }
 
 export const defineXamanWaitForSignatureBlock = () => {
-  Blockly.Blocks['xaman_wait_for_signature'] = {
-    init: function () {
-      this.appendDummyInput()
-        .appendField(newTitleLabel("Wait for Xaman signature"));
-      this.appendValueInput("PAYLOAD")
-        .appendField(newArgsLabel("Payload ID"));
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(BlockColors.xaman);
-      this.setTooltip('Wait for the Xaman transaction to be signed');
-      this.setHelpUrl('');
-    }
-  };
+  Blockly.defineBlocksWithJsonArray([
+  {
+    "type": "xaman_wait_for_signature",
+    "message0": "%1",
+    "args0": [
+      {
+        "type": "field_label",
+        "text": "Wait for Xaman signature",
+        "class": "title-label"
+      }
+    ],
+    "message1": "%1 %2",
+    "args1": [
+      {
+        "type": "field_label",
+        "text": "Payload ID",
+        "class": "args-label"
+      },
+      {
+        "type": "input_value",
+        "name": "PAYLOAD"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": BlockColors.xaman,
+    "tooltip": "Wait for the Xaman transaction to be signed",
+    "helpUrl": ""
+  }]);
 
   javascriptGenerator.forBlock['xaman_wait_for_signature'] = function (block, generator) {
     const payload = generator.valueToCode(block, 'PAYLOAD', Order.ATOMIC) || '""';

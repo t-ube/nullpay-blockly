@@ -6,27 +6,64 @@ import { Client, Wallet } from 'xrpl';
 
 
 export const defineXrplRequestFaucetBlock = () => {
-  Blockly.Blocks['xrpl_request_faucet'] = {
-    init: function () {
-      this.appendDummyInput()
-      .appendField(newTitleLabel("Request faucet"));
-      this.appendValueInput("CONNECTION")
-        .setCheck('String')
-        .appendField(newArgsLabel("Faucet URI"))
-      this.appendValueInput("ADDRESS")
-        .setCheck('String')
-        .appendField(newArgsLabel("Destination address"));
-      this.appendDummyInput()
-        .appendField(newOutputLabel("Faucet info"))
-        .appendField(new Blockly.FieldVariable("faucetInfo"), "VAR");
-      this.setInputsInline(false);
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(BlockColors.xrpl);
-      this.setTooltip('Request Faucet for the specified XRPL address and amount');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "xrpl_request_faucet",
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_label",
+          "text": "Request faucet",
+          "class": "title-label"
+        }
+      ],
+      "message1": "%1 %2",
+      "args1": [
+        {
+          "type": "field_label",
+          "text": "Faucet URI",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "CONNECTION",
+          "check": "String"
+        }
+      ],
+      "message2": "%1 %2",
+      "args2": [
+        {
+          "type": "field_label",
+          "text": "Destination address",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "ADDRESS",
+          "check": "String"
+        }
+      ],
+      "message3": "%1 %2",
+      "args3": [
+        {
+          "type": "field_label",
+          "text": "Faucet info",
+          "class": "output-label"
+        },
+        {
+          "type": "field_variable",
+          "name": "VAR",
+          "variable": "faucetInfo"
+        }
+      ],
+      "inputsInline": false,
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": BlockColors.xrpl,
+      "tooltip": "Request Faucet for the specified XRPL address and amount",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['xrpl_request_faucet'] = function (block, generator) {
     const address = generator.valueToCode(block, 'ADDRESS', Order.ATOMIC) || '""';
@@ -64,27 +101,64 @@ export function initInterpreterXrplRequestFaucet(interpreter:any, globalObject:a
 }
 
 export const defineXrplRequestCustomFaucetBlock = () => {
-  Blockly.Blocks['xrpl_request_custom_faucet'] = {
-    init: function () {
-      this.appendDummyInput()
-        .appendField(newTitleLabel("Create account"));
-      this.appendValueInput("CONNECTION")
-        .setCheck('String')
-        .appendField(newArgsLabel("Network URI"))
-      this.appendValueInput("AMOUNT")
-        .setCheck('Number')
-        .appendField(newArgsLabel("Faucet amount (XRP)"));
-      this.appendDummyInput()
-        .appendField(newOutputLabel("Faucet info"))
-        .appendField(new Blockly.FieldVariable("faucetInfo"), "VAR");
-      this.setInputsInline(false);
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(BlockColors.xrpl);
-      this.setTooltip('Request custom faucet for the specified XRPL address and amount');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "xrpl_request_custom_faucet",
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_label",
+          "text": "Create account",
+          "class": "title-label"
+        }
+      ],
+      "message1": "%1 %2",
+      "args1": [
+        {
+          "type": "field_label",
+          "text": "Network URI",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "CONNECTION",
+          "check": "String"
+        }
+      ],
+      "message2": "%1 %2",
+      "args2": [
+        {
+          "type": "field_label",
+          "text": "Faucet amount (XRP)",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "AMOUNT",
+          "check": "Number"
+        }
+      ],
+      "message3": "%1 %2",
+      "args3": [
+        {
+          "type": "field_label",
+          "text": "Faucet info",
+          "class": "output-label"
+        },
+        {
+          "type": "field_variable",
+          "name": "VAR",
+          "variable": "faucetInfo"
+        }
+      ],
+      "inputsInline": false,
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": BlockColors.xrpl,
+      "tooltip": "Request custom faucet for the specified XRPL address and amount",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['xrpl_request_custom_faucet'] = function (block, generator) {
     const amount = generator.valueToCode(block, 'AMOUNT', Order.ATOMIC) || '""';

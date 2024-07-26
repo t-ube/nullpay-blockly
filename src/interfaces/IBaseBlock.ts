@@ -4,6 +4,7 @@ export interface IBaseBlock {
   title: string;
   description: string;
   categories: string[];
+  blockType?: string;
   subCategories?: XRPLSubCategories[];
 }
 

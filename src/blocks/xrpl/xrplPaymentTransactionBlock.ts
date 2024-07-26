@@ -5,72 +5,107 @@ import { BlockColors } from '@/blocks/BlockColors';
 import { getXrplClient } from '@/blocks/xrpl/xrplClientInitializeBlock';
 import { getXrplWallet } from '@/blocks/xrpl/xrplWalletBlock';
 import { IXrplToken } from '@/interfaces/IXrplToken';
-import { newTitleLabel, newArgsLabel, newOutputLabel, blockCheckType } from '@/blocks/BlockField';
+import { blockCheckType } from '@/blocks/BlockField';
 
-/*
-export const defineXrplPaymentBlock = () => {
-  Blockly.Blocks['xrpl_payment'] = {
-    init: function () {
-      this.appendDummyInput()
-        .appendField("XRPL Payment");
-      this.appendValueInput("SENDER")
-        .setCheck('String')
-        .appendField("Sender");
-      this.appendValueInput("RECIPIENT")
-        .setCheck('String')
-        .appendField("Recipient");
-      this.appendValueInput("AMOUNT")
-        .setCheck('Number')
-        .appendField("Amount (drops)");
-      this.setInputsInline(false);
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(BlockColors.xrpl);
-      this.setTooltip('Perform a payment');
-      this.setHelpUrl('');
-    }
-  };
 
-  javascriptGenerator.forBlock['xrpl_payment'] = function (block, generator) {
-    const sender = generator.valueToCode(block, 'SENDER', Order.ATOMIC) || '""';
-    const recipient = generator.valueToCode(block, 'RECIPIENT', Order.ATOMIC) || '""';
-    const amount = generator.valueToCode(block, 'AMOUNT', Order.ATOMIC) || '0';
-    const code = `performPayment(${sender}, ${recipient}, ${amount});\n`;
-    return code;
-  };
-};
-*/
 export const defineXrplPaymentTxnBlock = () => {
-  Blockly.Blocks['xrpl_payment_transaction'] = {
-    init: function () {
-      this.appendDummyInput()
-        .appendField(newTitleLabel("Payment transaction"));
-      this.appendValueInput("CLIENT")
-        .setCheck('Client')
-        .appendField(newArgsLabel("XRPL client"));
-      this.appendValueInput("WALLET")
-        .setCheck('String')
-        .appendField(newArgsLabel("XRPL wallet"));
-      this.appendValueInput("DESTINATION")
-        .setCheck('String')
-        .appendField(newArgsLabel("Destination address"));
-      this.appendValueInput("AMOUNT")
-        .setCheck('Number')
-        .appendField(newArgsLabel("Amount (drops)"));
-      this.appendValueInput("FLAG")
-        .setCheck('Number')
-        .appendField(newArgsLabel("Flag"));
-      this.appendDummyInput()
-        .appendField(newOutputLabel("Transaction"))
-        .appendField(new Blockly.FieldVariable("txJson"), "VAR");
-      this.setInputsInline(false);
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(BlockColors.xrpl);
-      this.setTooltip('Create a Payment Transaction JSON');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "xrpl_payment_transaction",
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_label",
+          "text": "Payment transaction",
+          "class": "title-label"
+        }
+      ],
+      "message1": "%1 %2",
+      "args1": [
+        {
+          "type": "field_label",
+          "text": "XRPL client",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "CLIENT",
+          "check": "Client"
+        }
+      ],
+      "message2": "%1 %2",
+      "args2": [
+        {
+          "type": "field_label",
+          "text": "XRPL wallet",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "WALLET",
+          "check": "String"
+        }
+      ],
+      "message3": "%1 %2",
+      "args3": [
+        {
+          "type": "field_label",
+          "text": "Destination address",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "DESTINATION",
+          "check": "String"
+        }
+      ],
+      "message4": "%1 %2",
+      "args4": [
+        {
+          "type": "field_label",
+          "text": "Amount (drops)",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "AMOUNT",
+          "check": "Number"
+        }
+      ],
+      "message5": "%1 %2",
+      "args5": [
+        {
+          "type": "field_label",
+          "text": "Flag",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "FLAG",
+          "check": "Number"
+        }
+      ],
+      "message6": "%1 %2",
+      "args6": [
+        {
+          "type": "field_label",
+          "text": "Transaction",
+          "class": "output-label"
+        },
+        {
+          "type": "field_variable",
+          "name": "VAR",
+          "variable": "txJson"
+        }
+      ],
+      "inputsInline": false,
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": BlockColors.xrpl,
+      "tooltip": "Create a Payment Transaction JSON",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['xrpl_payment_transaction'] = function (block, generator) {
     const client = generator.valueToCode(block, 'CLIENT', Order.ATOMIC) || '""';

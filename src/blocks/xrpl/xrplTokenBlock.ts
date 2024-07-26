@@ -4,7 +4,9 @@ import { FieldDependentDropdown } from '@blockly/field-dependent-dropdown';
 import { BlockColors } from '@/blocks/BlockColors';
 import { xrplTokens } from '@/blocks/xrpl/xrplToken';
 import { IXrplToken, IXrplTokenAmount } from '@/interfaces/IXrplToken';
-import { newTitleLabel, newArgsLabel, newOutputLabel, blockCheckType } from '@/blocks/BlockField';
+import { blockCheckType } from '@/blocks/BlockField';
+
+Blockly.fieldRegistry.register('field_dependent_dropdown',FieldDependentDropdown);
 
 const convertToTokenMenu = (tokens: IXrplToken[]): [string, string][] => {
   tokens.sort((a, b) => {
@@ -28,24 +30,39 @@ const convertToTokenMenu = (tokens: IXrplToken[]): [string, string][] => {
 const tokenMenu: Blockly.MenuGenerator = convertToTokenMenu(xrplTokens);
 
 export const defineXrplTokenSelectBlock = () => {
-  Blockly.Blocks['xrpl_token_select'] = {
-    init: function () {
-      this.appendDummyInput()
-        .appendField(newArgsLabel("Token"))
-        .appendField(new Blockly.FieldDropdown([
-        ["XRPL", "xrpl"],
-        ]), 'NETWORK_TYPE')
-        .appendField("/")
-        .appendField(new FieldDependentDropdown('NETWORK_TYPE', {
-        xrpl: tokenMenu,
-        xahau: [],
-        }), 'TOKEN');
-      this.setOutput(true, blockCheckType.xrplToken);
-      this.setColour(BlockColors.xrpl);
-      this.setTooltip('Select an XRPL token from the dropdown');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "xrpl_token_select",
+      "message0": "%1 %2 / %3",
+      "args0": [
+        {
+          "type": "field_label",
+          "text": "Token",
+          "class": "args-label"
+        },
+        {
+          "type": "field_dropdown",
+          "name": "NETWORK_TYPE",
+          "options": [
+            ["XRPL", "xrpl"]
+          ]
+        },
+        {
+          "type": "field_dependent_dropdown",
+          "name": "TOKEN",
+          "parentName": "NETWORK_TYPE",
+          "optionMapping": {
+            "xrpl": tokenMenu,
+            "xahau": []
+          }
+        }
+      ],
+      "output": blockCheckType.xrplToken,
+      "colour": BlockColors.xrpl,
+      "tooltip": "Select an XRPL token from the dropdown",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['xrpl_token_select'] = function (block) {
     const token = block.getFieldValue('TOKEN');

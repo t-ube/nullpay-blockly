@@ -215,7 +215,6 @@ const toolbox = `
       <block type="xrpl_create_account"></block>
       <block type="xrpl_request_custom_faucet"></block>
       <block type="xrpl_request_faucet"></block>
-      <block type="xrpl_account_info_api"></block>
       <block type="xrpl_address"></block>
       <block type="xrpl_xrp_to_drops"></block>
       <block type="xrpl_drops_to_xrp"></block>

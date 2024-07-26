@@ -6,21 +6,38 @@ import { newTitleLabel, newOutputLabel } from '@/blocks/BlockField';
 
 
 export const defineXamanSimpleLoginBlock = () => {
-  Blockly.Blocks['xaman_simple_login'] = {
-    init: function () {
-      this.appendDummyInput()
-        .appendField(newTitleLabel("Xaman login"));
-      this.appendDummyInput()
-        .appendField(newOutputLabel("User"))
-        .appendField(new Blockly.FieldVariable("userInfo"), "VAR");
-      this.setInputsInline(false);
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(BlockColors.xaman);
-      this.setTooltip('Login to Xaman and save user info to a variable');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "xaman_simple_login",
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_label",
+          "text": "Xaman login",
+          "class": "title-label"
+        }
+      ],
+      "message1": "%1 %2",
+      "args1": [
+        {
+          "type": "field_label",
+          "text": "User",
+          "class": "output-label"
+        },
+        {
+          "type": "field_variable",
+          "name": "VAR",
+          "variable": "userInfo"
+        }
+      ],
+      "inputsInline": false,
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": BlockColors.xaman,
+      "tooltip": "Login to Xaman and save user info to a variable",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['xaman_simple_login'] = function (block, generator) {
     if (generator.nameDB_ === undefined) {
@@ -77,17 +94,24 @@ export function initInterpreterXamanSimpleLogin(interpreter:any, globalObject:an
 }
 
 export const defineXamanSimpleLogoutBlock = () => {
-  Blockly.Blocks['xaman_simple_logout'] = {
-    init: function () {
-      this.appendDummyInput()
-        .appendField(newTitleLabel("Xaman logout"));
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(BlockColors.xaman);
-      this.setTooltip('Logout from Xaman');
-      this.setHelpUrl('');
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "xaman_simple_logout",
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_label",
+          "text": "Xaman logout",
+          "class": "title-label"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": BlockColors.xaman,
+      "tooltip": "Logout from Xaman",
+      "helpUrl": ""
     }
-  };
+  ]);
 
   javascriptGenerator.forBlock['xaman_simple_logout'] = function () {
     const code = `xamanSimpleLogout();\n`;
