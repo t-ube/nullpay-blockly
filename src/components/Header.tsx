@@ -26,7 +26,7 @@ const MyMenuItem = styled(MenuItem)(({ theme }) => ({
   fontSize: '14px',
 }));
 
-const Header = React.forwardRef(({ playState, setPlayState, onSearchClick, onSaveClick, onLoadClick }: IHeaderProps, ref: ForwardedRef<HTMLElement>) => {
+const Header = React.forwardRef(({ playState, setPlayState, onSearchClick, onSaveClick, onLoadClick, onSaveMLClick }: IHeaderProps, ref: ForwardedRef<HTMLElement>) => {
   const { isMobile, isPortrait, isLoaded } = useMobile();
   const { loggedIn, userAccount, userName, userPicture, signIn, logout } = useAccount();
   const [isSmall, setIsSmall] = useState(false);
@@ -136,10 +136,10 @@ const Header = React.forwardRef(({ playState, setPlayState, onSearchClick, onSav
       </div>
       <div className="flex items-center space-x-2">
       {!isMobile ? (
-        <ButtonGroup playState={playState} setPlayState={setPlayState} onSaveClick={onSaveClick} onLoadClick={onLoadClick}/>
+        <ButtonGroup playState={playState} setPlayState={setPlayState} onSaveClick={onSaveClick} onLoadClick={onLoadClick} onSaveMLClick={onSaveMLClick}/>
       ) : !isPortrait &&
         (
-          <ButtonGroup playState={playState} setPlayState={setPlayState} onSaveClick={onSaveClick} onLoadClick={onLoadClick}/>
+          <ButtonGroup playState={playState} setPlayState={setPlayState} onSaveClick={onSaveClick} onLoadClick={onLoadClick} onSaveMLClick={onSaveMLClick}/>
         )
       }
       </div>

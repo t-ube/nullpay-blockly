@@ -7,6 +7,7 @@ export interface IHeaderProps {
   onSearchClick: () => void;
   onSaveClick: () => void;
   onLoadClick: () => void;
+  onSaveMLClick: () => void;
 }
 
 export interface IButtonGroupProps {
@@ -14,6 +15,7 @@ export interface IButtonGroupProps {
   setPlayState: React.Dispatch<React.SetStateAction<PlayState>>;
   onSaveClick: () => void;
   onLoadClick: () => void;
+  onSaveMLClick: () => void;
 }
 
 export interface IButtonProps {

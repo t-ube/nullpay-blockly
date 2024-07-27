@@ -82,7 +82,17 @@ const LoadButton = ({ onClick, isSmall }: IDocButtonProps) => (
   </button>
 );
 
-const ButtonGroup = ({ playState, setPlayState, onSaveClick, onLoadClick } : IButtonGroupProps) => {
+const SaveMLButton = ({ onClick, isSmall }: IDocButtonProps) => (
+  <button
+    id="saveMlWorkspaceButton"
+    className="flex items-center px-2 py-1 text-sm bg-sky-500 text-white rounded shadow hover:bg-sky-700 transition duration-200"
+    onClick={onClick}
+  >
+    <DocumentArrowDownIcon className="h-4 w-4 mr-1" />{!isSmall && "SaveML"}
+  </button>
+);
+
+const ButtonGroup = ({ playState, setPlayState, onSaveClick, onLoadClick, onSaveMLClick } : IButtonGroupProps) => {
   const { isMobile, isPortrait, isLoaded } = useMobile();
   const [ isSmall, setIsSmall] = useState(false);
 
@@ -96,8 +106,10 @@ const ButtonGroup = ({ playState, setPlayState, onSaveClick, onLoadClick } : IBu
       <StopButton isSmall={isMobile} playState={playState} setPlayState={setPlayState} />
       <EndButton isSmall={isMobile} playState={playState} setPlayState={setPlayState} />
       <div className="border-l border-gray-300 h-6 mx-2"></div>
-      <SaveButton isSmall={isMobile} onClick={onSaveClick} />
+      <SaveButton isSmall={isMobile} onClick={onSaveClick}/>
       <LoadButton isSmall={isMobile} onClick={onLoadClick}/>
+      <div className="border-l border-gray-300 h-6 mx-2"></div>
+      <SaveMLButton isSmall={isMobile} onClick={onSaveMLClick}/>
     </div>
   );
 }

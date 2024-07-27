@@ -171,6 +171,55 @@ const BlocklyComponent = () => {
     document.body.removeChild(a);
   };
 
+  const handleSaveMLWorkspace = () => {
+    console.log('handleSaveMLWorkspace');
+
+    const saveWorkspace = (prompt:string) => {
+      const xml = Blockly.Xml.workspaceToDom(workspace);
+      const xmlText = Blockly.Xml.domToPrettyText(xml);
+      const jsonlData = JSON.stringify({
+        prompt: prompt,
+        completion: xmlText
+      }) + '\n';
+      const blob = new Blob([jsonlData], { type: 'application/jsonl' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'blockly_training_data.jsonl';
+      a.click();
+      URL.revokeObjectURL(url);
+    };
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center;
+      z-index: 10;
+    `;
+    const content = document.createElement('div');
+    content.style.cssText = `
+      background: white; padding: 20px; border-radius: 5px;
+      display: flex; flex-direction: column;
+    `;
+    const textarea = document.createElement('textarea');
+    textarea.style.cssText = 'width: 300px; height: 100px; margin-bottom: 10px;';
+    textarea.placeholder = 'このBlocklyプログラムの説明を入力してください';
+    
+    const saveButton = document.createElement('button');
+    saveButton.textContent = '保存';
+    saveButton.onclick = () => {
+      const prompt = textarea.value;
+      if (prompt) {
+        saveWorkspace(prompt);
+      }
+      document.body.removeChild(modal);
+    };
+    
+    content.appendChild(textarea);
+    content.appendChild(saveButton);
+    modal.appendChild(content);
+    document.body.appendChild(modal);
+  };
+
   const handleLoadWorkspace = () => {
     console.log('handleLoadWorkspace');
     const input = document.createElement('input');
@@ -492,8 +541,9 @@ const BlocklyComponent = () => {
           playState={playState}
           setPlayState={setPlayState}
           onSearchClick={handleSearchClick}
-          onSaveClick={handleSaveWorkspaceV2}
+          onSaveClick={handleSaveWorkspace}
           onLoadClick={handleLoadWorkspace}
+          onSaveMLClick={handleSaveMLWorkspace}
           ref={headerRef}
         />
         <div className="border-t border-gray-300"></div>
