@@ -6,6 +6,23 @@ import { blockCheckType } from '@/blocks/BlockField';
 import { getAsyncSuccess, getAsyncError } from '@/blocks/AsyncBlockResult';
 
 // Define the XamanStoreKey block
+export const xaman_variable_name : any = {
+  "type": "xaman_variable_name",
+  "message0": "Xaman variable name %1",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "KEY",
+      "text": "",
+      "spellcheck": false
+    }
+  ],
+  "output": blockCheckType.string,
+  "colour": BlockColors.xaman,
+  "tooltip": "Input a key for Xaman Store (min three characters, a-z0-9)",
+  "helpUrl": ""
+};
+
 export const defineXamanVariableKeyBlock = () => {
   const xamanStoreKeyValidator = (newValue: string) => {
     const keyRegex = /^[a-z0-9]{3,}$/;
@@ -15,28 +32,13 @@ export const defineXamanVariableKeyBlock = () => {
       return null;
     }
   };
-
-  const xamanStoreKeyJson = {
-    "type": "xaman_variable_name",
-    "message0": "Xaman variable name %1",
-    "args0": [
-      {
-        "type": "field_input",
-        "name": "KEY",
-        "text": "",
-        "spellcheck": false
-      }
-    ],
-    "output": blockCheckType.string,
-    "colour": BlockColors.xaman,
-    "tooltip": "Input a key for Xaman Store (min three characters, a-z0-9)",
-    "helpUrl": ""
-  };
   
-  Blockly.defineBlocksWithJsonArray([xamanStoreKeyJson]);
+  Blockly.defineBlocksWithJsonArray([
+    xaman_variable_name
+  ]);
 
   Blockly.Blocks['xaman_variable_name'].init = function () {
-    this.jsonInit(xamanStoreKeyJson);
+    this.jsonInit(xaman_variable_name);
     const keyField = this.getField('KEY');
     keyField.setValidator(xamanStoreKeyValidator);
   };
@@ -59,64 +61,67 @@ export const defineXamanVariableKeyBlock = () => {
   };
 };
 
+
+export const xaman_variable_set : any = {
+  "type": "xaman_variable_set",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Xaman set variable",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "Variable name",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "KEY",
+      "check": blockCheckType.string
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "Value (Text)",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "DATA",
+      "check": blockCheckType.string
+    }
+  ],
+  "message3": "%1 %2",
+  "args3": [
+    {
+      "type": "field_label",
+      "text": "Result",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "STATUS",
+      "variable": "status"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors.xaman,
+  "tooltip": "Stores user data in Xaman with the specified key",
+  "helpUrl": ""
+};
+
 export const defineXamanVariableSetBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xaman_variable_set",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Xaman set variable",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "Variable name",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "KEY",
-          "check": blockCheckType.string
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "Value (Text)",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "DATA",
-          "check": blockCheckType.string
-        }
-      ],
-      "message3": "%1 %2",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "Result",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "STATUS",
-          "variable": "status"
-        }
-      ],
-      "inputsInline": false,
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": BlockColors.xaman,
-      "tooltip": "Stores user data in Xaman with the specified key",
-      "helpUrl": ""
-    }
+    xaman_variable_set
   ]);
   
   javascriptGenerator.forBlock['xaman_variable_set'] = function (block, generator) {
@@ -156,37 +161,40 @@ export function initInterpreterXamanVariableSet(interpreter:any, globalObject:an
   interpreter.setProperty(globalObject, 'xamanVariableSet', interpreter.createAsyncFunction(wrapper));
 }
 
+
+export const xaman_variable_get : any = {
+  "type": "xaman_variable_get",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Xaman get variable",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "Variable name",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "KEY",
+      "check": blockCheckType.string
+    }
+  ],
+  "output": [blockCheckType.string, null],
+  "inputsInline": false,
+  "colour": BlockColors.xaman,
+  "tooltip": "Gets user data from Xaman with the specified key",
+  "helpUrl": ""
+};
+
 export const defineXamanVariableGetBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xaman_variable_get",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Xaman get variable",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "Variable name",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "KEY",
-          "check": blockCheckType.string
-        }
-      ],
-      "output": [blockCheckType.string, null],
-      "inputsInline": false,
-      "colour": BlockColors.xaman,
-      "tooltip": "Gets user data from Xaman with the specified key",
-      "helpUrl": ""
-    }
+    xaman_variable_get
   ]);
 
   javascriptGenerator.forBlock['xaman_variable_get'] = function (block, generator) {

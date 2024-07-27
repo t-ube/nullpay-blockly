@@ -4,77 +4,79 @@ import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { getXrplClient, setXrplClientEventListner, clearXrplClientEventListner } from '@/blocks/xrpl/xrplClientInitializeBlock';
 
+export const xrpl_subscribe_account_txn : any = {
+  "type": "xrpl_subscribe_account_txn",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Subscribe account transactions",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "XRPL client",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "CLIENT",
+      "check": "Client"
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "Subscribe ID",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "ID",
+      "check": "String"
+    }
+  ],
+  "message3": "%1 %2",
+  "args3": [
+    {
+      "type": "field_label",
+      "text": "XRPL address list",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "ACCOUNTS",
+      "check": "Array"
+    }
+  ],
+  "message4": "%1 %2",
+  "args4": [
+    {
+      "type": "field_label",
+      "text": "Transaction info",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "VAR",
+      "variable": "transactionInfo"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Subscribe to transactions for a specific account on XRPL",
+  "helpUrl": ""
+};
+
 export const defineXrplSubscribeAccountTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_subscribe_account_txn",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Subscribe account transactions",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "XRPL client",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "CLIENT",
-          "check": "Client"
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "Subscribe ID",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "ID",
-          "check": "String"
-        }
-      ],
-      "message3": "%1 %2",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "XRPL address list",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "ACCOUNTS",
-          "check": "Array"
-        }
-      ],
-      "message4": "%1 %2",
-      "args4": [
-        {
-          "type": "field_label",
-          "text": "Transaction info",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "VAR",
-          "variable": "transactionInfo"
-        }
-      ],
-      "inputsInline": false,
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": BlockColors.xrpl,
-      "tooltip": "Subscribe to transactions for a specific account on XRPL",
-      "helpUrl": ""
-    }
+    xrpl_subscribe_account_txn
   ]);
 
   javascriptGenerator.forBlock['xrpl_subscribe_account_txn'] = function (block, generator) {
@@ -114,64 +116,67 @@ export function initInterpreterXrplSubscribeAccountTxn(interpreter:any, globalOb
   interpreter.setProperty(globalObject, 'xrplSubscribeAccountTxn', interpreter.createAsyncFunction(wrapper));
 }
 
+
+export const xrpl_unsubscribe_account_txn : any = {
+  "type": "xrpl_unsubscribe_account_txn",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Unsubscribe account transactions",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "XRPL client",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "CLIENT",
+      "check": "Client"
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "Subscribe ID",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "ID",
+      "check": "String"
+    }
+  ],
+  "message3": "%1 %2",
+  "args3": [
+    {
+      "type": "field_label",
+      "text": "XRPL address list",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "ACCOUNTS",
+      "check": "Array"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Unsubscribe to transactions for a specific account on XRPL",
+  "helpUrl": ""
+};
+
 export const defineXrplUnsubscribeAccountTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_unsubscribe_account_txn",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Unsubscribe account transactions",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "XRPL client",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "CLIENT",
-          "check": "Client"
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "Subscribe ID",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "ID",
-          "check": "String"
-        }
-      ],
-      "message3": "%1 %2",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "XRPL address list",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "ACCOUNTS",
-          "check": "Array"
-        }
-      ],
-      "inputsInline": false,
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": BlockColors.xrpl,
-      "tooltip": "Unsubscribe to transactions for a specific account on XRPL",
-      "helpUrl": ""
-    }
+    xrpl_unsubscribe_account_txn
   ]);
 
   javascriptGenerator.forBlock['xrpl_unsubscribe_account_txn'] = function (block, generator) {
@@ -204,64 +209,67 @@ export function initInterpreterXrplUnsubscribeAccountTxn(interpreter:any, global
   interpreter.setProperty(globalObject, 'xrplUnsubscribeAccountTxn', interpreter.createAsyncFunction(wrapper));
 }
 
+
+export const xrpl_subscribe_all_txn : any = {
+  "type": "xrpl_subscribe_all_txn",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Subscribe all transactions",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "XRPL client",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "CLIENT",
+      "check": "Client"
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "Subscribe ID",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "ID",
+      "check": "String"
+    }
+  ],
+  "message3": "%1 %2",
+  "args3": [
+    {
+      "type": "field_label",
+      "text": "Transaction info",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "VAR",
+      "variable": "transactionInfo"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Subscribes to all transactions on the XRPL and stores transaction info in the specified variable.",
+  "helpUrl": ""
+};
+
 export const defineXrplSubscribeAllTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_subscribe_all_txn",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Subscribe all transactions",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "XRPL client",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "CLIENT",
-          "check": "Client"
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "Subscribe ID",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "ID",
-          "check": "String"
-        }
-      ],
-      "message3": "%1 %2",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "Transaction info",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "VAR",
-          "variable": "transactionInfo"
-        }
-      ],
-      "inputsInline": false,
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": BlockColors.xrpl,
-      "tooltip": "Subscribes to all transactions on the XRPL and stores transaction info in the specified variable.",
-      "helpUrl": ""
-    }
+    xrpl_subscribe_all_txn
   ]);
 
   javascriptGenerator.forBlock['xrpl_subscribe_all_txn'] = function (block, generator) {
@@ -300,51 +308,54 @@ export function initInterpreterXrplSubscribeAllTxn(interpreter:any, globalObject
   interpreter.setProperty(globalObject, 'xrplSubscribeAllTxn', interpreter.createAsyncFunction(wrapper));
 }
 
+
+export const xrpl_unsubscribe_all_txn : any = {
+  "type": "xrpl_unsubscribe_all_txn",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Unsubscribe all transactions",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "XRPL client",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "CLIENT",
+      "check": "Client"
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "Subscribe ID",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "ID",
+      "check": "String"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Unsubscribes from all transactions on the XRPL for the specified client and subscribe ID.",
+  "helpUrl": ""
+};
+
 export const defineXrplUnsubscribeAllTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_unsubscribe_all_txn",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Unsubscribe all transactions",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "XRPL client",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "CLIENT",
-          "check": "Client"
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "Subscribe ID",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "ID",
-          "check": "String"
-        }
-      ],
-      "inputsInline": false,
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": BlockColors.xrpl,
-      "tooltip": "Unsubscribes from all transactions on the XRPL for the specified client and subscribe ID.",
-      "helpUrl": ""
-    }
+    xrpl_unsubscribe_all_txn
   ]);
 
   javascriptGenerator.forBlock['xrpl_unsubscribe_all_txn'] = function (block, generator) {
@@ -374,4 +385,3 @@ export function initInterpreterXrplUnsubscribeAllTxn(interpreter:any, globalObje
   };
   interpreter.setProperty(globalObject, 'xrplUnsubscribeAllTxn', interpreter.createAsyncFunction(wrapper));
 }
-

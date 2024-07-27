@@ -3,23 +3,25 @@ import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { blockCheckType } from '@/blocks/BlockField';
 
+export const text_to_uppercase : any = {
+  "type": "text_to_uppercase",
+  "message0": "to uppercase %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "TEXT",
+      "check": "String"
+    }
+  ],
+  "output": "String",
+  "colour": BlockColors.text,
+  "tooltip": "Converts a string to uppercase",
+  "helpUrl": ""
+};
+
 export const defineTextToUpperCaseBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "text_to_uppercase",
-      "message0": "to uppercase %1",
-      "args0": [
-        {
-          "type": "input_value",
-          "name": "TEXT",
-          "check": "String"
-        }
-      ],
-      "output": "String",
-      "colour": BlockColors.text,
-      "tooltip": "Converts a string to uppercase",
-      "helpUrl": ""
-    }
+    text_to_uppercase
   ]);
 
   javascriptGenerator.forBlock['text_to_uppercase'] = function(block, generator) {
@@ -29,23 +31,25 @@ export const defineTextToUpperCaseBlock = () => {
   };
 };
 
+export const text_to_lowercase : any = {
+  "type": "text_to_lowercase",
+  "message0": "to lowercase %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "TEXT",
+      "check": "String"
+    }
+  ],
+  "output": "String",
+  "colour": BlockColors.text,
+  "tooltip": "Converts a string to lowercase",
+  "helpUrl": ""
+};
+
 export const defineTextToLowerCaseBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "text_to_lowercase",
-      "message0": "to lowercase %1",
-      "args0": [
-        {
-          "type": "input_value",
-          "name": "TEXT",
-          "check": "String"
-        }
-      ],
-      "output": "String",
-      "colour": BlockColors.text,
-      "tooltip": "Converts a string to lowercase",
-      "helpUrl": ""
-    }
+    text_to_lowercase
   ]);
 
   javascriptGenerator.forBlock['text_to_lowercase'] = function(block, generator) {
@@ -55,23 +59,25 @@ export const defineTextToLowerCaseBlock = () => {
   };
 };
 
+export const number_to_text : any = {
+  "type": "number_to_text",
+  "message0": "text from number %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "NUMBER",
+      "check": blockCheckType.number
+    }
+  ],
+  "output": blockCheckType.string,
+  "colour": BlockColors.text,
+  "tooltip": "Convert number to text",
+  "helpUrl": ""
+};
+
 export const defineNumberToTextBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "number_to_text",
-      "message0": "text from number %1",
-      "args0": [
-        {
-          "type": "input_value",
-          "name": "NUMBER",
-          "check": blockCheckType.number
-        }
-      ],
-      "output": blockCheckType.string,
-      "colour": BlockColors.text,
-      "tooltip": "Convert number to text",
-      "helpUrl": ""
-    }
+    number_to_text
   ]);
 
   javascriptGenerator.forBlock['number_to_text'] = function (block, generator) {
@@ -80,23 +86,25 @@ export const defineNumberToTextBlock = () => {
   };
 };
 
+export const text_to_number : any = {
+  "type": "text_to_number",
+  "message0": "number from text %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "TEXT",
+      "check": blockCheckType.string
+    }
+  ],
+  "output": blockCheckType.number,
+  "colour": BlockColors.text,
+  "tooltip": "Convert text to number",
+  "helpUrl": ""
+};
+
 export const defineTextToNumberBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "text_to_number",
-      "message0": "number from text %1",
-      "args0": [
-        {
-          "type": "input_value",
-          "name": "TEXT",
-          "check": blockCheckType.string
-        }
-      ],
-      "output": blockCheckType.number,
-      "colour": BlockColors.text,
-      "tooltip": "Convert text to number",
-      "helpUrl": ""
-    }
+    text_to_number
   ]);
 
   javascriptGenerator.forBlock['text_to_number'] = function (block, generator) {

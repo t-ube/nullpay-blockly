@@ -138,25 +138,42 @@ const FeatureModal = ({ releaseInfo } : IFeatureModalProps) => {
             label="Don't show this again"
           />
           <Box>
-            <Button onClick={handleBack} disabled={activeStep === 0} sx={{ color: '#A855F7' }}>
+            <Button 
+              onClick={handleBack}
+              disabled={activeStep === 0}
+              sx={{
+                marginRight: 2,
+                color: '#A855F7'
+              }}
+            >
               Prev
             </Button>
             {activeStep === releaseInfo.features.length - 1 ? (
-              <Button onClick={handleClose} variant="contained" color="primary" sx={{
-                bgcolor: '#A855F7',
-                '&:hover': {
-                  bgcolor: '#8E24AA',
-                },
-              }}>
+              <Button
+                onClick={handleClose}
+                variant="contained"
+                color="primary"
+                sx={{
+                  bgcolor: '#A855F7',
+                  '&:hover': {
+                    bgcolor: '#8E24AA',
+                  }
+                }}
+              >
                 Start
               </Button>
             ) : (
-              <Button onClick={handleNext} variant="contained" color="primary" sx={{
-                bgcolor: '#A855F7',
-                '&:hover': {
-                  bgcolor: '#8E24AA',
-                },
-              }}>
+              <Button
+                onClick={handleNext}
+                variant="contained"
+                color="primary"
+                sx={{
+                  bgcolor: '#A855F7',
+                  '&:hover': {
+                    bgcolor: '#8E24AA',
+                  },
+                }}
+              >
                 Next
               </Button>
             )}

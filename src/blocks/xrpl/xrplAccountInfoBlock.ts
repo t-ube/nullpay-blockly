@@ -6,64 +6,66 @@ import { getXrplClient } from '@/blocks/xrpl/xrplClientInitializeBlock';
 import { blockCheckType } from '@/blocks/BlockField';
 
 
+export const xrpl_account_info : any = {
+  "type": "xrpl_account_info",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Get account info",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "XRPL client",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "CLIENT",
+      "check": "Client"
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "Account address",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "ADDRESS",
+      "check": "String"
+    }
+  ],
+  "message3": "%1 %2",
+  "args3": [
+    {
+      "type": "field_label",
+      "text": "Account info",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "VAR",
+      "variable": "accountInfo"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Get the account info of the specified address and save to a variable",
+  "helpUrl": ""
+};
+
 export const defineXrplAccountInfoBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_account_info",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Get account info",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "XRPL client",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "CLIENT",
-          "check": "Client"
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "Account address",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "ADDRESS",
-          "check": "String"
-        }
-      ],
-      "message3": "%1 %2",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "Account info",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "VAR",
-          "variable": "accountInfo"
-        }
-      ],
-      "inputsInline": false,
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": BlockColors.xrpl,
-      "tooltip": "Get the account info of the specified address and save to a variable",
-      "helpUrl": ""
-    }
+    xrpl_account_info
   ]);
 
   javascriptGenerator.forBlock['xrpl_account_info'] = function (block, generator) {
@@ -99,63 +101,65 @@ export function initInterpreterXrplAccountInfo(interpreter:any, globalObject:any
 
 
 // XRPL account_lines command
+export const xrpl_account_lines_command : any = {
+  "type": "xrpl_account_lines_command",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Get account lines",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "XRPL client",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "CLIENT",
+      "check": blockCheckType.xrplClient
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "Account address",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "ACCOUNT_ADDRESS",
+      "check": blockCheckType.string
+    }
+  ],
+  "message3": "%1 %2",
+  "args3": [
+    {
+      "type": "field_label",
+      "text": "Account lines",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "VAR",
+      "variable": "accountLines"
+    }
+  ],
+  "output": blockCheckType.boolean,
+  "inputsInline": false,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Retrieve information about the trust lines associated with an XRPL account.",
+  "helpUrl": ""
+};
+
 export const defineXrplAccountLinesCommandBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_account_lines_command",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Get account lines",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "XRPL client",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "CLIENT",
-          "check": blockCheckType.xrplClient
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "Account address",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "ACCOUNT_ADDRESS",
-          "check": blockCheckType.string
-        }
-      ],
-      "message3": "%1 %2",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "Account lines",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "VAR",
-          "variable": "accountLines"
-        }
-      ],
-      "output": blockCheckType.boolean,
-      "inputsInline": false,
-      "colour": BlockColors.xrpl,
-      "tooltip": "Retrieve information about the trust lines associated with an XRPL account.",
-      "helpUrl": ""
-    }
+    xrpl_account_lines_command
   ]);
 
   javascriptGenerator.forBlock['xrpl_account_lines_command'] = function (block, generator) {

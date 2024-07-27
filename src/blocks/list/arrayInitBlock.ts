@@ -4,24 +4,26 @@ import { blockCheckType } from '@/blocks/BlockField';
 import { BlockColors } from '@/blocks/BlockColors';
 
 
+export const array_init : any = {
+  "type": "array_init",
+  "message0": "initialize array %1",
+  "args0": [
+    {
+      "type": "field_variable",
+      "name": "VAR",
+      "variable": "item"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": blockCheckType.list,
+  "tooltip": "Initializes an empty array",
+  "helpUrl": ""
+};
+
 export const defineArrayInitBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "array_init",
-      "message0": "initialize array %1",
-      "args0": [
-        {
-          "type": "field_variable",
-          "name": "VAR",
-          "variable": "item"
-        }
-      ],
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": blockCheckType.list,
-      "tooltip": "Initializes an empty array",
-      "helpUrl": ""
-    }
+    array_init
   ]);
 
   javascriptGenerator.forBlock['array_init'] = function (block, generator) {
@@ -34,29 +36,32 @@ export const defineArrayInitBlock = () => {
   };
 };
 
+
+export const array_append : any = {
+  "type": "array_append",
+  "message0": "append to array %1 item %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "ARRAY",
+      "check": "Array"
+    },
+    {
+      "type": "input_value",
+      "name": "ITEM",
+      "check": null
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors.list,
+  "tooltip": "Append an item to an array",
+  "helpUrl": ""
+};
+
 export const defineArrayAppendBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "array_append",
-      "message0": "append to array %1 item %2",
-      "args0": [
-        {
-          "type": "input_value",
-          "name": "ARRAY",
-          "check": "Array"
-        },
-        {
-          "type": "input_value",
-          "name": "ITEM",
-          "check": null
-        }
-      ],
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": BlockColors.list,
-      "tooltip": "Append an item to an array",
-      "helpUrl": ""
-    }
+    array_append
   ]);
 
   javascriptGenerator.forBlock['array_append'] = function (block, generator) {
@@ -67,60 +72,63 @@ export const defineArrayAppendBlock = () => {
   };
 };
 
+
+export const lists_sort_json_value : any = {
+  "type": "lists_sort_json_value",
+  "message0": "sort JSON list %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "ARRAY",
+      "check": [blockCheckType.array]
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "Key",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "KEY",
+      "check": blockCheckType.string
+    }
+  ],
+  "message2": "%1",
+  "args2": [
+    {
+      "type": "field_dropdown",
+      "name": "TYPE",
+      "options": [
+        ["numeric", "numeric"],
+        ["alphabetic", "alphabetic"],
+        ["alphabetic, ignore case", "alphabetic_ignore_case"],
+      ]
+    }
+  ],
+  "message3": "%1",
+  "args3": [
+    {
+      "type": "field_dropdown",
+      "name": "ORDER",
+      "options": [
+        ["asdending", "asc"],
+        ["descending", "desc"],
+      ]
+    }
+  ],
+  "inputsInline": false,
+  "output": [blockCheckType.array, blockCheckType.json],
+  "colour": BlockColors.list,
+  "tooltip": "Sort a list of JSON objects by a specified key",
+  "helpUrl": ""
+};
+
 export const defineListSortJsonValueBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "lists_sort_json_value",
-      "message0": "sort JSON list %1",
-      "args0": [
-        {
-          "type": "input_value",
-          "name": "ARRAY",
-          "check": [blockCheckType.array]
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "Key",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "KEY",
-          "check": blockCheckType.string
-        }
-      ],
-      "message2": "%1",
-      "args2": [
-        {
-          "type": "field_dropdown",
-          "name": "TYPE",
-          "options": [
-            ["numeric", "numeric"],
-            ["alphabetic", "alphabetic"],
-            ["alphabetic, ignore case", "alphabetic_ignore_case"],
-          ]
-        }
-      ],
-      "message3": "%1",
-      "args3": [
-        {
-          "type": "field_dropdown",
-          "name": "ORDER",
-          "options": [
-            ["asdending", "asc"],
-            ["descending", "desc"],
-          ]
-        }
-      ],
-      "inputsInline": false,
-      "output": [blockCheckType.array, blockCheckType.json],
-      "colour": BlockColors.list,
-      "tooltip": "Sort a list of JSON objects by a specified key",
-      "helpUrl": ""
-    }
+    lists_sort_json_value
   ]);
 
   javascriptGenerator.forBlock['lists_sort_json_value'] = function (block, generator) {

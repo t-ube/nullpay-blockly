@@ -4,97 +4,99 @@ import xamanPkce from '@/utils/XamanPkce';
 import { XummJsonTransaction } from 'xumm-sdk/dist/src/types';
 import { BlockColors } from '@/blocks/BlockColors';
 import { blockCheckType } from '@/blocks/BlockField';
-import { newTitleLabel, newArgsLabel, newOutputLabel } from '@/blocks/BlockField';
 import { getBlockSuccess, getBlockError } from '@/blocks/BlockResult';
 
 function stringToHex(str:string) {
   return Buffer.from(str, 'utf8').toString('hex');
 }
 
+export const xaman_payment : any = {
+  "type": "xaman_payment",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Xaman payment",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "Destination address",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "DESTINATION",
+      "check": "String"
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "Amount (drops)",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "AMOUNT",
+      "check": "Number"
+    }
+  ],
+  "message3": "%1 %2",
+  "args3": [
+    {
+      "type": "field_label",
+      "text": "Memo (optional)",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "MEMO",
+      "check": "String"
+    }
+  ],
+  "message4": "%1 %2",
+  "args4": [
+    {
+      "type": "field_label",
+      "text": "Payload ID",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "VAR",
+      "variable": "payloadID"
+    }
+  ],
+  "message5": "%1 %2",
+  "args5": [
+    {
+      "type": "field_label",
+      "text": "Result",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "ERROR_VAR",
+      "variable": "error"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors.xaman,
+  "tooltip": "Create a payment transaction with Xaman",
+  "helpUrl": ""
+};
+
 export const defineXamanPaymentBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-  {
-    "type": "xaman_payment",
-    "message0": "%1",
-    "args0": [
-      {
-        "type": "field_label",
-        "text": "Xaman payment",
-        "class": "title-label"
-      }
-    ],
-    "message1": "%1 %2",
-    "args1": [
-      {
-        "type": "field_label",
-        "text": "Destination address",
-        "class": "args-label"
-      },
-      {
-        "type": "input_value",
-        "name": "DESTINATION",
-        "check": "String"
-      }
-    ],
-    "message2": "%1 %2",
-    "args2": [
-      {
-        "type": "field_label",
-        "text": "Amount (drops)",
-        "class": "args-label"
-      },
-      {
-        "type": "input_value",
-        "name": "AMOUNT",
-        "check": "Number"
-      }
-    ],
-    "message3": "%1 %2",
-    "args3": [
-      {
-        "type": "field_label",
-        "text": "Memo (optional)",
-        "class": "args-label"
-      },
-      {
-        "type": "input_value",
-        "name": "MEMO",
-        "check": "String"
-      }
-    ],
-    "message4": "%1 %2",
-    "args4": [
-      {
-        "type": "field_label",
-        "text": "Payload ID",
-        "class": "output-label"
-      },
-      {
-        "type": "field_variable",
-        "name": "VAR",
-        "variable": "payloadID"
-      }
-    ],
-    "message5": "%1 %2",
-    "args5": [
-      {
-        "type": "field_label",
-        "text": "Result",
-        "class": "output-label"
-      },
-      {
-        "type": "field_variable",
-        "name": "ERROR_VAR",
-        "variable": "error"
-      }
-    ],
-    "inputsInline": false,
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": BlockColors.xaman,
-    "tooltip": "Create a payment transaction with Xaman",
-    "helpUrl": ""
-  }]);
+    xaman_payment
+  ]);
 
   javascriptGenerator.forBlock['xaman_payment'] = function (block, generator) {
     const destination = generator.valueToCode(block, 'DESTINATION', Order.ATOMIC) || '""';
@@ -146,36 +148,40 @@ export function initInterpreterXamanPayment(interpreter:any, globalObject:any) {
   interpreter.setProperty(globalObject, 'xamanCreatePaymentTransaction', interpreter.createAsyncFunction(wrapper));
 }
 
+
+export const xaman_wait_for_signature : any = {
+  "type": "xaman_wait_for_signature",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Wait for Xaman signature",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "Payload ID",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "PAYLOAD"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors.xaman,
+  "tooltip": "Wait for the Xaman transaction to be signed",
+  "helpUrl": ""
+};
+
 export const defineXamanWaitForSignatureBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-  {
-    "type": "xaman_wait_for_signature",
-    "message0": "%1",
-    "args0": [
-      {
-        "type": "field_label",
-        "text": "Wait for Xaman signature",
-        "class": "title-label"
-      }
-    ],
-    "message1": "%1 %2",
-    "args1": [
-      {
-        "type": "field_label",
-        "text": "Payload ID",
-        "class": "args-label"
-      },
-      {
-        "type": "input_value",
-        "name": "PAYLOAD"
-      }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": BlockColors.xaman,
-    "tooltip": "Wait for the Xaman transaction to be signed",
-    "helpUrl": ""
-  }]);
+    xaman_wait_for_signature
+  ]);
 
   javascriptGenerator.forBlock['xaman_wait_for_signature'] = function (block, generator) {
     const payload = generator.valueToCode(block, 'PAYLOAD', Order.ATOMIC) || '""';
@@ -238,56 +244,58 @@ export function initInterpreterXamanWaitForSignatureBlock(interpreter:any, globa
 }
 
 
+export const xaman_payload_set : any = {
+  "type": "xaman_payload_set",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Xaman set payload",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "Payload",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "PAYLOAD",
+      "check": [blockCheckType.xrplTxnPayload, blockCheckType.json]
+    }
+  ],
+  "message2": "%1 %2 %3",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "Result",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "STATUS",
+      "variable": "status"
+    },
+    {
+      "type": "field_variable",
+      "name": "PAYLOAD_ID",
+      "variable": "payloadID"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors.xaman,
+  "tooltip": "Create a new Xaman transaction payload to be used for an XRPL transaction. Requires a JSON payload object as input.",
+  "helpUrl": ""
+};
+
 export const defineXamanPayloadSetBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xaman_payload_set",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Xaman set payload",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "Payload",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "PAYLOAD",
-          "check": [blockCheckType.xrplTxnPayload, blockCheckType.json]
-        }
-      ],
-      "message2": "%1 %2 %3",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "Result",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "STATUS",
-          "variable": "status"
-        },
-        {
-          "type": "field_variable",
-          "name": "PAYLOAD_ID",
-          "variable": "payloadID"
-        }
-      ],
-      "inputsInline": false,
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": BlockColors.xaman,
-      "tooltip": "Create a new Xaman transaction payload to be used for an XRPL transaction. Requires a JSON payload object as input.",
-      "helpUrl": ""
-    }
+    xaman_payload_set
   ]);
 
   javascriptGenerator.forBlock['xaman_payload_set'] = function(block, generator) {

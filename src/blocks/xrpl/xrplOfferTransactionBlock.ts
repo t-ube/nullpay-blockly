@@ -5,76 +5,78 @@ import { blockCheckType } from '@/blocks/BlockField';
 import { IXrplToken } from '@/interfaces/IXrplToken';
 
 // Define the block for BuyOffer
+export const xrpl_buy_token_offer_txn : any = {
+  "type": "xrpl_buy_token_offer_txn",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Buy token offer payload",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "Account address",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "ACCOUNT_ADDRESS",
+      "check": "String"
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "Token",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "TOKEN",
+      "check": blockCheckType.xrplToken
+    }
+  ],
+  "message3": "%1 %2",
+  "args3": [
+    {
+      "type": "field_label",
+      "text": "Token amount",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "TOKEN_AMOUNT",
+      "check": blockCheckType.number
+    }
+  ],
+  "message4": "%1 %2",
+  "args4": [
+    {
+      "type": "field_label",
+      "text": "XRP amount (drops)",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "XRP_AMOUNT",
+      "check": blockCheckType.number
+    }
+  ],
+  "output": blockCheckType.xrplTxnPayload,
+  "inputsInline": false,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Create a buy offer for tokens on the XRPL DEX",
+  "helpUrl": ""
+};
+
 export const defineBuyTokenOfferTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_buy_token_offer_txn",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Buy token offer payload",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "Account address",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "ACCOUNT_ADDRESS",
-          "check": "String"
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "Token",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "TOKEN",
-          "check": blockCheckType.xrplToken
-        }
-      ],
-      "message3": "%1 %2",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "Token amount",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "TOKEN_AMOUNT",
-          "check": blockCheckType.number
-        }
-      ],
-      "message4": "%1 %2",
-      "args4": [
-        {
-          "type": "field_label",
-          "text": "XRP amount (drops)",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "XRP_AMOUNT",
-          "check": blockCheckType.number
-        }
-      ],
-      "output": blockCheckType.xrplTxnPayload,
-      "inputsInline": false,
-      "colour": BlockColors.xrpl,
-      "tooltip": "Create a buy offer for tokens on the XRPL DEX",
-      "helpUrl": ""
-    }
+    xrpl_buy_token_offer_txn
   ]);
 
   javascriptGenerator.forBlock['xrpl_buy_token_offer_txn'] = function(block, generator) {
@@ -107,76 +109,78 @@ export function initInterpreterBuyTokenOfferTxn(interpreter: any, globalObject: 
 }
 
 // Define the block for SaleOffer
+export const xrpl_sale_token_offer_txn : any = {
+  "type": "xrpl_sale_token_offer_txn",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Sale token offer payload",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "Account address",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "ACCOUNT_ADDRESS",
+      "check": "String"
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "Token",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "TOKEN",
+      "check": blockCheckType.xrplToken
+    }
+  ],
+  "message3": "%1 %2",
+  "args3": [
+    {
+      "type": "field_label",
+      "text": "Token amount",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "TOKEN_AMOUNT",
+      "check": blockCheckType.number
+    }
+  ],
+  "message4": "%1 %2",
+  "args4": [
+    {
+      "type": "field_label",
+      "text": "XRP amount (drops)",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "XRP_AMOUNT",
+      "check": blockCheckType.number
+    }
+  ],
+  "output": blockCheckType.xrplTxnPayload,
+  "inputsInline": false,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Create a sale offer for tokens on the XRPL DEX",
+  "helpUrl": ""
+};
+
 export const defineSaleTokenOfferTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_sale_token_offer_txn",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Sale token offer payload",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "Account address",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "ACCOUNT_ADDRESS",
-          "check": "String"
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "Token",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "TOKEN",
-          "check": blockCheckType.xrplToken
-        }
-      ],
-      "message3": "%1 %2",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "Token amount",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "TOKEN_AMOUNT",
-          "check": blockCheckType.number
-        }
-      ],
-      "message4": "%1 %2",
-      "args4": [
-        {
-          "type": "field_label",
-          "text": "XRP amount (drops)",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "XRP_AMOUNT",
-          "check": blockCheckType.number
-        }
-      ],
-      "output": blockCheckType.xrplTxnPayload,
-      "inputsInline": false,
-      "colour": BlockColors.xrpl,
-      "tooltip": "Create a sale offer for tokens on the XRPL DEX",
-      "helpUrl": ""
-    }
+    xrpl_sale_token_offer_txn
   ]);
 
   javascriptGenerator.forBlock['xrpl_sale_token_offer_txn'] = function(block, generator) {

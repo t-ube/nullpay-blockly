@@ -8,16 +8,18 @@ Blockly.fieldRegistry.register('field_date', FieldDate);
 Blockly.fieldRegistry.register('field_time', FieldTime);
 Blockly.fieldRegistry.register('field_time_with_seconds', FieldTimeWithSeconds);
 
+export const current_datetime : any = {
+  "type": "current_datetime",
+  "message0": "current time",
+  "output": "DATETIME",
+  "colour": BlockColors.time,
+  "tooltip": "Get the current date and time",
+  "helpUrl": ""
+};
+
 export const defineCurrentDateTimeBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "current_datetime",
-      "message0": "current time",
-      "output": "DATETIME",
-      "colour": BlockColors.time,
-      "tooltip": "Get the current date and time",
-      "helpUrl": ""
-    }
+    current_datetime
   ]);
 
   javascriptGenerator.forBlock['current_datetime'] = function (block) {
@@ -33,6 +35,47 @@ export function initInterpreterCurrentDateTime(interpreter:any, globalObject:any
   };
   interpreter.setProperty(globalObject, 'getCurrentDateTime', interpreter.createAsyncFunction(wrapper));
 }
+
+
+function formatDateToYYYYMMDD(date:Date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+// Dummy
+export const create_datetime : any = {
+  "type": "create_datetime",
+  "message0": "date %1",
+  "args0": [
+    {
+      "type": "field_date",
+      "name": "DATE",
+      "date": "2024-01-01"
+    }
+  ],
+  "message1": "time %1",
+  "args1": [
+    {
+      "type": "field_time_with_seconds",
+      "name": "TIME",
+      "time": "00:00:00"
+    }
+  ],
+  "message2": "timezone %1",
+  "args2": [
+    {
+      "type": "field_dropdown",
+      "name": "TIMEZONE",
+      "options": timezoneMenu
+    }
+  ],
+  "output": "DATETIME",
+  "colour": BlockColors.time,
+  "tooltip": "Get the current date and time in the specified timezone or Ripple Epoch Time",
+  "helpUrl": ""
+};
 
 export const defineCreateDateTimeBlock = () => {
   Blockly.defineBlocksWithJsonArray([
@@ -87,54 +130,50 @@ export function initInterpreterCreateDateTime(interpreter:any, globalObject:any)
   interpreter.setProperty(globalObject, 'createDateTime', interpreter.createAsyncFunction(wrapper));
 }
 
-function formatDateToYYYYMMDD(date:Date) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
+
+export const adjust_datetime : any = {
+  "type": "adjust_datetime",
+  "message0": "adjust time %1 %2 by %3 %4",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "DATETIME",
+      "check": "DATETIME"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "DIRECTION",
+      "options": [
+        ["after", "ADD"],
+        ["before", "SUBTRACT"]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "AMOUNT",
+      "check": "Number"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "UNIT",
+      "options": [
+        ["seconds", "seconds"],
+        ["minutes", "minutes"],
+        ["hours", "hours"],
+        ["days", "days"],
+        ["years", "years"]
+      ]
+    }
+  ],
+  "output": "DATETIME",
+  "colour": BlockColors.time,
+  "tooltip": "Adjust the datetime by a specified amount",
+  "helpUrl": ""
+};
 
 export const defineAdjustDateTimeBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "adjust_datetime",
-      "message0": "adjust time %1 %2 by %3 %4",
-      "args0": [
-        {
-          "type": "input_value",
-          "name": "DATETIME",
-          "check": "DATETIME"
-        },
-        {
-          "type": "field_dropdown",
-          "name": "DIRECTION",
-          "options": [
-            ["after", "ADD"],
-            ["before", "SUBTRACT"]
-          ]
-        },
-        {
-          "type": "input_value",
-          "name": "AMOUNT",
-          "check": "Number"
-        },
-        {
-          "type": "field_dropdown",
-          "name": "UNIT",
-          "options": [
-            ["seconds", "seconds"],
-            ["minutes", "minutes"],
-            ["hours", "hours"],
-            ["days", "days"],
-            ["years", "years"]
-          ]
-        }
-      ],
-      "output": "DATETIME",
-      "colour": BlockColors.time,
-      "tooltip": "Adjust the datetime by a specified amount",
-      "helpUrl": ""
-    }
+    adjust_datetime
   ]);
 
   javascriptGenerator.forBlock['adjust_datetime'] = function (block) {
@@ -161,38 +200,41 @@ export function initInterpreterAdjustDateTime(interpreter:any, globalObject:any)
   interpreter.setProperty(globalObject, 'adjustDateTime', interpreter.createAsyncFunction(wrapper));
 }
 
+
+export const compare_datetime : any = {
+  "type": "compare_datetime",
+  "message0": "compare time %1 %2 %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "DATETIME1",
+      "check": "DATETIME"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "COMPARISON",
+      "options": [
+        ["<", "BEFORE"],
+        [">", "AFTER"],
+        ["=", "EQUAL"]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "DATETIME2",
+      "check": "DATETIME"
+    }
+  ],
+  "inputsInline": true,
+  "output": "Boolean",
+  "colour": BlockColors.time,
+  "tooltip": "Compare two datetime objects",
+  "helpUrl": ""
+};
+
 export const defineCompareDateTimeBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "compare_datetime",
-      "message0": "compare time %1 %2 %3",
-      "args0": [
-        {
-          "type": "input_value",
-          "name": "DATETIME1",
-          "check": "DATETIME"
-        },
-        {
-          "type": "field_dropdown",
-          "name": "COMPARISON",
-          "options": [
-            ["<", "BEFORE"],
-            [">", "AFTER"],
-            ["=", "EQUAL"]
-          ]
-        },
-        {
-          "type": "input_value",
-          "name": "DATETIME2",
-          "check": "DATETIME"
-        }
-      ],
-      "inputsInline": true,
-      "output": "Boolean",
-      "colour": BlockColors.time,
-      "tooltip": "Compare two datetime objects",
-      "helpUrl": ""
-    }
+    compare_datetime
   ]);
 
   javascriptGenerator.forBlock['compare_datetime'] = function (block, generator) {
@@ -226,32 +268,35 @@ export function initInterpreterCompareDateTime(interpreter:any, globalObject:any
   interpreter.setProperty(globalObject, 'compareDateTime', interpreter.createAsyncFunction(wrapper));
 }
 
+
+export const datetime_text_format : any = {
+  "type": "datetime_text_format",
+  "message0": "time format %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "FORMAT",
+      "options": [
+        ["YYYY-MM-DD", "YYYY-MM-DD"], 
+        ["MM/DD/YYYY", "MM/DD/YYYY"],
+        ["DD/MM/YYYY", "DD/MM/YYYY"],
+        ["YYYY-MM-DD HH:mm:ss", "YYYY-MM-DD HH:mm:ss"],
+        ["HH:mm:ss", "HH:mm:ss"],
+        ["MMMM D, YYYY", "MMMM D, YYYY"],
+        ["ddd, MMM D, YYYY", "ddd, MMM D, YYYY"],
+        ["YYYY-MM-DDTHH:mm:ssZ", "YYYY-MM-DDTHH:mm:ssZ"]
+      ]
+    }
+  ],
+  "output": "String",
+  "colour": BlockColors.time,
+  "tooltip": "Format a Date object to a string",
+  "helpUrl": ""
+};
+
 export const defineDateTimeTextFormatBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "datetime_text_format",
-      "message0": "time format %1",
-      "args0": [
-        {
-          "type": "field_dropdown",
-          "name": "FORMAT",
-          "options": [
-            ["YYYY-MM-DD", "YYYY-MM-DD"], 
-            ["MM/DD/YYYY", "MM/DD/YYYY"],
-            ["DD/MM/YYYY", "DD/MM/YYYY"],
-            ["YYYY-MM-DD HH:mm:ss", "YYYY-MM-DD HH:mm:ss"],
-            ["HH:mm:ss", "HH:mm:ss"],
-            ["MMMM D, YYYY", "MMMM D, YYYY"],
-            ["ddd, MMM D, YYYY", "ddd, MMM D, YYYY"],
-            ["YYYY-MM-DDTHH:mm:ssZ", "YYYY-MM-DDTHH:mm:ssZ"]
-          ]
-        }
-      ],
-      "output": "String",
-      "colour": BlockColors.time,
-      "tooltip": "Format a Date object to a string",
-      "helpUrl": ""
-    }
+    datetime_text_format
   ]);
 
   javascriptGenerator.forBlock['datetime_text_format'] = function (block, generator) {
@@ -261,23 +306,26 @@ export const defineDateTimeTextFormatBlock = () => {
   };
 };
 
+
+export const timezone_block : any = {
+  "type": "timezone_block",
+  "message0": "timezone %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "TIMEZONE",
+      "options": timezoneMenu
+    }
+  ],
+  "output": "String",
+  "colour": BlockColors.time,
+  "tooltip": "Format a Date object to a string",
+  "helpUrl": ""
+};
+
 export const defineTimezoneBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "timezone_block",
-      "message0": "timezone %1",
-      "args0": [
-        {
-          "type": "field_dropdown",
-          "name": "TIMEZONE",
-          "options": timezoneMenu
-        }
-      ],
-      "output": "String",
-      "colour": BlockColors.time,
-      "tooltip": "Format a Date object to a string",
-      "helpUrl": ""
-    }
+    timezone_block
   ]);
 
   javascriptGenerator.forBlock['timezone_block'] = function (block, generator) {
@@ -287,39 +335,42 @@ export const defineTimezoneBlock = () => {
   };
 };
 
+
+export const datetime_to_text : any = {
+  "type": "datetime_to_text",
+  "message0": "time to text %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "DATETIME",
+      "check": "DATETIME"
+    }
+  ],
+  "message1": "timezone %1",
+  "args1": [
+    {
+      "type": "input_value",
+      "name": "TIMEZONE",
+      "check": "String"
+    }
+  ],
+  "message2": "format %1",
+  "args2": [
+    {
+      "type": "input_value",
+      "name": "FORMAT",
+      "check": "String"
+    }
+  ],
+  "output": "String",
+  "colour": BlockColors.time,
+  "tooltip": "Convert a Date object to a string in the specified timezone",
+  "helpUrl": ""
+};
+
 export const defineDatedatetimeToTextBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "datetime_to_text",
-      "message0": "time to text %1",
-      "args0": [
-        {
-          "type": "input_value",
-          "name": "DATETIME",
-          "check": "DATETIME"
-        }
-      ],
-      "message1": "timezone %1",
-      "args1": [
-        {
-          "type": "input_value",
-          "name": "TIMEZONE",
-          "check": "String"
-        }
-      ],
-      "message2": "format %1",
-      "args2": [
-        {
-          "type": "input_value",
-          "name": "FORMAT",
-          "check": "String"
-        }
-      ],
-      "output": "String",
-      "colour": BlockColors.time,
-      "tooltip": "Convert a Date object to a string in the specified timezone",
-      "helpUrl": ""
-    }
+    datetime_to_text
   ]);
 
   javascriptGenerator.forBlock['datetime_to_text'] = function (block, generator) {

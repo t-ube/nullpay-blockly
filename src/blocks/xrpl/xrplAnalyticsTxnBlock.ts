@@ -17,101 +17,103 @@ import { BlockColors } from '@/blocks/BlockColors';
 import { blockCheckType } from '@/blocks/BlockField';
 
 
+export const xrpl_read_txn_info : any = {
+  "type": "xrpl_read_txn_info",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Read transaction info",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "Transaction (validated)",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "TRANSACTION_JSON",
+      "check": blockCheckType.json
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "Transaction type",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "TYPE_VAR",
+      "variable": "transactionType"
+    }
+  ],
+  "message3": "%1 %2",
+  "args3": [
+    {
+      "type": "field_label",
+      "text": "Account address",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "ACCOUNT_VAR",
+      "variable": "account"
+    }
+  ],
+  "message4": "%1 %2",
+  "args4": [
+    {
+      "type": "field_label",
+      "text": "Ledger index",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "INDEX_VAR",
+      "variable": "ledgerIndex"
+    }
+  ],
+  "message5": "%1 %2",
+  "args5": [
+    {
+      "type": "field_label",
+      "text": "Hash",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "HASH_VAR",
+      "variable": "hash"
+    }
+  ],
+  "message6": "%1 %2",
+  "args6": [
+    {
+      "type": "field_label",
+      "text": "Date (Ripple epoch)",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "AMOUNT_DATE",
+      "variable": "date"
+    }
+  ],
+  "output": blockCheckType.boolean,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Retrieve transaction information and store it in separate variables",
+  "helpUrl": ""
+};
+
 export const defineXrplGetTxnInfoBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_read_txn_info",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Read transaction info",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "Transaction (validated)",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "TRANSACTION_JSON",
-          "check": blockCheckType.json
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "Transaction type",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "TYPE_VAR",
-          "variable": "transactionType"
-        }
-      ],
-      "message3": "%1 %2",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "Account address",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "ACCOUNT_VAR",
-          "variable": "account"
-        }
-      ],
-      "message4": "%1 %2",
-      "args4": [
-        {
-          "type": "field_label",
-          "text": "Ledger index",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "INDEX_VAR",
-          "variable": "ledgerIndex"
-        }
-      ],
-      "message5": "%1 %2",
-      "args5": [
-        {
-          "type": "field_label",
-          "text": "Hash",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "HASH_VAR",
-          "variable": "hash"
-        }
-      ],
-      "message6": "%1 %2",
-      "args6": [
-        {
-          "type": "field_label",
-          "text": "Date (Ripple epoch)",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "AMOUNT_DATE",
-          "variable": "date"
-        }
-      ],
-      "output": blockCheckType.boolean,
-      "colour": BlockColors.xrpl,
-      "tooltip": "Retrieve transaction information and store it in separate variables",
-      "helpUrl": ""
-    }
+    xrpl_read_txn_info
   ]);
 
   javascriptGenerator.forBlock['xrpl_read_txn_info'] = function(block, generator) {
@@ -165,63 +167,66 @@ export function initInterpreterXrplGetTxnInfoBlock(interpreter:any, globalObject
   interpreter.setProperty(globalObject, 'xrplGetTxnInfo', interpreter.createNativeFunction(wrapper));
 }
 
+
+export const xrpl_extract_offer_create_txn : any = {
+  "type": "xrpl_extract_offer_create_txn",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Extract offer create transaction",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "Transaction (validated)",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "TRANSACTION_JSON",
+      "check": blockCheckType.json
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "Account address",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "ACCOUNT_ADDRESS",
+      "check": blockCheckType.string
+    }
+  ],
+  "message3": "%1 %2",
+  "args3": [
+    {
+      "type": "field_label",
+      "text": "Extracted data",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "VAR",
+      "variable": "extractedData"
+    }
+  ],
+  "output": blockCheckType.boolean,
+  "inputsInline": false,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Extract and process the OfferCreate transaction payload into separate variables",
+  "helpUrl": ""
+};
+
 export const defineXrplExtractOfferCreateTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_extract_offer_create_txn",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Extract offer create transaction",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "Transaction (validated)",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "TRANSACTION_JSON",
-          "check": blockCheckType.json
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "Account address",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "ACCOUNT_ADDRESS",
-          "check": blockCheckType.string
-        }
-      ],
-      "message3": "%1 %2",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "Extracted data",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "VAR",
-          "variable": "extractedData"
-        }
-      ],
-      "output": blockCheckType.boolean,
-      "inputsInline": false,
-      "colour": BlockColors.xrpl,
-      "tooltip": "Extract and process the OfferCreate transaction payload into separate variables",
-      "helpUrl": ""
-    }
+    xrpl_extract_offer_create_txn
   ]);
 
   javascriptGenerator.forBlock['xrpl_extract_offer_create_txn'] = function(block, generator) {

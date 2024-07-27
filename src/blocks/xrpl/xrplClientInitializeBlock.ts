@@ -6,51 +6,54 @@ import { xrplClientInstances, xrplClientEventListeners } from '@/blocks/xrpl/xrp
 import { Client } from 'xrpl';
 import { EventTypes } from 'xrpl/dist/npm/models/methods/subscribe';
 
+
+export const xrpl_client_initialize : any = {
+  "type": "xrpl_client_initialize",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Initialize client",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "Server URI",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "SERVER",
+      "check": "String"
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "XRPL client",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "VAR",
+      "variable": "xrplClient"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Initialize XRPL client",
+  "helpUrl": ""
+};
+
 export const defineXrplClientInitializeBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_client_initialize",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Initialize client",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "Server URI",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "SERVER",
-          "check": "String"
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "XRPL client",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "VAR",
-          "variable": "xrplClient"
-        }
-      ],
-      "inputsInline": false,
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": BlockColors.xrpl,
-      "tooltip": "Initialize XRPL client",
-      "helpUrl": ""
-    }
+    xrpl_client_initialize
   ]);
 
   javascriptGenerator.forBlock['xrpl_client_initialize'] = function (block, generator) {

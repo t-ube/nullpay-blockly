@@ -203,6 +203,7 @@ import {
 } from '@/blocks/time/timeBlock';
 import { defineConsoleLogBlock } from '@/blocks/debug/consoleLogBlock';
 import { BlockColors } from '@/blocks/BlockColors';
+//import { BlockStructures } from '@/blocks/BlockStructures';
 
 let workspace:Blockly.WorkspaceSvg;
 let flyout:Blockly.WorkspaceSvg;
@@ -628,6 +629,8 @@ const blocklyInit = () => {
 
   workspaceAdjustment();
   handleBlocklyResize();
+
+  //console.log(BlockStructures);
 
   //console.log('Blockly initialized with workspace:', workspace);
 }

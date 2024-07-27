@@ -4,6 +4,22 @@ import { BlockColors } from '@/blocks/BlockColors';
 import { IExchangeAddress, exchangeAddresses } from '@/blocks/xrpl/xrplAddress';
 
 
+export const xrpl_address : any = {
+  "type": "xrpl_address",
+  "message0": "XRPL address %1",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "ADDRESS",
+      "text": ""
+    }
+  ],
+  "output": "String",
+  "colour": BlockColors.xrpl,
+  "tooltip": "Enter the XRPL address",
+  "helpUrl": ""
+};
+
 export const defineXrplAddressBlock = () => {
   const xrplAddressValidator = (newValue: string) => {
     const xrplAddressRegex = /^r[1-9A-HJ-NP-Za-km-z]{25,34}$/;
@@ -14,17 +30,14 @@ export const defineXrplAddressBlock = () => {
     }
   };
 
-  Blockly.Blocks['xrpl_address'] = {
-    init: function () {
-      const addressField = new Blockly.FieldTextInput("", xrplAddressValidator);
-      this.appendDummyInput()
-        .appendField("XRPL address")
-        .appendField(addressField, "ADDRESS");
-      this.setOutput(true, 'String');
-      this.setColour(BlockColors.xrpl);
-      this.setTooltip('Enter the XRPL address');
-      this.setHelpUrl('');
-    }
+  Blockly.defineBlocksWithJsonArray([
+    xrpl_address
+  ]);
+
+  Blockly.Blocks['xrpl_address'].init = function () {
+    this.jsonInit(xrpl_address);
+    const addressField = this.getField('ADDRESS');
+    addressField.setValidator(xrplAddressValidator);
   };
 
   javascriptGenerator.forBlock['xrpl_address'] = function (block, generator) {
@@ -43,23 +56,26 @@ const convertToAddressMenu = (addresses: IExchangeAddress[]): [string, string][]
 
 const exchangeAddressMenu: Blockly.MenuGenerator = convertToAddressMenu(exchangeAddresses);
 
+
+export const xrpl_exchange_address : any = {
+  "type": "xrpl_exchange_address",
+  "message0": "XRPL exchange address %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "ADDRESS",
+      "options": exchangeAddressMenu
+    }
+  ],
+  "output": "String",
+  "colour": BlockColors.xrpl,
+  "tooltip": "Select an exchange address from the dropdown",
+  "helpUrl": ""
+};
+
 export const defineXrplExchangeAddressBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_exchange_address",
-      "message0": "XRPL exchange address %1",
-      "args0": [
-        {
-          "type": "field_dropdown",
-          "name": "ADDRESS",
-          "options": exchangeAddressMenu
-        }
-      ],
-      "output": "String",
-      "colour": BlockColors.xrpl,
-      "tooltip": "Select an exchange address from the dropdown",
-      "helpUrl": ""
-    }
+    xrpl_exchange_address
   ]);
 
   javascriptGenerator.forBlock['xrpl_exchange_address'] = function (block) {

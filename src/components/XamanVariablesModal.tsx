@@ -162,7 +162,20 @@ export const XamanVariablesModal = ({ visible, onClose }: { visible: boolean, on
                 display: 'flex', 
                 justifyContent: 'flex-end'
               }}>
-                <Button onClick={handleCancel} variant="contained" className='mr-2 text-white bg-gray-400 hover:bg-gray-500'>{'Cancel'}</Button>
+                <Button 
+                  onClick={handleCancel}
+                  variant="contained"
+                  sx={{
+                    marginRight: 2,
+                    color: 'white',
+                    backgroundColor: '#9ca3af',
+                    '&:hover': {
+                      backgroundColor: '#6b7280',
+                    },
+                  }}
+                >
+                  {'Cancel'}
+                </Button>
                 <Button
                   onClick={handleSave}
                   variant="contained"

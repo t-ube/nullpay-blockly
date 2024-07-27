@@ -17,27 +17,29 @@ export const confettiAnimation = (duration: number) => {
   }
 };
 
+export const confetti_animation : any = {
+  "type": "confetti_animation",
+  "message0": "Confetti for %1 seconds",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "DURATION",
+      "value": 5,
+      "min": 0,
+      "max": "Infinity",
+      "precision": 1
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors.animation,
+  "tooltip": "Trigger confetti animation for a specified duration",
+  "helpUrl": ""
+};
+
 export const defineConfettiAnimationBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "confetti_animation",
-      "message0": Blockly.Msg.BKY_ANIMATION_CONFETTI_TITLE,
-      "args0": [
-        {
-          "type": "field_number",
-          "name": "DURATION",
-          "value": 5,
-          "min": 0,
-          "max": "Infinity",
-          "precision": 1
-        }
-      ],
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": BlockColors.animation,
-      "tooltip": "Trigger confetti animation for a specified duration",
-      "helpUrl": ""
-    }
+    confetti_animation
   ]);
 
   javascriptGenerator.forBlock['confetti_animation'] = function (block, generator) {

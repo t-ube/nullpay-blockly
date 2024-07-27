@@ -5,50 +5,52 @@ import { blockCheckType } from '@/blocks/BlockField';
 import { IXrplToken } from '@/interfaces/IXrplToken';
 
 // Define the block for setting XRPL Trust set
+export const xrpl_trust_set_txn : any = {
+  "type": "xrpl_trust_set_txn",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Trust set payload",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "Token",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "TOKEN",
+      "check": blockCheckType.xrplToken
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "Account address",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "ADDRESS",
+      "check": "String"
+    }
+  ],
+  "output": blockCheckType.xrplTxnPayload,
+  "inputsInline": false,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Create a trust line setting transaction for the XRPL",
+  "helpUrl": ""
+};
+
 export const defineXrplTrustSetTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_trust_set_txn",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Trust set payload",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "Token",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "TOKEN",
-          "check": blockCheckType.xrplToken
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "Account address",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "ADDRESS",
-          "check": "String"
-        }
-      ],
-      "output": blockCheckType.xrplTxnPayload,
-      "inputsInline": false,
-      "colour": BlockColors.xrpl,
-      "tooltip": "Create a trust line setting transaction for the XRPL",
-      "helpUrl": ""
-    }
+    xrpl_trust_set_txn
   ]);
 
   // JavaScript code generator for the XRPL trust set block

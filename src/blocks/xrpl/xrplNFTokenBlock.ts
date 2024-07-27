@@ -3,89 +3,92 @@ import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { blockCheckType } from '@/blocks/BlockField';
 
+
+export const xrpl_nftoken_buy_offer : any = {
+  "type": "xrpl_nftoken_buy_offer",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "NFT buy offer payload",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "Owner address",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "OWNER_ID",
+      "check": blockCheckType.string
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "NFT ID",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "TOKEN_ID",
+      "check": blockCheckType.string
+    }
+  ],
+  "message3": "%1 %2",
+  "args3": [
+    {
+      "type": "field_label",
+      "text": "Amount",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "AMOUNT",
+      "check": [blockCheckType.xrplTokenAmount, blockCheckType.number]
+    }
+  ],
+  "message4": "%1 %2",
+  "args4": [
+    {
+      "type": "field_label",
+      "text": "Expiration (Ripple epoch)",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "EXPIRATION",
+      "check": null
+    }
+  ],
+  "message5": "%1 %2",
+  "args5": [
+    {
+      "type": "field_label",
+      "text": "Destination address",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "DESTINATION",
+      "check": null
+    }
+  ],
+  "output": blockCheckType.xrplTxnPayload,
+  "inputsInline": false,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Create an NFT buy offer payload with the specified token details and offer amount",
+  "helpUrl": ""
+};
+
 export const defineNFTokenBuyOfferBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_nftoken_buy_offer",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "NFT buy offer payload",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "Owner address",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "OWNER_ID",
-          "check": blockCheckType.string
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "NFT ID",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "TOKEN_ID",
-          "check": blockCheckType.string
-        }
-      ],
-      "message3": "%1 %2",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "Amount",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "AMOUNT",
-          "check": [blockCheckType.xrplTokenAmount, blockCheckType.number]
-        }
-      ],
-      "message4": "%1 %2",
-      "args4": [
-        {
-          "type": "field_label",
-          "text": "Expiration (Ripple epoch)",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "EXPIRATION",
-          "check": null
-        }
-      ],
-      "message5": "%1 %2",
-      "args5": [
-        {
-          "type": "field_label",
-          "text": "Destination address",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "DESTINATION",
-          "check": null
-        }
-      ],
-      "output": blockCheckType.xrplTxnPayload,
-      "inputsInline": false,
-      "colour": BlockColors.xrpl,
-      "tooltip": "Create an NFT buy offer payload with the specified token details and offer amount",
-      "helpUrl": ""
-    }
+    xrpl_nftoken_buy_offer
   ]);
 
   javascriptGenerator.forBlock['xrpl_nftoken_buy_offer'] = function(block, generator) {

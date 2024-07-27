@@ -7,64 +7,67 @@ import { newTitleLabel, newArgsLabel, newOutputLabel, blockCheckType } from '@/b
 import { getXrplWallet } from '@/blocks/xrpl/xrplWalletBlock';
 import { SubmittableTransaction } from 'xrpl';
 
+
+export const xrpl_client_submit : any = {
+  "type": "xrpl_client_submit",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Submit",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "XRPL client",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "CLIENT",
+      "check": "Client"
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "Transaction BLOB",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "BLOB",
+      "check": "String"
+    }
+  ],
+  "message3": "%1 %2",
+  "args3": [
+    {
+      "type": "field_label",
+      "text": "Result",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "VAR",
+      "variable": "result"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Submit to transaction",
+  "helpUrl": ""
+};
+
 export const defineXrplClientSubmitBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_client_submit",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Submit",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "XRPL client",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "CLIENT",
-          "check": "Client"
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "Transaction BLOB",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "BLOB",
-          "check": "String"
-        }
-      ],
-      "message3": "%1 %2",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "Result",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "VAR",
-          "variable": "result"
-        }
-      ],
-      "inputsInline": false,
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": BlockColors.xrpl,
-      "tooltip": "Submit to transaction",
-      "helpUrl": ""
-    }
+    xrpl_client_submit
   ]);
 
   javascriptGenerator.forBlock['xrpl_client_submit'] = function (block, generator) {
@@ -100,64 +103,66 @@ export function initInterpreterXrplClientSubmit(interpreter:any, globalObject:an
 }
 
 // AutoFill
+export const xrpl_client_autofill : any = {
+  "type": "xrpl_client_autofill",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Payload auto fill",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "XRPL client",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "CLIENT",
+      "check": "Client"
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "Payload",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "PAYLOAD",
+      "check": blockCheckType.xrplTxnPayload
+    }
+  ],
+  "message3": "%1 %2",
+  "args3": [
+    {
+      "type": "field_label",
+      "text": "Filled Payload",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "VAR",
+      "variable": "filledPayload"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Auto fill to transaction payload",
+  "helpUrl": ""
+};
+
 export const defineXrplClientAutoFillBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_client_autofill",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Payload auto fill",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "XRPL client",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "CLIENT",
-          "check": "Client"
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "Payload",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "PAYLOAD",
-          "check": blockCheckType.xrplTxnPayload
-        }
-      ],
-      "message3": "%1 %2",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "Filled Payload",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "VAR",
-          "variable": "filledPayload"
-        }
-      ],
-      "inputsInline": false,
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": BlockColors.xrpl,
-      "tooltip": "Auto fill to transaction payload",
-      "helpUrl": ""
-    }
+    xrpl_client_autofill
   ]);
 
   javascriptGenerator.forBlock['xrpl_client_autofill'] = function (block, generator) {
@@ -190,77 +195,79 @@ export function initInterpreterXrplClientAutofill(interpreter:any, globalObject:
 }
 
 // Auto fill and Sign and Submit
+export const xrpl_easy_submit : any = {
+  "type": "xrpl_easy_submit",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Easy submit",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "XRPL client",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "CLIENT",
+      "check": blockCheckType.xrplClient
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "XRPL wallet",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "WALLET",
+      "check": blockCheckType.string
+    }
+  ],
+  "message3": "%1 %2",
+  "args3": [
+    {
+      "type": "field_label",
+      "text": "Payload",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "PAYLOAD",
+      "check": blockCheckType.xrplTxnPayload
+    }
+  ],
+  "message4": "%1 %2",
+  "args4": [
+    {
+      "type": "field_label",
+      "text": "Result",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "VAR",
+      "variable": "result"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Submit a transaction to the XRPL with ease",
+  "helpUrl": ""
+};
+
 export const defineXrplEasySubmitBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_easy_submit",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Easy submit",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "XRPL client",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "CLIENT",
-          "check": blockCheckType.xrplClient
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "XRPL wallet",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "WALLET",
-          "check": blockCheckType.string
-        }
-      ],
-      "message3": "%1 %2",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "Payload",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "PAYLOAD",
-          "check": blockCheckType.xrplTxnPayload
-        }
-      ],
-      "message4": "%1 %2",
-      "args4": [
-        {
-          "type": "field_label",
-          "text": "Result",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "VAR",
-          "variable": "result"
-        }
-      ],
-      "inputsInline": false,
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": BlockColors.xrpl,
-      "tooltip": "Submit a transaction to the XRPL with ease",
-      "helpUrl": ""
-    }
+    xrpl_easy_submit
   ]);
 
   javascriptGenerator.forBlock['xrpl_easy_submit'] = function (block, generator) {
@@ -301,63 +308,65 @@ export function initInterpreterXrplEasySubmit(interpreter:any, globalObject:any)
 }
 
 // XRPL tx command
+export const xrpl_tx_command : any = {
+  "type": "xrpl_tx_command",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Get validated transaction",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "XRPL client",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "CLIENT",
+      "check": blockCheckType.xrplClient
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "Hash",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "HASH",
+      "check": blockCheckType.string
+    }
+  ],
+  "message3": "%1 %2",
+  "args3": [
+    {
+      "type": "field_label",
+      "text": "Transaction (validated)",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "VAR",
+      "variable": "transaction"
+    }
+  ],
+  "output": blockCheckType.boolean,
+  "inputsInline": false,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Retrieve a transaction from the XRPL using the specified client and transaction hash",
+  "helpUrl": ""
+};
+
 export const defineXrplTxCommandBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_tx_command",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Get validated transaction",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "XRPL client",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "CLIENT",
-          "check": blockCheckType.xrplClient
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "Hash",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "HASH",
-          "check": blockCheckType.string
-        }
-      ],
-      "message3": "%1 %2",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "Transaction (validated)",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "VAR",
-          "variable": "transaction"
-        }
-      ],
-      "output": blockCheckType.boolean,
-      "inputsInline": false,
-      "colour": BlockColors.xrpl,
-      "tooltip": "Retrieve a transaction from the XRPL using the specified client and transaction hash",
-      "helpUrl": ""
-    }
+    xrpl_tx_command
   ]);
 
   javascriptGenerator.forBlock['xrpl_tx_command'] = function (block, generator) {

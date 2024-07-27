@@ -6,69 +6,71 @@ import { blockCheckType } from '@/blocks/BlockField';
 import { getBlockSuccess, getBlockError } from '@/blocks/BlockResult';
 
 // XRPL nft_buy_offers command
+export const xrpl_clio_nft_info : any = {
+  "type": "xrpl_clio_nft_info",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Get NFT info",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "XRPL client (Requiered Clio)",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "CLIENT",
+      "check": blockCheckType.xrplClient
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "NFT ID",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "NFT_ID",
+      "check": blockCheckType.string
+    }
+  ],
+  "message3": "%1 %2 %3",
+  "args3": [
+    {
+      "type": "field_label",
+      "text": "Result",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "STATUS",
+      "variable": "status"
+    },
+    {
+      "type": "field_variable",
+      "name": "RESPONSE",
+      "variable": "response"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Get information about an NFT on the XRP Ledger using the Clio API service. Requires an XRPL client connection and NFT ID as inputs",
+  "helpUrl": ""
+};
+
 export const defineXrplClioNftInfoBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_clio_nft_info",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Get NFT info",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "XRPL client (Requiered Clio)",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "CLIENT",
-          "check": blockCheckType.xrplClient
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "NFT ID",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "NFT_ID",
-          "check": blockCheckType.string
-        }
-      ],
-      "message3": "%1 %2 %3",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "Result",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "STATUS",
-          "variable": "status"
-        },
-        {
-          "type": "field_variable",
-          "name": "RESPONSE",
-          "variable": "response"
-        }
-      ],
-      "inputsInline": false,
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": BlockColors.xrpl,
-      "tooltip": "Get information about an NFT on the XRP Ledger using the Clio API service. Requires an XRPL client connection and NFT ID as inputs",
-      "helpUrl": ""
-    }
+    xrpl_clio_nft_info
   ]);
 
   javascriptGenerator.forBlock['xrpl_clio_nft_info'] = function (block, generator) {

@@ -8,103 +8,105 @@ import { IXrplToken } from '@/interfaces/IXrplToken';
 import { blockCheckType } from '@/blocks/BlockField';
 
 
+export const xrpl_payment_transaction : any = {
+  "type": "xrpl_payment_transaction",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Payment transaction",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "XRPL client",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "CLIENT",
+      "check": "Client"
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "XRPL wallet",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "WALLET",
+      "check": "String"
+    }
+  ],
+  "message3": "%1 %2",
+  "args3": [
+    {
+      "type": "field_label",
+      "text": "Destination address",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "DESTINATION",
+      "check": "String"
+    }
+  ],
+  "message4": "%1 %2",
+  "args4": [
+    {
+      "type": "field_label",
+      "text": "Amount (drops)",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "AMOUNT",
+      "check": "Number"
+    }
+  ],
+  "message5": "%1 %2",
+  "args5": [
+    {
+      "type": "field_label",
+      "text": "Flag",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "FLAG",
+      "check": "Number"
+    }
+  ],
+  "message6": "%1 %2",
+  "args6": [
+    {
+      "type": "field_label",
+      "text": "Transaction",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "VAR",
+      "variable": "txJson"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Create a Payment Transaction JSON",
+  "helpUrl": ""
+};
+
 export const defineXrplPaymentTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_payment_transaction",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Payment transaction",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "XRPL client",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "CLIENT",
-          "check": "Client"
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "XRPL wallet",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "WALLET",
-          "check": "String"
-        }
-      ],
-      "message3": "%1 %2",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "Destination address",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "DESTINATION",
-          "check": "String"
-        }
-      ],
-      "message4": "%1 %2",
-      "args4": [
-        {
-          "type": "field_label",
-          "text": "Amount (drops)",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "AMOUNT",
-          "check": "Number"
-        }
-      ],
-      "message5": "%1 %2",
-      "args5": [
-        {
-          "type": "field_label",
-          "text": "Flag",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "FLAG",
-          "check": "Number"
-        }
-      ],
-      "message6": "%1 %2",
-      "args6": [
-        {
-          "type": "field_label",
-          "text": "Transaction",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "VAR",
-          "variable": "txJson"
-        }
-      ],
-      "inputsInline": false,
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": BlockColors.xrpl,
-      "tooltip": "Create a Payment Transaction JSON",
-      "helpUrl": ""
-    }
+    xrpl_payment_transaction
   ]);
 
   javascriptGenerator.forBlock['xrpl_payment_transaction'] = function (block, generator) {
@@ -157,76 +159,78 @@ export function initInterpreterXrplPaymentTxn(interpreter: any, globalObject: an
 
 
 // Define the block for Payment XRPL Token
+export const xrpl_payment_token_txn : any = {
+  "type": "xrpl_payment_token_txn",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Payment token payload",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "Token",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "TOKEN",
+      "check": blockCheckType.xrplToken
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "Account address",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "ACCOUNT_ADDRESS",
+      "check": "String"
+    }
+  ],
+  "message3": "%1 %2",
+  "args3": [
+    {
+      "type": "field_label",
+      "text": "Destination address",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "DEST_ADDRESS",
+      "check": "String"
+    }
+  ],
+  "message4": "%1 %2",
+  "args4": [
+    {
+      "type": "field_label",
+      "text": "Token amount",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "AMOUNT",
+      "check": "Number"
+    }
+  ],
+  "output": blockCheckType.xrplTxnPayload,
+  "inputsInline": false,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Create a payment transaction on the XRPL",
+  "helpUrl": ""
+};
+
 export const defineXrplPaymentTokenTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_payment_token_txn",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Payment token payload",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "Token",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "TOKEN",
-          "check": blockCheckType.xrplToken
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "Account address",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "ACCOUNT_ADDRESS",
-          "check": "String"
-        }
-      ],
-      "message3": "%1 %2",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "Destination address",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "DEST_ADDRESS",
-          "check": "String"
-        }
-      ],
-      "message4": "%1 %2",
-      "args4": [
-        {
-          "type": "field_label",
-          "text": "Token amount",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "AMOUNT",
-          "check": "Number"
-        }
-      ],
-      "output": blockCheckType.xrplTxnPayload,
-      "inputsInline": false,
-      "colour": BlockColors.xrpl,
-      "tooltip": "Create a payment transaction on the XRPL",
-      "helpUrl": ""
-    }
+    xrpl_payment_token_txn
   ]);
 
   // JavaScript code generator for Payment XRPL Token

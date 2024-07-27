@@ -7,69 +7,71 @@ import { getBlockSuccess, getBlockError } from '@/blocks/BlockResult';
 
 
 // XRPL nft_buy_offers command
+export const xrpl_nft_buy_offers : any = {
+  "type": "xrpl_nft_buy_offers",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Get NFT buy offers",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "XRPL client",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "CLIENT",
+      "check": blockCheckType.xrplClient
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "NFT ID",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "NFT_ID",
+      "check": blockCheckType.string
+    }
+  ],
+  "message3": "%1 %2 %3",
+  "args3": [
+    {
+      "type": "field_label",
+      "text": "Result",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "STATUS",
+      "variable": "status"
+    },
+    {
+      "type": "field_variable",
+      "name": "RESPONSE",
+      "variable": "response"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Get the current buy offers for a specific NFT on the XRPL. Requires an XRPL client connection and NFT ID as inputs.",
+  "helpUrl": ""
+};
+
 export const defineXrplNftBuyOffersCommandBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "xrpl_nft_buy_offers",
-      "message0": "%1",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "Get NFT buy offers",
-          "class": "title-label"
-        }
-      ],
-      "message1": "%1 %2",
-      "args1": [
-        {
-          "type": "field_label",
-          "text": "XRPL client",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "CLIENT",
-          "check": blockCheckType.xrplClient
-        }
-      ],
-      "message2": "%1 %2",
-      "args2": [
-        {
-          "type": "field_label",
-          "text": "NFT ID",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "NFT_ID",
-          "check": blockCheckType.string
-        }
-      ],
-      "message3": "%1 %2 %3",
-      "args3": [
-        {
-          "type": "field_label",
-          "text": "Result",
-          "class": "output-label"
-        },
-        {
-          "type": "field_variable",
-          "name": "STATUS",
-          "variable": "status"
-        },
-        {
-          "type": "field_variable",
-          "name": "RESPONSE",
-          "variable": "response"
-        }
-      ],
-      "inputsInline": false,
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": BlockColors.xrpl,
-      "tooltip": "Get the current buy offers for a specific NFT on the XRPL. Requires an XRPL client connection and NFT ID as inputs.",
-      "helpUrl": ""
-    }
+    xrpl_nft_buy_offers
   ]);
 
   javascriptGenerator.forBlock['xrpl_nft_buy_offers'] = function (block, generator) {

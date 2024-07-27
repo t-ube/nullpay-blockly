@@ -3,23 +3,26 @@ import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { dayjs } from '@/blocks/time/field_datetime';
 
+
+export const datetime_to_ripple_epoch : any = {
+  "type": "datetime_to_ripple_epoch",
+  "message0": "time to Ripple epoch %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "DATE",
+      "check": "DATETIME"
+    }
+  ],
+  "output": "String",
+  "colour": BlockColors.xrpl,
+  "tooltip": "Convert a Date object to a string in the Ripple epoch time",
+  "helpUrl": ""
+};
+
 export const defineDateTimeToRippleEpoch = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "datetime_to_ripple_epoch",
-      "message0": "time to Ripple epoch %1",
-      "args0": [
-        {
-          "type": "input_value",
-          "name": "DATE",
-          "check": "DATETIME"
-        }
-      ],
-      "output": "String",
-      "colour": BlockColors.xrpl,
-      "tooltip": "Convert a Date object to a string in the Ripple epoch time",
-      "helpUrl": ""
-    }
+    datetime_to_ripple_epoch
   ]);
 
   javascriptGenerator.forBlock['datetime_to_ripple_epoch'] = function (block, generator) {
@@ -38,23 +41,26 @@ export function initInterpreterDateTimeToRippleEpoch(interpreter:any, globalObje
   interpreter.setProperty(globalObject, 'datetimeToRippleEpoch', interpreter.createAsyncFunction(wrapper));
 }
 
+
+export const ripple_epoch_to_datetime : any = {
+  "type": "ripple_epoch_to_datetime",
+  "message0": "Ripple epoch to time %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "EPOCHTIME",
+      "check": "String"
+    }
+  ],
+  "output": "DATETIME",
+  "colour": BlockColors.xrpl,
+  "tooltip": "Convert a Ripple epoch time string to a Date object",
+  "helpUrl": ""
+};
+
 export const defineRippleEpochToDateTime = () => {
   Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "ripple_epoch_to_datetime",
-      "message0": "Ripple epoch to time %1",
-      "args0": [
-        {
-          "type": "input_value",
-          "name": "EPOCHTIME",
-          "check": "String"
-        }
-      ],
-      "output": "DATETIME",
-      "colour": BlockColors.xrpl,
-      "tooltip": "Convert a Ripple epoch time string to a Date object",
-      "helpUrl": ""
-    }
+    ripple_epoch_to_datetime
   ]);
 
   javascriptGenerator.forBlock['ripple_epoch_to_datetime'] = function (block, generator) {
