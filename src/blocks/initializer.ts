@@ -212,85 +212,9 @@ const toolbox = `
   <xml id="toolbox" style="display: none">
     <category name="XRPL" colour="${BlockColors.xrpl}">
       <block type="xrpl_network_wss_selection"></block>
-      <block type="xrpl_faucet_network_selection"></block>
-      <block type="xrpl_create_account"></block>
-      <block type="xrpl_request_custom_faucet"></block>
-      <block type="xrpl_request_faucet"></block>
-      <block type="xrpl_address"></block>
-      <block type="xrpl_xrp_to_drops"></block>
-      <block type="xrpl_drops_to_xrp"></block>
     </category>
-    <category name="Xaman" colour="${BlockColors.xaman}">
-      <block type="xaman_simple_login"></block>
-      <block type="xaman_simple_logout"></block>
-      <block type="xaman_payment"></block>
-      <block type="xaman_wait_for_signature"></block>
-    </category>
-    <category name="Text" colour="%{BKY_TEXTS_HUE}">
-      <block type="text_print"></block>
-      <block type="text"></block>
-      <block type="dynamic_text_join"></block>
-      <block type="text_length"></block>
-      <block type="text_isEmpty"></block>
-      <block type="number_to_text"></block>
-      <block type="text_to_number"></block>
-    </category>
-    <category name="Math" colour="%{BKY_MATH_HUE}">
-      <block type="math_number"></block>
-      <block type="percentage"></block>
-    </category>
-    <category name="Conrol" colour="${BlockColors.control}">
-      <block type="wait_seconds"></block>
-    </category>
-    <category name="Time" colour="${BlockColors.time}">
-      <block type="current_datetime"></block>
-      <block type="create_datetime"></block>
-      <block type="datetime_to_text"></block>
-      <block type="datetime_to_ripple_epoch"></block>
-      <block type="ripple_epoch_to_datetime"></block>
-      <block type="adjust_datetime"></block>
-      <block type="datetime_text_format"></block>
-      <block type="timezone_block"></block>
-      <block type="compare_datetime"></block>
-    </category>
-    <category name="JSON" colour="${BlockColors.json}">
-      <block type="json_get_value"></block>
-      <block type="json_to_text"></block>
-      <block type="text_to_json"></block>
-    </category>
-    <category name="Table" colour="%{BKY_LOOPS_HUE}">
-      <block type="table_load_csv"></block>
-    </category>
-    <category name="Animation" colour="${BlockColors.animation}">
-      <block type="confetti_animation"></block>
-    </category>
-    <category name="Logic" colour="%{BKY_LOGIC_HUE}">
-      <block type="dynamic_if"></block>
-      <block type="logic_compare"></block>
-    </category>
-    <category name="Loops" colour="%{BKY_LOOPS_HUE}">
-      <block type="controls_whileUntil"></block>
-      <block type="controls_for"></block>
-      <block type="controls_forEach"></block>
-    </category>
-    <category name="Lists" colour="%{BKY_LISTS_HUE}">
-      <block type="array_init"></block>
-      <block type="array_append"></block>
-      <block type="dynamic_list_create"></block>
-      <block type="lists_length"></block>
-      <block type="lists_repeat"></block>
-      <block type="lists_isEmpty"></block>
-      <block type="lists_sort"></block>
-    </category>
-    <category name="Variables" custom="VARIABLE" colour="%{BKY_VARIABLES_HUE}">
-      <block type="variables_get"></block>
-    </category>
-    <category name="Functions" custom="PROCEDURE" colour="%{BKY_PROCEDURES_HUE}">
-    </category>
-    <button text="Custom Button" callbackKey="customButtonPressed"></button>
   </xml>
 `;
-
 
 const createCustomBlocks = () => {
   // XRPL & Xahau
@@ -634,13 +558,5 @@ const blocklyInit = () => {
 
   //console.log('Blockly initialized with workspace:', workspace);
 }
-
-const handleFlyoutResize = () => {
-  const onresize = function () {
-    Blockly.svgResize(flyout);
-  }
-  window.addEventListener("resize", onresize, false);
-  Blockly.svgResize(flyout);
-};
 
 export { blocklyInit, initInterpreterEx, workspace, flyout };

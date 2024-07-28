@@ -33,6 +33,7 @@
     "js-interpreter": "^5.1.2",
     "lightweight-charts": "^4.1.6",
     "next": "14.2.3",
+    "openai": "^4.53.2",
     "react": "^18",
     "react-dom": "^18",
     "react-rewards": "^2.0.4",

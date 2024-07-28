@@ -41,7 +41,7 @@ export function MainTabs({ page, onTabChange, children }: ITabProps) {
           sx={{
             fontWeight: 'bold',
             fontSize: '0.875rem',
-            minHeight: '36px', // Adjust the height of each Tab
+            minHeight: '36px',
             paddingTop: '6px',
             paddingBottom: '6px',
           }}
@@ -52,7 +52,7 @@ export function MainTabs({ page, onTabChange, children }: ITabProps) {
           sx={{
             fontWeight: 'bold',
             fontSize: '0.875rem',
-            minHeight: '36px', // Adjust the height of each Tab
+            minHeight: '36px',
             paddingTop: '6px',
             paddingBottom: '6px',
           }}

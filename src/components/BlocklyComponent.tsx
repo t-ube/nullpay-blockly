@@ -35,6 +35,7 @@ import { DemoV0R4WebApi } from '@/demos/demo-v0-r4-webapi';
 import { releaseInfo as initialReleaseInfo } from '@/features/features-v0-r4';
 import { useMobile } from '@/contexts/MobileContext';
 import LogArea, { LogAreaHandle } from '@/components/LogArea';
+import ChatGptComponent from '@/components/ChatGptComponent';
 
 type clientFramePos = {
   headerHeight: number,
@@ -84,6 +85,7 @@ const BlocklyComponent = () => {
     footerHeight: 27
   });
   const logAreaRef = useRef<LogAreaHandle>(null);
+  const [fabPosition, setFabPosition] = useState({ left: 0, bottom: 0 });
 
   useInterval(() => {
     if (!isAnimating && isRunning) {
@@ -243,7 +245,7 @@ const BlocklyComponent = () => {
     };
 
     workspace.addChangeListener(updateCode);
-
+    
     const runSpeedTrigger = (speed: number) => {
       runSpeedRef.current = speed;
     };
@@ -355,10 +357,23 @@ const BlocklyComponent = () => {
           top -= 150;
         } else {
           left -= 20;
-          top -= 50;
+          top -= 50 + 100;
         }
         const trashcan = this as any;
         trashcan.svgGroup.setAttribute('transform', `translate(${left}, ${top})`);
+
+        if (isMobile && isPortrait) {
+          setFabPosition({
+            left: left - 5,
+            bottom: metrics.viewMetrics.height - top - 100
+          });
+        } else 
+        {
+          setFabPosition({
+            left: left - 5,
+            bottom: metrics.viewMetrics.height - top - 150
+          });
+        }
       }
     };
 
@@ -375,7 +390,7 @@ const BlocklyComponent = () => {
           top -= 250;
         } else {
           left -= 28;
-          top -= 150;
+          top -= 150 + 100;
         }
         const zooms = this as any;
         zooms.svgGroup.setAttribute('transform', `translate(${left}, ${top})`);
@@ -536,27 +551,32 @@ const BlocklyComponent = () => {
               })}
             >
             {isLoaded && !isMobile && (
-              <div className="flex-1 flex flex-col">
-                <MainTabs page={selectedTab} onTabChange={handleTabChange} />
-                <div style={{ display: selectedTab === 'log' ? 'flex' : 'none' }} className='py-1 flex-1 overflow-auto'>
-                  <LogArea ref={logAreaRef} />
+              <>
+                <div className="flex-1 flex flex-col">
+                  <MainTabs page={selectedTab} onTabChange={handleTabChange} />
+                  <div style={{ display: selectedTab === 'log' ? 'flex' : 'none' }} className='py-1 flex-1 overflow-auto'>
+                    <LogArea ref={logAreaRef} />
+                  </div>
+                  <div style={{ display: selectedTab === 'code' ? 'flex' : 'none' }} className='py-1 flex-1 overflow-auto'>
+                    <textarea 
+                      ref={codeArea}
+                      id="codeArea"
+                      className="px-1 w-full h-full resize-none border"
+                      style={{ fontSize: '12px' }}
+                      readOnly
+                      spellCheck="false"
+                    >
+                    </textarea>
+                  </div>
                 </div>
-                <div style={{ display: selectedTab === 'code' ? 'flex' : 'none' }} className='py-1 flex-1 overflow-auto'>
-                  <textarea 
-                    ref={codeArea}
-                    id="codeArea"
-                    className="px-1 w-full h-full resize-none border"
-                    style={{ fontSize: '12px' }}
-                    readOnly
-                    spellCheck="false"
-                  >
-                  </textarea>
-                </div>
-              </div>
+              </>
               )}
             </div>
           </Split>
         </div>
+        {isLoaded &&
+          <ChatGptComponent position={fabPosition}/>
+        }
         <Footer
           playState={playState}
           setPlayState={setPlayState}
