@@ -59,6 +59,17 @@ export function MainTabs({ page, onTabChange, children }: ITabProps) {
           value="code"
           label="Code"
         />
+        <Tab
+          sx={{
+            fontWeight: 'bold',
+            fontSize: '0.875rem',
+            minHeight: '36px',
+            paddingTop: '6px',
+            paddingBottom: '6px',
+          }}
+          value="struct"
+          label="Struct"
+        />
       </Tabs>
       {children}
     </TransparentPaper>

@@ -64,6 +64,7 @@ const BlocklyComponent = () => {
   const { isMobile, isPortrait, isLoaded } = useMobile();
   const blocklyAreaRef = useRef<HTMLDivElement>(null);
   const codeArea = useRef<HTMLTextAreaElement>(null);
+  const structArea = useRef<HTMLTextAreaElement>(null);
   const outputArea = useRef<HTMLTextAreaElement>(null);
   const cancelledRef = useRef(false);
   const suspendRef = useRef(false);
@@ -177,13 +178,14 @@ const BlocklyComponent = () => {
     console.log('handleLoadWorkspace');
     const input = document.createElement('input');
     input.type = 'file';
-    input.accept = '.xml, .json';
+    input.accept = '.xml, .json, .jsonl';
     input.onchange = (event) => {
       const file = (event.target as HTMLInputElement).files?.[0];
       if (file) {
         const reader = new FileReader();
         reader.onload = (e) => {
           const fileContent = e.target?.result as string;
+          const fileName = file.name.toLowerCase();
           if (file.type === 'application/json') {
             try {
               const json = JSON.parse(fileContent);
@@ -199,6 +201,23 @@ const BlocklyComponent = () => {
               workspace.scrollCenter();
             } catch (error) {
               console.error('Failed to load XML:', error);
+            }
+          } else if (fileName.endsWith('.jsonl')) {
+            try {
+              const lines = fileContent.split('\n');
+              for (const line of lines) {
+                if (line.trim()) {
+                  const json = JSON.parse(line);
+                  if (json.completion && typeof json.completion === 'string') {
+                    const xml = Blockly.utils.xml.textToDom(json.completion);
+                    Blockly.Xml.clearWorkspaceAndLoadFromXml(xml, workspace);
+                    workspace.scrollCenter();
+                  }
+                }
+                break;
+              }
+            } catch (error) {
+              console.error('Failed to load JSONL:', error);
             }
           } else {
             console.error('Unsupported file type:', file.type);
@@ -244,7 +263,20 @@ const BlocklyComponent = () => {
       }
     };
 
+    const updateStruct = (event:Blockly.Events.Abstract) => {
+      if (workspace.isDragging()) return; // Don't update while changes are happening.
+      if (!supportedEvents.has(event.type)) return;
+      const xml = Blockly.Xml.workspaceToDom(workspace);
+      const xmlText = Blockly.Xml.domToPrettyText(xml);
+      //const state = Blockly.serialization.workspaces.save(workspace);
+      //const jsonText = JSON.stringify(state);
+      if (structArea.current) {
+        structArea.current.value = xmlText;
+      }
+    };
+
     workspace.addChangeListener(updateCode);
+    workspace.addChangeListener(updateStruct);
     
     const runSpeedTrigger = (speed: number) => {
       runSpeedRef.current = speed;
@@ -254,6 +286,7 @@ const BlocklyComponent = () => {
     return () => {
       window.removeEventListener('resize', handleResize);
       workspace.removeChangeListener(updateCode);
+      workspace.removeChangeListener(updateStruct);
     };
   }, []);
 
@@ -507,7 +540,7 @@ const BlocklyComponent = () => {
           playState={playState}
           setPlayState={setPlayState}
           onSearchClick={handleSearchClick}
-          onSaveClick={handleSaveWorkspaceV2}
+          onSaveClick={handleSaveWorkspace}
           onLoadClick={handleLoadWorkspace}
           ref={headerRef}
         />
@@ -561,6 +594,17 @@ const BlocklyComponent = () => {
                     <textarea 
                       ref={codeArea}
                       id="codeArea"
+                      className="px-1 w-full h-full resize-none border"
+                      style={{ fontSize: '12px' }}
+                      readOnly
+                      spellCheck="false"
+                    >
+                    </textarea>
+                  </div>
+                  <div style={{ display: selectedTab === 'struct' ? 'flex' : 'none' }} className='py-1 flex-1 overflow-auto'>
+                    <textarea 
+                      ref={structArea}
+                      id="structArea"
                       className="px-1 w-full h-full resize-none border"
                       style={{ fontSize: '12px' }}
                       readOnly

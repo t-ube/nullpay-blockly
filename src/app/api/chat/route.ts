@@ -110,27 +110,32 @@ const openai = new OpenAI({
 export async function POST(req: Request) {
   try {
     const requestJson = await req.json();
-    const prompt = `以下のBlocklyブロックのみを使用してください: ${validBlocks.join(', ')}。次のタスクのためのBlockly XMLを生成してください: ${requestJson.task}`;
+    //const prompt = `以下のBlocklyブロックのみを使用してください: ${validBlocks.join(', ')}。次のタスクのためのBlockly XMLを生成してください: ${requestJson.task}`;
+    const prompt = `${requestJson.task}`;
     const completion = await openai.chat.completions.create({
-      model: "ft:gpt-3.5-turbo-0125:personal::9pWqJlQw",
+      model: "ft:gpt-3.5-turbo-1106:personal::9pt5iPm3",
       messages: [
-        { role: 'user', content: "あなたは有効なBlockly XMLのみを生成するアシスタントです。" },
-        { role: 'user', content: "生成するBlockly XMLの座標は0にしなさい。" },
-        { role: 'user', content: "Next statementは存在しません。" },
-        { role: 'user', content: "ブロックを入力に接続する際はfield statementにvalue statementを包含します。" },
+        { 
+          role: 'system', 
+          content: "あなたは経験豊富なXRPLプログラマーで、有効なBlockly XMLのみを生成するアシスタントです。生成するBlockly XMLの座標は常に0にしてください。"
+        },
         { role: "user", content: prompt }
       ],
     });
 
     let generatedXml = completion.choices[0].message?.content || '';
 
+    if (!generatedXml.includes('<xml') || !generatedXml.includes('</xml>')) {
+      throw new Error(JSON.stringify({ message: generatedXml }));
+    }
+
     for (const block of generatedXml.split('<block type="')) {
       if (!validBlocks.some(validBlock => block.includes(validBlock))) {
         generatedXml = generatedXml.replace(`<block type="${block}`, '');
       }
     }
-
-    return new Response(JSON.stringify({ generatedXml: generatedXml }) , {
+   
+    return new Response(JSON.stringify({ generatedContent: generatedXml }) , {
       status: 200,
       headers: {
         'Content-Type': 'application/json',

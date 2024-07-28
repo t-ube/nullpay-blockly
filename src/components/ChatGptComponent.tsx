@@ -18,16 +18,16 @@ import ChatIcon from '@mui/icons-material/Chat';
 interface Message {
   text: string;
   isUser: boolean;
-  blocklyXml?: string;
+  blocklyContent?: string;
 }
 
 interface BlocklyRendererProps {
-  xml: string;
+  content: string;
   index: number;
   onBlockSelected: (jsonText: string, eventType: string, event: any) => void;
 }
 
-const BlocklyRenderer: React.FC<BlocklyRendererProps> = ({ xml, index, onBlockSelected }) => {
+const BlocklyRenderer: React.FC<BlocklyRendererProps> = ({ content, index, onBlockSelected }) => {
   const divId = `blockly-div-${index}`;
   const workspaceRef = useRef<Blockly.WorkspaceSvg | null>(null);
 
@@ -45,8 +45,20 @@ const BlocklyRenderer: React.FC<BlocklyRendererProps> = ({ xml, index, onBlockSe
     });
     workspaceRef.current = workspace;
 
-    const blockDom = Blockly.utils.xml.textToDom(`${xml}`);
-    Blockly.Xml.clearWorkspaceAndLoadFromXml(blockDom, workspace);
+    // Check if the content is XML or JSON
+    const isXml = content.trim().startsWith('<');
+
+    if (isXml) {
+      const blockDom = Blockly.utils.xml.textToDom(content);
+      Blockly.Xml.clearWorkspaceAndLoadFromXml(blockDom, workspace);
+    } else {
+      try {
+        const json = JSON.parse(content);
+        Blockly.serialization.workspaces.load(json, workspace);
+      } catch (error) {
+        console.error('Failed to parse JSON:', error);
+      }
+    }
 
     const block = workspace.getAllBlocks(false)[0];
     if (block) {
@@ -57,7 +69,7 @@ const BlocklyRenderer: React.FC<BlocklyRendererProps> = ({ xml, index, onBlockSe
         const container = document.getElementById(divId);
         if (container) {
           container.style.width = `${blockRect.width}px`;
-          container.style.height = `${blockRect.height+100}px`;
+          container.style.height = `${blockRect.height + 100}px`;
         }
       }
     }
@@ -89,7 +101,7 @@ const BlocklyRenderer: React.FC<BlocklyRendererProps> = ({ xml, index, onBlockSe
       workspace.removeChangeListener(handleBlockEvent);
       workspace.dispose();
     };
-  }, [xml, divId, onBlockSelected]);
+  }, [content, divId, onBlockSelected]);
 
   return <div id={divId} style={{ marginTop: '10px', marginBottom: '10px' }}></div>;
 };
@@ -109,7 +121,7 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position }) => {
   const [isLoading, setIsLoading] = useState(false);
   const workspaceRefs = useRef<{ id: string; workspace: Blockly.WorkspaceSvg }[]>([]);
 
-  const generateBlocklyXml = async (task: string) => {
+  const generateBlocklyContent = async (task: string) => {
     setIsLoading(true);
     try {
       const response = await fetch('/api/chat', {
@@ -125,10 +137,10 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position }) => {
       }
 
       const data = await response.json();
-      return data.generatedXml;
+      return data.generatedContent;
     } catch (error) {
-      console.error('Error generating Blockly XML:', error);
-      return "An error occurred. Unable to generate Blockly XML.";
+      console.error('Error generating Blockly blocks:', error);
+      return "An error occurred. Unable to generate Blockly blocks.";
     } finally {
       setIsLoading(false);
     }
@@ -139,9 +151,9 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position }) => {
       setMessages([...messages, { text: input, isUser: true }]);
       setInput('');
 
-      const generatedXml = await generateBlocklyXml(input);
-      console.log(generatedXml);
-      setMessages(prev => [...prev, { text: "Generated Blockly XML:", isUser: false, blocklyXml: generatedXml }]);
+      const content = await generateBlocklyContent(input);
+      console.log(content);
+      setMessages(prev => [...prev, { text: "Generated Blockly blocks.", isUser: false, blocklyContent: content }]);
       // Dummy 
       /*setTimeout(() => {
         setMessages(prev => [...prev, { text: "This is a mock AI response.", isUser: false }]);
@@ -245,10 +257,10 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position }) => {
               p: 0.5,
               alignItems: 'flex-start'
             }}>
-              {message.blocklyXml && (
-                <BlocklyRenderer
-                  xml={message.blocklyXml}
-                  index={index}
+              {message.blocklyContent && (
+                <BlocklyRenderer 
+                  content={message.blocklyContent} 
+                  index={index} 
                   onBlockSelected={handleBlockSelected}
                 />
               )}
