@@ -37,29 +37,13 @@ interface BlocklyRendererProps {
   content: string;
   index: number;
   onBlockSelected: (jsonText: string, eventType: string, event: any) => void;
-  onHeightChange: (index: number, height: number) => void;
 }
 
-const BlocklyRenderer: React.FC<BlocklyRendererProps> = ({ content, index, onBlockSelected, onHeightChange }) => {
+const BlocklyRenderer: React.FC<BlocklyRendererProps> = ({ content, index, onBlockSelected }) => {
+
   const divId = `blockly-div-${index}`;
   const divRef = useRef<HTMLDivElement>(null);
   const workspaceRef = useRef<Blockly.WorkspaceSvg | null>(null);
-
-  useEffect(() => {
-    if (divRef.current) {
-      const resizeObserver = new ResizeObserver(entries => {
-        for (let entry of entries) {
-          onHeightChange(index, entry.contentRect.height);
-        }
-      });
-
-      resizeObserver.observe(divRef.current);
-
-      return () => {
-        resizeObserver.disconnect();
-      };
-    }
-  }, [index, onHeightChange]);
 
   const handleBlockEvent = useCallback((event: any) => {
     if (event.type === 'selected' || event.type === 'click' || event.type === 'drag') {
@@ -130,6 +114,7 @@ const BlocklyRenderer: React.FC<BlocklyRendererProps> = ({ content, index, onBlo
         errorBlock.initSvg();
         errorBlock.render();
       }
+
     } else {
       try {
         const json = JSON.parse(content);
@@ -170,7 +155,6 @@ const BlocklyRenderer: React.FC<BlocklyRendererProps> = ({ content, index, onBlo
     if (container) {
       container.style.width = `${containerWidth}px`;
       container.style.height = `${containerHeight}px`;
-      onHeightChange(index, containerHeight);
       Blockly.svgResize(workspace);
     }
 
@@ -185,7 +169,7 @@ const BlocklyRenderer: React.FC<BlocklyRendererProps> = ({ content, index, onBlo
       workspace.removeChangeListener(handleBlockEvent);
       workspace.dispose();
     };
-  }, [content, divId, index, handleBlockEvent, onHeightChange]);
+  }, [content, divId, handleBlockEvent]);
 
   return <div ref={divRef} id={`blockly-div-${index}`} style={{ marginTop: '10px', marginBottom: '10px' }}></div>;
 };
@@ -227,7 +211,6 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position, onBlockS
       console.error('Error generating Blockly blocks:', error);
       return "An error occurred. Unable to generate Blockly blocks.";
     } finally {
-      setIsLoading(false);
     }
   };
 
@@ -360,14 +343,11 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position, onBlockS
               height: blockHeights[index] ? `${blockHeights[index] + 20}px` : 'auto',
             }}>
               {message.blocklyContent && (
-                <Box sx={{ width: '100%', height: '100%', mt: 1 }}>
-                  <BlocklyRenderer 
-                    content={message.blocklyContent} 
-                    index={index} 
-                    onBlockSelected={handleBlockSelected}
-                    onHeightChange={handleBlockHeightChange}
-                  />
-                </Box>
+                <BlocklyRenderer 
+                  content={message.blocklyContent} 
+                  index={index} 
+                  onBlockSelected={handleBlockSelected}
+                />
               )}
             </ListItem>
           </div>
