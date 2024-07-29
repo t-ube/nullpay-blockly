@@ -17,6 +17,7 @@ import SendIcon from '@mui/icons-material/Send';
 import CloseIcon from '@mui/icons-material/Close';
 import ChatIcon from '@mui/icons-material/Chat';
 import { v4 as uuidv4 } from 'uuid';
+import { loadXmlIntoWorkspace } from '@/utils/BlocklyHelper';
 
 const StyledFab = styled(Fab)(({ theme }) => ({
   backgroundColor: '#CFCFCF',
@@ -117,6 +118,8 @@ const BlocklyRenderer: React.FC<BlocklyRendererProps> = ({ content, index, onBlo
 
     if (isXml) {
       try {
+        //loadXmlIntoWorkspace(content, workspace);
+        //const content = processAIGeneratedXml(content);
         const blockDom = Blockly.utils.xml.textToDom(content);
         Blockly.Xml.clearWorkspaceAndLoadFromXml(blockDom, workspace);
       } catch (error) {

@@ -282,10 +282,121 @@ const addBlockToWorkspaceV2 = (workspace: Blockly.WorkspaceSvg, jsonString: stri
   }
 };
 
+const processAIGeneratedXml = (xmlString: string): string => {
+  const parser = new DOMParser();
+  const xmlDoc = parser.parseFromString(xmlString, "text/xml");
+  const blocks = xmlDoc.getElementsByTagName("block");
+
+  for (let i = 0; i < blocks.length; i++) {
+    const block = blocks[i];
+    const type = block.getAttribute("type");
+    if (type !== null && !Blockly.Blocks[type]) {
+      const hasOutput = block.hasAttribute("output") || block.querySelector("value[name='OUTPUT']");
+      
+      const fallbackType = hasOutput ? "fallback_value_block" : "fallback_statement_block";
+      block.setAttribute("type", fallbackType);
+      
+      const blockNameField = xmlDoc.createElement("field");
+      blockNameField.setAttribute("name", "BLOCK_NAME");
+      blockNameField.textContent = type;
+      block.appendChild(blockNameField);
+      
+      const inputElements = block.getElementsByTagName("value");
+      const statementElements = block.getElementsByTagName("statement");
+      
+      if (fallbackType === "fallback_value_block" && inputElements.length > 0) {
+        inputElements[0].setAttribute("name", "INPUT");
+      } else if (fallbackType === "fallback_statement_block") {
+        const inputsStatement = xmlDoc.createElement("statement");
+        inputsStatement.setAttribute("name", "INPUTS");
+        while (inputElements.length > 0 || statementElements.length > 0) {
+          if (inputElements.length > 0) inputsStatement.appendChild(inputElements[0]);
+          if (statementElements.length > 0) inputsStatement.appendChild(statementElements[0]);
+        }
+        block.appendChild(inputsStatement);
+      }
+    }
+  }
+
+  const serializer = new XMLSerializer();
+  return serializer.serializeToString(xmlDoc);
+}
+
+const MAX_RETRY_COUNT = 10;
+
+function loadXmlIntoWorkspace(content: string, workspace: Blockly.WorkspaceSvg) {
+  let retryCount = 0;
+  let xmlText = content;
+
+  while (retryCount < MAX_RETRY_COUNT) {
+    try {
+      xmlText = processAIGeneratedXml(xmlText);
+      const blockDom = Blockly.utils.xml.textToDom(xmlText);
+      Blockly.Xml.clearWorkspaceAndLoadFromXml(blockDom, workspace);
+      console.log(`Successfully loaded XML after ${retryCount} retries.`);
+      return;
+    } catch (error) {
+      console.warn(`Attempt ${retryCount + 1} failed:`, error);
+      retryCount++;
+
+      if (retryCount >= MAX_RETRY_COUNT) {
+        console.error('Failed to load XML into workspace after maximum retries:', error);
+        workspace.clear();
+        const errorBlock = workspace.newBlock('text');
+        errorBlock.setFieldValue(`Error: Failed to load XML after ${MAX_RETRY_COUNT} attempts`, 'TEXT');
+        errorBlock.initSvg();
+        errorBlock.render();
+        errorBlock.moveBy(50, 50);
+        // showNotification(`Failed to load XML after ${MAX_RETRY_COUNT} attempts. Please check your input.`);
+        break;
+      }
+      xmlText = applyAdditionalFixes(xmlText, error as Error);
+    }
+  }
+}
+
+function applyAdditionalFixes(xmlText: string, error: Error): string {
+  if (error instanceof TypeError && error.message.includes("Next block does not have previous statement")) {
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+    const blocks = xmlDoc.getElementsByTagName("block");
+
+    for (let i = 0; i < blocks.length; i++) {
+      const block = blocks[i];
+      const nextBlock = block.querySelector("next > block");
+      if (nextBlock) {
+        if (!block.hasAttribute("previousStatement") && !block.hasAttribute("nextStatement")) {
+          block.setAttribute("type", "fallback_statement_block");
+          let blockNameField = block.querySelector("field[name='BLOCK_NAME']");
+          if (!blockNameField) {
+            blockNameField = xmlDoc.createElement("field");
+            blockNameField.setAttribute("name", "BLOCK_NAME");
+            block.appendChild(blockNameField);
+          }
+          blockNameField.textContent = block.getAttribute("type") || "Unknown Block";
+          const inputsStatement = xmlDoc.createElement("statement");
+          inputsStatement.setAttribute("name", "INPUTS");
+          while (block.firstChild) {
+            inputsStatement.appendChild(block.firstChild);
+          }
+          block.appendChild(inputsStatement);
+
+          console.log("Converted block to fallback_statement_block:", block.getAttribute("type"));
+        }
+      }
+    }
+
+    const serializer = new XMLSerializer();
+    return serializer.serializeToString(xmlDoc);
+  }
+  return xmlText;
+}
+
 export {
   dropBlockToWorkspace,
   addBlockToWorkspace,
   createBlockFromFlyout,
   dropBlockToWorkspaceV2,
   addBlockToWorkspaceV2,
+  loadXmlIntoWorkspace
 };
