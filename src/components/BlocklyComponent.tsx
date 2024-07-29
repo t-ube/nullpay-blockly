@@ -36,6 +36,8 @@ import { releaseInfo as initialReleaseInfo } from '@/features/features-v0-r4';
 import { useMobile } from '@/contexts/MobileContext';
 import LogArea, { LogAreaHandle } from '@/components/LogArea';
 import ChatGptComponent from '@/components/ChatGptComponent';
+import { Button } from '@mui/material';
+import { loadXmlIntoWorkspace } from '@/utils/BlocklyHelper';
 
 type clientFramePos = {
   headerHeight: number,
@@ -520,6 +522,39 @@ const BlocklyComponent = () => {
     }
   }, []);
 
+  const applyXmlToWorkspace = () => {
+    try {
+      if (structArea.current) {
+        let xmlText = structArea.current.value.trim();
+        if (!xmlText.startsWith('<xml')) {
+          xmlText = `<xml xmlns="https://developers.google.com/blockly/xml">${xmlText}</xml>`;
+        }
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+        const parseError = xmlDoc.getElementsByTagName("parsererror");
+        if (parseError.length > 0) {
+          throw new Error("Invalid XML: " + parseError[0].textContent);
+        }
+        loadXmlIntoWorkspace(xmlText, workspace);
+        /*const xml = Blockly.utils.xml.textToDom(xmlText);
+        if (xml.nodeName.toLowerCase() !== 'xml') {
+          throw new Error("Root element must be <xml>");
+        }
+        Blockly.Xml.clearWorkspaceAndLoadFromXml(xml, workspace);*/
+      }
+    } catch (error) {
+      console.error('Failed to load XML:', error);
+    }
+  };
+
+  const updateXml = () => {
+    const xml = Blockly.Xml.workspaceToDom(workspace);
+    const xmlText = Blockly.Xml.domToPrettyText(xml);
+    if (structArea.current) {
+      structArea.current.value = xmlText;
+    }
+  };
+
   const releaseInfo = {
     ...initialReleaseInfo,
     features: initialReleaseInfo.features.map((feature) => ({
@@ -601,16 +636,41 @@ const BlocklyComponent = () => {
                     >
                     </textarea>
                   </div>
-                  <div style={{ display: selectedTab === 'struct' ? 'flex' : 'none' }} className='py-1 flex-1 overflow-auto'>
+                  <div 
+                    style={{ display: selectedTab === 'struct' ? 'flex' : 'none' }} 
+                    className='py-1 flex-1 overflow-auto flex-col'
+                  >
                     <textarea 
                       ref={structArea}
                       id="structArea"
-                      className="px-1 w-full h-full resize-none border"
+                      className="px-1 w-full flex-grow resize-none border"
                       style={{ fontSize: '12px' }}
-                      readOnly
                       spellCheck="false"
-                    >
-                    </textarea>
+                    />
+                    <div className="mt-2 flex justify-end">
+                      <Button 
+                        onClick={updateXml}
+                        sx={{
+                          marginRight: 2,
+                          color: '#A855F7'
+                        }}
+                      >
+                        Reload
+                      </Button>
+                      <Button 
+                        onClick={applyXmlToWorkspace}
+                        variant="contained"
+                        color="primary"
+                        sx={{
+                          bgcolor: '#A855F7',
+                          '&:hover': {
+                            bgcolor: '#8E24AA',
+                          },
+                        }}
+                      >
+                        Apply
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </>
