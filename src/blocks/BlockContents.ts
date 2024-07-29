@@ -3292,5 +3292,27 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       categories: ["list"],
       blockType: "lists_sort_json_value",
     },
+  ],
+  system: [
+    {
+      height: 62.1,
+      block: `
+        <block type="fallback_statement_block" x="0" y="0"></block>
+      `,
+      title: "Fallback Statement Block",
+      description: "This block serves as a placeholder for an unknown or unrecognized statement-type block that the AI attempted to generate but failed. It represents a sequence of actions or commands that would normally be executed in order. Users can inspect this block to understand the AI's intended logic flow and potentially replace it with the correct implementation or adjust their input for better results.",
+      categories: ["system","logic"],
+      blockType: "fallback_statement_block",
+    },
+    {
+      height: 56.7,
+      block: `
+        <block type="fallback_value_block" x="0" y="0"></block>
+      `,
+      title: "Fallback Value Block",
+      description: "This block acts as a placeholder for an unknown or unrecognized value-type block that the AI attempted to generate but failed. It represents a block that would normally return a value (such as a number, text, or boolean). Users can examine this block to understand what kind of value or computation the AI intended to create, and potentially replace it with the correct implementation or refine their input for improved results.",
+      categories: ["system","text","math"],
+      blockType: "fallback_value_block",
+    }
   ]
 };

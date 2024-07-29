@@ -12,6 +12,7 @@ import WidgetsIcon from '@mui/icons-material/Widgets';
 import DataObjectIcon from '@mui/icons-material/DataObject';
 import GridOnIcon from '@mui/icons-material/GridOn';
 import ApiIcon from '@mui/icons-material/Api';
+import WarningIcon from '@mui/icons-material/Warning';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import FeedIcon from '@mui/icons-material/Feed';
 
@@ -38,4 +39,5 @@ export const BlockIcons : IBlockIconMap = {
   supabase: '/icons/supabase-logo.svg',
   variable: InputIcon,
   function: WidgetsIcon,
+  system: WarningIcon,
 };

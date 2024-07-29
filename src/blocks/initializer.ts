@@ -86,7 +86,8 @@ import {
   defineNFTokenBuyOfferBlock, initInterpreterXrplNftokenBuyOffer
 } from '@/blocks/xrpl/xrplNFTokenBlock';
 import { 
-  defineTextUtilInspectPrintBlock, initInterpreterTextUtilInspectPrint
+  defineTextUtilInspectPrintBlock, initInterpreterTextUtilInspectPrint,
+  defineFallbackBlock
 } from '@/blocks/text/textPrintBlock';
 import { 
   defineUndefinedBlock,
@@ -352,6 +353,7 @@ const createCustomBlocks = () => {
   // Text
   defineTextToNumberBlock();
   defineTextUtilInspectPrintBlock();
+  defineFallbackBlock();
   defineNumberToTextBlock();
   defineTextEndsWithBlock();
   defineTextStartsWithBlock();

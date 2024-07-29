@@ -24,4 +24,5 @@ export const BlockColors : IBlockColorsMap = {
   variable: '#A55B80',
   function: '#995BA5',
   legacy: '#A74E4E',
+  system: '#A74E4E',
 };

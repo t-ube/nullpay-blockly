@@ -27,6 +27,7 @@ const initialBlockTitleMap : IDrawerBlockTitleMap = {
   logic: 'Logic',
   loop: 'Loops',
   list: 'Lists',
+  system: 'System',
   form: 'Form',
   webapi: 'Web API',
   chart: 'Chart',
@@ -297,6 +298,7 @@ export function NewSidebar({ onBlockSelectedV2, open, setOpen, mainWorkspace }: 
     { label: 'Supabase', color: BlockColors.supabase, type:'supabase', icon: BlockIcons.supabase },
     { label: 'Variables', color: BlockColors.variable, type:'variable', icon: BlockIcons.variable },
     { label: 'Functions', color: BlockColors.function, type:'function', icon: BlockIcons.function },
+    { label: 'System', color: BlockColors.system, type:'system', icon: BlockIcons.system },
   ];
 
   function getIcon(icon: string | React.ElementType, color: string) {
