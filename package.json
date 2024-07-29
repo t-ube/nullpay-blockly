@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.24.3",
     "@blockly/block-dynamic-connection": "^0.7.0",
     "@blockly/dev-tools": "^8.0.0",
     "@blockly/field-date": "^9.0.1",

@@ -390,7 +390,7 @@ const BlocklyComponent = () => {
           top -= 150;
         } else {
           left -= 20;
-          top -= 50 + 100;
+          top -= 50 + 0;
         }
         const trashcan = this as any;
         trashcan.svgGroup.setAttribute('transform', `translate(${left}, ${top})`);
@@ -404,7 +404,7 @@ const BlocklyComponent = () => {
         {
           setFabPosition({
             left: left - 5,
-            bottom: metrics.viewMetrics.height - top - 150
+            bottom: metrics.viewMetrics.height - top + 70
           });
         }
       }
@@ -619,7 +619,10 @@ const BlocklyComponent = () => {
           </Split>
         </div>
         {isLoaded &&
-          <ChatGptComponent position={fabPosition}/>
+          <ChatGptComponent 
+            position={fabPosition}
+            onBlockSelectedV2={handleBlockSelectedForDrawer2}
+          />
         }
         <Footer
           playState={playState}
