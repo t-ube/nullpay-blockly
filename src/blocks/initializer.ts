@@ -87,7 +87,6 @@ import {
 } from '@/blocks/xrpl/xrplNFTokenBlock';
 import { 
   defineTextUtilInspectPrintBlock, initInterpreterTextUtilInspectPrint,
-  defineFallbackBlock
 } from '@/blocks/text/textPrintBlock';
 import { 
   defineUndefinedBlock,
@@ -202,6 +201,9 @@ import {
   defineTimezoneBlock,
   defineDatedatetimeToTextBlock, initInterpreterDatedatetimeToText
 } from '@/blocks/time/timeBlock';
+import { 
+  defineFallbackBlock
+} from '@/blocks/system/systemBlock';
 import { defineConsoleLogBlock } from '@/blocks/debug/consoleLogBlock';
 import { BlockColors } from '@/blocks/BlockColors';
 //import { BlockStructures } from '@/blocks/BlockStructures';
@@ -277,7 +279,6 @@ const createCustomBlocks = () => {
   // Text
   defineTextToNumberBlock();
   defineTextUtilInspectPrintBlock();
-  defineFallbackBlock();
   defineNumberToTextBlock();
   defineTextEndsWithBlock();
   defineTextStartsWithBlock();
@@ -369,6 +370,9 @@ const createCustomBlocks = () => {
   // Animation
   defineConfettiAnimationBlock();
   
+  // System
+  defineFallbackBlock();
+
   // Debug
   defineConsoleLogBlock();
   
