@@ -38,6 +38,13 @@ import LogArea, { LogAreaHandle } from '@/components/LogArea';
 import ChatGptComponent from '@/components/ChatGptComponent';
 import { Button } from '@mui/material';
 import { loadXmlIntoWorkspace } from '@/utils/BlocklyHelper';
+import {
+  saveWorkspaceXML,
+  saveWorkspaceMachineLearningFile,
+  saveWorkspaceJson,
+  convertMachineLearnFileXMLtoJson,
+  loadWorkspace
+} from '@/utils/BlocklyFileOperations';
 
 type clientFramePos = {
   headerHeight: number,
@@ -89,6 +96,7 @@ const BlocklyComponent = () => {
   });
   const logAreaRef = useRef<LogAreaHandle>(null);
   const [fabPosition, setFabPosition] = useState({ left: 0, bottom: 0 });
+  const [enableML, setEnableML] = useState<boolean>(false);
 
   useInterval(() => {
     if (!isAnimating && isRunning) {
@@ -113,122 +121,30 @@ const BlocklyComponent = () => {
     }
   }, [isRunning, duration]);
 
-  const handleSaveWorkspaceV2 = () => {
-    console.log('handleSaveWorkspaceV2');
-    const state = Blockly.serialization.workspaces.save(workspace);
-    //
-    const clearOneTimeBlocks = (block: any) => {
-      if (block.type === 'text_onetime_block') {
-        if (block.fields && 'INPUT' in block.fields) {
-          block.fields.INPUT = '';
-        }
-      }
-      if (block.inputs) {
-        Object.values(block.inputs).forEach((input: any) => {
-          if (input.block) {
-            clearOneTimeBlocks(input.block);
-          }
-        });
-      }
-      if (block.next && block.next.block) {
-        clearOneTimeBlocks(block.next.block);
-      }
-    };
-    if (state.blocks !== undefined && 'blocks' in state.blocks) {
-      state.blocks.blocks.forEach((block: any) => clearOneTimeBlocks(block));
-    }
-    //
-    const jsonState = JSON.stringify(state);
-    const blob = new Blob([jsonState], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'workspace.json';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  };
-
   const handleSaveWorkspace = () => {
     console.log('handleSaveWorkspace');
-    const xml = Blockly.Xml.workspaceToDom(workspace);
-    //
-    const blocks = xml.getElementsByTagName('block');
-    for (let i = 0; i < blocks.length; i++) {
-      if (blocks[i].getAttribute('type') === 'text_onetime_block') {
-        const fields = blocks[i].getElementsByTagName('field');
-        for (let j = 0; j < fields.length; j++) {
-          if (fields[j].getAttribute('name') === 'INPUT') {
-            fields[j].textContent = '';
-          }
-        }
-      }
-    }
-    //
-    const xmlText = Blockly.Xml.domToPrettyText(xml);
-    const blob = new Blob([xmlText], { type: 'text/xml' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'workspace.xml';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    saveWorkspaceXML(workspace);
+  };
+
+  const handleSaveWorkspaceV2 = () => {
+    console.log('handleSaveWorkspaceV2');
+    saveWorkspaceJson(workspace);
+  };
+
+  const handleSaveMLWorkspace = () => {
+    console.log('handleSaveMLWorkspace');
+    saveWorkspaceMachineLearningFile(workspace);
   };
 
   const handleLoadWorkspace = () => {
     console.log('handleLoadWorkspace');
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = '.xml, .json, .jsonl';
-    input.onchange = (event) => {
-      const file = (event.target as HTMLInputElement).files?.[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const fileContent = e.target?.result as string;
-          const fileName = file.name.toLowerCase();
-          if (file.type === 'application/json') {
-            try {
-              const json = JSON.parse(fileContent);
-              Blockly.serialization.workspaces.load(json, workspace);
-              workspace.scrollCenter();
-            } catch (error) {
-              console.error('Failed to load JSON:', error);
-            }
-          } else if (file.type === 'text/xml' || file.type === 'application/xml') {
-            try {
-              const xml = Blockly.utils.xml.textToDom(fileContent);
-              Blockly.Xml.clearWorkspaceAndLoadFromXml(xml, workspace);
-              workspace.scrollCenter();
-            } catch (error) {
-              console.error('Failed to load XML:', error);
-            }
-          } else if (fileName.endsWith('.jsonl')) {
-            try {
-              const lines = fileContent.split('\n');
-              for (const line of lines) {
-                if (line.trim()) {
-                  const json = JSON.parse(line);
-                  if (json.completion && typeof json.completion === 'string') {
-                    const xml = Blockly.utils.xml.textToDom(json.completion);
-                    Blockly.Xml.clearWorkspaceAndLoadFromXml(xml, workspace);
-                    workspace.scrollCenter();
-                  }
-                }
-                break;
-              }
-            } catch (error) {
-              console.error('Failed to load JSONL:', error);
-            }
-          } else {
-            console.error('Unsupported file type:', file.type);
-          }
-        };
-        reader.readAsText(file);
-      }
-    };
-    input.click();
+    loadWorkspace(workspace, () => {
+    });
+  };
+
+  const handleConvertOldML = () => {
+    console.log('handleConvertOldML');
+    convertMachineLearnFileXMLtoJson(workspace);
   };
 
   useEffect(() => {
@@ -270,8 +186,6 @@ const BlocklyComponent = () => {
       if (!supportedEvents.has(event.type)) return;
       const xml = Blockly.Xml.workspaceToDom(workspace);
       const xmlText = Blockly.Xml.domToPrettyText(xml);
-      //const state = Blockly.serialization.workspaces.save(workspace);
-      //const jsonText = JSON.stringify(state);
       if (structArea.current) {
         structArea.current.value = xmlText;
       }
@@ -392,22 +306,24 @@ const BlocklyComponent = () => {
           top -= 150;
         } else {
           left -= 20;
-          top -= 50 + 0;
+          top -= 50;
         }
         const trashcan = this as any;
         trashcan.svgGroup.setAttribute('transform', `translate(${left}, ${top})`);
 
-        if (isMobile && isPortrait) {
-          setFabPosition({
-            left: left - 5,
-            bottom: metrics.viewMetrics.height - top - 100
-          });
-        } else 
-        {
-          setFabPosition({
-            left: left - 5,
-            bottom: metrics.viewMetrics.height - top + 70
-          });
+        if (enableML) {
+          if (isMobile && isPortrait) {
+            setFabPosition({
+              left: left - 5,
+              bottom: metrics.viewMetrics.height - top - 100
+            });
+          } else 
+          {
+            setFabPosition({
+              left: left - 5,
+              bottom: metrics.viewMetrics.height - top + 70
+            });
+          }
         }
       }
     };
@@ -425,7 +341,10 @@ const BlocklyComponent = () => {
           top -= 250;
         } else {
           left -= 28;
-          top -= 150 + 100;
+          top -= 150;
+          if (enableML) {
+            top -= 100;
+          }
         }
         const zooms = this as any;
         zooms.svgGroup.setAttribute('transform', `translate(${left}, ${top})`);
@@ -433,7 +352,7 @@ const BlocklyComponent = () => {
     };
 
     window.dispatchEvent(new Event('resize'));
-  }, [isMobile, isPortrait, isLoaded]);
+  }, [isMobile, isPortrait, isLoaded, enableML]);
 
   function highlightBlock(id: string) {
     workspace.highlightBlock(id);
@@ -577,6 +496,7 @@ const BlocklyComponent = () => {
           onSearchClick={handleSearchClick}
           onSaveClick={handleSaveWorkspace}
           onLoadClick={handleLoadWorkspace}
+          onSaveMLClick={enableML ? handleSaveMLWorkspace : undefined}
           ref={headerRef}
         />
         <div className="border-t border-gray-300"></div>
