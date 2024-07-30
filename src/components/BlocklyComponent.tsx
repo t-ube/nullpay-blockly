@@ -598,11 +598,12 @@ const BlocklyComponent = () => {
             </div>
           </Split>
         </div>
-        {isLoaded &&
+        {(isLoaded && enableML) && (
           <ChatGptComponent 
             position={fabPosition}
             onBlockSelectedV2={handleBlockSelectedForDrawer2}
           />
+          )
         }
         <Footer
           playState={playState}
