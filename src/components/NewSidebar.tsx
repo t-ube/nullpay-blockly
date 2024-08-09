@@ -1,15 +1,18 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import * as Blockly from 'blockly/core';
-import { Tabs, Tab, Box, Typography, Divider, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Button } from '@mui/material';
+import { Tabs, Tab, Box, ToggleButton, ToggleButtonGroup, Typography, Divider, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Button } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { styled } from '@mui/material/styles';
 import PuzzleIcon from '@mui/icons-material/Extension';
+import ExtensionIcon from '@mui/icons-material/Extension';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { BlockColors } from '@/blocks/BlockColors';
 import { BlockIcons } from '@/blocks/BlockIcons';
 import { initialBlockTypesMap } from '@/blocks/BlockContents';
 import { IBaseBlock, XRPLSubCategories, translateSubCategory } from "@/interfaces/IBaseBlock";
-
+import GuideBar from '@/components/GuideBar';
+import { workspace } from '@/blocks/initializer';
 interface IDrawerBlockTitleMap {
   [key: string]: string;
 }
@@ -68,9 +71,11 @@ interface ISidebarProps {
   open: boolean;
   setOpen: (open: boolean) => void;
   mainWorkspace: Blockly.WorkspaceSvg;
+  activeSidebar: 'blocks' | 'guide';
+  setActiveSidebar: React.Dispatch<React.SetStateAction<'blocks' | 'guide'>>;
 }
 
-export function NewSidebar({ onBlockSelectedV2, open, setOpen, mainWorkspace }: ISidebarProps) {
+export function NewSidebar({ onBlockSelectedV2, open, setOpen, mainWorkspace, activeSidebar, setActiveSidebar }: ISidebarProps) {
   const workspaceRefs = useRef<{ id: string, workspace: Blockly.WorkspaceSvg | null }[]>([]);
   const [tabValue, setTabValue] = useState(0);
   const [hoverTab, setHoverTab] = useState<string | null>(null);
@@ -279,6 +284,15 @@ export function NewSidebar({ onBlockSelectedV2, open, setOpen, mainWorkspace }: 
     }, 200);
   }, [handleClose]);
 
+  const handleSidebarTypeChange = (
+    event: React.MouseEvent<HTMLElement>,
+    newSidebarType: 'blocks' | 'guide',
+  ) => {
+    if (newSidebarType !== null) {
+      setActiveSidebar(newSidebarType);
+    }
+  };
+
   const menuItems = [
     { label: 'XRPL', color: BlockColors.xrpl, type:'xrpl', icon: BlockIcons.xrpl },
     { label: 'Xaman', color: BlockColors.xaman, type:'xaman', icon: BlockIcons.xaman },
@@ -313,175 +327,217 @@ export function NewSidebar({ onBlockSelectedV2, open, setOpen, mainWorkspace }: 
   }
 
   return (
-    <Box 
-      sx={{ display: 'flex', height: '100%', overflow: 'hidden' }}
-      onMouseLeave={handleMouseLeave}
-    >
-      <VerticalTabs
-        orientation="vertical"
-        variant="scrollable"
-        value={tabValue}
-        onChange={handleChange}
-        sx={{ borderRight: 1, borderColor: 'divider', flexShrink: 0 }}
-      >
-        {menuItems.map((item, index) => (
-          <VerticalTab
-            key={item.label}
-            label={
-              <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-                {getIcon(item.icon, item.color)}
-                <Typography 
-                  sx={{ 
-                    ml: 1.5,
-                    fontSize: '0.9rem',
-                    lineHeight: 1.2,
-                    fontWeight: 'bold',
-                    textAlign: 'left',
-                    flexGrow: 1,
-                  }}
-                >
-                  {item.label}
-                </Typography>
-              </Box>
-            }
-            onMouseEnter={() => handleTabHover(item.type, index, 'a')}
-          />
-        ))}
-      </VerticalTabs>
-      <Box 
-        sx={{ 
-          flexGrow: 1, 
-          p: 2,
-          display: hoverTab ? 'block' : 'none',
-          width: 330,
-          overflowY: 'auto',
-          maxHeight: '100%',
-        }}
-        onMouseEnter={() => handleTabHover(hoverTab, tabValue, 'b')}
-      >
-        {/* ここにブロックを表示するコンポーネントを配置 */}
-        <ThemeProvider
-          theme={createTheme({
-            typography: {
-            fontFamily: [
-              'Google Sans',
-              'Noto Sans',
-              'Noto Sans JP',
-              'Noto Sans KR',
-              'Noto Naskh Arabic',
-              'Noto Sans Thai',
-              'Noto Sans Hebrew',
-              'Noto Sans Bengali',
-              'sans-serif',
-            ].join(','),
-          },
-          components: {
-            MuiCssBaseline: {
-              styleOverrides: `
-                @font-face {
-                  font-family: 'Google Sans';
-                  font-style: normal;
-                  font-weight: 400;
-                  src: local('Google Sans Regular'), local('GoogleSans-Regular'), url(https://fonts.gstatic.com/s/googlesans/v16/4UaGrENHsxJlGDuGo1OIlL3Kwp5eKQtGBlc.woff2) format('woff2');
-                }
-                body {
-                  -webkit-font-smoothing: antialiased;
-                  -moz-osx-font-smoothing: grayscale;
-                }
-              `,
-            }}
-          })}
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', p: 1 }}>
+        <ToggleButtonGroup
+          value={activeSidebar}
+          exclusive
+          onChange={handleSidebarTypeChange}
+          aria-label="sidebar type"
+          size="small"
+          sx={{
+            paddingY:0
+          }}
         >
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            {flyoutType ? getIcon(BlockIcons[flyoutType], BlockColors[flyoutType]) : <PuzzleIcon sx={{ color: '#ccc' }} />}
-            <Typography variant="subtitle2" px={1} sx={{ fontWeight: 'bold', color: '#333333', display: 'flex', alignItems: 'center' }}>
-              {flyoutType ? initialBlockTitleMap[flyoutType] : 'unknown'} {'Blocks'}
-            </Typography>
-          </Box>
-          <Divider />
-          {flyoutType === 'variable' &&
-            <Box pl={1} pt={2} pb={3}>
-              <Button 
-                onClick={() => setVarDialogOpen(true)} 
-                sx={{fontSize: '0.675rem', backgroundColor: BlockColors.variable, color: '#FFFFFF', '&:hover': { backgroundColor: '#8F4D6D' } }}
-              >
-                Add Variable
-              </Button>
-            </Box>
-          }
-          {flyoutType && categorizedBlocks[flyoutType] && Object.entries(categorizedBlocks[flyoutType]).map(([subCategory, blocks]) => (
-            <Box key={subCategory}>
-              {subCategory !== 'uncategorized' && (
-                <Typography 
-                  variant="subtitle2" 
-                  sx={{ 
-                    fontWeight: 'bold', 
-                    mt: 3, 
-                    mb: 2, 
-                    display: 'flex',
-                    alignItems: 'center',
-                    '&::after': {
-                      content: '""',
-                      flex: 1,
-                      borderBottom: theme => `1px solid ${theme.palette.divider}`,
-                      marginLeft: 1,
-                    },
-                  }}
-                >
-                  {translateSubCategory(subCategory as XRPLSubCategories, 'en')}
-                </Typography>
-              )}
-              {blocks.map((item: IBaseBlock, index: number) => {
-                const key = flyoutType === 'variable' || flyoutType === 'function' 
-                ? `${flyoutType}_${index}`
-                : item.title;
-                return (
-                  <Box key={key} mt={2} mb={3}>
-                    <Box 
-                      id={flyoutType !== 'variable' && flyoutType !== 'function' 
-                        ? `flyoutDiv_${item.title.replace(/\s+/g, '_')}` 
-                        : `flyoutDiv_${index}`} 
-                      sx={{ width: '100%', height: item.height, mb: 2 }} 
-                    />
-                  </Box>
-                )
-            })}
-            </Box>
-          ))}
-        </ThemeProvider>
+          <ToggleButton value="blocks" aria-label="blocks">
+            <ExtensionIcon />
+          </ToggleButton>
+          <ToggleButton value="guide" aria-label="guide">
+            <MenuBookIcon />
+          </ToggleButton>
+        </ToggleButtonGroup>
       </Box>
-      {/* Variable Dialog */}
-      <Dialog open={varDialogOpen} onClose={handleVarDialogClose}>
-        <DialogTitle>Add Variable</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Please enter the name for the new variable.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            label="Variable Name"
-            type="text"
-            fullWidth
-            value={variableName}
-            onChange={(e) => setVariableName(e.target.value)}
+      <Box 
+        sx={{ display: 'flex', height: '100%', overflow: 'hidden' }}
+        onMouseLeave={handleMouseLeave}
+      >
+        {activeSidebar === 'blocks' ? (
+          <>
+            <VerticalTabs
+              orientation="vertical"
+              variant="scrollable"
+              value={tabValue}
+              onChange={handleChange}
+              sx={{
+                borderRight: 1,
+                borderColor: 'divider',
+                flexShrink: 0,
+                '& .MuiTabs-indicator': {
+                  left: 'auto',
+                  right: 0,
+                  width: '3px',
+                }
+              }}
+            >
+            {menuItems.map((item, index) => (
+              <VerticalTab
+                key={item.label}
+                label={
+                  <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', paddingLeft: '5px' }}>
+                    {getIcon(item.icon, item.color)}
+                    <Typography 
+                      sx={{ 
+                        ml: 1.5,
+                        fontSize: '0.9rem',
+                        lineHeight: 1.2,
+                        fontWeight: 'bold',
+                        textAlign: 'left',
+                        flexGrow: 1,
+                      }}
+                    >
+                      {item.label}
+                    </Typography>
+                  </Box>
+                }
+                onMouseEnter={() => handleTabHover(item.type, index, 'a')}
+              />
+            ))}
+            </VerticalTabs>
+            <Box 
+              sx={{ 
+                flexGrow: 1, 
+                p: 2,
+                display: hoverTab ? 'block' : 'none',
+                width: 330,
+                overflowY: 'auto',
+                maxHeight: '100%',
+              }}
+              onMouseEnter={() => handleTabHover(hoverTab, tabValue, 'b')}
+            >
+              {/* ここにブロックを表示するコンポーネントを配置 */}
+              <ThemeProvider
+                theme={createTheme({
+                  typography: {
+                  fontFamily: [
+                    'Google Sans',
+                    'Noto Sans',
+                    'Noto Sans JP',
+                    'Noto Sans KR',
+                    'Noto Naskh Arabic',
+                    'Noto Sans Thai',
+                    'Noto Sans Hebrew',
+                    'Noto Sans Bengali',
+                    'sans-serif',
+                  ].join(','),
+                },
+                components: {
+                  MuiCssBaseline: {
+                    styleOverrides: `
+                      @font-face {
+                        font-family: 'Google Sans';
+                        font-style: normal;
+                        font-weight: 400;
+                        src: local('Google Sans Regular'), local('GoogleSans-Regular'), url(https://fonts.gstatic.com/s/googlesans/v16/4UaGrENHsxJlGDuGo1OIlL3Kwp5eKQtGBlc.woff2) format('woff2');
+                      }
+                      body {
+                        -webkit-font-smoothing: antialiased;
+                        -moz-osx-font-smoothing: grayscale;
+                      }
+                    `,
+                  }}
+                })}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  {flyoutType ? getIcon(BlockIcons[flyoutType], BlockColors[flyoutType]) : <PuzzleIcon sx={{ color: '#ccc' }} />}
+                  <Typography variant="subtitle2" px={1} sx={{ fontWeight: 'bold', color: '#333333', display: 'flex', alignItems: 'center' }}>
+                    {flyoutType ? initialBlockTitleMap[flyoutType] : 'unknown'} {'Blocks'}
+                  </Typography>
+                </Box>
+                <Divider />
+                {flyoutType === 'variable' &&
+                  <Box pl={1} pt={2} pb={3}>
+                    <Button 
+                      onClick={() => setVarDialogOpen(true)} 
+                      sx={{fontSize: '0.675rem', backgroundColor: BlockColors.variable, color: '#FFFFFF', '&:hover': { backgroundColor: '#8F4D6D' } }}
+                    >
+                      Add Variable
+                    </Button>
+                  </Box>
+                }
+                {flyoutType && categorizedBlocks[flyoutType] && Object.entries(categorizedBlocks[flyoutType]).map(([subCategory, blocks]) => (
+                  <Box key={subCategory}>
+                    {subCategory !== 'uncategorized' && (
+                      <Typography 
+                        variant="subtitle2" 
+                        sx={{ 
+                          fontWeight: 'bold', 
+                          mt: 3, 
+                          mb: 2, 
+                          display: 'flex',
+                          alignItems: 'center',
+                          '&::after': {
+                            content: '""',
+                            flex: 1,
+                            borderBottom: theme => `1px solid ${theme.palette.divider}`,
+                            marginLeft: 1,
+                          },
+                        }}
+                      >
+                        {translateSubCategory(subCategory as XRPLSubCategories, 'en')}
+                      </Typography>
+                    )}
+                    {blocks.map((item: IBaseBlock, index: number) => {
+                      const key = flyoutType === 'variable' || flyoutType === 'function' 
+                      ? `${flyoutType}_${index}`
+                      : item.title;
+                      return (
+                        <Box key={key} mt={2} mb={3}>
+                          <Box 
+                            id={flyoutType !== 'variable' && flyoutType !== 'function' 
+                              ? `flyoutDiv_${item.title.replace(/\s+/g, '_')}` 
+                              : `flyoutDiv_${index}`} 
+                            sx={{ width: '100%', height: item.height, mb: 2 }} 
+                          />
+                        </Box>
+                      )
+                  })}
+                  </Box>
+                ))}
+              </ThemeProvider>
+            </Box>
+          </>
+        ) : (
+          <GuideBar
+            onBlockSelectedV2={onBlockSelectedV2}
+            open={open}
+            setOpen={setOpen}
+            mainWorkspace={mainWorkspace}
           />
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={handleVarDialogClose}
-            sx={{color: BlockColors.variable }}
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={handleVarDialogSubmit}
-            sx={{backgroundColor: BlockColors.variable, color: '#FFFFFF', '&:hover': { backgroundColor: '#8F4D6D' } }}
-          >
-            Add
-          </Button>
-        </DialogActions>
-      </Dialog>
+        )
+        }
+        {/* Variable Dialog */}
+        <Dialog open={varDialogOpen} onClose={handleVarDialogClose}>
+          <DialogTitle>Add Variable</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Please enter the name for the new variable.
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              label="Variable Name"
+              type="text"
+              fullWidth
+              value={variableName}
+              onChange={(e) => setVariableName(e.target.value)}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={handleVarDialogClose}
+              sx={{color: BlockColors.variable }}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleVarDialogSubmit}
+              sx={{backgroundColor: BlockColors.variable, color: '#FFFFFF', '&:hover': { backgroundColor: '#8F4D6D' } }}
+            >
+              Add
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Box>
     </Box>
   );
 }

@@ -97,6 +97,7 @@ const BlocklyComponent = () => {
   const logAreaRef = useRef<LogAreaHandle>(null);
   const [fabPosition, setFabPosition] = useState({ left: 0, bottom: 0 });
   const [enableML, setEnableML] = useState<boolean>(false);
+  const [activeSidebar, setActiveSidebar] = useState<'blocks' | 'guide'>('blocks');
 
   useInterval(() => {
     if (!isAnimating && isRunning) {
@@ -632,6 +633,8 @@ const BlocklyComponent = () => {
             open={openFlyout}
             setOpen={setOpenFlyout}
             mainWorkspace={workspace}
+            activeSidebar={activeSidebar}
+            setActiveSidebar={setActiveSidebar}
           />
         </div>
       )}

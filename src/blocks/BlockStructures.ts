@@ -130,7 +130,7 @@ import {
   logic_undefined
 } from '@/blocks/logic/logicBlock';
 import {
-  array_append,
+  lists_append,
   array_init,
   lists_sort_json_value
 } from '@/blocks/list/arrayInitBlock';
@@ -211,7 +211,7 @@ export const BlockStructures = [
   logic_null,
   logic_true,
   logic_undefined,
-  array_append,
+  lists_append,
   array_init,
   lists_sort_json_value
 ];

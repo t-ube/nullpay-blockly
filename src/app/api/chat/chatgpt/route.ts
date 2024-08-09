@@ -97,7 +97,7 @@ const validBlocks = [
   "xaman_variable_get",
   "xaman_variable_name",
   "xaman_variable_set",
-  "array_append",
+  "lists_append",
   "array_init",
   "lists_sort_json_value"
 ];

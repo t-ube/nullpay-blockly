@@ -37,13 +37,13 @@ export const defineArrayInitBlock = () => {
 };
 
 
-export const array_append : any = {
-  "type": "array_append",
-  "message0": "append to array %1 item %2",
+export const lists_append : any = {
+  "type": "lists_append",
+  "message0": "append to list %1 item %2",
   "args0": [
     {
       "type": "input_value",
-      "name": "ARRAY",
+      "name": "LIST",
       "check": "Array"
     },
     {
@@ -55,17 +55,17 @@ export const array_append : any = {
   "previousStatement": null,
   "nextStatement": null,
   "colour": BlockColors.list,
-  "tooltip": "Append an item to an array",
+  "tooltip": "Append an item to a list",
   "helpUrl": ""
 };
 
 export const defineArrayAppendBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    array_append
+    lists_append
   ]);
 
-  javascriptGenerator.forBlock['array_append'] = function (block, generator) {
-    const array = generator.valueToCode(block, 'ARRAY', Order.ATOMIC);
+  javascriptGenerator.forBlock['lists_append'] = function (block, generator) {
+    const array = generator.valueToCode(block, 'LIST', Order.ATOMIC);
     const item = generator.valueToCode(block, 'ITEM', Order.ATOMIC);
     const code = `${array}.push(${item});\n`;
     return code;
@@ -79,7 +79,7 @@ export const lists_sort_json_value : any = {
   "args0": [
     {
       "type": "input_value",
-      "name": "ARRAY",
+      "name": "LIST",
       "check": [blockCheckType.array]
     }
   ],
@@ -135,7 +135,7 @@ export const defineListSortJsonValueBlock = () => {
     const key = generator.valueToCode(block, 'KEY', Order.ATOMIC) || '""';
     const type = block.getFieldValue('TYPE');
     const bodyFormat = block.getFieldValue('ORDER');
-    const array = generator.valueToCode(block, 'ARRAY', Order.ATOMIC) || '[]';
+    const array = generator.valueToCode(block, 'LIST', Order.ATOMIC) || '[]';
     const code = `listSortJsonValue(JSON.stringify(${array}), ${key},
       "${type}",
       ${bodyFormat === 'asc' ? true : false }

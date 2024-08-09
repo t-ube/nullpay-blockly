@@ -3205,12 +3205,12 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
     {
       height: 70,
       block: `
-        <block type="array_append" x="0" y="0"></block>
+        <block type="lists_append" x="0" y="0"></block>
       `,
       title: "Append to Array",
       description: "Append an item to an array.",
       categories: ["list"],
-      blockType: "array_append",
+      blockType: "lists_append",
     },
     {
       height: 70,
