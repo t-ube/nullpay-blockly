@@ -4,8 +4,8 @@ import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { getXrplClient, setXrplClientEventListner, clearXrplClientEventListner } from '@/blocks/xrpl/xrplClientInitializeBlock';
 
-export const xrpl_subscribe_account_txn : any = {
-  "type": "xrpl_subscribe_account_txn",
+export const xrpl_command_subscribe_account_txn : any = {
+  "type": "xrpl_command_subscribe_account_txn",
   "message0": "%1",
   "args0": [
     {
@@ -23,7 +23,7 @@ export const xrpl_subscribe_account_txn : any = {
     },
     {
       "type": "input_value",
-      "name": "CLIENT",
+      "name": "XRPL_CLIENT",
       "check": "Client"
     }
   ],
@@ -62,7 +62,7 @@ export const xrpl_subscribe_account_txn : any = {
     },
     {
       "type": "field_variable",
-      "name": "VAR",
+      "name": "TRANSACTION_INFO",
       "variable": "transactionInfo"
     }
   ],
@@ -76,17 +76,17 @@ export const xrpl_subscribe_account_txn : any = {
 
 export const defineXrplSubscribeAccountTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_subscribe_account_txn
+    xrpl_command_subscribe_account_txn
   ]);
 
-  javascriptGenerator.forBlock['xrpl_subscribe_account_txn'] = function (block, generator) {
-    const client = generator.valueToCode(block, 'CLIENT', Order.ATOMIC) || '""';
+  javascriptGenerator.forBlock['xrpl_command_subscribe_account_txn'] = function (block, generator) {
+    const client = generator.valueToCode(block, 'XRPL_CLIENT', Order.ATOMIC) || '""';
     const id = generator.valueToCode(block, 'ID', Order.ATOMIC) || '""';
     const accounts = generator.valueToCode(block, 'ACCOUNTS', Order.ATOMIC) || '[]';
     if (generator.nameDB_ === undefined) {
       return `xrplSubscribeAccountTxn(${client}, ${id}, JSON.stringify(${accounts}), '');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('TRANSACTION_INFO'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `xrplSubscribeAccountTxn(${client}, ${id}, JSON.stringify(${accounts}), '${variable}');\n`;
     return code;
   };
@@ -117,8 +117,8 @@ export function initInterpreterXrplSubscribeAccountTxn(interpreter:any, globalOb
 }
 
 
-export const xrpl_unsubscribe_account_txn : any = {
-  "type": "xrpl_unsubscribe_account_txn",
+export const xrpl_command_unsubscribe_account_txn : any = {
+  "type": "xrpl_command_unsubscribe_account_txn",
   "message0": "%1",
   "args0": [
     {
@@ -136,7 +136,7 @@ export const xrpl_unsubscribe_account_txn : any = {
     },
     {
       "type": "input_value",
-      "name": "CLIENT",
+      "name": "XRPL_CLIENT",
       "check": "Client"
     }
   ],
@@ -176,11 +176,11 @@ export const xrpl_unsubscribe_account_txn : any = {
 
 export const defineXrplUnsubscribeAccountTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_unsubscribe_account_txn
+    xrpl_command_unsubscribe_account_txn
   ]);
 
-  javascriptGenerator.forBlock['xrpl_unsubscribe_account_txn'] = function (block, generator) {
-    const client = generator.valueToCode(block, 'CLIENT', Order.ATOMIC) || '""';
+  javascriptGenerator.forBlock['xrpl_command_unsubscribe_account_txn'] = function (block, generator) {
+    const client = generator.valueToCode(block, 'XRPL_CLIENT', Order.ATOMIC) || '""';
     const id = generator.valueToCode(block, 'ID', Order.ATOMIC) || '""';
     const accounts = generator.valueToCode(block, 'ACCOUNTS', Order.ATOMIC) || '[]';
     const code = `xrplUnsubscribeAccountTxn(${client}, ${id}, JSON.stringify(${accounts}));\n`;
@@ -210,8 +210,8 @@ export function initInterpreterXrplUnsubscribeAccountTxn(interpreter:any, global
 }
 
 
-export const xrpl_subscribe_all_txn : any = {
-  "type": "xrpl_subscribe_all_txn",
+export const xrpl_command_subscribe_streams_all_txn : any = {
+  "type": "xrpl_command_subscribe_streams_all_txn",
   "message0": "%1",
   "args0": [
     {
@@ -229,7 +229,7 @@ export const xrpl_subscribe_all_txn : any = {
     },
     {
       "type": "input_value",
-      "name": "CLIENT",
+      "name": "XRPL_CLIENT",
       "check": "Client"
     }
   ],
@@ -255,7 +255,7 @@ export const xrpl_subscribe_all_txn : any = {
     },
     {
       "type": "field_variable",
-      "name": "VAR",
+      "name": "TRANSACTION_INFO",
       "variable": "transactionInfo"
     }
   ],
@@ -269,16 +269,16 @@ export const xrpl_subscribe_all_txn : any = {
 
 export const defineXrplSubscribeAllTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_subscribe_all_txn
+    xrpl_command_subscribe_streams_all_txn
   ]);
 
-  javascriptGenerator.forBlock['xrpl_subscribe_all_txn'] = function (block, generator) {
-    const client = generator.valueToCode(block, 'CLIENT', Order.ATOMIC) || '""';
+  javascriptGenerator.forBlock['xrpl_command_subscribe_streams_all_txn'] = function (block, generator) {
+    const client = generator.valueToCode(block, 'XRPL_CLIENT', Order.ATOMIC) || '""';
     const id = generator.valueToCode(block, 'ID', Order.ATOMIC) || '""';
     if (generator.nameDB_ === undefined) {
       return `xrplSubscribeAllTxn(${client}, ${id}, '');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('TRANSACTION_INFO'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `xrplSubscribeAllTxn(${client}, ${id}, '${variable}');\n`;
     return code;
   };
@@ -309,8 +309,8 @@ export function initInterpreterXrplSubscribeAllTxn(interpreter:any, globalObject
 }
 
 
-export const xrpl_unsubscribe_all_txn : any = {
-  "type": "xrpl_unsubscribe_all_txn",
+export const xrpl_command_unsubscribe_streams_all_txn : any = {
+  "type": "xrpl_command_unsubscribe_streams_all_txn",
   "message0": "%1",
   "args0": [
     {
@@ -328,7 +328,7 @@ export const xrpl_unsubscribe_all_txn : any = {
     },
     {
       "type": "input_value",
-      "name": "CLIENT",
+      "name": "XRPL_CLIENT",
       "check": "Client"
     }
   ],
@@ -355,11 +355,11 @@ export const xrpl_unsubscribe_all_txn : any = {
 
 export const defineXrplUnsubscribeAllTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_unsubscribe_all_txn
+    xrpl_command_unsubscribe_streams_all_txn
   ]);
 
-  javascriptGenerator.forBlock['xrpl_unsubscribe_all_txn'] = function (block, generator) {
-    const client = generator.valueToCode(block, 'CLIENT', Order.ATOMIC) || '""';
+  javascriptGenerator.forBlock['xrpl_command_unsubscribe_streams_all_txn'] = function (block, generator) {
+    const client = generator.valueToCode(block, 'XRPL_CLIENT', Order.ATOMIC) || '""';
     const id = generator.valueToCode(block, 'ID', Order.ATOMIC) || '""';
     const code = `xrplUnsubscribeAllTxn(${client}, ${id});\n`;
     return code;

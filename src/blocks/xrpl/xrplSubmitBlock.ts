@@ -8,8 +8,8 @@ import { getXrplWallet } from '@/blocks/xrpl/xrplWalletBlock';
 import { SubmittableTransaction } from 'xrpl';
 
 
-export const xrpl_client_submit : any = {
-  "type": "xrpl_client_submit",
+export const xrpl_command_submit : any = {
+  "type": "xrpl_command_submit",
   "message0": "%1",
   "args0": [
     {
@@ -27,7 +27,7 @@ export const xrpl_client_submit : any = {
     },
     {
       "type": "input_value",
-      "name": "CLIENT",
+      "name": "XRPL_CLIENT",
       "check": "Client"
     }
   ],
@@ -53,7 +53,7 @@ export const xrpl_client_submit : any = {
     },
     {
       "type": "field_variable",
-      "name": "VAR",
+      "name": "RESULT",
       "variable": "result"
     }
   ],
@@ -67,16 +67,16 @@ export const xrpl_client_submit : any = {
 
 export const defineXrplClientSubmitBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_client_submit
+    xrpl_command_submit
   ]);
 
-  javascriptGenerator.forBlock['xrpl_client_submit'] = function (block, generator) {
-    const client = generator.valueToCode(block, 'CLIENT', Order.ATOMIC) || '""';
+  javascriptGenerator.forBlock['xrpl_command_submit'] = function (block, generator) {
+    const client = generator.valueToCode(block, 'XRPL_CLIENT', Order.ATOMIC) || '""';
     const blob = generator.valueToCode(block, 'BLOB', Order.ATOMIC) || '""';
     if (generator.nameDB_ === undefined) {
       return `xrplClientSubmit(${client}, ${blob}, '');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('RESULT'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `xrplClientSubmit(${client}, ${blob}, '${variable}');\n`;
     return code;
   };
@@ -103,8 +103,8 @@ export function initInterpreterXrplClientSubmit(interpreter:any, globalObject:an
 }
 
 // AutoFill
-export const xrpl_client_autofill : any = {
-  "type": "xrpl_client_autofill",
+export const xrpl_autofill_payload : any = {
+  "type": "xrpl_autofill_payload",
   "message0": "%1",
   "args0": [
     {
@@ -122,7 +122,7 @@ export const xrpl_client_autofill : any = {
     },
     {
       "type": "input_value",
-      "name": "CLIENT",
+      "name": "XRPL_CLIENT",
       "check": "Client"
     }
   ],
@@ -148,7 +148,7 @@ export const xrpl_client_autofill : any = {
     },
     {
       "type": "field_variable",
-      "name": "VAR",
+      "name": "FILLED_PAYLOAD",
       "variable": "filledPayload"
     }
   ],
@@ -162,16 +162,16 @@ export const xrpl_client_autofill : any = {
 
 export const defineXrplClientAutoFillBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_client_autofill
+    xrpl_autofill_payload
   ]);
 
-  javascriptGenerator.forBlock['xrpl_client_autofill'] = function (block, generator) {
-    const client = generator.valueToCode(block, 'CLIENT', Order.ATOMIC) || '""';
+  javascriptGenerator.forBlock['xrpl_autofill_payload'] = function (block, generator) {
+    const client = generator.valueToCode(block, 'XRPL_CLIENT', Order.ATOMIC) || '""';
     const payload = generator.valueToCode(block, 'PAYLOAD', Order.ATOMIC) || '""';
     if (generator.nameDB_ === undefined) {
       return `xrplClientAutofill(${client}, JSON.stringify(${payload}), '');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('FILLED_PAYLOAD'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `xrplClientAutofill(${client}, JSON.stringify(${payload}), '${variable}');\n`;
     return code;
   };
@@ -214,7 +214,7 @@ export const xrpl_easy_submit : any = {
     },
     {
       "type": "input_value",
-      "name": "CLIENT",
+      "name": "XRPL_CLIENT",
       "check": blockCheckType.xrplClient
     }
   ],
@@ -222,12 +222,12 @@ export const xrpl_easy_submit : any = {
   "args2": [
     {
       "type": "field_label",
-      "text": "XRPL wallet",
+      "text": "XRPL wallet ID",
       "class": "args-label"
     },
     {
       "type": "input_value",
-      "name": "WALLET",
+      "name": "WALLET_ID",
       "check": blockCheckType.string
     }
   ],
@@ -253,7 +253,7 @@ export const xrpl_easy_submit : any = {
     },
     {
       "type": "field_variable",
-      "name": "VAR",
+      "name": "RESULT",
       "variable": "result"
     }
   ],
@@ -271,13 +271,13 @@ export const defineXrplEasySubmitBlock = () => {
   ]);
 
   javascriptGenerator.forBlock['xrpl_easy_submit'] = function (block, generator) {
-    const client = generator.valueToCode(block, 'CLIENT', Order.ATOMIC) || '""';
-    const wallet = generator.valueToCode(block, 'WALLET', Order.ATOMIC) || '""';
+    const client = generator.valueToCode(block, 'XRPL_CLIENT', Order.ATOMIC) || '""';
+    const wallet = generator.valueToCode(block, 'WALLET_ID', Order.ATOMIC) || '""';
     const payloadJSON = generator.valueToCode(block, 'PAYLOAD', Order.ATOMIC) || '{}';
     if (generator.nameDB_ === undefined) {
       return `xrplEasySubmit(${client}, ${wallet}, JSON.stringify(${payloadJSON}), '');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('RESULT'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `xrplEasySubmit(${client}, ${wallet}, JSON.stringify(${payloadJSON}), '${variable}');\n`;
     return code;
   };
@@ -308,8 +308,8 @@ export function initInterpreterXrplEasySubmit(interpreter:any, globalObject:any)
 }
 
 // XRPL tx command
-export const xrpl_tx_command : any = {
-  "type": "xrpl_tx_command",
+export const xrpl_command_tx : any = {
+  "type": "xrpl_command_tx",
   "message0": "%1",
   "args0": [
     {
@@ -327,7 +327,7 @@ export const xrpl_tx_command : any = {
     },
     {
       "type": "input_value",
-      "name": "CLIENT",
+      "name": "XRPL_CLIENT",
       "check": blockCheckType.xrplClient
     }
   ],
@@ -353,7 +353,7 @@ export const xrpl_tx_command : any = {
     },
     {
       "type": "field_variable",
-      "name": "VAR",
+      "name": "TRANSACTION",
       "variable": "transaction"
     }
   ],
@@ -366,16 +366,16 @@ export const xrpl_tx_command : any = {
 
 export const defineXrplTxCommandBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_tx_command
+    xrpl_command_tx
   ]);
 
-  javascriptGenerator.forBlock['xrpl_tx_command'] = function (block, generator) {
-    const client = generator.valueToCode(block, 'CLIENT', Order.ATOMIC) || '""';
+  javascriptGenerator.forBlock['xrpl_command_tx'] = function (block, generator) {
+    const client = generator.valueToCode(block, 'XRPL_CLIENT', Order.ATOMIC) || '""';
     const hash = generator.valueToCode(block, 'HASH', Order.ATOMIC) || '""';
     if (generator.nameDB_ === undefined) {
       return `xrplTxCommand(${client}, ${hash}, '')`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('TRANSACTION'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `xrplTxCommand(${client}, ${hash}, '${variable}')`;
     return [code, Order.ATOMIC];
   };

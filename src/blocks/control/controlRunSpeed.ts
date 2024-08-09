@@ -21,7 +21,7 @@ export const controlRunSpeed = (speed: number) => {
 export const defineControlRunSpeedBlock = () => {
   Blockly.defineBlocksWithJsonArray([
     {
-      "type": "control_run_speed",
+      "type": "run_speed_set",
       "message0": "run speed %1",
       "args0": [
         {
@@ -41,7 +41,7 @@ export const defineControlRunSpeedBlock = () => {
     }
   ]);
 
-  javascriptGenerator.forBlock['control_run_speed'] = function (block, generator) {
+  javascriptGenerator.forBlock['run_speed_set'] = function (block, generator) {
     const speed = block.getFieldValue('SPEED');
     const code = `controlRunSpeed(${speed});\n`;
     return code;

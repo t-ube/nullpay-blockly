@@ -34,13 +34,13 @@ export const xrpl_load_wallet : any = {
   "args2": [
     {
       "type": "field_label",
-      "text": "XRPL wallet",
+      "text": "XRPL wallet ID",
       "class": "output-label"
     },
     {
       "type": "field_variable",
-      "name": "VAR",
-      "variable": "xrplWallet"
+      "name": "WALLET_ID",
+      "variable": "walletID"
     }
   ],
   "inputsInline": false,
@@ -61,7 +61,7 @@ export const defineXrplLoadWalletBlock = () => {
     if (generator.nameDB_ === undefined) {
       return `loadXrplWallet(${seed}, '');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('WALLET_ID'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `loadXrplWallet(${seed}, '${variable}');\n`;
     return code;
   };
@@ -103,12 +103,12 @@ export const xrpl_wallet_sign : any = {
   "args1": [
     {
       "type": "field_label",
-      "text": "XRPL wallet",
+      "text": "XRPL wallet ID",
       "class": "args-label"
     },
     {
       "type": "input_value",
-      "name": "WALLET",
+      "name": "WALLET_ID",
       "check": blockCheckType.string
     }
   ],
@@ -134,7 +134,7 @@ export const xrpl_wallet_sign : any = {
     },
     {
       "type": "field_variable",
-      "name": "VAR",
+      "name": "SIGNED",
       "variable": "signed"
     }
   ],
@@ -152,12 +152,12 @@ export const defineXrplWalletSignBlock = () => {
   ]);
  
   javascriptGenerator.forBlock['xrpl_wallet_sign'] = function (block, generator) {
-    const wallet = generator.valueToCode(block, 'WALLET', Order.ATOMIC) || '""';
+    const wallet = generator.valueToCode(block, 'WALLET_ID', Order.ATOMIC) || '""';
     const txnJSON = generator.valueToCode(block, 'TRANSACTION', Order.ATOMIC) || '{}';
     if (generator.nameDB_ === undefined) {
       return `signXrplWallet(${wallet}, JSON.stringify(${txnJSON}), '');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('SIGNED'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `signXrplWallet(${wallet}, JSON.stringify(${txnJSON}), '${variable}');\n`;
     return code;
   };
@@ -199,12 +199,12 @@ export const xrpl_wallet_info : any = {
   "args1": [
     {
       "type": "field_label",
-      "text": "XRPL wallet",
+      "text": "XRPL wallet ID",
       "class": "args-label"
     },
     {
       "type": "input_value",
-      "name": "WALLET",
+      "name": "WALLET_ID",
       "check": blockCheckType.string
     }
   ],
@@ -221,7 +221,7 @@ export const defineXrplWalletInfoBlock = () => {
   ]);
 
   javascriptGenerator.forBlock['xrpl_wallet_info'] = function(block, generator) {
-    const wallet = generator.valueToCode(block, 'WALLET', Order.NONE) || '""';
+    const wallet = generator.valueToCode(block, 'WALLET_ID', Order.NONE) || '""';
     const code = `xrplWalletInfo(${wallet})`;
     return [code, Order.ATOMIC];
   };
@@ -249,8 +249,8 @@ export function initInterpreterXrplWalletInfo(interpreter: any, globalObject: an
 }
 
 
-export const xrpl_create_account : any = {
-  "type": "xrpl_create_account",
+export const xrpl_generate_wallet : any = {
+  "type": "xrpl_generate_wallet",
   "message0": "%1",
   "args0": [
     {
@@ -268,7 +268,7 @@ export const xrpl_create_account : any = {
     },
     {
       "type": "field_variable",
-      "name": "VAR",
+      "name": "WALLET_INFO",
       "variable": "walletInfo"
     }
   ],
@@ -282,14 +282,14 @@ export const xrpl_create_account : any = {
 
 export const defineXrplCreateAccountBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_create_account
+    xrpl_generate_wallet
   ]);
 
-  javascriptGenerator.forBlock['xrpl_create_account'] = function (block, generator) {
+  javascriptGenerator.forBlock['xrpl_generate_wallet'] = function (block, generator) {
     if (generator.nameDB_ === undefined) {
       return `xrplCreateAccount('');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('WALLET_INFO'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `xrplCreateAccount('${variable}');\n`;
     return code;
   };

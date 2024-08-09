@@ -50,7 +50,7 @@ export const xrpl_request_faucet : any = {
     },
     {
       "type": "field_variable",
-      "name": "VAR",
+      "name": "FAUCET_INFO",
       "variable": "faucetInfo"
     }
   ],
@@ -73,7 +73,7 @@ export const defineXrplRequestFaucetBlock = () => {
     if (generator.nameDB_ === undefined) {
       return `xrplRequestFaucet(${address}, ${connection}, '');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('FAUCET_INFO'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `xrplRequestFaucet(${address}, ${connection}, '${variable}');\n`;
     return code;
   };
@@ -103,13 +103,13 @@ export function initInterpreterXrplRequestFaucet(interpreter:any, globalObject:a
 }
 
 
-export const xrpl_request_custom_faucet : any = {
-  "type": "xrpl_request_custom_faucet",
+export const xrpl_create_account_and_request_faucet : any = {
+  "type": "xrpl_create_account_and_request_faucet",
   "message0": "%1",
   "args0": [
     {
       "type": "field_label",
-      "text": "Create account",
+      "text": "Create account & Request faucet",
       "class": "title-label"
     }
   ],
@@ -148,7 +148,7 @@ export const xrpl_request_custom_faucet : any = {
     },
     {
       "type": "field_variable",
-      "name": "VAR",
+      "name": "FAUCET_INFO",
       "variable": "faucetInfo"
     }
   ],
@@ -162,16 +162,16 @@ export const xrpl_request_custom_faucet : any = {
 
 export const defineXrplRequestCustomFaucetBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_request_custom_faucet
+    xrpl_create_account_and_request_faucet
   ]);
 
-  javascriptGenerator.forBlock['xrpl_request_custom_faucet'] = function (block, generator) {
+  javascriptGenerator.forBlock['xrpl_create_account_and_request_faucet'] = function (block, generator) {
     const amount = generator.valueToCode(block, 'AMOUNT', Order.ATOMIC) || '""';
     const connection = generator.valueToCode(block, 'CONNECTION', Order.ATOMIC) || '""';
     if (generator.nameDB_ === undefined) {
       return `xrplRequestCustomFaucet(${amount}, ${connection}, '');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('FAUCET_INFO'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `xrplRequestCustomFaucet(${amount}, ${connection}, '${variable}');\n`;
     return code;
   };

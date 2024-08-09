@@ -39,7 +39,7 @@ export const xrpl_client_initialize : any = {
     },
     {
       "type": "field_variable",
-      "name": "VAR",
+      "name": "XRPL_CLIENT",
       "variable": "xrplClient"
     }
   ],
@@ -61,7 +61,7 @@ export const defineXrplClientInitializeBlock = () => {
     if (generator.nameDB_ === undefined) {
       return `initializeXrplClient(${server}, '');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('XRPL_CLIENT'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `initializeXrplClient(${server}, '${variable}');\n`;
     return code;
   };

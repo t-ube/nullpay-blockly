@@ -7,8 +7,8 @@ import { getBlockSuccess, getBlockError } from '@/blocks/BlockResult';
 
 
 // XRPL nft_buy_offers command
-export const xrpl_nft_buy_offers : any = {
-  "type": "xrpl_nft_buy_offers",
+export const xrpl_command_nft_buy_offers : any = {
+  "type": "xrpl_command_nft_buy_offers",
   "message0": "%1",
   "args0": [
     {
@@ -26,7 +26,7 @@ export const xrpl_nft_buy_offers : any = {
     },
     {
       "type": "input_value",
-      "name": "CLIENT",
+      "name": "XRPL_CLIENT",
       "check": blockCheckType.xrplClient
     }
   ],
@@ -71,11 +71,11 @@ export const xrpl_nft_buy_offers : any = {
 
 export const defineXrplNftBuyOffersCommandBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_nft_buy_offers
+    xrpl_command_nft_buy_offers
   ]);
 
-  javascriptGenerator.forBlock['xrpl_nft_buy_offers'] = function (block, generator) {
-    const client = generator.valueToCode(block, 'CLIENT', Order.ATOMIC) || '""';
+  javascriptGenerator.forBlock['xrpl_command_nft_buy_offers'] = function (block, generator) {
+    const client = generator.valueToCode(block, 'XRPL_CLIENT', Order.ATOMIC) || '""';
     const nftID = generator.valueToCode(block, 'NFT_ID', Order.ATOMIC) || '""';
     if (generator.nameDB_ === undefined) {
       return `xrplNftBuyOffersCommand(${client}, ${nftID}, '', '');\n`;

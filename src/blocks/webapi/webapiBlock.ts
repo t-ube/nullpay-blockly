@@ -222,7 +222,7 @@ export const defineWebApiHeaderBlock = () => {
   Blockly.defineBlocksWithJsonArray([
     {
       "type": "webapi_header",
-      "message0": "%1:%2",
+      "message0": "Header Key-Value %1:%2",
       "args0": [
         {
           "type": "input_value",
@@ -261,7 +261,7 @@ export const defineWebApiKvBlock = () => {
   Blockly.defineBlocksWithJsonArray([
     {
       "type": "webapi_url_param",
-      "message0": "%1=%2",
+      "message0": "URL param %1=%2",
       "args0": [
         {
           "type": "input_value",

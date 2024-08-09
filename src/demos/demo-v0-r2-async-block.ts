@@ -68,7 +68,7 @@ export const DemoBlockXml = `
           </block>
         </value>
         <next>
-          <block type="xrpl_subscribe_account_txn" id="tJM*;^\`t~)2/1!az$a}-">
+          <block type="xrpl_command_subscribe_account_txn" id="tJM*;^\`t~)2/1!az$a}-">
             <field name="VAR" id="ES0/)T6)?BE|qSt%jewk">transactionInfo</field>
             <comment pinned="true" h="80" w="257">It monitors transactions for the specified address.</comment>
             <value name="CLIENT">
@@ -147,7 +147,7 @@ export const DemoBlockXml = `
                               </block>
                             </value>
                             <next>
-                              <block type="xrpl_unsubscribe_account_txn" id="-rK?aF\`hW8;u^MsOVDVo">
+                              <block type="xrpl_command_unsubscribe_account_txn" id="-rK?aF\`hW8;u^MsOVDVo">
                                 <value name="CLIENT">
                                   <block type="variables_get" id="+bA%y^)n7n#z3i@QZZN;">
                                     <field name="VAR" id="~_b6iJcgV_ym.fFIk9j5">xrplClient</field>

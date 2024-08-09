@@ -68,7 +68,7 @@ export const xaman_payment : any = {
     },
     {
       "type": "field_variable",
-      "name": "VAR",
+      "name": "PAYLOAD_ID",
       "variable": "payloadID"
     }
   ],
@@ -81,7 +81,7 @@ export const xaman_payment : any = {
     },
     {
       "type": "field_variable",
-      "name": "ERROR_VAR",
+      "name": "RESULT",
       "variable": "error"
     }
   ],
@@ -105,8 +105,8 @@ export const defineXamanPaymentBlock = () => {
     if (generator.nameDB_ === undefined) {
       return `xamanCreatePaymentTransaction(${destination}, ${amount}, ${memo}, '', '');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
-    const errorVariable = generator.nameDB_.getName(block.getFieldValue('ERROR_VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('PAYLOAD_ID'), Blockly.VARIABLE_CATEGORY_NAME);
+    const errorVariable = generator.nameDB_.getName(block.getFieldValue('RESULT'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `xamanCreatePaymentTransaction(${destination}, ${amount}, ${memo}, '${variable}', '${errorVariable}');\n`;
     return code;
   };
@@ -168,7 +168,7 @@ export const xaman_wait_for_signature : any = {
     },
     {
       "type": "input_value",
-      "name": "PAYLOAD"
+      "name": "PAYLOAD_ID"
     }
   ],
   "previousStatement": null,
@@ -184,7 +184,7 @@ export const defineXamanWaitForSignatureBlock = () => {
   ]);
 
   javascriptGenerator.forBlock['xaman_wait_for_signature'] = function (block, generator) {
-    const payload = generator.valueToCode(block, 'PAYLOAD', Order.ATOMIC) || '""';
+    const payload = generator.valueToCode(block, 'PAYLOAD_ID', Order.ATOMIC) || '""';
     if (generator.nameDB_ === undefined) {
       return `xamanWaitForSignature(${payload});\n`;
     }

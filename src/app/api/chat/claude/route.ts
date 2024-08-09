@@ -26,11 +26,11 @@ const validBlocks = [
   "controls_whileUntil",
   "controls_for",
   "controls_forEach",
-  "confetti_animation",
+  "animation_confetti",
   "json_input_block",
   "json_get_value",
   "json_key_value_pair",
-  "json_set_key_values",
+  "json_append_key_values",
   "json_to_text",
   "json_to_text_v2",
   "text_to_json",
@@ -41,18 +41,18 @@ const validBlocks = [
   "text_to_uppercase",
   "number_to_text",
   "text_block_comment",
-  "current_datetime",
-  "create_datetime",
-  "adjust_datetime",
-  "compare_datetime",
+  "datetime_current",
+  "datetime_create",
+  "datetime_adjust",
+  "datetime_compare",
   "datetime_text_format",
   "datetime_to_text",
-  "timezone_block",
+  "datetime_timezone",
   "ripple_epoch_to_datetime",
   "datetime_to_ripple_epoch",
-  "xrpl_account_info",
-  "xrpl_account_lines_command",
-  "xrpl_rippling_txn",
+  "xrpl_command_account_info",
+  "xrpl_command_account_lines",
+  "xrpl_payload_rippling",
   "xrpl_address",
   "xrpl_exchange_address",
   "xrpl_drops_to_xrp",
@@ -60,40 +60,40 @@ const validBlocks = [
   "xrpl_extract_offer_create_txn",
   "xrpl_read_txn_info",
   "xrpl_client_initialize",
-  "xrpl_clio_nft_info",
+  "xrpl_clio_command_nft_info",
   "xrpl_faucet_network_selection",
   "xrpl_network_wss_selection",
-  "xrpl_nftoken_buy_offer",
-  "xrpl_buy_token_offer_txn",
-  "xrpl_sale_token_offer_txn",
-  "xrpl_nft_buy_offers",
-  "xrpl_payment_token_txn",
+  "xrpl_payload_nftoken_buy_offer",
+  "xrpl_payload_buy_token_offer",
+  "xrpl_payload_sale_token_offer",
+  "xrpl_command_nft_buy_offers",
+  "xrpl_payload_payment_token",
   "xrpl_payment_transaction",
-  "xrpl_request_custom_faucet",
+  "xrpl_create_account_and_request_faucet",
   "xrpl_request_faucet",
-  "xrpl_client_autofill",
-  "xrpl_client_submit",
+  "xrpl_autofill_payload",
+  "xrpl_command_submit",
   "xrpl_easy_submit",
-  "xrpl_tx_command",
-  "xrpl_subscribe_account_txn",
-  "xrpl_subscribe_all_txn",
-  "xrpl_unsubscribe_account_txn",
-  "xrpl_unsubscribe_all_txn",
+  "xrpl_command_tx",
+  "xrpl_command_subscribe_account_txn",
+  "xrpl_command_subscribe_streams_all_txn",
+  "xrpl_command_unsubscribe_account_txn",
+  "xrpl_command_unsubscribe_streams_all_txn",
   "xrpl_create_new_token",
   "xrpl_token_amount_arithmetic",
   "xrpl_token_amount_set",
   "xrpl_token_select",
-  "xrpl_trust_set_txn",
+  "xrpl_payload_trust_set",
   "xrpl_txn_type_select",
-  "xrpl_create_account",
+  "xrpl_generate_wallet",
   "xrpl_load_wallet",
   "xrpl_wallet_info",
   "xrpl_wallet_sign",
   "xaman_payload_set",
   "xaman_payment",
   "xaman_wait_for_signature",
-  "xaman_simple_login",
-  "xaman_simple_logout",
+  "xaman_login",
+  "xaman_logout",
   "xaman_variable_get",
   "xaman_variable_name",
   "xaman_variable_set",
@@ -125,7 +125,7 @@ export async function POST(req: Request) {
 9. 提供されたvalidBlocksリスト内のブロックのみを使用すること。リストにないブロックは使用しないでください。
 10. 生成するXMLは、指定されたタスクを実行するための具体的な手順を表現すること。
 11. 値を返すブロック（例：xrpl_wallet_info）は、直接他のブロックに接続せず、変数に代入するか、他のブロックの入力値として使用してください。
-12. ステートメントブロック（例：xaman_simple_login, xrpl_payment_transaction）のみを直接接続してください。
+12. ステートメントブロック（例：xaman_login, xrpl_payment_transaction）のみを直接接続してください。
 以下は、10 XRPを送金するための有効なBlockly XMLの例です：
 
 <xml xmlns="https://developers.google.com/blockly/xml">
@@ -134,12 +134,12 @@ export async function POST(req: Request) {
     <variable id="payloadIDVar">payloadID</variable>
     <variable id="errorVar">error</variable>
   </variables>
-  <block type="xaman_simple_login" id="loginBlock" x="0" y="0">
-    <field name="VAR" id="userInfoVar">userInfo</field>
+  <block type="xaman_login" id="loginBlock" x="0" y="0">
+    <field name="USER_INFO" id="userInfoVar">userInfo</field>
     <next>
       <block type="xaman_payment" id="paymentBlock">
         <field name="VAR" id="payloadIDVar">payloadID</field>
-        <field name="ERROR_VAR" id="errorVar">error</field>
+        <field name="RESULT" id="errorVar">error</field>
         <value name="DESTINATION">
           <block type="text" id="destAddressBlock">
             <field name="TEXT">rPEPPER7kfTD9w2To4CQk6UCfuHM9c6GDY</field>

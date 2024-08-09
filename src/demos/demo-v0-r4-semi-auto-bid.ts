@@ -20,8 +20,8 @@ export const DemoV0R4SemiAutoBid = `
     <variable id="DJAIoI2uq.*U,y!Iv|b?">highestAmount</variable>
     <variable id="-9^X_9!F{?~WFtM=)|,|">newAmount</variable>
   </variables>
-  <block type="xaman_simple_login" id="lsScrv}mFNf72aYU9;,B" x="0" y="0">
-    <field name="VAR" id="K+=7kLss}zzFh+WDV|w4">userInfo</field>
+  <block type="xaman_login" id="lsScrv}mFNf72aYU9;,B" x="0" y="0">
+    <field name="USER_INFO" id="K+=7kLss}zzFh+WDV|w4">userInfo</field>
     <next>
       <block type="variables_set" id="AQ(;k.L#K/vCne~q?~mR">
         <field name="VAR" id="gF*aYnq*HcLnh}aDPP$u">userAccount</field>
@@ -131,7 +131,7 @@ export const DemoV0R4SemiAutoBid = `
                                       </block>
                                     </value>
                                     <next>
-                                      <block type="xrpl_clio_nft_info" id="%RE;,JEzW4r#RZ!}[TtD">
+                                      <block type="xrpl_clio_command_nft_info" id="%RE;,JEzW4r#RZ!}[TtD">
                                         <field name="STATUS" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
                                         <field name="RESPONSE" id="H8?7.T:4!\`hKG.w57*E^">response</field>
                                         <value name="CLIENT">
@@ -180,7 +180,7 @@ export const DemoV0R4SemiAutoBid = `
                                                   </block>
                                                 </value>
                                                 <statement name="DO">
-                                                  <block type="xrpl_nft_buy_offers" id="BU,sKqtu(Mz=iK,}I82l">
+                                                  <block type="xrpl_command_nft_buy_offers" id="BU,sKqtu(Mz=iK,}I82l">
                                                     <field name="STATUS" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
                                                     <field name="RESPONSE" id="H8?7.T:4!\`hKG.w57*E^">response</field>
                                                     <value name="CLIENT">
@@ -352,7 +352,7 @@ export const DemoV0R4SemiAutoBid = `
                                                                                       <block type="variables_set" id="}Y2]]LZ[.(Y]W4!Rx4EJ">
                                                                                         <field name="VAR" id="L*8JxJvWWO)aF+}m,c$w">buyPayload</field>
                                                                                         <value name="VALUE">
-                                                                                          <block type="xrpl_nftoken_buy_offer" id="Pp@](4f.^%k=Ik_6#tV[">
+                                                                                          <block type="xrpl_payload_nftoken_buy_offer" id="Pp@](4f.^%k=Ik_6#tV[">
                                                                                             <value name="OWNER_ID">
                                                                                               <block type="variables_get" id="\`X/E_RJ[RNkF]Uy4R2[T">
                                                                                                 <field name="VAR" id="-,dV?p?EbB}Gm?~SUB*t">ownerAddess</field>
@@ -415,7 +415,7 @@ export const DemoV0R4SemiAutoBid = `
                                                           <block type="variables_set" id="yHgFVF3Y$@@v0mj7n)9v">
                                                             <field name="VAR" id="L*8JxJvWWO)aF+}m,c$w">buyPayload</field>
                                                             <value name="VALUE">
-                                                              <block type="xrpl_nftoken_buy_offer" id="vCo#Y[7lpY=3.-|FHqJC">
+                                                              <block type="xrpl_payload_nftoken_buy_offer" id="vCo#Y[7lpY=3.-|FHqJC">
                                                                 <value name="OWNER_ID">
                                                                   <block type="variables_get" id="uD~%S*8=odMX?n=M\`iLy">
                                                                     <field name="VAR" id="-,dV?p?EbB}Gm?~SUB*t">ownerAddess</field>
@@ -468,7 +468,7 @@ export const DemoV0R4SemiAutoBid = `
                                                               </block>
                                                             </value>
                                                             <next>
-                                                              <block type="xrpl_clio_nft_info" id="\`)(UI\`JP0e:[zj6a[nyM">
+                                                              <block type="xrpl_clio_command_nft_info" id="\`)(UI\`JP0e:[zj6a[nyM">
                                                                 <field name="STATUS" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
                                                                 <field name="RESPONSE" id="H8?7.T:4!\`hKG.w57*E^">response</field>
                                                                 <value name="CLIENT">

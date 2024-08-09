@@ -17,8 +17,8 @@ export const confettiAnimation = (duration: number) => {
   }
 };
 
-export const confetti_animation : any = {
-  "type": "confetti_animation",
+export const animation_confetti : any = {
+  "type": "animation_confetti",
   "message0": "Confetti for %1 seconds",
   "args0": [
     {
@@ -39,10 +39,10 @@ export const confetti_animation : any = {
 
 export const defineConfettiAnimationBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    confetti_animation
+    animation_confetti
   ]);
 
-  javascriptGenerator.forBlock['confetti_animation'] = function (block, generator) {
+  javascriptGenerator.forBlock['animation_confetti'] = function (block, generator) {
     const duration = block.getFieldValue('DURATION');
     const code = `confettiAnimation(${duration});\n`;
     return code;

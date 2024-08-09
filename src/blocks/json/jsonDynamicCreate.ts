@@ -71,7 +71,7 @@ const DYNAMIC_JSON_CREATE_MIXIN = {
       const inputNames = items.split(',');
       this.inputList = [];
       inputNames.forEach((name) => this.appendValueInput(name).setCheck('String'));
-      this.inputList[0].appendField('JSON Key-Values');
+      this.inputList[0].appendField('Key-Value list');
     }
   },
 
@@ -259,7 +259,7 @@ const DYNAMIC_JSON_CREATE_MIXIN = {
    * @returns The added input.
    */
   addFirstInput(this: DynamicJsonCreateBlock): Blockly.Input {
-    return this.appendValueInput('ADD0').appendField('JSON Key-Values');
+    return this.appendValueInput('ADD0').appendField('Key-Value list');
   },
 
   /**

@@ -5,12 +5,12 @@ export const DemoBlockXml = `
       <variable id="Qpg##5jJet;/iZcxAsHM">payloadID</variable>
       <variable id=";XKRH!_e+3NgCbeNNtdu">error</variable>
     </variables>
-    <block type="xaman_simple_login" id="1G4^q;#XDrsSU-K+fe[g" x="370" y="57">
-      <field name="VAR" id="FLOps7RStIedf8T6Cj.e">userInfo</field>
+    <block type="xaman_login" id="1G4^q;#XDrsSU-K+fe[g" x="370" y="57">
+      <field name="USER_INFO" id="FLOps7RStIedf8T6Cj.e">userInfo</field>
       <next>
         <block type="xaman_payment" id="iXm]l;1xMGc[#%CZ3Bv%">
           <field name="VAR" id="Qpg##5jJet;/iZcxAsHM">payloadID</field>
-          <field name="ERROR_VAR" id=";XKRH!_e+3NgCbeNNtdu">error</field>
+          <field name="RESULT" id=";XKRH!_e+3NgCbeNNtdu">error</field>
           <value name="DESTINATION">
             <block type="xrpl_address" id="E}isnNO_;!U[I#.PUL3?">
               <field name="ADDRESS">rPJuukGFu7Awm2c2fBY8jcAndfEZQngbpD</field>
@@ -69,7 +69,7 @@ export const DemoBlockXml = `
                             </block>
                           </value>
                           <next>
-                            <block type="confetti_animation" id="u!bNEB=A*!0+WRPjVU7)">
+                            <block type="animation_confetti" id="u!bNEB=A*!0+WRPjVU7)">
                               <field name="DURATION">5</field>
                             </block>
                           </next>

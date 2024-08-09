@@ -4,8 +4,8 @@ import { BlockColors } from '@/blocks/BlockColors';
 import xamanPkce from '@/utils/XamanPkce';
 
 
-export const xaman_simple_login : any = {
-  "type": "xaman_simple_login",
+export const xaman_login : any = {
+  "type": "xaman_login",
   "message0": "%1",
   "args0": [
     {
@@ -23,7 +23,7 @@ export const xaman_simple_login : any = {
     },
     {
       "type": "field_variable",
-      "name": "VAR",
+      "name": "USER_INFO",
       "variable": "userInfo"
     }
   ],
@@ -37,14 +37,14 @@ export const xaman_simple_login : any = {
 
 export const defineXamanSimpleLoginBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xaman_simple_login
+    xaman_login
   ]);
 
-  javascriptGenerator.forBlock['xaman_simple_login'] = function (block, generator) {
+  javascriptGenerator.forBlock['xaman_login'] = function (block, generator) {
     if (generator.nameDB_ === undefined) {
       return `xamanSimpleLogin('');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('USER_INFO'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `xamanSimpleLogin('${variable}');\n`;
     return code;
   };
@@ -95,8 +95,8 @@ export function initInterpreterXamanSimpleLogin(interpreter:any, globalObject:an
 }
 
 
-export const xaman_simple_logout : any = {
-  "type": "xaman_simple_logout",
+export const xaman_logout : any = {
+  "type": "xaman_logout",
   "message0": "%1",
   "args0": [
     {
@@ -114,10 +114,10 @@ export const xaman_simple_logout : any = {
 
 export const defineXamanSimpleLogoutBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xaman_simple_logout
+    xaman_logout
   ]);
 
-  javascriptGenerator.forBlock['xaman_simple_logout'] = function () {
+  javascriptGenerator.forBlock['xaman_logout'] = function () {
     const code = `xamanSimpleLogout();\n`;
     return code;
   };

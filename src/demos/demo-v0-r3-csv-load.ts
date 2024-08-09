@@ -45,7 +45,7 @@ export const DemoV0R3CsvLoadXml = `
               </block>
             </value>
             <next>
-              <block type="control_run_speed" id="k.Y\`d5h{W%F.yC|v*FC]">
+              <block type="run_speed_set" id="k.Y\`d5h{W%F.yC|v*FC]">
                 <field name="SPEED">1000</field>
                 <next>
                   <block type="controls_forEach" id="/%z-=#~%0Ch]sk0(a#p=">

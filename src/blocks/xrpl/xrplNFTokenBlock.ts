@@ -4,8 +4,8 @@ import { BlockColors } from '@/blocks/BlockColors';
 import { blockCheckType } from '@/blocks/BlockField';
 
 
-export const xrpl_nftoken_buy_offer : any = {
-  "type": "xrpl_nftoken_buy_offer",
+export const xrpl_payload_nftoken_buy_offer : any = {
+  "type": "xrpl_payload_nftoken_buy_offer",
   "message0": "%1",
   "args0": [
     {
@@ -88,10 +88,10 @@ export const xrpl_nftoken_buy_offer : any = {
 
 export const defineNFTokenBuyOfferBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_nftoken_buy_offer
+    xrpl_payload_nftoken_buy_offer
   ]);
 
-  javascriptGenerator.forBlock['xrpl_nftoken_buy_offer'] = function(block, generator) {
+  javascriptGenerator.forBlock['xrpl_payload_nftoken_buy_offer'] = function(block, generator) {
     const ownerID = generator.valueToCode(block, 'OWNER_ID', Order.NONE) || '""';
     const tokenID = generator.valueToCode(block, 'TOKEN_ID', Order.NONE) || '""';
     const amount = generator.valueToCode(block, 'AMOUNT', Order.NONE) || '"0"';

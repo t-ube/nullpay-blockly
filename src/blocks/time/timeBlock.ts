@@ -8,8 +8,8 @@ Blockly.fieldRegistry.register('field_date', FieldDate);
 Blockly.fieldRegistry.register('field_time', FieldTime);
 Blockly.fieldRegistry.register('field_time_with_seconds', FieldTimeWithSeconds);
 
-export const current_datetime : any = {
-  "type": "current_datetime",
+export const datetime_current : any = {
+  "type": "datetime_current",
   "message0": "current time",
   "output": "DATETIME",
   "colour": BlockColors.time,
@@ -19,10 +19,10 @@ export const current_datetime : any = {
 
 export const defineCurrentDateTimeBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    current_datetime
+    datetime_current
   ]);
 
-  javascriptGenerator.forBlock['current_datetime'] = function (block) {
+  javascriptGenerator.forBlock['datetime_current'] = function (block) {
     const code = `getCurrentDateTime()`;
     return [code, Order.ATOMIC];
   };
@@ -45,8 +45,8 @@ function formatDateToYYYYMMDD(date:Date) {
 }
 
 // Dummy
-export const create_datetime : any = {
-  "type": "create_datetime",
+export const datetime_create : any = {
+  "type": "datetime_create",
   "message0": "date %1",
   "args0": [
     {
@@ -80,7 +80,7 @@ export const create_datetime : any = {
 export const defineCreateDateTimeBlock = () => {
   Blockly.defineBlocksWithJsonArray([
     {
-      "type": "create_datetime",
+      "type": "datetime_create",
       "message0": "date %1",
       "args0": [
         {
@@ -112,7 +112,7 @@ export const defineCreateDateTimeBlock = () => {
     }
   ]);
 
-  javascriptGenerator.forBlock['create_datetime'] = function (block, generator) {
+  javascriptGenerator.forBlock['datetime_create'] = function (block, generator) {
     const dateInput = block.getFieldValue('DATE') || formatDateToYYYYMMDD(new Date());
     const timeInput = block.getFieldValue('TIME') || '00:00:00';
     const timezone = block.getFieldValue('TIMEZONE') || 'UTC';
@@ -131,8 +131,8 @@ export function initInterpreterCreateDateTime(interpreter:any, globalObject:any)
 }
 
 
-export const adjust_datetime : any = {
-  "type": "adjust_datetime",
+export const datetime_adjust : any = {
+  "type": "datetime_adjust",
   "message0": "adjust time %1 %2 by %3 %4",
   "args0": [
     {
@@ -173,10 +173,10 @@ export const adjust_datetime : any = {
 
 export const defineAdjustDateTimeBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    adjust_datetime
+    datetime_adjust
   ]);
 
-  javascriptGenerator.forBlock['adjust_datetime'] = function (block) {
+  javascriptGenerator.forBlock['datetime_adjust'] = function (block) {
     const datetime = javascriptGenerator.valueToCode(block, 'DATETIME', Order.ATOMIC) || 'new Date()';
     const direction = block.getFieldValue('DIRECTION') === 'ADD' ? 'add' : 'subtract';
     const amount = javascriptGenerator.valueToCode(block, 'AMOUNT', Order.ATOMIC) || '0';
@@ -201,8 +201,8 @@ export function initInterpreterAdjustDateTime(interpreter:any, globalObject:any)
 }
 
 
-export const compare_datetime : any = {
-  "type": "compare_datetime",
+export const datetime_compare : any = {
+  "type": "datetime_compare",
   "message0": "compare time %1 %2 %3",
   "args0": [
     {
@@ -234,10 +234,10 @@ export const compare_datetime : any = {
 
 export const defineCompareDateTimeBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    compare_datetime
+    datetime_compare
   ]);
 
-  javascriptGenerator.forBlock['compare_datetime'] = function (block, generator) {
+  javascriptGenerator.forBlock['datetime_compare'] = function (block, generator) {
     const datetime1 = generator.valueToCode(block, 'DATETIME1', Order.ATOMIC) || 'new Date()';
     const datetime2 = generator.valueToCode(block, 'DATETIME2', Order.ATOMIC) || 'new Date()';
     const comparison = block.getFieldValue('COMPARISON');
@@ -307,8 +307,8 @@ export const defineDateTimeTextFormatBlock = () => {
 };
 
 
-export const timezone_block : any = {
-  "type": "timezone_block",
+export const datetime_timezone : any = {
+  "type": "datetime_timezone",
   "message0": "timezone %1",
   "args0": [
     {
@@ -325,10 +325,10 @@ export const timezone_block : any = {
 
 export const defineTimezoneBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    timezone_block
+    datetime_timezone
   ]);
 
-  javascriptGenerator.forBlock['timezone_block'] = function (block, generator) {
+  javascriptGenerator.forBlock['datetime_timezone'] = function (block, generator) {
     const timezone = block.getFieldValue('TIMEZONE') || 'UTC';
     const code = `"${timezone}"`;
     return [code, Order.ATOMIC];

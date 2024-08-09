@@ -27,7 +27,7 @@ export const xrpl_payment_transaction : any = {
     },
     {
       "type": "input_value",
-      "name": "CLIENT",
+      "name": "XRPL_CLIENT",
       "check": "Client"
     }
   ],
@@ -35,12 +35,12 @@ export const xrpl_payment_transaction : any = {
   "args2": [
     {
       "type": "field_label",
-      "text": "XRPL wallet",
+      "text": "XRPL wallet ID",
       "class": "args-label"
     },
     {
       "type": "input_value",
-      "name": "WALLET",
+      "name": "WALLET_ID",
       "check": "String"
     }
   ],
@@ -92,7 +92,7 @@ export const xrpl_payment_transaction : any = {
     },
     {
       "type": "field_variable",
-      "name": "VAR",
+      "name": "TX_JSON",
       "variable": "txJson"
     }
   ],
@@ -110,15 +110,15 @@ export const defineXrplPaymentTxnBlock = () => {
   ]);
 
   javascriptGenerator.forBlock['xrpl_payment_transaction'] = function (block, generator) {
-    const client = generator.valueToCode(block, 'CLIENT', Order.ATOMIC) || '""';
-    const wallet = generator.valueToCode(block, 'WALLET', Order.ATOMIC) || '""';
+    const client = generator.valueToCode(block, 'XRPL_CLIENT', Order.ATOMIC) || '""';
+    const wallet = generator.valueToCode(block, 'WALLET_ID', Order.ATOMIC) || '""';
     const destination = generator.valueToCode(block, 'DESTINATION', Order.ATOMIC) || '""';
     const amount = generator.valueToCode(block, 'AMOUNT', Order.ATOMIC) || '0';
     const flag = generator.valueToCode(block, 'FLAG', Order.ATOMIC) || '0';
     if (generator.nameDB_ === undefined) {
       return `createPaymentTransaction(${client}, ${wallet}, ${destination}, ${amount}, ${flag}, '');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('TX_JSON'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `createPaymentTransaction(${client}, ${wallet}, ${destination}, ${amount}, ${flag}, '${variable}');\n`;
     return code;
   };
@@ -159,8 +159,8 @@ export function initInterpreterXrplPaymentTxn(interpreter: any, globalObject: an
 
 
 // Define the block for Payment XRPL Token
-export const xrpl_payment_token_txn : any = {
-  "type": "xrpl_payment_token_txn",
+export const xrpl_payload_payment_token : any = {
+  "type": "xrpl_payload_payment_token",
   "message0": "%1",
   "args0": [
     {
@@ -230,11 +230,11 @@ export const xrpl_payment_token_txn : any = {
 
 export const defineXrplPaymentTokenTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_payment_token_txn
+    xrpl_payload_payment_token
   ]);
 
   // JavaScript code generator for Payment XRPL Token
-  javascriptGenerator.forBlock['xrpl_payment_token_txn'] = function(block, generator) {
+  javascriptGenerator.forBlock['xrpl_payload_payment_token'] = function(block, generator) {
     const token = generator.valueToCode(block, 'TOKEN', Order.NONE) || {} as IXrplToken;
     const account = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.NONE) || '""';
     const dest = generator.valueToCode(block, 'DEST_ADDRESS', Order.NONE) || '""';

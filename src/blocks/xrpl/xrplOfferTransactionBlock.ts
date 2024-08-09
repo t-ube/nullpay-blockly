@@ -5,8 +5,8 @@ import { blockCheckType } from '@/blocks/BlockField';
 import { IXrplToken } from '@/interfaces/IXrplToken';
 
 // Define the block for BuyOffer
-export const xrpl_buy_token_offer_txn : any = {
-  "type": "xrpl_buy_token_offer_txn",
+export const xrpl_payload_buy_token_offer : any = {
+  "type": "xrpl_payload_buy_token_offer",
   "message0": "%1",
   "args0": [
     {
@@ -76,10 +76,10 @@ export const xrpl_buy_token_offer_txn : any = {
 
 export const defineBuyTokenOfferTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_buy_token_offer_txn
+    xrpl_payload_buy_token_offer
   ]);
 
-  javascriptGenerator.forBlock['xrpl_buy_token_offer_txn'] = function(block, generator) {
+  javascriptGenerator.forBlock['xrpl_payload_buy_token_offer'] = function(block, generator) {
     const account = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.NONE) || '""';
     const token = generator.valueToCode(block, 'TOKEN', Order.NONE) || {} as IXrplToken;
     const tokenAmount = generator.valueToCode(block, 'TOKEN_AMOUNT', Order.NONE) || 0;
@@ -109,8 +109,8 @@ export function initInterpreterBuyTokenOfferTxn(interpreter: any, globalObject: 
 }
 
 // Define the block for SaleOffer
-export const xrpl_sale_token_offer_txn : any = {
-  "type": "xrpl_sale_token_offer_txn",
+export const xrpl_payload_sale_token_offer : any = {
+  "type": "xrpl_payload_sale_token_offer",
   "message0": "%1",
   "args0": [
     {
@@ -180,10 +180,10 @@ export const xrpl_sale_token_offer_txn : any = {
 
 export const defineSaleTokenOfferTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_sale_token_offer_txn
+    xrpl_payload_sale_token_offer
   ]);
 
-  javascriptGenerator.forBlock['xrpl_sale_token_offer_txn'] = function(block, generator) {
+  javascriptGenerator.forBlock['xrpl_payload_sale_token_offer'] = function(block, generator) {
     const account = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.NONE) || '""';
     const token = generator.valueToCode(block, 'TOKEN', Order.NONE) || {} as IXrplToken;
     const tokenAmount = generator.valueToCode(block, 'TOKEN_AMOUNT', Order.NONE) || 0;

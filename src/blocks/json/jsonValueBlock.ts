@@ -122,21 +122,27 @@ export function initInterpreterJsonTextToJsonV2(interpreter: any, globalObject: 
   interpreter.setProperty(globalObject, 'TextToJsonV2', interpreter.createNativeFunction(wrapper));
 }
 
-export const json_set_key_values : any = {
-  "type": "json_set_key_values",
-  "message0": "Set JSON %1",
-  "args0": [
+export const json_append_key_values : any = {
+  "type": "json_append_key_values",
+  "message0": "Append Key-Values",
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "JSON",
+      "class": "args-label"
+    },
     {
       "type": "input_value",
       "name": "BASE_JSON",
       "check": blockCheckType.json
     }
   ],
-  "message1": "%1 %2",
-  "args1": [
+  "message2": "%1 %2",
+  "args2": [
     {
       "type": "field_label",
-      "text": "Key-Values",
+      "text": "Key-Value list",
       "class": "args-label"
     },
     {
@@ -154,10 +160,10 @@ export const json_set_key_values : any = {
 
 export const defineJsonSetKVsBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    json_set_key_values
+    json_append_key_values
   ]);
 
-  javascriptGenerator.forBlock['json_set_key_values'] = function (block, generator) {
+  javascriptGenerator.forBlock['json_append_key_values'] = function (block, generator) {
     const baseJson = generator.valueToCode(block, 'BASE_JSON', Order.ATOMIC) || '{}';
     const keyValues = generator.valueToCode(block, 'KEY_VALUES', Order.ATOMIC) || '[]';
     const code = `jsonSetKVs(JSON.stringify(${baseJson}), JSON.stringify(${keyValues}))`;
@@ -191,7 +197,7 @@ export const json_get_value : any = {
   "args0": [
     {
       "type": "input_value",
-      "name": "VAR",
+      "name": "JSON",
       "check": null
     },
     {
@@ -212,7 +218,7 @@ export const defineJsonGetValueBlock = () => {
   ]);
 
   javascriptGenerator.forBlock['json_get_value'] = function (block, generator) {
-    const variable = generator.valueToCode(block, 'VAR', Order.ATOMIC) || '{}';
+    const variable = generator.valueToCode(block, 'JSON', Order.ATOMIC) || '{}';
     const key = generator.valueToCode(block, 'KEY', Order.ATOMIC) || '""';
     const code = `${variable}[${key}]`;
     return [code, Order.NONE];
@@ -223,7 +229,7 @@ export const defineJsonGetValueBlock = () => {
 // Dummy
 export const dynamic_json_key_values : any = {
   "type": "dynamic_json_key_values",
-  "message0": "JSON Key-Values %1",
+  "message0": "Key-Value list %1",
   "args0": [
     {
       "type": "input_value",
@@ -253,7 +259,7 @@ export const defineDynamicJsonKVsBlock = () => {
 
 export const json_key_value_pair : any = {
   "type": "json_key_value_pair",
-  "message0": "%1:%2",
+  "message0": "Key-Value %1:%2",
   "args0": [
     {
       "type": "input_value",

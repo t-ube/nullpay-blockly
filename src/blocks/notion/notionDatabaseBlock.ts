@@ -69,7 +69,7 @@ export const defineNotionCreateClientBlock = () => {
         },
         {
           "type": "input_value",
-          "name": "KEY",
+          "name": "API_KEY",
           "check": blockCheckType.string
         }
       ],
@@ -82,7 +82,7 @@ export const defineNotionCreateClientBlock = () => {
         },
         {
           "type": "field_variable",
-          "name": "VAR",
+          "name": "NOTION_CLIENT",
           "variable": "notionClient"
         }
       ],
@@ -96,11 +96,11 @@ export const defineNotionCreateClientBlock = () => {
   ]);
 
   javascriptGenerator.forBlock['notion_create_client'] = function(block, generator) {
-    const key = generator.valueToCode(block, 'KEY', Order.NONE) || '""';
+    const key = generator.valueToCode(block, 'API_KEY', Order.NONE) || '""';
     if (generator.nameDB_ === undefined) {
       return `notionCreateClient(${key}, '');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('NOTION_CLIENT'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `notionCreateClient(${key},'${variable}');\n`;
     return code;
   };
@@ -145,7 +145,7 @@ export const defineNotionCreateDatabaseBlock = () => {
         },
         {
           "type": "input_value",
-          "name": "CLIENT",
+          "name": "NOTION_CLIENT",
           "check": blockCheckType.string
         }
       ],
@@ -216,7 +216,7 @@ export const defineNotionCreateDatabaseBlock = () => {
   ]);
 
   javascriptGenerator.forBlock['notion_create_database'] = function(block,generator) {
-    const client = generator.valueToCode(block, 'CLIENT', Order.NONE) || '""';
+    const client = generator.valueToCode(block, 'NOTION_CLIENT', Order.NONE) || '""';
     const pageId = generator.valueToCode(block, 'PAGE_ID', Order.NONE) || '""';
     const title = generator.valueToCode(block, 'TITLE', Order.NONE) || '""';
     const properties = generator.valueToCode(block, 'PROPERTIES', Order.NONE) || {};
@@ -284,7 +284,7 @@ export const defineNotionAddRecordBlock = () => {
         },
         {
           "type": "input_value",
-          "name": "CLIENT",
+          "name": "NOTION_CLIENT",
           "check": blockCheckType.string
         }
       ],
@@ -342,7 +342,7 @@ export const defineNotionAddRecordBlock = () => {
   ]);
 
   javascriptGenerator.forBlock['notion_add_record'] = function(block,generator) {
-    const client = generator.valueToCode(block, 'CLIENT', Order.NONE) || '""';
+    const client = generator.valueToCode(block, 'NOTION_CLIENT', Order.NONE) || '""';
     const databaseId = generator.valueToCode(block, 'DB_ID', Order.NONE) || '""';
     const properties = generator.valueToCode(block, 'PROPERTIES', Order.NONE) || {};
     if (generator.nameDB_ === undefined) {

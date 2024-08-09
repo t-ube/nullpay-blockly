@@ -6,8 +6,8 @@ import { blockCheckType } from '@/blocks/BlockField';
 import { getBlockSuccess, getBlockError } from '@/blocks/BlockResult';
 
 // XRPL nft_buy_offers command
-export const xrpl_clio_nft_info : any = {
-  "type": "xrpl_clio_nft_info",
+export const xrpl_clio_command_nft_info : any = {
+  "type": "xrpl_clio_command_nft_info",
   "message0": "%1",
   "args0": [
     {
@@ -25,7 +25,7 @@ export const xrpl_clio_nft_info : any = {
     },
     {
       "type": "input_value",
-      "name": "CLIENT",
+      "name": "XRPL_CLIENT",
       "check": blockCheckType.xrplClient
     }
   ],
@@ -70,11 +70,11 @@ export const xrpl_clio_nft_info : any = {
 
 export const defineXrplClioNftInfoBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_clio_nft_info
+    xrpl_clio_command_nft_info
   ]);
 
-  javascriptGenerator.forBlock['xrpl_clio_nft_info'] = function (block, generator) {
-    const client = generator.valueToCode(block, 'CLIENT', Order.ATOMIC) || '""';
+  javascriptGenerator.forBlock['xrpl_clio_command_nft_info'] = function (block, generator) {
+    const client = generator.valueToCode(block, 'XRPL_CLIENT', Order.ATOMIC) || '""';
     const nftID = generator.valueToCode(block, 'NFT_ID', Order.ATOMIC) || '""';
     if (generator.nameDB_ === undefined) {
       return `xrplClioNftInfo(${client}, ${nftID}, '', '');\n`;
@@ -118,7 +118,7 @@ export function initInterpreterXrplClioNftInfo(interpreter:any, globalObject:any
 export const defineXrplClioNftInfoBlock = () => {
   Blockly.defineBlocksWithJsonArray([
     {
-      "type": "xrpl_clio_nft_info",
+      "type": "xrpl_clio_command_nft_info",
       "message0": "%1",
       "args0": [
         {
@@ -180,7 +180,7 @@ export const defineXrplClioNftInfoBlock = () => {
     }
   ]);
 
-  javascriptGenerator.forBlock['xrpl_clio_nft_info'] = function (block, generator) {
+  javascriptGenerator.forBlock['xrpl_clio_command_nft_info'] = function (block, generator) {
     const clioUrl = generator.valueToCode(block, 'CLIO_URL', Order.ATOMIC) || '"https://s1.ripple.com:51234/"';
     const nftID = generator.valueToCode(block, 'NFT_ID', Order.ATOMIC) || '""';
     if (generator.nameDB_ === undefined) {
