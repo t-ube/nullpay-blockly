@@ -347,6 +347,17 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
     {
       height: 120,
       block: `
+        <block type="xrpl_payload_payment" x="0" y="0"></block>
+      `,
+      title: "XRPL Payment",
+      description: "Create a payment transaction on the XRPL. Specify account address, destination address, and amount for the transaction.",
+      categories: ["xrpl"],
+      blockType: "xrpl_payload_payment",
+      subCategories: [XRPLSubCategories.TOKEN_OPERATIONS]
+    },
+    {
+      height: 120,
+      block: `
         <block type="xrpl_payload_payment_token" x="0" y="0"></block>
       `,
       title: "XRPL Payment Token",
