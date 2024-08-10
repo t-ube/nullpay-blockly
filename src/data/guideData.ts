@@ -34,4 +34,11 @@ export const guideData: IGuideCategory[] = [
       { id: '9', title: 'Looping Through a List', componentName: 'LoopingListGuide' },
     ]
   },
+  {
+    category: 'Xaman',
+    steps: [
+      { id: '10', title: 'Xaman Payment', componentName: 'XamanPaymentGuide' }, 
+      { id: '11', title: 'Xaman Payment with Payload', componentName: 'XamanPaymentPayloadGuide' }, 
+    ]
+  },
 ];

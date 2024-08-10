@@ -65,16 +65,36 @@ const GuideBar = ({ onBlockSelectedV2, open, setOpen, mainWorkspace }: IGideBarP
       ref={containerRef}
       sx={{ display: 'flex', height: '100%', maxWidth: '800px', margin: 'auto' }}
     >
-      <Paper elevation={3} sx={{ bgcolor: 'background.paper', display: 'flex', width: '100%', height: '100%' }}>
-        <List sx={{ width: '200px', borderRight: 1, borderColor: 'divider', fontSize: '0.75rem' }}>
+      <Paper elevation={3} sx={{ 
+        bgcolor: 'background.paper', 
+        display: 'flex', 
+        width: '100%', 
+        height: '100%',
+        overflow: 'hidden',
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+      }}>
+        <List sx={{ 
+          width: '220px', 
+          borderRight: '1px solid',
+          borderColor: 'divider', 
+          fontSize: '0.75rem',
+          bgcolor: '#f8f9fa',
+          '& .MuiListItem-root': {
+            padding: '6px 16px',
+          },
+        }}>
           {guideData.map((category, categoryIndex) => (
             <React.Fragment key={categoryIndex}>
               <ListSubheader 
                 sx={{ 
-                  bgcolor: 'background.default', 
-                  fontSize: '0.8rem',
+                  bgcolor: '#e9ecef', 
+                  color: '#495057',
+                  fontSize: '0.85rem',
                   fontWeight: 'bold',
-                  paddingLeft: '16px',
+                  padding: '10px 16px',
+                  lineHeight: '1.2',
+                  letterSpacing: '0.5px',
+                  textTransform: 'uppercase',
                 }}
               >
                 {category.category}
@@ -88,11 +108,27 @@ const GuideBar = ({ onBlockSelectedV2, open, setOpen, mainWorkspace }: IGideBarP
                   sx={{ 
                     cursor: 'pointer',
                     textAlign: 'left',
-                    paddingLeft: '28px',
+                    paddingLeft: '24px',
+                    transition: 'all 0.2s ease',
+                    '&:hover': {
+                      bgcolor: 'rgba(0, 0, 0, 0.04)',
+                    },
+                    '&.Mui-selected': {
+                      bgcolor: 'primary.light',
+                      color: 'primary.contrastText',
+                      '&:hover': {
+                        bgcolor: 'primary.main',
+                      },
+                    },
                     bgcolor: lastOpenedStep?.id === step.id ? 'action.selected' : 'inherit',
                     '& .MuiListItemText-primary': {
-                      fontSize: '0.9rem',  // Smaller text size for the list items
+                      fontSize: '0.85rem',
+                      fontWeight: 'medium',
                     },
+                    '& .MuiListItemText-root': {
+                      margin: 0,
+                    },
+                    minHeight: '36px',
                   }}
                 >
                   <ListItemText primary={step.title} />
@@ -102,7 +138,23 @@ const GuideBar = ({ onBlockSelectedV2, open, setOpen, mainWorkspace }: IGideBarP
           ))}
         </List>
         <Box 
-          sx={{ flexGrow: 1, maxWidth: '400px', height: '100%', overflowY: 'auto', position: 'relative' }}
+          sx={{ 
+            flexGrow: 1, 
+            maxWidth: '580px', 
+            height: '100%', 
+            overflowY: 'auto', 
+            position: 'relative',
+            bgcolor: '#ffffff',
+            borderLeft: '1px solid',
+            borderColor: 'divider',
+            '&::-webkit-scrollbar': {
+              width: '6px',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: '#ced4da',
+              borderRadius: '3px',
+            },
+          }}
         >
           {selectedStep ? (
             <Box sx={{ p: 3 }}>
@@ -147,7 +199,7 @@ const GuideContent = ({ step, onBlockSelectedV2, onClose }: IGuideContentProps) 
         );
       } catch (error) {
         console.error('Error loading guide content:', error);
-        setContent(<div>Error loading content</div>);
+        setContent(<Typography color="error">Error loading content</Typography>);
       }
     };
     
@@ -155,7 +207,9 @@ const GuideContent = ({ step, onBlockSelectedV2, onClose }: IGuideContentProps) 
   }, [step, onBlockSelectedV2, onClose]);
 
   if (!content) {
-    return <div>Loading content...</div>;
+    return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+      <Typography variant="body2" color="text.secondary">Loading content...</Typography>
+    </Box>;
   }
 
   return content;
