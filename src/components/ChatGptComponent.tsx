@@ -193,7 +193,7 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position, onBlockS
 
   const generateBlocklyContent = async (task: string) => {
     try {
-      const response = await fetch('/api/chat/claude', {
+      const response = await fetch('/api/chat/chatgpt', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
