@@ -104,13 +104,17 @@ export default function CreatingListGuide({ onBlockSelectedV2, onClose }: IGuide
       <Typography variant="body1" paragraph>
         {`Let's start by creating a simple list. The block below creates a list that starts with one item: "apple". You can easily add more items by dragging text blocks or other value blocks directly into this list block. Try adding "banana" and "cherry" to your list!`}
       </Typography>
-      <div id="list-step-1" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="list-step-1"/>
+      </Box>
 
       <Typography variant="h6" mt={4}>Step 2: Storing a List in a Variable</Typography>
       <Typography variant="body1" paragraph>
         {`Now, let's store our list in a variable called "fruits". This allows us to reuse the list later in our program. We've created a list with three items: "apple", "banana", and "cherry". Remember, you can add or remove items simply by dragging blocks in or out of the list.`}
       </Typography>
-      <div id="list-step-2" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="list-step-2"/>
+      </Box>
 
       <Typography variant="h6" mt={4}>Step 3: Creating, Storing, and Accessing List Items</Typography>
       <Typography variant="body1" paragraph>
@@ -122,7 +126,9 @@ export default function CreatingListGuide({ onBlockSelectedV2, onClose }: IGuide
       <Typography variant="body1" paragraph>
         {`When you run this code, it will print "banana" because that's the second item in our list.`}
       </Typography>
-      <div id="list-step-3" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="list-step-3"/>
+      </Box>
 
       <Typography variant="body1" paragraph>
         {`Great job! You've learned how to create a list, store it in a variable, and access its items. This example demonstrates a common pattern in programming: creating data structures, storing them for later use, and then retrieving specific information when needed. Try modifying the list items or accessing different elements to see how it works!`}

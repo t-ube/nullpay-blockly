@@ -236,19 +236,25 @@ export default function WhileLoopGuide({ onBlockSelectedV2, onClose }: IGuidePro
       <Typography variant="body1" paragraph>
         {`Let's start with a simple while loop that counts from 1 to 5. We'll use a counter variable and increment it inside the loop.`}
       </Typography>
-      <div id="while-step-1" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="while-step-1"/>
+      </Box>
 
       <Typography variant="h6" mt={4}>Step 2: While Loop with a Condition</Typography>
       <Typography variant="body1" paragraph>
         {`Now, let's use a while loop to add random numbers until we reach a total of at least 100. This demonstrates how while loops can be used with more complex conditions.`}
       </Typography>
-      <div id="while-step-2" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="while-step-2"/>
+      </Box>
 
       <Typography variant="h6" mt={4}>Step 3: While Loop with Print Statements</Typography>
       <Typography variant="body1" paragraph>
         {`Finally, let's modify our previous example to print the current total after each addition. This shows how we can perform multiple actions within a loop and track the progress of our loop.`}
       </Typography>
-      <div id="while-step-3" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="while-step-3"/>
+      </Box>
 
       <Typography variant="body1" paragraph>
         {`Great job! You've learned how to use while loops to repeat actions in your programs. While loops are powerful tools that allow you to execute code repeatedly based on a condition. Try modifying the conditions or actions in these loops to see how they behave differently!`}

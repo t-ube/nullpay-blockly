@@ -165,7 +165,9 @@ export default function LoopingListGuide({ onBlockSelectedV2, onClose }: IGuideP
       <Typography variant="body1" paragraph>
         {`First, let's create a list of fruits and store it in a variable. This list contains three items: "apple", "banana", and "cherry".`}
       </Typography>
-      <div id="loop-list-step-1" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="loop-list-step-1"/>
+      </Box>
 
       <Typography variant="h6" mt={4}>Step 2: Looping Through the List</Typography>
       <Typography variant="body1" paragraph>
@@ -174,7 +176,9 @@ export default function LoopingListGuide({ onBlockSelectedV2, onClose }: IGuideP
       <Typography variant="body1" paragraph>
         {`The "for each" block creates a temporary variable (we've named it "item") that takes on the value of each list element in turn.`}
       </Typography>
-      <div id="loop-list-step-2" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="loop-list-step-2"/>
+      </Box>
 
       <Typography variant="h6" mt={4}>Step 3: Doing Something with Each Item</Typography>
       <Typography variant="body1" paragraph>
@@ -183,7 +187,9 @@ export default function LoopingListGuide({ onBlockSelectedV2, onClose }: IGuideP
       <Typography variant="body1" paragraph>
         {`This example will print "I like apple", "I like banana", and "I like cherry" on separate lines.`}
       </Typography>
-      <div id="loop-list-step-3" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="loop-list-step-3"/>
+      </Box>
 
       <Typography variant="body1" paragraph>
         {`Great job! You've learned how to loop through a list and perform an action for each item. This technique is very powerful and is often used in programming to process collections of data. Try modifying the list or changing the action inside the loop to see what happens!`}

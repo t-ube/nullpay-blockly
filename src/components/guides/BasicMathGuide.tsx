@@ -74,19 +74,25 @@ export default function BasicMathGuide({ onBlockSelectedV2, onClose }: IGuidePro
       <Typography variant="body1" paragraph>
         {`Let's start with addition. Here's a block that adds two numbers (1 + 1). You can change these numbers to add different values.`}
       </Typography>
-      <div id="math-step-1" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="math-step-1" />
+      </Box>
 
       <Typography variant="h6" mt={4}>Step 2: Multiplication</Typography>
       <Typography variant="body1" paragraph>
         {`Now, let's try multiplication. This block multiplies 5 by 3. Feel free to modify these numbers to explore different multiplications.`}
       </Typography>
-      <div id="math-step-2" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="math-step-2"/>
+      </Box>
 
       <Typography variant="h6" mt={4}>Step 3: Division and Printing</Typography>
       <Typography variant="body1" paragraph>
         {`Finally, let's combine division with printing the result. This block divides 10 by 2 and then prints the result. This is how you can display the outcome of a mathematical operation.`}
       </Typography>
-      <div id="math-step-3" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="math-step-3"/>
+      </Box>
 
       <Typography variant="body1" paragraph>
         {`Great job! You've now learned how to perform basic math operations using blocks. Try changing the numbers or operations to see different results.`}

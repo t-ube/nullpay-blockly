@@ -86,25 +86,33 @@ export default function XamanPaymentGuide({ onBlockSelectedV2, onClose }: IGuide
       <Typography variant="body1" paragraph>
         {`First, let's add the "Xaman Login" block. This block is used to log in to the Xaman wallet.`}
       </Typography>
-      <div id="step-1" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="step-1"/>
+      </Box>
 
       <Typography variant="h6" mt={4}>Step 2: Setting up the Payment</Typography>
       <Typography variant="body1" paragraph>
         {`Next, we'll add the "Xaman Payment" block. This block allows us to set up an XRP payment.`}
       </Typography>
-      <div id="step-2" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="step-2"/>
+      </Box>
 
       <Typography variant="h6" mt={4}>Step 3: Configuring the Payment</Typography>
       <Typography variant="body1" paragraph>
         {`Now, let's configure the payment. We'll set the destination address and the amount of XRP to send. We'll use 1 XRP as an example.`}
       </Typography>
-      <div id="step-3" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="step-3"/>
+      </Box>
 
       <Typography variant="h6" mt={4}>Step 4: Waiting for Signature</Typography>
       <Typography variant="body1" paragraph>
         {`Finally, we'll add the "Wait for Signature" block. This block ensures that the program waits for the user to sign the transaction before proceeding.`}
       </Typography>
-      <div id="step-4" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="step-4"/>
+      </Box>
 
       <Typography variant="body1" paragraph>
         {`Congratulations! You've created a program that logs in to Xaman, sets up an XRP payment, and waits for the user's signature. This is a basic example of how to interact with the XRPL using Xaman and Blockly.`}

@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Typography, Box, Paper, List, ListItem, ListItemText, ListSubheader } from '@mui/material';
-import { guideData, IGuideStep } from '@/data/guideData';
 import dynamic from 'next/dynamic';
 import * as Blockly from 'blockly/core';
+import { guideData, IGuideStep } from '@/data/guideData';
 
 interface IGideBarProps {
   onBlockSelectedV2: (json: string, eventType: string, event: MouseEvent) => void;

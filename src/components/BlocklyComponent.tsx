@@ -97,6 +97,7 @@ const BlocklyComponent = () => {
   const logAreaRef = useRef<LogAreaHandle>(null);
   const [fabPosition, setFabPosition] = useState({ left: 0, bottom: 0 });
   const [enableML, setEnableML] = useState<boolean>(false);
+  const [enableChat, setEnableChat] = useState<boolean>(true);
   const [activeSidebar, setActiveSidebar] = useState<'blocks' | 'guide'>('blocks');
 
   useInterval(() => {
@@ -312,7 +313,7 @@ const BlocklyComponent = () => {
         const trashcan = this as any;
         trashcan.svgGroup.setAttribute('transform', `translate(${left}, ${top})`);
 
-        if (enableML) {
+        if (enableChat) {
           if (isMobile && isPortrait) {
             setFabPosition({
               left: left - 5,
@@ -343,7 +344,7 @@ const BlocklyComponent = () => {
         } else {
           left -= 28;
           top -= 150;
-          if (enableML) {
+          if (enableChat) {
             top -= 100;
           }
         }
@@ -353,7 +354,7 @@ const BlocklyComponent = () => {
     };
 
     window.dispatchEvent(new Event('resize'));
-  }, [isMobile, isPortrait, isLoaded, enableML]);
+  }, [isMobile, isPortrait, isLoaded, enableChat]);
 
   function highlightBlock(id: string) {
     workspace.highlightBlock(id);
@@ -599,7 +600,7 @@ const BlocklyComponent = () => {
             </div>
           </Split>
         </div>
-        {(isLoaded && enableML) && (
+        {(isLoaded && enableChat) && (
           <ChatGptComponent 
             position={fabPosition}
             onBlockSelectedV2={handleBlockSelectedForDrawer2}

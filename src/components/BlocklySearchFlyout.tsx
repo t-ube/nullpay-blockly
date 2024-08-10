@@ -321,7 +321,7 @@ const BlocklySearchFlyout = ({ onBlockSelected, onBlockSelectedV2, setOpen, open
                 />
               ))}
             </Stack>
-            <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1}>
+            <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} overflow="auto">
               <Box 
                 id={`flyoutDiv_${index}`}
                 className="custom-cursor"

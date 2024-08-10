@@ -137,13 +137,17 @@ export default function VariablesGuide({ onBlockSelectedV2, onClose }: IGuidePro
       <Typography variant="body1" paragraph>
         {`Let's start by creating a variable called "score" and setting its initial value to 0. This might represent a player's score in a game.`}
       </Typography>
-      <div id="var-step-1" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="var-step-1"/>
+      </Box>
 
       <Typography variant="h6" mt={4}>Step 2: Using a Variable</Typography>
       <Typography variant="body1" paragraph>
         {`Now that we have created our "score" variable, let's use it in our program. We'll print the value of the score to see what it contains.`}
       </Typography>
-      <div id="var-step-2" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="var-step-2"/>
+      </Box>
 
       <Typography variant="h6" mt={4}>Step 3: Updating a Variable</Typography>
       <Typography variant="body1" paragraph>
@@ -152,7 +156,9 @@ export default function VariablesGuide({ onBlockSelectedV2, onClose }: IGuidePro
       <Typography variant="body1" paragraph>
         {`This example sets the initial score to 0, prints it, then adds 10 to the score and prints the updated value.`}
       </Typography>
-      <div id="var-step-3" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="var-step-3"/>
+      </Box>
 
       <Typography variant="body1" paragraph>
         {`Great job! You've learned how to create, use, and update variables. Variables are fundamental in programming as they allow your programs to store and manipulate data. Try changing the initial value or the amount added to the score to see how it affects the output!`}

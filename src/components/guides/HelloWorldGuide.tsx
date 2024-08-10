@@ -42,19 +42,25 @@ export default function HelloWorldGuide({ onBlockSelectedV2, onClose }: IGuidePr
       <Typography variant="body1" paragraph>
         {`First, let's add a "print" block to our workspace. This block is used to display text on the screen.`}
       </Typography>
-      <div id="step-1" style={{ marginBottom: '20px' }} />
-
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="step-1"/>
+      </Box>
+      
       <Typography variant="h6" mt={4}>Step 2: Creating a Text Block</Typography>
       <Typography variant="body1" paragraph>
         {`Next, we'll create a "text" block. This block allows us to input the specific text we want to display.`}
       </Typography>
-      <div id="step-2" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="step-2"/>
+      </Box>
 
       <Typography variant="h6" mt={4}>Step 3: Combining Blocks</Typography>
       <Typography variant="body1" paragraph>
         {`Now, let's combine the "print" and "text" blocks. We'll put the text "Hello World" inside the text block, and then place the text block inside the print block.`}
       </Typography>
-      <div id="step-3" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="step-3" />
+      </Box>
 
       <Typography variant="body1" paragraph>
         {`Congratulations! You've just created your first program. When run, this program will display the message "Hello World" on the screen.`}

@@ -18,6 +18,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ChatIcon from '@mui/icons-material/Chat';
 import { v4 as uuidv4 } from 'uuid';
 import { loadXmlIntoWorkspace } from '@/utils/BlocklyHelper';
+import { FlyoutTheme } from '@/blocks/BlocklyTheme';
 
 const StyledFab = styled(Fab)(({ theme }) => ({
   backgroundColor: '#CFCFCF',
@@ -87,6 +88,7 @@ const BlocklyRenderer: React.FC<BlocklyRendererProps> = ({ content, index, onBlo
     if (!document.getElementById(divId)) return;
 
     const workspace = Blockly.inject(divId, {
+      theme: FlyoutTheme,
       readOnly: false,
       scrollbars: false,
       zoom: {
@@ -106,6 +108,12 @@ const BlocklyRenderer: React.FC<BlocklyRendererProps> = ({ content, index, onBlo
         //const content = processAIGeneratedXml(content);
         const blockDom = Blockly.utils.xml.textToDom(content);
         Blockly.Xml.clearWorkspaceAndLoadFromXml(blockDom, workspace);
+
+        const allBlocks = workspace.getAllBlocks(false);
+        allBlocks.forEach(block => {
+          block.contextMenu = false;
+        });
+
       } catch (error) {
         console.error('Failed to load XML into workspace:', error);
         workspace.clear();
@@ -119,6 +127,12 @@ const BlocklyRenderer: React.FC<BlocklyRendererProps> = ({ content, index, onBlo
       try {
         const json = JSON.parse(content);
         Blockly.serialization.workspaces.load(json, workspace);
+
+        const allBlocks = workspace.getAllBlocks(false);
+        allBlocks.forEach(block => {
+          block.contextMenu = false;
+        });
+
       } catch (error) {
         console.error('Failed to parse or load JSON:', error);
         workspace.clear();
@@ -343,11 +357,13 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position, onBlockS
               height: blockHeights[index] ? `${blockHeights[index] + 20}px` : 'auto',
             }}>
               {message.blocklyContent && (
+              <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} overflow="auto">
                 <BlocklyRenderer 
                   content={message.blocklyContent} 
                   index={index} 
                   onBlockSelected={handleBlockSelected}
                 />
+              </Box>
               )}
             </ListItem>
           </div>

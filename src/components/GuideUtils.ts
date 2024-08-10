@@ -1,6 +1,7 @@
 // components/guideUtils.ts
 import React, { useRef, useEffect, useCallback } from 'react';
 import * as Blockly from 'blockly/core';
+import { FlyoutTheme } from '@/blocks/BlocklyTheme';
 
 export interface IGuideProps {
   onBlockSelectedV2: (json: string, eventType: string, event: MouseEvent) => void;
@@ -17,6 +18,7 @@ export function createAndManageWorkspace(
     
     if (container) {
       const workspace = Blockly.inject(id, {
+        theme: FlyoutTheme,
         readOnly: false,
         scrollbars: false,
         zoom: {
@@ -29,6 +31,11 @@ export function createAndManageWorkspace(
   
       const blockDom = Blockly.utils.xml.textToDom(`<xml>${blockXml}</xml>`);
       Blockly.Xml.clearWorkspaceAndLoadFromXml(blockDom, workspace);
+
+      const allBlocks = workspace.getAllBlocks(false);
+      allBlocks.forEach(block => {
+        block.contextMenu = false;
+      });
   
       const block = workspace.getAllBlocks(false)[0];
       if (block) {

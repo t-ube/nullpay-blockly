@@ -69,19 +69,25 @@ export default function TextConcatenationGuide({ onBlockSelectedV2, onClose }: I
       <Typography variant="body1" paragraph>
         {`Let's start with a simple text block. This block contains the word "Hello". You can change this text to anything you like.`}
       </Typography>
-      <div id="concat-step-1" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="concat-step-1"/>
+      </Box>
 
       <Typography variant="h6" mt={4}>Step 2: Joining Two Text Blocks</Typography>
       <Typography variant="body1" paragraph>
         {`Now, let's combine two pieces of text. We'll use a "join text" block to concatenate "Hello" and "World". Notice how we've added a space after "Hello" to separate the words.`}
       </Typography>
-      <div id="concat-step-2" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="concat-step-2"/>
+      </Box>
 
       <Typography variant="h6" mt={4}>Step 3: Concatenating Multiple Texts and Printing</Typography>
       <Typography variant="body1" paragraph>
         {`Finally, let's join three pieces of text and print the result. We're combining "Hello", "amazing", and "World!" into one message and then using a print block to display it.`}
       </Typography>
-      <div id="concat-step-3" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="concat-step-3"/>
+      </Box>
 
       <Typography variant="body1" paragraph>
         {`Excellent work! You've learned how to concatenate text strings. This skill is crucial for creating dynamic messages in your programs. Try modifying the text in these blocks to create your own messages!`}

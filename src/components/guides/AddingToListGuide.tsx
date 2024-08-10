@@ -132,13 +132,17 @@ export default function AddingToListGuide({ onBlockSelectedV2, onClose }: IGuide
       <Typography variant="body1" paragraph>
         {`Let's start by creating a list of fruits and storing it in a variable. This list initially contains two items: "apple" and "banana".`}
       </Typography>
-      <div id="add-list-step-1" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="add-list-step-1"/>
+      </Box>
 
       <Typography variant="h6" mt={4}>Step 2: Adding a New Item to the List</Typography>
         <Typography variant="body1" paragraph>
         {`Now, let's add a new item to our list. We'll use the "append to list" block to add "cherry" to our fruits list. This block adds the new item to the end of the list.`}
         </Typography>
-      <div id="add-list-step-2" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="add-list-step-2"/>
+      </Box>
 
       <Typography variant="h6" mt={4}>Step 3: Displaying the Updated List</Typography>
       <Typography variant="body1" paragraph>
@@ -147,7 +151,9 @@ export default function AddingToListGuide({ onBlockSelectedV2, onClose }: IGuide
       <Typography variant="body1" paragraph>
         {`When you run this code, it will print the entire list, which should now contain three items: ["apple", "banana", "cherry"].`}
       </Typography>
-      <div id="add-list-step-3" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="add-list-step-3"/>
+      </Box>
 
       <Typography variant="body1" paragraph>
         {`Great job! You've learned how to add new items to an existing list. This skill is crucial when working with dynamic data in your programs. Try adding different items or multiple items to the list to see how it works!`}

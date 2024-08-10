@@ -66,7 +66,6 @@ const validBlocks = [
   "xrpl_client_initialize",
   "xrpl_faucet_network_selection",
   "xrpl_network_wss_selection",
-  "xrpl_payment_transaction",
   "xrpl_create_account_and_request_faucet",
   "xrpl_request_faucet",
   "xrpl_autofill_payload",
@@ -111,14 +110,13 @@ const openai = new OpenAI({
 export async function POST(req: Request) {
   try {
     const requestJson = await req.json();
-    //const prompt = `以下のBlocklyブロックのみを使用してください: ${validBlocks.join(', ')}。次のタスクのためのBlockly XMLを生成してください: ${requestJson.task}`;
-    const prompt = `${requestJson.task}`;
+    const prompt = `以下のBlocklyブロックのみを使用してください: ${validBlocks.join(', ')}。次のタスクのためのBlockly XMLを生成してください: ${requestJson.task}`;
     const completion = await openai.chat.completions.create({
-      model: "ft:gpt-3.5-turbo-1106:personal::9uTQOVzR",
+      model: "ft:gpt-3.5-turbo-1106:personal::9uUtq5yf",
       messages: [
         { 
           role: 'system', 
-          content: "あなたは経験豊富なXRPLプログラマーで、有効なBlockly XMLのみを生成するアシスタントです。生成するBlockly XMLの座標は常に0にしてください。"
+          content: "あなたは経験豊富なXRPLプログラマーで、有効なBlockly XMLのみを生成するアシスタントです。生成するBlockly XMLの座標は常に0にしてください。また、XMLは必ず<xml xmlns=\"https://developers.google.com/blockly/xml\"></xml>で囲いましょう。"
         },
         { role: "user", content: prompt }
       ],

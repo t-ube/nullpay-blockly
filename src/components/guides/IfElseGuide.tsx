@@ -209,19 +209,25 @@ export default function IfElseGuide({ onBlockSelectedV2, onClose }: IGuideProps)
       <Typography variant="body1" paragraph>
         {`Let's start with a simple if statement. This block checks if 10 is greater than 5, and if it is, it prints a message.`}
       </Typography>
-      <div id="if-else-step-1" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="if-else-step-1"/>
+      </Box>
 
       <Typography variant="h6" mt={4}>Step 2: If-Else Statement</Typography>
       <Typography variant="body1" paragraph>
         {`Now, let's use an if-else statement to make a decision based on a purchase amount. We'll set an amount variable and then check if it qualifies for a discount.`}
       </Typography>
-      <div id="if-else-step-2" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="if-else-step-2"/>
+      </Box>
 
       <Typography variant="h6" mt={4}>Step 3: Multiple Conditions (If-Else If-Else)</Typography>
       <Typography variant="body1" paragraph>
         {`Finally, let's use multiple conditions to grade a score. We'll use if, else if, and else to assign a letter grade based on a numerical score.`}
       </Typography>
-      <div id="if-else-step-3" style={{ marginBottom: '20px' }} />
+      <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
+        <div id="if-else-step-3"/>
+      </Box>
 
       <Typography variant="body1" paragraph>
         {`Great job! You've learned how to use if-else statements to make decisions in your programs. These are fundamental tools in programming that allow your code to respond differently based on various conditions. Try changing the values or conditions to see how the output changes!`}
