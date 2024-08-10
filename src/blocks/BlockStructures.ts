@@ -5,8 +5,6 @@ import {
   json_key_value_pair,
   json_append_key_values,
   json_to_text,
-  json_to_text,
-  text_to_json,
   text_to_json,
   dynamic_json_key_values
 } from '@/blocks/json/jsonValueBlock';
