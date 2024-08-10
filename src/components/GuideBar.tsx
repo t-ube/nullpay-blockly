@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Typography, Box, Paper, List, ListItem, ListItemText, ListSubheader } from '@mui/material';
+import { Typography, Box, Paper, List, ListItem, ListItemText, ListSubheader, Collapse } from '@mui/material';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 import dynamic from 'next/dynamic';
 import * as Blockly from 'blockly/core';
 import { guideData, IGuideStep } from '@/data/guideData';
@@ -16,6 +18,7 @@ const GuideBar = ({ onBlockSelectedV2, open, setOpen, mainWorkspace }: IGideBarP
   const [lastOpenedStep, setLastOpenedStep] = useState<IGuideStep | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const hoverTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const [openCategories, setOpenCategories] = useState<{ [key: number]: boolean }>({});
 
   const handleMouseEnter = useCallback((step: IGuideStep) => {
     if (hoverTimerRef.current) {
@@ -37,6 +40,10 @@ const GuideBar = ({ onBlockSelectedV2, open, setOpen, mainWorkspace }: IGideBarP
     setSelectedStep(null);
     setOpen(false);
   }, [setOpen]);
+
+  const handleCategoryClick = (categoryIndex: number) => {
+    setOpenCategories(prev => ({ ...prev, [categoryIndex]: !prev[categoryIndex] }));
+  };
 
   useEffect(() => {
     const handleGlobalMouseMove = (event: MouseEvent) => {
@@ -87,7 +94,7 @@ const GuideBar = ({ onBlockSelectedV2, open, setOpen, mainWorkspace }: IGideBarP
             fontSize: '0.75rem',
             bgcolor: '#f8f9fa',
             '& .MuiListItem-root': {
-              padding: '6px 16px',
+              padding: '4px 16px',
             },
             '&::-webkit-scrollbar': {
               width: '6px',
@@ -99,58 +106,75 @@ const GuideBar = ({ onBlockSelectedV2, open, setOpen, mainWorkspace }: IGideBarP
           }}>
             {guideData.map((category, categoryIndex) => (
               <React.Fragment key={categoryIndex}>
-                <ListSubheader 
+                <ListItem 
+                  button 
+                  onClick={() => handleCategoryClick(categoryIndex)}
                   sx={{ 
-                    bgcolor: '#e9ecef', 
+                    bgcolor: '#f1f3f5', 
                     color: '#495057',
-                    fontSize: '0.85rem',
-                    fontWeight: 'bold',
-                    padding: '10px 16px',
+                    fontSize: '0.8rem',
+                    fontWeight: '600',
+                    padding: '8px 16px',
                     lineHeight: '1.2',
-                    letterSpacing: '0.5px',
+                    letterSpacing: '0.3px',
                     textTransform: 'uppercase',
-                    position: 'sticky',
-                    top: 0,
-                    zIndex: 1,
+                    borderBottom: '1px solid #e9ecef',
+                    '&:hover': {
+                      bgcolor: '#e9ecef',
+                    },
                   }}
                 >
-                  {category.category}
-                </ListSubheader>
-                {category.steps.map((step, stepIndex) => (
-                  <ListItem 
-                    key={step.id}
-                    onMouseEnter={() => handleMouseEnter(step)}
-                    onMouseLeave={handleMouseLeave}
-                    selected={selectedStep?.id === step.id}
-                    sx={{ 
-                      cursor: 'pointer',
-                      textAlign: 'left',
-                      paddingLeft: '24px',
-                      transition: 'all 0.2s ease',
-                      '&:hover': {
-                        bgcolor: 'rgba(0, 0, 0, 0.04)',
-                      },
-                      '&.Mui-selected': {
-                        bgcolor: 'primary.light',
-                        color: 'primary.contrastText',
-                        '&:hover': {
-                          bgcolor: 'primary.main',
-                        },
-                      },
-                      bgcolor: lastOpenedStep?.id === step.id ? 'action.selected' : 'inherit',
-                      '& .MuiListItemText-primary': {
-                        fontSize: '0.85rem',
-                        fontWeight: 'medium',
-                      },
-                      '& .MuiListItemText-root': {
-                        margin: 0,
-                      },
-                      minHeight: '36px',
+                  <ListItemText 
+                    primary={category.category} 
+                    primaryTypographyProps={{ 
+                      fontSize: '0.8rem',
+                      fontWeight: '600',
                     }}
-                  >
-                    <ListItemText primary={step.title} />
-                  </ListItem>
-                ))}
+                  />
+                  {openCategories[categoryIndex] ? 
+                    <ExpandLess fontSize="small" /> : 
+                    <ExpandMore fontSize="small" />
+                  }
+                </ListItem>
+                <Collapse in={openCategories[categoryIndex]} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    {category.steps.map((step, stepIndex) => (
+                      <ListItem 
+                        key={step.id}
+                        onMouseEnter={() => handleMouseEnter(step)}
+                        onMouseLeave={handleMouseLeave}
+                        selected={selectedStep?.id === step.id}
+                        sx={{ 
+                          cursor: 'pointer',
+                          textAlign: 'left',
+                          paddingLeft: '24px',
+                          transition: 'all 0.2s ease',
+                          '&:hover': {
+                            bgcolor: 'rgba(0, 0, 0, 0.04)',
+                          },
+                          '&.Mui-selected': {
+                            bgcolor: 'primary.light',
+                            color: 'primary.contrastText',
+                            '&:hover': {
+                              bgcolor: 'primary.main',
+                            },
+                          },
+                          bgcolor: lastOpenedStep?.id === step.id ? 'action.selected' : 'inherit',
+                          '& .MuiListItemText-primary': {
+                            fontSize: '0.75rem',
+                            fontWeight: 'normal',
+                          },
+                          '& .MuiListItemText-root': {
+                            margin: 0,
+                          },
+                          minHeight: '32px',
+                        }}
+                      >
+                        <ListItemText primary={step.title} />
+                      </ListItem>
+                    ))}
+                  </List>
+                </Collapse>
               </React.Fragment>
             ))}
           </List>

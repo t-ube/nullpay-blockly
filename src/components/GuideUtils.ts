@@ -1,4 +1,6 @@
 // components/guideUtils.ts
+'use client';
+
 import React, { useRef, useEffect, useCallback } from 'react';
 import * as Blockly from 'blockly/core';
 import { FlyoutTheme } from '@/blocks/BlocklyTheme';

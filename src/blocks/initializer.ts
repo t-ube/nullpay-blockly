@@ -97,9 +97,7 @@ import {
 } from '@/blocks/logic/logicBlock';
 import { 
   defineJsonGetValueBlock,
-  defineJsonToTextBlock,
   defineJsonToTextV2Block,
-  defineJsonTextToJsonBlock,
   defineJsonInputJsonBlock, initInterpreterJsonInputJson,
   defineDynamicJsonKVsBlock,
   defineJsonKeyValueBlock,
@@ -291,9 +289,7 @@ const createCustomBlocks = () => {
 
   // JSON
   defineJsonGetValueBlock();
-  defineJsonToTextBlock();
   defineJsonToTextV2Block();
-  defineJsonTextToJsonBlock();
   defineJsonInputJsonBlock();
   defineDynamicJsonKVsBlock();
   defineJsonKeyValueBlock();

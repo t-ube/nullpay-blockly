@@ -17,7 +17,7 @@ export const DemoV0R4WebApi = `
     <next>
       <block type="text_print" id="X-,=s*XF5vjJtrLiV@*u">
         <value name="TEXT">
-          <block type="json_to_text_v2" id="ZUdoCWmMT1DjIk)5Avxs">
+          <block type="json_to_text" id="ZUdoCWmMT1DjIk)5Avxs">
             <value name="JSON">
               <block type="variables_get" id="kwzp~Kg(eQH*HdQdUJ8q">
                 <field name="VAR" id="F45NtRZ%d(~g4(ZaO3r0">response</field>

@@ -77,7 +77,7 @@ export default function XamanPaymentGuide({ onBlockSelectedV2, onClose }: IGuide
 
   return (
     <Box>
-      <Typography variant="h4">Xaman Payment</Typography>
+      <Typography variant="h4">Xaman Payment Process</Typography>
       <Typography variant="body1" paragraph>
         {`Welcome to the Xaman Payment guide! In this tutorial, we'll create a program that logs in to the Xaman wallet, initiates an XRP payment, and waits for the user's signature.`}
       </Typography>

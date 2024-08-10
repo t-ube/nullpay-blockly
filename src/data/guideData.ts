@@ -20,25 +20,35 @@ export const guideData: IGuideCategory[] = [
     ]
   },
   {
+    category: 'Account',
+    steps: [
+      { id: '100', title: 'XRPL Testnet Generate Wallet', componentName: 'XRPLTestnetGenerateWalletGuide' }, 
+      { id: '101', title: 'XRPL Account Information Retrieval', componentName: 'XRPLAccountInfoGuide' }, 
+      { id: '102', title: 'XRPL Account Information Retrieval with Xaman', componentName: 'XRPLXamanAccountInfoGuide' }, 
+    ]
+  },
+  {
+    category: 'Payment',
+    steps: [
+      { id: '200', title: 'Xaman Payment Process', componentName: 'XamanPaymentGuide' }, 
+      { id: '201', title: 'Xaman Payment with Payload', componentName: 'XamanPaymentPayloadGuide' },
+      { id: '202', title: 'XRPL Payment Process', componentName: 'XRPLPaymentGuide'}, 
+      { id: '203', title: 'XRPL Detailed Payment Process', componentName: 'XRPLDetailedPaymentGuide'},  
+    ]
+  },
+  {
     category: 'Control Flow',
     steps: [
-      { id: '5', title: 'Making Decisions with If-Else', componentName: 'IfElseGuide' },
-      { id: '6', title: 'Repeating Actions with While Loops', componentName: 'WhileLoopGuide' },
+      { id: '50', title: 'Making Decisions with If-Else', componentName: 'IfElseGuide' },
+      { id: '51', title: 'Repeating Actions with While Loops', componentName: 'WhileLoopGuide' },
     ]
   },
   {
     category: 'Lists and Loops',
     steps: [
-      { id: '7', title: 'Creating a List', componentName: 'CreatingListGuide' },
-      { id: '8', title: 'Adding Items to a List', componentName: 'AddingToListGuide' },
-      { id: '9', title: 'Looping Through a List', componentName: 'LoopingListGuide' },
-    ]
-  },
-  {
-    category: 'Xaman',
-    steps: [
-      { id: '10', title: 'Xaman Payment', componentName: 'XamanPaymentGuide' }, 
-      { id: '11', title: 'Xaman Payment with Payload', componentName: 'XamanPaymentPayloadGuide' }, 
+      { id: '60', title: 'Creating a List', componentName: 'CreatingListGuide' },
+      { id: '61', title: 'Adding Items to a List', componentName: 'AddingToListGuide' },
+      { id: '62', title: 'Looping Through a List', componentName: 'LoopingListGuide' },
     ]
   },
 ];

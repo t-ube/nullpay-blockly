@@ -5,9 +5,9 @@ import {
   json_key_value_pair,
   json_append_key_values,
   json_to_text,
-  json_to_text_v2,
+  json_to_text,
   text_to_json,
-  text_to_json_v2,
+  text_to_json,
   dynamic_json_key_values
 } from '@/blocks/json/jsonValueBlock';
 import {
@@ -142,9 +142,9 @@ export const BlockStructures = [
   json_key_value_pair,
   json_append_key_values,
   json_to_text,
-  json_to_text_v2,
+  json_to_text,
   text_to_json,
-  text_to_json_v2,
+  text_to_json,
   dynamic_json_key_values,
   text_to_lowercase,
   text_to_number,

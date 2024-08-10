@@ -116,12 +116,12 @@ export const xrpl_wallet_sign : any = {
   "args2": [
     {
       "type": "field_label",
-      "text": "Transaction",
+      "text": "Filled Payload",
       "class": "args-label"
     },
     {
       "type": "input_value",
-      "name": "TRANSACTION",
+      "name": "FILLED_PAYLOAD",
       "check": blockCheckType.json
     }
   ],
@@ -129,13 +129,13 @@ export const xrpl_wallet_sign : any = {
   "args3": [
     {
       "type": "field_label",
-      "text": "Signed",
+      "text": "Signed Transaction",
       "class": "output-label"
     },
     {
       "type": "field_variable",
-      "name": "SIGNED",
-      "variable": "signed"
+      "name": "SIGNED_TRANSACTION",
+      "variable": "signedTxn"
     }
   ],
   "inputsInline": false,
@@ -153,11 +153,11 @@ export const defineXrplWalletSignBlock = () => {
  
   javascriptGenerator.forBlock['xrpl_wallet_sign'] = function (block, generator) {
     const wallet = generator.valueToCode(block, 'WALLET_ID', Order.ATOMIC) || '""';
-    const txnJSON = generator.valueToCode(block, 'TRANSACTION', Order.ATOMIC) || '{}';
+    const txnJSON = generator.valueToCode(block, 'FILLED_PAYLOAD', Order.ATOMIC) || '{}';
     if (generator.nameDB_ === undefined) {
       return `signXrplWallet(${wallet}, JSON.stringify(${txnJSON}), '');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('SIGNED'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('SIGNED_TRANSACTION'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `signXrplWallet(${wallet}, JSON.stringify(${txnJSON}), '${variable}');\n`;
     return code;
   };

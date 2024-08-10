@@ -35,12 +35,12 @@ export const xrpl_command_submit : any = {
   "args2": [
     {
       "type": "field_label",
-      "text": "Transaction BLOB",
+      "text": "Signed Transaction",
       "class": "args-label"
     },
     {
       "type": "input_value",
-      "name": "BLOB",
+      "name": "SIGNED_TRANSACTION",
       "check": "String"
     }
   ],
@@ -72,24 +72,41 @@ export const defineXrplClientSubmitBlock = () => {
 
   javascriptGenerator.forBlock['xrpl_command_submit'] = function (block, generator) {
     const client = generator.valueToCode(block, 'XRPL_CLIENT', Order.ATOMIC) || '""';
-    const blob = generator.valueToCode(block, 'BLOB', Order.ATOMIC) || '""';
+    const blobJson = generator.valueToCode(block, 'SIGNED_TRANSACTION', Order.ATOMIC) || '{}';
     if (generator.nameDB_ === undefined) {
-      return `xrplClientSubmit(${client}, ${blob}, '');\n`;
+      return `xrplClientSubmit(${client}, JSON.stringify(${blobJson}), '');\n`;
     }
     const variable = generator.nameDB_.getName(block.getFieldValue('RESULT'), Blockly.VARIABLE_CATEGORY_NAME);
-    const code = `xrplClientSubmit(${client}, ${blob}, '${variable}');\n`;
+    const code = `xrplClientSubmit(${client}, JSON.stringify(${blobJson}), '${variable}');\n`;
     return code;
   };
 };
 
+function isValidBlobJson(input: string): boolean {
+  try {
+    const obj = JSON.parse(input);
+    if (typeof obj !== 'object' || obj === null) return false;
+    if (!('tx_blob' in obj)) return false;
+    if (typeof obj.tx_blob !== 'string') return false;
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 export function initInterpreterXrplClientSubmit(interpreter:any, globalObject:any) {
   javascriptGenerator.addReservedWords('xrplClientSubmit');
-  const wrapper = async function (clientKey:string, blob:string, variable:any, callback:any) {
+  const wrapper = async function (clientKey:string, blobJsonText:string, variable:any, callback:any) {
     const client = getXrplClient(clientKey);
     try {
+      if (!isValidBlobJson(blobJsonText)) {
+        throw new Error('Invalid JSON input');
+      }
+
+      const blobJson = JSON.parse(blobJsonText);
       const result = await client.request({
         command: "submit",
-        tx_blob: blob,
+        tx_blob: blobJson.tx_blob,
       });
       console.log(`Submit transactions: ${JSON.stringify(result)}`);
       interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(result));

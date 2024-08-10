@@ -3048,22 +3048,22 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
     {
       height: 50,
       block: `
-        <block type="text_to_json_v2" x="0" y="0"></block>
+        <block type="text_to_json" x="0" y="0"></block>
       `,
       title: "Text to JSON",
       description: "Convert text to a JSON object.",
       categories: ["json"],
-      blockType: "text_to_json_v2",
+      blockType: "text_to_json",
     },
     {
       height: 50,
       block: `
-        <block type="json_to_text_v2" x="0" y="0"></block>
+        <block type="json_to_text" x="0" y="0"></block>
       `,
       title: "JSON to Text",
       description: "Convert a JSON object to text.",
       categories: ["json"],
-      blockType: "json_to_text_v2",
+      blockType: "json_to_text",
     },
     {
       height: 70,
@@ -3074,26 +3074,6 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       description: "Get a value from a JSON object.",
       categories: ["json"],
       blockType: "json_get_value",
-    },
-    {
-      height: 50,
-      block: `
-        <block type="text_to_json" x="0" y="0"></block>
-      `,
-      title: "Text to JSON string (Legacy)",
-      description: "Convert text to a JSON string.",
-      categories: ["json"],
-      blockType: "text_to_json",
-    },
-    {
-      height: 50,
-      block: `
-        <block type="json_to_text" x="0" y="0"></block>
-      `,
-      title: "JSON to Text (Legacy)",
-      description: "Convert a JSON string to text.",
-      categories: ["json"],
-      blockType: "json_to_text",
     },
   ],
   animation: [

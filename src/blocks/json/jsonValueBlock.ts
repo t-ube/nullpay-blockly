@@ -46,8 +46,8 @@ export function initInterpreterJsonInputJson(interpreter:any, globalObject:any) 
   interpreter.setProperty(globalObject, 'jsonInputJson', interpreter.createNativeFunction(wrapper));
 }
 
-export const json_to_text_v2 : any = {
-  "type": "json_to_text_v2",
+export const json_to_text : any = {
+  "type": "json_to_text",
   "message0": "JSON to text %1",
   "args0": [
     {
@@ -69,18 +69,18 @@ export const json_to_text_v2 : any = {
 
 export const defineJsonToTextV2Block = () => {
   Blockly.defineBlocksWithJsonArray([
-    json_to_text_v2
+    json_to_text
   ]);
 
-  javascriptGenerator.forBlock['json_to_text_v2'] = function (block, generator) {
+  javascriptGenerator.forBlock['json_to_text'] = function (block, generator) {
     const jsonInput = generator.valueToCode(block, 'JSON', Order.ATOMIC) || '""';
     const code = `JSON.stringify(${jsonInput})`;
     return [code, Order.ATOMIC];
   };
 };
 
-export const text_to_json_v2 : any = {
-  "type": "text_to_json_v2",
+export const text_to_json : any = {
+  "type": "text_to_json",
   "message0": "text to JSON %1",
   "args0": [
     {
@@ -98,10 +98,10 @@ export const text_to_json_v2 : any = {
 
 export const defineJsonTextToJsonV2Block = () => {
   Blockly.defineBlocksWithJsonArray([
-    text_to_json_v2
+    text_to_json
   ]);
 
-  javascriptGenerator.forBlock['text_to_json_v2'] = function (block, generator) {
+  javascriptGenerator.forBlock['text_to_json'] = function (block, generator) {
     const textInput = generator.valueToCode(block, 'TEXT', Order.ATOMIC) || '""';
     const code = `TextToJsonV2(${textInput})`;
     return [code, Order.ATOMIC];
@@ -295,61 +295,5 @@ export const defineJsonKeyValueBlock = () => {
     }
     const code = `{"${key.replace(/^'(.*)'$/,'$1')}": ${outputValue}}`;
     return [code, Order.ATOMIC];
-  };
-};
-
-export const json_to_text : any = {
-  "type": "json_to_text",
-  "message0": "JSON string to text %1",
-  "args0": [
-    {
-      "type": "input_value",
-      "name": "JSON",
-      "check": blockCheckType.string
-    }
-  ],
-  "output": blockCheckType.string,
-  "colour": BlockColors.legacy,
-  "tooltip": "Convert a JSON string to a plain text",
-  "helpUrl": ""
-};
-
-export const defineJsonToTextBlock = () => {
-  Blockly.defineBlocksWithJsonArray([
-    json_to_text
-  ]);
-
-  javascriptGenerator.forBlock['json_to_text'] = function (block, generator) {
-    const jsonInput = generator.valueToCode(block, 'JSON', Order.ATOMIC) || '""';
-    const code = `JSON.stringify(${jsonInput})`;
-    return [code, Order.ATOMIC];
-  };
-};
-
-export const text_to_json : any = {
-  "type": "text_to_json",
-  "message0": "text to JSON string %1",
-  "args0": [
-    {
-      "type": "input_value",
-      "name": "TEXT",
-      "check": blockCheckType.string
-    }
-  ],
-  "output": blockCheckType.string,
-  "colour": BlockColors.legacy,
-  "tooltip": "Convert a plain text to a JSON string",
-  "helpUrl": ""
-};
-
-export const defineJsonTextToJsonBlock = () => {
-  Blockly.defineBlocksWithJsonArray([
-    text_to_json
-  ]);
-
-  javascriptGenerator.forBlock['text_to_json'] = function (block, generator) {
-      const textInput = generator.valueToCode(block, 'TEXT', Order.ATOMIC) || '""';
-      const code = `JSON.parse(${textInput})`;
-      return [code, Order.ATOMIC];
   };
 };
