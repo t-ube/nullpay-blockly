@@ -5,6 +5,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import dynamic from 'next/dynamic';
 import * as Blockly from 'blockly/core';
 import { guideData, IGuideStep } from '@/data/guideData';
+import { useGuideBar } from '@/contexts/GuideBarContext';
 
 interface IGideBarProps {
   onBlockSelectedV2: (json: string, eventType: string, event: MouseEvent) => void;
@@ -13,12 +14,16 @@ interface IGideBarProps {
   mainWorkspace: Blockly.WorkspaceSvg;
 }
 
-const GuideBar = ({ onBlockSelectedV2, open, setOpen, mainWorkspace }: IGideBarProps) => {
+const GuideBar = ({
+  onBlockSelectedV2,
+  open,
+  setOpen,
+  mainWorkspace,
+}: IGideBarProps) => {
   const [selectedStep, setSelectedStep] = useState<IGuideStep | null>(null);
-  const [lastOpenedStep, setLastOpenedStep] = useState<IGuideStep | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const hoverTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const [openCategories, setOpenCategories] = useState<{ [key: number]: boolean }>({});
+  const { openCategories, setOpenCategories, lastOpenedStep, setLastOpenedStep } = useGuideBar();
 
   const handleMouseEnter = useCallback((step: IGuideStep) => {
     if (hoverTimerRef.current) {
@@ -28,7 +33,7 @@ const GuideBar = ({ onBlockSelectedV2, open, setOpen, mainWorkspace }: IGideBarP
       setSelectedStep(step);
       setLastOpenedStep(step);
     }, 200);
-  }, []);
+  }, [setSelectedStep,setLastOpenedStep]);
 
   const handleMouseLeave = useCallback(() => {
     if (hoverTimerRef.current) {

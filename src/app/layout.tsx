@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { MobileProvider } from '@/contexts/MobileContext';
 import { AccountProvider } from '@/contexts/AccountContext';
+import { GuideBarProvider } from '@/contexts/GuideBarContext';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,9 @@ export default function RootLayout({
       <body className={inter.className} style={{height: '100%', margin: 0}}>
         <AccountProvider>
           <MobileProvider>
-            {children}
+            <GuideBarProvider>
+              {children}
+            </GuideBarProvider>
           </MobileProvider>
         </AccountProvider>
       </body>

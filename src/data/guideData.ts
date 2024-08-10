@@ -37,6 +37,12 @@ export const guideData: IGuideCategory[] = [
     ]
   },
   {
+    category: 'NFT',
+    steps: [
+      { id: '300', title: 'Creating an NFT Buy Offer on XRPL with Xaman', componentName: 'XRPLNFTBuyOfferGuide' }, 
+    ]
+  },
+  {
     category: 'Control Flow',
     steps: [
       { id: '50', title: 'Making Decisions with If-Else', componentName: 'IfElseGuide' },

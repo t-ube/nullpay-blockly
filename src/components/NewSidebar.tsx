@@ -12,7 +12,9 @@ import { BlockIcons } from '@/blocks/BlockIcons';
 import { initialBlockTypesMap } from '@/blocks/BlockContents';
 import { IBaseBlock, XRPLSubCategories, translateSubCategory } from "@/interfaces/IBaseBlock";
 import GuideBar from '@/components/GuideBar';
+import { IGuideStep } from '@/data/guideData';
 import { workspace } from '@/blocks/initializer';
+
 interface IDrawerBlockTitleMap {
   [key: string]: string;
 }
