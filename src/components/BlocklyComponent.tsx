@@ -36,7 +36,7 @@ import { releaseInfo as initialReleaseInfo } from '@/features/features-v0-r4';
 import { useMobile } from '@/contexts/MobileContext';
 import LogArea, { LogAreaHandle } from '@/components/LogArea';
 import ChatGptComponent from '@/components/ChatGptComponent';
-import { Button } from '@mui/material';
+import { Button, Snackbar } from '@mui/material';
 import { loadXmlIntoWorkspace } from '@/utils/BlocklyHelper';
 import {
   saveWorkspaceXML,
@@ -99,6 +99,7 @@ const BlocklyComponent = () => {
   const [enableML, setEnableML] = useState<boolean>(false);
   const [enableChat, setEnableChat] = useState<boolean>(true);
   const [activeSidebar, setActiveSidebar] = useState<'blocks' | 'guide'>('blocks');
+  const [showCopyNotification, setShowCopyNotification] = useState(false);
 
   useInterval(() => {
     if (!isAnimating && isRunning) {
@@ -187,6 +188,17 @@ const BlocklyComponent = () => {
       if (workspace.isDragging()) return; // Don't update while changes are happening.
       if (!supportedEvents.has(event.type)) return;
       const xml = Blockly.Xml.workspaceToDom(workspace);
+      const processXml = (node: Element) => {
+        if (node.nodeType === Node.ELEMENT_NODE) {
+          ['id', 'x', 'y'].forEach(attr => node.removeAttribute(attr));
+          if (node.tagName.toLowerCase() === 'variables') {
+            node.parentNode?.removeChild(node);
+          } else {
+            Array.from(node.children).forEach(processXml);
+          }
+        }
+      };
+      processXml(xml);
       const xmlText = Blockly.Xml.domToPrettyText(xml);
       if (structArea.current) {
         structArea.current.value = xmlText;
@@ -470,10 +482,63 @@ const BlocklyComponent = () => {
 
   const updateXml = () => {
     const xml = Blockly.Xml.workspaceToDom(workspace);
+    const processXml = (node: Element) => {
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        ['id', 'x', 'y'].forEach(attr => node.removeAttribute(attr));
+        if (node.tagName.toLowerCase() === 'variables') {
+          node.parentNode?.removeChild(node);
+        } else {
+          Array.from(node.children).forEach(processXml);
+        }
+      }
+    };
+    processXml(xml);
     const xmlText = Blockly.Xml.domToPrettyText(xml);
     if (structArea.current) {
       structArea.current.value = xmlText;
     }
+  };
+
+  const copyToClipboard = useCallback(() => {
+    if (structArea.current) {
+      const text = structArea.current.value;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          setShowCopyNotification(true);
+        }).catch(err => {
+          console.error('Failed to copy text: ', err);
+          fallbackCopyTextToClipboard(text);
+        });
+      } else {
+        fallbackCopyTextToClipboard(text);
+      }
+    }
+  }, []);
+
+  const fallbackCopyTextToClipboard = (text: string) => {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
+
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+      const successful = document.execCommand('copy');
+      if (successful) {
+        setShowCopyNotification(true);
+      } else {
+        console.error('Fallback: Unable to copy');
+      }
+    } catch (err) {
+      console.error('Fallback: Unable to copy', err);
+    }
+
+    document.body.removeChild(textArea);
   };
 
   const releaseInfo = {
@@ -580,6 +645,15 @@ const BlocklyComponent = () => {
                         Reload
                       </Button>
                       <Button 
+                        onClick={copyToClipboard}
+                        sx={{
+                          marginRight: 2,
+                          color: '#A855F7'
+                        }}
+                      >
+                        Copy
+                      </Button>
+                      <Button 
                         onClick={applyXmlToWorkspace}
                         variant="contained"
                         color="primary"
@@ -594,6 +668,16 @@ const BlocklyComponent = () => {
                       </Button>
                     </div>
                   </div>
+                  <Snackbar
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'center',
+                    }}
+                    open={showCopyNotification}
+                    autoHideDuration={2000}
+                    onClose={() => setShowCopyNotification(false)}
+                    message="Copied to clipboard"
+                  />
                 </div>
               </>
               )}
