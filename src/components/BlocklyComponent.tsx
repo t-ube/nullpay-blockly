@@ -36,7 +36,10 @@ import { releaseInfo as initialReleaseInfo } from '@/features/features-v0-r4';
 import { useMobile } from '@/contexts/MobileContext';
 import LogArea, { LogAreaHandle } from '@/components/LogArea';
 import ChatGptComponent from '@/components/ChatGptComponent';
-import { Button, Snackbar } from '@mui/material';
+import { Button, Snackbar, Tooltip } from '@mui/material';
+import DownloadIcon from '@mui/icons-material/Download';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import RefreshIcon from '@mui/icons-material/Refresh';
 import { loadXmlIntoWorkspace } from '@/utils/BlocklyHelper';
 import {
   saveWorkspaceXML,
@@ -100,6 +103,7 @@ const BlocklyComponent = () => {
   const [enableChat, setEnableChat] = useState<boolean>(true);
   const [activeSidebar, setActiveSidebar] = useState<'blocks' | 'guide'>('blocks');
   const [showCopyNotification, setShowCopyNotification] = useState(false);
+  const [showDownloadNotification, setShowDownloadNotification] = useState(false);
 
   useInterval(() => {
     if (!isAnimating && isRunning) {
@@ -541,6 +545,22 @@ const BlocklyComponent = () => {
     document.body.removeChild(textArea);
   };
 
+  const downloadXml = useCallback(() => {
+    if (structArea.current) {
+      const xmlContent = structArea.current.value;
+      const blob = new Blob([xmlContent], { type: 'text/xml' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'blockly_workspace.xml';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      setShowDownloadNotification(true);
+    }
+  }, []);
+
   const releaseInfo = {
     ...initialReleaseInfo,
     features: initialReleaseInfo.features.map((feature) => ({
@@ -635,24 +655,51 @@ const BlocklyComponent = () => {
                       spellCheck="false"
                     />
                     <div className="mt-2 flex justify-end">
-                      <Button 
-                        onClick={updateXml}
-                        sx={{
-                          marginRight: 2,
-                          color: '#A855F7'
-                        }}
-                      >
-                        Reload
-                      </Button>
-                      <Button 
-                        onClick={copyToClipboard}
-                        sx={{
-                          marginRight: 2,
-                          color: '#A855F7'
-                        }}
-                      >
-                        Copy
-                      </Button>
+                      <Tooltip title="Reload">
+                        <Button 
+                          onClick={updateXml}
+                          sx={{
+                            minWidth: '40px',
+                            width: '40px',
+                            height: '40px',
+                            marginRight: 2,
+                            color: '#A855F7',
+                            padding: 0
+                          }}
+                        >
+                          <RefreshIcon />
+                        </Button>
+                      </Tooltip>
+                      <Tooltip title="Copy to clipboard">
+                        <Button 
+                          onClick={copyToClipboard}
+                          sx={{
+                            minWidth: '40px',
+                            width: '40px',
+                            height: '40px',
+                            marginRight: 2,
+                            color: '#A855F7',
+                            padding: 0
+                          }}
+                        >
+                          <ContentCopyIcon />
+                        </Button>
+                      </Tooltip>
+                      <Tooltip title="Download XML">
+                        <Button 
+                          onClick={downloadXml}
+                          sx={{
+                            minWidth: '40px',
+                            width: '40px',
+                            height: '40px',
+                            marginRight: 2,
+                            color: '#A855F7',
+                            padding: 0
+                          }}
+                        >
+                          <DownloadIcon />
+                        </Button>
+                      </Tooltip>
                       <Button 
                         onClick={applyXmlToWorkspace}
                         variant="contained"
@@ -677,6 +724,16 @@ const BlocklyComponent = () => {
                     autoHideDuration={2000}
                     onClose={() => setShowCopyNotification(false)}
                     message="Copied to clipboard"
+                  />
+                  <Snackbar
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'center',
+                    }}
+                    open={showDownloadNotification}
+                    autoHideDuration={2000}
+                    onClose={() => setShowDownloadNotification(false)}
+                    message="XML downloaded successfully"
                   />
                 </div>
               </>
