@@ -22,9 +22,10 @@ export const guideData: IGuideCategory[] = [
   {
     category: 'Account',
     steps: [
-      { id: '100', title: 'XRPL Testnet Generate Wallet', componentName: 'XRPLTestnetGenerateWalletGuide' }, 
-      { id: '101', title: 'XRPL Account Information Retrieval', componentName: 'XRPLAccountInfoGuide' }, 
-      { id: '102', title: 'XRPL Account Information Retrieval with Xaman', componentName: 'XRPLXamanAccountInfoGuide' }, 
+      { id: '100', title: 'XRPL Testnet Create Account', componentName: 'XRPLTestnetCreateAccountGuide' }, 
+      { id: '101', title: 'XRPL Wallet Loading', componentName: 'XRPLWalletLoadingGuide' }, 
+      { id: '102', title: 'Xaman Wallet Loading', componentName: 'XamanWalletLoadingGuide' }, 
+      { id: '103', title: 'XRPL Account Information Retrieval', componentName: 'XRPLAccountInfoGuide' }, 
     ]
   },
   {

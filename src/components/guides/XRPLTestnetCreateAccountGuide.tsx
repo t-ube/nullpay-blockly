@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { Typography, Box } from '@mui/material';
 import { IGuideProps, useWorkspaceManager } from '@/components/GuideUtils';
@@ -130,19 +128,19 @@ const workspaces = [
   }
 ];
 
-export default function XRPLTestnetGenerateWalletGuide({ onBlockSelectedV2, onClose }: IGuideProps) {
+export default function XRPLTestnetCreateAccountGuide({ onBlockSelectedV2, onClose }: IGuideProps) {
   useWorkspaceManager(workspaces, onBlockSelectedV2, onClose);
 
   return (
     <Box>
-      <Typography variant="h4">XRPL Testnet Generate Wallet</Typography>
+      <Typography variant="h4">XRPL Testnet Wallet Generation and Account Activation</Typography>
       <Typography variant="body1" paragraph>
-        {`Welcome to the XRPL Testnet Generate Wallet guide! In this tutorial, we'll create a program to generate an XRPL wallet on the testnet, extract the address and secret, and then request funds from a faucet.`}
+        {`Welcome to the XRPL Testnet Wallet Generation and Account Activation guide! In this tutorial, we'll create a program to generate an XRPL wallet locally, extract the address and secret, and then activate the account on the testnet by requesting funds from a faucet.`}
       </Typography>
 
-      <Typography variant="h6" mt={4}>Step 1: Generate an XRPL Wallet</Typography>
+      <Typography variant="h6" mt={4}>Step 1: Generate XRPL Wallet Information</Typography>
       <Typography variant="body1" paragraph>
-        {`First, let's generate an XRPL wallet using the "Generate XRPL Wallet" block. This will create a new wallet on the testnet and store the information in the "walletInfo" variable.`}
+        {`First, let's generate XRPL wallet information using the "Generate XRPL Wallet" block. This will create a new wallet locally and store the information in the "walletInfo" variable. Note that this step doesn't create an account on the XRPL network yet.`}
       </Typography>
       <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
         <div id="step-1"/>
@@ -150,7 +148,7 @@ export default function XRPLTestnetGenerateWalletGuide({ onBlockSelectedV2, onCl
 
       <Typography variant="h6" mt={4}>Step 2: Extract Wallet Address</Typography>
       <Typography variant="body1" paragraph>
-        {`Next, we'll extract the wallet address from the "walletInfo" and store it in a separate variable called "address".`}
+        {`Next, we'll extract the wallet address from the "walletInfo" and store it in a separate variable called "address". This address will be used to identify the account on the XRPL network.`}
       </Typography>
       <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
         <div id="step-2"/>
@@ -158,15 +156,15 @@ export default function XRPLTestnetGenerateWalletGuide({ onBlockSelectedV2, onCl
 
       <Typography variant="h6" mt={4}>Step 3: Extract Wallet Secret</Typography>
       <Typography variant="body1" paragraph>
-        {`Now, let's extract the wallet secret from the "walletInfo" and store it in a separate variable called "secret".`}
+        {`Now, let's extract the wallet secret from the "walletInfo" and store it in a separate variable called "secret". This secret is crucial for signing transactions and should be kept secure.`}
       </Typography>
       <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
         <div id="step-3"/>
       </Box>
 
-      <Typography variant="h6" mt={4}>Step 4: Request Funds from Testnet Faucet</Typography>
+      <Typography variant="h6" mt={4}>Step 4: Activate Account on Testnet</Typography>
       <Typography variant="body1" paragraph>
-        {`Finally, we'll request funds from the XRPL Testnet faucet using the extracted address.`}
+        {`Finally, we'll activate the account on the XRPL Testnet by requesting funds from the faucet. This step will create the actual account on the network and fund it with test XRP.`}
       </Typography>
       <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
         <div id="step-4"/>
@@ -174,14 +172,14 @@ export default function XRPLTestnetGenerateWalletGuide({ onBlockSelectedV2, onCl
 
       <Typography variant="h6" mt={4}>Complete Program</Typography>
       <Typography variant="body1" paragraph>
-        {`Here's the complete program that generates an XRPL testnet wallet, extracts the address and secret, and requests funds from the testnet faucet:`}
+        {`Here's the complete program that generates XRPL wallet information locally, extracts the address and secret, and activates the account on the testnet by requesting funds from the faucet:`}
       </Typography>
       <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
         <div id="complete"/>
       </Box>
 
       <Typography variant="body1" paragraph>
-        {`Congratulations! You've just created a program that interacts with the XRPL Testnet. This program generates a new wallet on the testnet, extracts important information, and funds it using the testnet faucet.`}
+        {`Congratulations! You've just created a program that generates wallet information locally and then activates an account on the XRPL Testnet. This program demonstrates the process of creating a new wallet and funding it to establish its presence on the network.`}
       </Typography>
     </Box>
   );
