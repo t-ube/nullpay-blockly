@@ -28,11 +28,11 @@ import {
 //import { DemoV0R3CsvLoadXml } from '@/demos/demo-v0-r3-csv-load';
 //import { DemoV0R3Supabase } from '@/demos/demo-v0-r3-supabase';
 //import { DemoV0R3Xaman } from '@/demos/demo-v0-r3-xaman';
-import { DemoV0R4Chart } from '@/demos/demo-v0-r4-chart';
-import { DemoV0R4Form } from '@/demos/demo-v0-r4-form';
-import { DemoV0R4SemiAutoBid } from '@/demos/demo-v0-r4-semi-auto-bid';
-import { DemoV0R4WebApi } from '@/demos/demo-v0-r4-webapi';
-import { releaseInfo as initialReleaseInfo } from '@/features/features-v0-r4';
+//import { DemoV0R4Chart } from '@/demos/demo-v0-r4-chart';
+//import { DemoV0R4Form } from '@/demos/demo-v0-r4-form';
+//import { DemoV0R4SemiAutoBid } from '@/demos/demo-v0-r4-semi-auto-bid';
+//import { DemoV0R4WebApi } from '@/demos/demo-v0-r4-webapi';
+import { releaseInfo as initialReleaseInfo } from '@/features/features-v0-r6';
 import { useMobile } from '@/contexts/MobileContext';
 import LogArea, { LogAreaHandle } from '@/components/LogArea';
 import ChatGptComponent from '@/components/ChatGptComponent';
@@ -423,6 +423,7 @@ const BlocklyComponent = () => {
   };
 
   // Release info //
+  /*
   const handleShowDemoChart = useCallback(() => {
     const blockDom = Blockly.utils.xml.textToDom(DemoV0R4Chart);
     if (Blockly && workspace && blockDom) {
@@ -458,6 +459,7 @@ const BlocklyComponent = () => {
       workspace.scrollCenter();
     }
   }, []);
+  */
 
   const applyXmlToWorkspace = () => {
     try {
@@ -561,7 +563,8 @@ const BlocklyComponent = () => {
     }
   }, []);
 
-  const releaseInfo = {
+  /*
+  const releaseInfoV04 = {
     ...initialReleaseInfo,
     features: initialReleaseInfo.features.map((feature) => ({
       ...feature,
@@ -571,6 +574,15 @@ const BlocklyComponent = () => {
       : feature.title === "'Semi-Automatic Bid' Template Added" ? handleShowDemoSemiAutoBid
       : feature.title === "Web API Block Added" ? handleShowDemoWebApi
       : undefined,
+    })),
+  };
+  */
+  const releaseInfo = {
+    ...initialReleaseInfo,
+    features: initialReleaseInfo.features.map((feature) => ({
+      ...feature,
+      onDemoEvent:
+      undefined,
     })),
   };
 

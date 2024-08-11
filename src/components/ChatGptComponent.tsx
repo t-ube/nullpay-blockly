@@ -222,8 +222,8 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position, onBlockS
       const data = await response.json();
       return data.generatedContent;
     } catch (error) {
-      console.error('Error generating Blockly blocks:', error);
-      return "An error occurred. Unable to generate Blockly blocks.";
+      console.error('Error generating code blocks:', error);
+      return "An error occurred. Unable to generate code blocks.";
     } finally {
     }
   };
@@ -241,7 +241,7 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position, onBlockS
         }, 1000);*/
         const content = await generateBlocklyContent(input);
         console.log(content);
-        setMessages(prev => [...prev, { text: "Generated Blockly blocks.", isUser: false, blocklyContent: content }]);
+        setMessages(prev => [...prev, { text: "Code blocks have been created.", isUser: false, blocklyContent: content }]);
       } catch (error) {
         console.error('Error:', error);
         setMessages(prev => [...prev, { text: "An error occurred while generating the response.", isUser: false }]);
@@ -315,7 +315,7 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position, onBlockS
               alignItems: 'center',
             }}
           >
-            <Typography variant="h6">Chat</Typography>
+            <Typography variant="h6">AI Code Generator</Typography>
             <IconButton size="small" color="inherit" onClick={toggleChat}>
               <CloseIcon />
             </IconButton>
@@ -389,6 +389,7 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position, onBlockS
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSend()}
             placeholder="What kind of code would you like to generate?"
+            autoComplete="off"
           />
           <IconButton color="primary" onClick={handleSend} disabled={isLoading}>
             {isLoading ? <CircularProgress size={24} /> : <SendIcon />}

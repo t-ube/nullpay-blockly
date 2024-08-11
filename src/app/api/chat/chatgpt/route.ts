@@ -48,7 +48,7 @@ const validBlocks = [
   "xrpl_payload_buy_token_offer",
   "xrpl_payload_sale_token_offer",
   "xrpl_payload_payment",
-  "xrpl_payload_payment_token",
+  //"xrpl_payload_payment_token",
   "xrpl_payload_trust_set",
   "xrpl_address",
   "xrpl_exchange_address",
