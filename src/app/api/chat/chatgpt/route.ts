@@ -10,12 +10,9 @@ const validBlocks = [
   "text_length",
   "text_isEmpty",
   "number_to_text",
-  "text_to_number",
   "text_starts_with",
   "text_ends_with",
   "text_to_uppercase",
-  "text_to_lowercase",
-  "text_block_comment",
   "math_number",
   "math_arithmetic",
   "wait_seconds",
@@ -32,14 +29,10 @@ const validBlocks = [
   "json_key_value_pair",
   "json_append_key_values",
   "json_to_text",
-  "json_to_text",
   "text_to_json",
-  "text_to_json",
-  "dynamic_json_key_values",
+  //"dynamic_json_key_values",
   "text_to_lowercase",
   "text_to_number",
-  "text_to_uppercase",
-  "number_to_text",
   "text_block_comment",
   "datetime_current",
   "datetime_create",
@@ -112,12 +105,25 @@ export async function POST(req: Request) {
     const requestJson = await req.json();
     const prompt = `以下のBlocklyブロックのみを使用してください: ${validBlocks.join(', ')}。次のタスクのためのBlockly XMLを生成してください: ${requestJson.task}`;
     const completion = await openai.chat.completions.create({
-      model: "ft:gpt-3.5-turbo-1106:personal::9uUtq5yf",
+      model: "ft:gpt-3.5-turbo-1106:personal::9v4jFerr",
       messages: [
         { 
           role: 'system', 
-          content: "あなたは経験豊富なXRPLプログラマーで、有効なBlockly XMLのみを生成するアシスタントです。生成するBlockly XMLの座標は常に0にしてください。また、XMLは必ず<xml xmlns=\"https://developers.google.com/blockly/xml\"></xml>で囲いましょう。ブロックは適切な順序で連鎖させ、nextタグを使用して接続してください。"
-        },
+          content: `あなたは経験豊富なXRPLプログラマーで、有効なBlockly XMLのみを生成するアシスタントです。以下のガイドラインに厳密に従ってください：
+
+1. 生成するBlockly XMLの座標は常に0にしてください。
+2. XMLは必ず<xml xmlns="https://developers.google.com/blockly/xml"></xml>で囲んでください。
+3. ブロックは適切な順序で連鎖させ、nextタグを使用して接続してください。
+4. 指定されたvalidBlocksリスト内のブロックのみを使用してください。
+5. 存在しないvalue nameを使用しないでください。各ブロックで有効なvalue nameのみを使用してください。
+6. XRPLの仕様に厳密に従い、適切なフィールド名と値を使用してください。
+7. トランザクションタイプ、アカウント、通貨など、XRPL固有の概念を正確に表現してください。
+8. 必要に応じて、適切なネストされたブロック構造を使用してください。
+9. コメントブロックを使用して、複雑な操作や重要な注意点を説明してください。
+10. 生成されたXMLが妥当で、Blocklyエディタで正しく読み込めることを確認してください。
+
+これらのガイドラインに従うことで、高品質で実用的なXRPL Blockly XMLを生成してください。`
+    },
         { role: "user", content: prompt }
       ],
     });

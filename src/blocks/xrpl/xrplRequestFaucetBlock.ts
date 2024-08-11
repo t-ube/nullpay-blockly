@@ -135,7 +135,7 @@ export const xrpl_create_account_and_request_faucet : any = {
     },
     {
       "type": "input_value",
-      "name": "AMOUNT",
+      "name": "XRP_AMOUNT",
       "check": "Number"
     }
   ],
@@ -166,7 +166,7 @@ export const defineXrplRequestCustomFaucetBlock = () => {
   ]);
 
   javascriptGenerator.forBlock['xrpl_create_account_and_request_faucet'] = function (block, generator) {
-    const amount = generator.valueToCode(block, 'AMOUNT', Order.ATOMIC) || '""';
+    const amount = generator.valueToCode(block, 'XRP_AMOUNT', Order.ATOMIC) || '""';
     const connection = generator.valueToCode(block, 'CONNECTION', Order.ATOMIC) || '""';
     if (generator.nameDB_ === undefined) {
       return `xrplRequestCustomFaucet(${amount}, ${connection}, '');\n`;

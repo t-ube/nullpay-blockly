@@ -142,7 +142,7 @@ export const datetime_adjust : any = {
     },
     {
       "type": "field_dropdown",
-      "name": "DIRECTION",
+      "name": "ADJUST_DIRECTION",
       "options": [
         ["after", "ADD"],
         ["before", "SUBTRACT"]
@@ -150,12 +150,12 @@ export const datetime_adjust : any = {
     },
     {
       "type": "input_value",
-      "name": "AMOUNT",
+      "name": "TIME_DELTA",
       "check": "Number"
     },
     {
       "type": "field_dropdown",
-      "name": "UNIT",
+      "name": "TIME_UNIT",
       "options": [
         ["seconds", "seconds"],
         ["minutes", "minutes"],
@@ -178,22 +178,22 @@ export const defineAdjustDateTimeBlock = () => {
 
   javascriptGenerator.forBlock['datetime_adjust'] = function (block) {
     const datetime = javascriptGenerator.valueToCode(block, 'DATETIME', Order.ATOMIC) || 'new Date()';
-    const direction = block.getFieldValue('DIRECTION') === 'ADD' ? 'add' : 'subtract';
-    const amount = javascriptGenerator.valueToCode(block, 'AMOUNT', Order.ATOMIC) || '0';
-    const unit = block.getFieldValue('UNIT');
-    const code = `adjustDateTime(${datetime}, "${direction}", ${amount}, "${unit}")`;
+    const direction = block.getFieldValue('ADJUST_DIRECTION') === 'ADD' ? 'add' : 'subtract';
+    const delta = javascriptGenerator.valueToCode(block, 'TIME_DELTA', Order.ATOMIC) || '0';
+    const unit = block.getFieldValue('TIME_UNIT');
+    const code = `adjustDateTime(${datetime}, "${direction}", ${delta}, "${unit}")`;
     return [code, Order.ATOMIC];
   };
 };
 
 export function initInterpreterAdjustDateTime(interpreter:any, globalObject:any) {
   javascriptGenerator.addReservedWords('adjustDateTime');
-  const wrapper = function (datetime:string, direction: string, amount:number, unit:dayjs.ManipulateType | undefined, callback:any) {
+  const wrapper = function (datetime:string, direction: string, delta:number, unit:dayjs.ManipulateType | undefined, callback:any) {
     let result = dayjs(datetime);
     if (direction === 'add') {
-      result = result.add(amount, unit);
+      result = result.add(delta, unit);
     } else {
-      result = result.subtract(amount, unit);
+      result = result.subtract(delta, unit);
     }
     callback(result.toDate());
   };

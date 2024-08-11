@@ -685,7 +685,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                     <block type="lists_sort_json_value" id="0Xo3wy?|DNREr3AF5wy7">
                                                                       <field name="TYPE">numeric</field>
                                                                       <field name="ORDER">desc</field>
-                                                                      <value name="ARRAY">
+                                                                      <value name="LIST">
                                                                         <block type="json_get_value" id="Gr?d{/i=gMG[\`;Fx2f7=">
                                                                           <value name="JSON">
                                                                             <block type="variables_get" id="r)P+EJX.P=fz}v]HBoNG">
@@ -1027,7 +1027,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                 <field name="CONNECTION">wss://s.altnet.rippletest.net:51233</field>
               </block>
             </value>
-            <value name="AMOUNT">
+            <value name="XRP_AMOUNT">
               <block type="math_number" id="x)L386P,?clW6*x*@W+.">
                 <field name="NUM">1000</field>
               </block>
@@ -1140,7 +1140,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                             <field name="CONNECTION">wss://s.altnet.rippletest.net:51233</field>
                                           </block>
                                         </value>
-                                        <value name="AMOUNT">
+                                        <value name="XRP_AMOUNT">
                                           <block type="math_number" id="{Y/w[95N78sUL?P1-n\`g">
                                             <field name="NUM">100</field>
                                           </block>
@@ -1787,7 +1787,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
             <field name="CONNECTION">wss://s.altnet.rippletest.net:51233</field>
           </block>
           </value>
-          <value name="AMOUNT">
+          <value name="XRP_AMOUNT">
           <block type="math_number" id="aSVL8.h^2+G4DUuM]r|H">
             <field name="NUM">1000</field>
           </block>
@@ -1942,7 +1942,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
             <field name="CONNECTION">wss://s.altnet.rippletest.net:51233</field>
           </block>
         </value>
-        <value name="AMOUNT">
+        <value name="XRP_AMOUNT">
           <block type="math_number" id="Jt%wEGZbte_4@wPA-93D">
             <field name="NUM">100</field>
           </block>
