@@ -116,7 +116,7 @@ export async function POST(req: Request) {
       messages: [
         { 
           role: 'system', 
-          content: "あなたは経験豊富なXRPLプログラマーで、有効なBlockly XMLのみを生成するアシスタントです。生成するBlockly XMLの座標は常に0にしてください。また、XMLは必ず<xml xmlns=\"https://developers.google.com/blockly/xml\"></xml>で囲いましょう。"
+          content: "あなたは経験豊富なXRPLプログラマーで、有効なBlockly XMLのみを生成するアシスタントです。生成するBlockly XMLの座標は常に0にしてください。また、XMLは必ず<xml xmlns=\"https://developers.google.com/blockly/xml\"></xml>で囲いましょう。ブロックは適切な順序で連鎖させ、nextタグを使用して接続してください。"
         },
         { role: "user", content: prompt }
       ],

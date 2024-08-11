@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { Typography, Box } from '@mui/material';
 import { IGuideProps, useWorkspaceManager } from '@/components/GuideUtils';
@@ -100,7 +102,7 @@ export default function XRPLAccountInfoGuide({ onBlockSelectedV2, onClose }: IGu
 
   return (
     <Box>
-      <Typography variant="h4">XRPL Account Information Retrieval Guide</Typography>
+      <Typography variant="h4">XRPL Account Information Retrieval</Typography>
       <Typography variant="body1" paragraph>
         {`Welcome to the XRPL Account Information Retrieval guide! In this tutorial, we'll create a program to connect to the XRPL and retrieve account information.`}
       </Typography>
