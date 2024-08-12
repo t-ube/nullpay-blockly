@@ -8,7 +8,10 @@ import {
   List, 
   ListItem, 
   ListItemText,
+  ListItemAvatar,
+  Avatar,
   Box,
+  Button,
   Fab,
   CircularProgress
 } from '@mui/material';
@@ -16,6 +19,8 @@ import { styled } from '@mui/material/styles';
 import SendIcon from '@mui/icons-material/Send';
 import CloseIcon from '@mui/icons-material/Close';
 import ChatIcon from '@mui/icons-material/Chat';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
 import { v4 as uuidv4 } from 'uuid';
 import { loadXmlIntoWorkspace } from '@/utils/BlocklyHelper';
 import { FlyoutTheme } from '@/blocks/BlocklyTheme';
@@ -198,12 +203,25 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position, onBlockS
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
   ]);
-  const [blockHeights, setBlockHeights] = useState<{[key: number]: number}>({});
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
   const [input, setInput] = useState('');
   const listRef = useRef<null | HTMLUListElement>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const workspaceRefs = useRef<{ id: string; workspace: Blockly.WorkspaceSvg }[]>([]);
+  const [lastQuery, setLastQuery] = useState('');
+
+  const scrollToBottom = useCallback(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
+  useEffect(() => {
+    if (open) {
+      scrollToBottom();
+    }
+  }, [open, scrollToBottom]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, scrollToBottom]);
 
   const generateBlocklyContent = async (task: string) => {
     try {
@@ -231,6 +249,7 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position, onBlockS
   const handleSend = async () => {
     if (input.trim()) {
       setIsLoading(true);
+      setLastQuery(input);
       setMessages([...messages, { text: input, isUser: true }]);
       setInput('');
 
@@ -257,18 +276,25 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position, onBlockS
     setOpen(false);
   }, [onBlockSelectedV2]);
 
-  const handleBlockHeightChange = useCallback((index: number, height: number) => {
-    setBlockHeights(prev => {
-      if (prev[index] === height) return prev;
-      return { ...prev, [index]: height };
-    });
-  }, []);
+  const handleRetry = async () => {
+    if (lastQuery) {
+      setIsLoading(true);
+      setMessages(prev => prev.slice(0, -1));
+      try {
+        const content = await generateBlocklyContent(lastQuery);
+        setMessages(prev => [...prev, { text: "Code blocks have been created.", isUser: false, blocklyContent: content }]);
+      } catch (error) {
+        console.error('Error:', error);
+        setMessages(prev => [...prev, { text: "An error occurred while generating the response.", isUser: false }]);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
 
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
-  const toggleChat = () => setOpen(!open);
+  const toggleChat = () => {
+    setOpen(prev => !prev);
+  };
 
   return (
     <>
@@ -333,43 +359,75 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position, onBlockS
               p: 0.5,
               alignItems: 'flex-start'
             }}>
-              <Paper elevation={1} sx={{ 
+              {!message.isUser && (
+                <ListItemAvatar>
+                  <Avatar src="/nullpay-256.png" alt="AI Avatar" />
+                </ListItemAvatar>
+              )}
+              <Paper elevation={0} sx={{ 
                 p: 1, 
                 maxWidth: '70%', 
                 backgroundColor: message.isUser ? '#e3f2fd' : '#f5f5f5',
-                wordBreak: 'break-word'
-                }}>
-                  <ListItemText 
-                    primary={message.text} 
-                    primaryTypographyProps={{ 
-                      sx: { 
-                        wordWrap: 'break-word',
-                        overflowWrap: 'break-word'
-                      } 
-                    }}
-                  />
+                wordBreak: 'break-word',
+                ml: message.isUser ? 'auto' : 0,
+              }}>
+                <ListItemText 
+                  primary={message.text} 
+                  primaryTypographyProps={{ 
+                    sx: { 
+                      wordWrap: 'break-word',
+                      overflowWrap: 'break-word'
+                    } 
+                  }}
+                />
               </Paper>
             </ListItem>
             <ListItem key={index} sx={{ 
               justifyContent: message.isUser ? 'flex-end' : 'flex-start', 
               p: 0.5,
               alignItems: 'flex-start',
-              height: blockHeights[index] ? `${blockHeights[index] + 20}px` : 'auto',
+              height: 'auto',
             }}>
               {message.blocklyContent && (
-              <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} overflow="auto">
-                <BlocklyRenderer 
-                  content={message.blocklyContent} 
-                  index={index} 
-                  onBlockSelected={handleBlockSelected}
-                />
-              </Box>
+              <>
+                <ListItem sx={{ 
+                  justifyContent: 'flex-start', 
+                  p: 0.5,
+                  alignItems: 'flex-start',
+                  flexDirection: 'column',
+                  height: 'auto',
+                  ml: 7
+                }}>
+                  <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} overflow="auto" mb={1}>
+                    <BlocklyRenderer 
+                      content={message.blocklyContent} 
+                      index={index} 
+                      onBlockSelected={handleBlockSelected}
+                    />
+                  </Box>
+                  {index === messages.length - 1 && !message.isUser && (
+                  <Button
+                    variant="outlined"
+                    startIcon={<RefreshIcon />}
+                    onClick={handleRetry}
+                    disabled={isLoading}
+                    size="small"
+                    sx={{ alignSelf: 'flex-start', mt: 1 }}
+                  >
+                    Retry
+                  </Button>
+                  )}
+                </ListItem>
+              </>
               )}
             </ListItem>
           </div>
         ))}
         {isLoading && (
           <ListItem sx={{ justifyContent: 'flex-start', p: 0.5 }}>
+            <ListItemAvatar>
+              <Avatar src="/nullpay-256.png" alt="AI Avatar" />
+            </ListItemAvatar>
             <Paper elevation={1} sx={{ p: 1, backgroundColor: '#f5f5f5' }}>
               <Box display="flex" alignItems="center">
                 <CircularProgress size={20} sx={{ mr: 1 }} />
