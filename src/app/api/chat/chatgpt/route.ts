@@ -1,4 +1,4 @@
-// app/api/chat/route.ts
+// app/api/chat/chatgpt/route.ts
 export const runtime = 'edge'
 
 import OpenAI from 'openai';
