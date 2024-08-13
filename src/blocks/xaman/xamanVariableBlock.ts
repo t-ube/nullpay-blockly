@@ -107,9 +107,9 @@ export const xaman_variable_set : any = {
     },
     {
       "type": "field_variable",
-      "name": "STATUS",
-      "variable": "status"
-    }
+      "name": "IS_ERROR",
+      "variable": "isError"
+    },
   ],
   "inputsInline": false,
   "previousStatement": null,
@@ -130,15 +130,15 @@ export const defineXamanVariableSetBlock = () => {
     if (generator.nameDB_ === undefined) {
       return `xamanVariableSet(${data}, ${key}, '');\n`;
     }
-    const status = generator.nameDB_.getName(block.getFieldValue('STATUS'), Blockly.VARIABLE_CATEGORY_NAME);
-    const code = `xamanVariableSet(${data}, ${key}, '${status}');\n`;
+    const isError = generator.nameDB_.getName(block.getFieldValue('IS_ERROR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const code = `xamanVariableSet(${data}, ${key}, '${isError}');\n`;
     return code;
   };
 };
 
 export function initInterpreterXamanVariableSet(interpreter:any, globalObject:any) {
   javascriptGenerator.addReservedWords('xamanVariableSet');
-  const wrapper = async function (data:string, key:string, statusVar:any, callback:any) {
+  const wrapper = async function (data:string, key:string, isErrorVar:any, callback:any) {
     try {
       if (!/^[a-z0-9]{3,}$/.test(key)) {
         throw new Error('Invalid name, only a-z0-9 (min three chars) allowed');
@@ -150,11 +150,11 @@ export function initInterpreterXamanVariableSet(interpreter:any, globalObject:an
       } else {
         throw new Error('Not logged in');
       }
-      interpreter.setProperty(globalObject, statusVar, interpreter.nativeToPseudo(getAsyncSuccess(null)));
+      interpreter.setProperty(globalObject, isErrorVar, false);
       callback();
     } catch (error) {
       console.error('Failed to set user data:', error);
-      interpreter.setProperty(globalObject, statusVar, interpreter.nativeToPseudo(getAsyncError(`${error}`)));
+      interpreter.setProperty(globalObject, isErrorVar, true);
       callback();
     }
   };

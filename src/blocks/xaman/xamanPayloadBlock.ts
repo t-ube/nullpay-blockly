@@ -16,7 +16,7 @@ export const xaman_payment : any = {
   "args0": [
     {
       "type": "field_label",
-      "text": "Xaman payment",
+      "text": "Xaman simple payment",
       "class": "title-label"
     }
   ],
@@ -81,8 +81,8 @@ export const xaman_payment : any = {
     },
     {
       "type": "field_variable",
-      "name": "RESULT",
-      "variable": "error"
+      "name": "IS_ERROR",
+      "variable": "isError"
     }
   ],
   "inputsInline": false,
@@ -106,7 +106,7 @@ export const defineXamanPaymentBlock = () => {
       return `xamanCreatePaymentTransaction(${destination}, ${amount}, ${memo}, '', '');\n`;
     }
     const variable = generator.nameDB_.getName(block.getFieldValue('PAYLOAD_ID'), Blockly.VARIABLE_CATEGORY_NAME);
-    const errorVariable = generator.nameDB_.getName(block.getFieldValue('RESULT'), Blockly.VARIABLE_CATEGORY_NAME);
+    const errorVariable = generator.nameDB_.getName(block.getFieldValue('IS_ERROR'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `xamanCreatePaymentTransaction(${destination}, ${amount}, ${memo}, '${variable}', '${errorVariable}');\n`;
     return code;
   };
@@ -134,14 +134,14 @@ export function initInterpreterXamanPayment(interpreter:any, globalObject:any) {
         }
         const payload = await sdk.payload.create(request);
         interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(payload?.uuid));
-        interpreter.setProperty(globalObject, errorVariable, interpreter.nativeToPseudo(0));
+        interpreter.setProperty(globalObject, errorVariable, false);
       } else {
         throw new Error('Not logged in');
       }
       callback();
     } catch (error) {
       console.error('Error creating Xaman payment transaction:', error);
-      interpreter.setProperty(globalObject, errorVariable, interpreter.nativeToPseudo(1));
+      interpreter.setProperty(globalObject, errorVariable, true);
       callback();
     }
   };
@@ -276,8 +276,8 @@ export const xaman_payload_set : any = {
     },
     {
       "type": "field_variable",
-      "name": "STATUS",
-      "variable": "status"
+      "name": "IS_ERROR",
+      "variable": "isError"
     },
     {
       "type": "field_variable",
@@ -303,16 +303,16 @@ export const defineXamanPayloadSetBlock = () => {
     if (generator.nameDB_ === undefined) {
       return `xamanPayloadSet(JSON.stringify(${payload}),'','');\n`;
     }
-    const status = generator.nameDB_.getName(block.getFieldValue('STATUS'), Blockly.VARIABLE_CATEGORY_NAME);
+    const isError = generator.nameDB_.getName(block.getFieldValue('IS_ERROR'), Blockly.VARIABLE_CATEGORY_NAME);
     const payloadID = generator.nameDB_.getName(block.getFieldValue('PAYLOAD_ID'), Blockly.VARIABLE_CATEGORY_NAME);
-    const code = `xamanPayloadSet(JSON.stringify(${payload}),'${status}','${payloadID}');\n`;
+    const code = `xamanPayloadSet(JSON.stringify(${payload}),'${isError}','${payloadID}');\n`;
     return code;
   };
 };
 
 export function initInterpreterXamanPayloadSet(interpreter: any, globalObject: any) {
   javascriptGenerator.addReservedWords('xamanPayloadSet');
-  const wrapper = async function (payloadText: string, statusVar:any, responseVar:any, callback:any) {
+  const wrapper = async function (payloadText: string, isErrorVar:any, responseVar:any, callback:any) {
     try {
       const state = await xamanPkce.state();
       if (state?.me) {
@@ -320,7 +320,7 @@ export function initInterpreterXamanPayloadSet(interpreter: any, globalObject: a
         const { sdk, me } = state;
         const request : XummJsonTransaction = payload;
         const xamanPayload = await sdk.payload.create(request);
-        interpreter.setProperty(globalObject, statusVar, interpreter.nativeToPseudo(getBlockSuccess()));
+        interpreter.setProperty(globalObject, isErrorVar, false);
         interpreter.setProperty(globalObject, responseVar, interpreter.nativeToPseudo(xamanPayload?.uuid));
       } else {
         throw new Error('Not logged in');
@@ -329,7 +329,7 @@ export function initInterpreterXamanPayloadSet(interpreter: any, globalObject: a
     } catch (error) {
       const message = 'Failed to get payload';
       console.error(`${message}: ${payloadText}`, error);
-      interpreter.setProperty(globalObject, statusVar, interpreter.nativeToPseudo(getBlockError(message)));
+      interpreter.setProperty(globalObject, isErrorVar, true);
       callback();
     }
   };

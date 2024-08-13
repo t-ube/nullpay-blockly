@@ -98,8 +98,8 @@ export const defineWebApiRequestBlock = () => {
         },
         {
           "type": "field_variable",
-          "name": "STATUS",
-          "variable": "status"
+          "name": "IS_ERROR",
+          "variable": "isError"
         },
         {
           "type": "field_variable",
@@ -144,9 +144,9 @@ export const defineWebApiRequestBlock = () => {
     if (generator.nameDB_ === undefined) {
       return `webapiRequest("${method}",${url},${headers},${body},"${bodyFormat}",'','');\n`;
     }
-    const status = generator.nameDB_.getName(block.getFieldValue('STATUS'), Blockly.VARIABLE_CATEGORY_NAME);
+    const isError = generator.nameDB_.getName(block.getFieldValue('IS_ERROR'), Blockly.VARIABLE_CATEGORY_NAME);
     const response = generator.nameDB_.getName(block.getFieldValue('RESPONSE'), Blockly.VARIABLE_CATEGORY_NAME);
-    const code = `webapiRequest("${method}",${url},JSON.stringify(${headers}),"${bodyFormat}",${bodyPayload},'${status}','${response}');\n`;
+    const code = `webapiRequest("${method}",${url},JSON.stringify(${headers}),"${bodyFormat}",${bodyPayload},'${isError}','${response}');\n`;
     return code;
   };
 };
@@ -154,7 +154,7 @@ export const defineWebApiRequestBlock = () => {
 export function initInterpreterWebApiRequest(interpreter: any, globalObject: any) {
   javascriptGenerator.addReservedWords('webapiRequest');
   const wrapper = async function (method: string, url: string, headersText: string, bodyFormat: string, bodyText: string,
-    statusVar:any, responseVar:any, callback:any) {
+    isErrorVar:any, responseVar:any, callback:any) {
     try {
       let dataPayload: { url: string; method: string; headers?: Record<string, string>; body?: string } = {
         url: url,
@@ -192,12 +192,12 @@ export function initInterpreterWebApiRequest(interpreter: any, globalObject: any
       };
       const response = await fetch('/api/proxy/', payload);
       const responseJson = await response.json();
-      interpreter.setProperty(globalObject, statusVar, interpreter.nativeToPseudo(getBlockSuccess()));
+      interpreter.setProperty(globalObject, isErrorVar, false);
       interpreter.setProperty(globalObject, responseVar, interpreter.nativeToPseudo(responseJson));
       callback();
     } catch (error) {
       console.error('Failed to request:', error);
-      interpreter.setProperty(globalObject, statusVar, interpreter.nativeToPseudo(getBlockError(`${error}`)));
+      interpreter.setProperty(globalObject, isErrorVar, true);
       interpreter.setProperty(globalObject, responseVar, interpreter.nativeToPseudo(undefined));
       callback();
     }
