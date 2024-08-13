@@ -22,7 +22,7 @@ const convertToTokenMenu = (tokens: IXrplToken[]): [string, string][] => {
   
   return tokens.map(token => {
     const displayName = `${token.currency_code} (${token.issuer.slice(0, 4)}...${token.issuer.slice(-4)})`;
-    const tokenData = `${token.issuer}/${token.currency_code}/${token.total_supply}`;
+    const tokenData = `${token.issuer}_${token.currency_code}`;
     return [displayName, tokenData];
   });
 }
@@ -47,7 +47,7 @@ export const xrpl_token_select : any = {
     },
     {
       "type": "field_dependent_dropdown",
-      "name": "TOKEN",
+      "name": "ISSUER_ADDRESS_AND_CURRENCY_CODE",
       "parentName": "NETWORK_TYPE",
       "optionMapping": {
         "xrpl": tokenMenu,
@@ -67,12 +67,11 @@ export const defineXrplTokenSelectBlock = () => {
   ]);
 
   javascriptGenerator.forBlock['xrpl_token_select'] = function (block) {
-    const token = block.getFieldValue('TOKEN');
-    const [issuer, currency_code, total_supply] = token.split('/');
+    const token = block.getFieldValue('ISSUER_ADDRESS_AND_CURRENCY_CODE');
+    const [issuer, currency_code] = token.split('_');
     const code = JSON.stringify({
       issuer: issuer,
-      currency_code: currency_code,
-      total_supply: total_supply
+      currency_code: currency_code
     });
     return [code, Order.ATOMIC];
   };
@@ -98,7 +97,7 @@ export const xrpl_create_new_token : any = {
     },
     {
       "type": "input_value",
-      "name": "ISSUER",
+      "name": "ISSUER_ADDRESS",
       "check": "String"
     }
   ],
@@ -111,7 +110,7 @@ export const xrpl_create_new_token : any = {
     },
     {
       "type": "input_value",
-      "name": "CODE",
+      "name": "CURRECY_CODE",
       "check": "String"
     }
   ],
@@ -124,7 +123,7 @@ export const xrpl_create_new_token : any = {
     },
     {
       "type": "input_value",
-      "name": "SUPPLY",
+      "name": "TOTAL_SUPPLY",
       "check": "Number"
     }
   ],
@@ -141,9 +140,9 @@ export const defineXrplCreateNewTokenBlock = () => {
   ]);
 
   javascriptGenerator.forBlock['xrpl_create_new_token'] = function (block, generator) {
-    const issuer = generator.valueToCode(block, 'ISSUER', Order.NONE) || '""';
-    const currencyCode = generator.valueToCode(block, 'CODE', Order.NONE) || '""';
-    const totalSupply = generator.valueToCode(block, 'SUPPLY', Order.NONE) || 0;
+    const issuer = generator.valueToCode(block, 'ISSUER_ADDRESS', Order.NONE) || '""';
+    const currencyCode = generator.valueToCode(block, 'CURRECY_CODE', Order.NONE) || '""';
+    const totalSupply = generator.valueToCode(block, 'TOTAL_SUPPLY', Order.NONE) || 0;
     const code = `xrplCreateNewToken(${issuer},${currencyCode},String(${totalSupply}))`;
     return [code, Order.ATOMIC];
   };

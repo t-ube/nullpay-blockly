@@ -74,7 +74,7 @@ import {
   defineXrplTxCommandBlock, initInterpreterXrplTxCommand,
 } from '@/blocks/xrpl/xrplSubmitBlock';
 import {
-  defineXrplTrustSetTxnBlock, initInterpreterXrplTrustSetTxn
+  defineXrplTrustSetTxnBlock, initInterpreterXrplTrustSetTxn,
 } from '@/blocks/xrpl/xrplTrustSetTransactionBlock';
 import {
   defineXrplGetTxnInfoBlock, initInterpreterXrplGetTxnInfoBlock,

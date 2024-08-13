@@ -3,6 +3,7 @@ import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { blockCheckType } from '@/blocks/BlockField';
 import { IXrplToken } from '@/interfaces/IXrplToken';
+import { findTokenTotalSupply } from '@/blocks/xrpl/xrplToken';
 
 // Define the block for setting XRPL Trust set
 export const xrpl_payload_trust_set : any = {
@@ -24,7 +25,7 @@ export const xrpl_payload_trust_set : any = {
     },
     {
       "type": "input_value",
-      "name": "TOKEN",
+      "name": "CURRECY_CODE_AND_ISSUER_AND_SUPPLY",
       "check": blockCheckType.xrplToken
     }
   ],
@@ -37,7 +38,7 @@ export const xrpl_payload_trust_set : any = {
     },
     {
       "type": "input_value",
-      "name": "ADDRESS",
+      "name": "ACCOUNT_ADDRESS",
       "check": "String"
     }
   ],
@@ -55,8 +56,8 @@ export const defineXrplTrustSetTxnBlock = () => {
 
   // JavaScript code generator for the XRPL trust set block
   javascriptGenerator.forBlock['xrpl_payload_trust_set'] = function(block, generator) {
-    const token = generator.valueToCode(block, 'TOKEN', Order.NONE) || {} as IXrplToken;
-    const address = generator.valueToCode(block, 'ADDRESS', Order.NONE) || '""';
+    const token = generator.valueToCode(block, 'CURRECY_CODE_AND_ISSUER_AND_SUPPLY', Order.NONE) || {} as IXrplToken;
+    const address = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.NONE) || '""';
     const code = `xrplTrustSetTxn(JSON.stringify(${token}),${address})`;
     return [code, Order.ATOMIC];
   };
@@ -66,15 +67,17 @@ export function initInterpreterXrplTrustSetTxn(interpreter: any, globalObject: a
   javascriptGenerator.addReservedWords('xrplTrustSetTxn');
   const wrapper = function (tokenText: string, address: string) {
     let token = JSON.parse(tokenText) as IXrplToken;
+    const totalSupply = findTokenTotalSupply(token.currency_code, token.issuer);
     const transaction = {
       TransactionType: 'TrustSet',
       Account: address,
       LimitAmount: {
         issuer: token.issuer,
         currency: token.currency_code,
-        value: token.total_supply
+        value: totalSupply ? totalSupply : token.total_supply
       }
     };
+    console.log(transaction);
     return interpreter.nativeToPseudo(transaction);
   };
   interpreter.setProperty(globalObject, 'xrplTrustSetTxn', interpreter.createNativeFunction(wrapper));

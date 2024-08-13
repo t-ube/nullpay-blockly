@@ -1054,17 +1054,17 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                     <field name="VAR" id="y(c/b\`2w_ExT-MP[t]o2">token</field>
                     <value name="VALUE">
                       <block type="xrpl_create_new_token" id="xj4t7^/lk17OuJX\`(3(i">
-                        <value name="ISSUER">
+                        <value name="ISSUER_ADDRESS">
                           <block type="variables_get" id="}{avAx},E59Dd}Mj469O">
                             <field name="VAR" id="=%)Saa;n}:JDCT)JwuHf">issuerAddress</field>
                           </block>
                         </value>
-                        <value name="CODE">
+                        <value name="CURRECY_CODE">
                           <block type="text" id="G#D{9=ghRW2T3CV[Z/V.">
                             <field name="TEXT">TST</field>
                           </block>
                         </value>
-                        <value name="SUPPLY">
+                        <value name="TOTAL_SUPPLY">
                           <block type="math_number" id="n04k33{Ik^#M#t#|Dk6C">
                             <field name="NUM">100000</field>
                           </block>
@@ -1093,7 +1093,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                             </value>
                             <next>
                               <block type="xrpl_load_wallet" id="4JB\$@tr9U)!^+|is{F)c">
-                                <field name="VAR" id="bxPm,KY=-@8vtu*bSGsp">issuerWallet</field>
+                                <field name="WALLET_ID" id="bxPm,KY=-@8vtu*bSGsp">issuerWallet</field>
                                 <value name="SEED">
                                   <block type="json_get_value" id="VgA(ukOC-bDq/e|HwZiU">
                                     <value name="JSON">
@@ -1164,7 +1164,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                             </value>
                                             <next>
                                               <block type="xrpl_load_wallet" id="e8o.n)_s~QV]i4lOeDQ{">
-                                                <field name="VAR" id="xMBzI7UBn!L3](uO_[sm">userWallet</field>
+                                                <field name="WALLET_ID" id="xMBzI7UBn!L3](uO_[sm">userWallet</field>
                                                 <value name="SEED">
                                                   <block type="json_get_value" id="_O9**!zzQsJXa\`BxXg\$L">
                                                     <value name="JSON">
@@ -1194,12 +1194,12 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                     </value>
                                                     <value name="PAYLOAD">
                                                       <block type="xrpl_payload_trust_set" id="\$^z21d,u*nnCB(_(7U\$]">
-                                                        <value name="TOKEN">
+                                                        <value name="CURRECY_CODE_AND_ISSUER_AND_SUPPLY">
                                                           <block type="variables_get" id="=nE\$BGkDwF45#N!LSZB0">
                                                             <field name="VAR" id="y(c/b\`2w_ExT-MP[t]o2">token</field>
                                                           </block>
                                                         </value>
-                                                        <value name="ADDRESS">
+                                                        <value name="ACCOUNT_ADDRESS">
                                                           <block type="variables_get" id="l.UPF#a/1;%Xkxl^}Y|c">
                                                             <field name="VAR" id="/}dNVuDet})7KIAd!{;V">userAddress</field>
                                                           </block>
@@ -2561,7 +2561,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                         </value>
                         <next>
                           <block type="xrpl_load_wallet" id="bQd%bB#g{sG,lCf\`||5S">
-                            <field name="VAR" id="@}WJq[fy\`-m^WoiOK;5~">xrplWallet</field>
+                            <field name="WALLET_ID" id="@}WJq[fy\`-m^WoiOK;5~">xrplWallet</field>
                             <value name="SEED">
                               <block type="variables_get" id="04uz+4fLy1juSr.EM+l1">
                                 <field name="VAR" id="ElY=y_c+SRB4UU!nMf(t">i</field>

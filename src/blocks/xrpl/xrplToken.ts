@@ -1,5 +1,19 @@
 import { IXrplToken } from '@/interfaces/IXrplToken';
 
+export function findTokenTotalSupply(currencyCode: string, issuerAddress: string): string | null {
+    const token = xrplTokens.find(t => 
+        t.currency_code === currencyCode && 
+        t.issuer === issuerAddress
+    );
+
+    if (token) {
+        return token.total_supply;
+    } else {
+        console.warn(`Token not found for currency code: ${currencyCode} and issuer: ${issuerAddress}`);
+        return null;
+    }
+}
+
 export const xrplTokens : IXrplToken[] = [
     {
         issuer: "rKk7mu1dNB25fsPEJ4quoQd5B8QmaxewKi",
