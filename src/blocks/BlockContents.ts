@@ -2244,14 +2244,98 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       blockType: "supabase_delete",
     },
     {
-      height: 50,
+      height: 407,
       block: `
-        <block type="supabase_text_to_json" x="0" y="0"></block>
+      <variables>
+        <variable id="TR.tJ)ZVHzrlBkNj:|58">supabaseClient</variable>
+        <variable id="KN@YlO%|QU@080L:PXSg">isError</variable>
+        <variable id="oftB%i+pbb-@^.x#nekb">selectedData</variable>
+      </variables>
+      <block type="supabase_create_client" id="mrIw6i|cok({Ph!h56J:" x="0" y="0">
+        <field name="SUPABASE_CLIENT" id="TR.tJ)ZVHzrlBkNj:|58">supabaseClient</field>
+        <value name="SUPABASE_URL">
+          <block type="text" id="dWmxUjE^FN|=zUC(DJVn">
+            <field name="TEXT">https://xxxxx.supabase.co</field>
+          </block>
+        </value>
+        <value name="ANON_KEY">
+          <block type="text" id="S#|a|_:XR23Y^LMd~9^O">
+            <field name="TEXT"></field>
+          </block>
+        </value>
+        <next>
+          <block type="supabase_insert" id="$ujEBh$Q]}9ABnc0VBF-">
+            <field name="IS_ERROR" id="KN@YlO%|QU@080L:PXSg">isError</field>
+            <value name="SUPABASE_CLIENT">
+              <block type="variables_get" id="]WB#0,V.b)VNs[v)HG!2">
+                <field name="VAR" id="TR.tJ)ZVHzrlBkNj:|58">supabaseClient</field>
+              </block>
+            </value>
+            <value name="TABLE_NAME">
+              <block type="text" id="r]AlH{hk1cO8Y{J9m~,}">
+                <field name="TEXT">transactions</field>
+              </block>
+            </value>
+            <value name="INSERT_RECORDS_JSON">
+              <block type="text_to_json" id="/~qG@;ST]PjjUAqB+97+">
+                <value name="TEXT">
+                  <block type="text" id="Y3GhEqMKIy6Kgv,e_*Wv">
+                    <field name="TEXT">[{"transaction":{"abc":1},"number":1,"text":"abcdefg"}]</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="supabase_select" id=":d;I!)E1cjSp3k7O0fpu">
+                <field name="FILTER_OPERATOR">gt</field>
+                <field name="SELECTED_DATA" id="oftB%i+pbb-@^.x#nekb">selectedData</field>
+                <value name="SUPABASE_CLIENT">
+                  <block type="variables_get" id="OI?2e?!;sq9EC=ztQCX|">
+                    <field name="VAR" id="TR.tJ)ZVHzrlBkNj:|58">supabaseClient</field>
+                  </block>
+                </value>
+                <value name="TABLE_NAME">
+                  <block type="text" id="(#Jr?,~g7-+a6-H7-Gje">
+                    <field name="TEXT">transactions</field>
+                  </block>
+                </value>
+                <value name="COLUMNS">
+                  <block type="text" id="5\`b4J~i%X0^x(5PdbM:T">
+                    <field name="TEXT">created_at,id,transaction,number,text</field>
+                  </block>
+                </value>
+                <value name="FILTER_COLUMN">
+                  <block type="text" id="CjSE]+87.kb;[!k6T:ud">
+                    <field name="TEXT">created_at</field>
+                  </block>
+                </value>
+                <value name="FILTER_VALUE">
+                  <block type="text" id="pxAcxz$]CW}-9XT3^aJ9">
+                    <field name="TEXT">2024-06-30 3:00:00</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="text_print" id="D][=da|D[_\`eI4c/{W6Q">
+                    <value name="TEXT">
+                      <block type="json_to_text" id="tqT]y9UHZ2xQNpVq57UH">
+                        <value name="JSON">
+                          <block type="variables_get" id="Hm3Y4/=mn3W|2*=VR~qS">
+                            <field name="VAR" id="oftB%i+pbb-@^.x#nekb">selectedData</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
       `,
-      title: "Text to JSON",
-      description: "This block converts plain text to a JSON object. It is useful for preparing data before inserting or updating it in the Supabase database. The JSON object can be used in subsequent database operations.",
-      categories: ["supabase"],
-      blockType: "supabase_text_to_json",
+      title: "Supabase Insert Record",
+      description: "This template demonstrates basic Supabase database operations. It includes initializing a client, inserting new records, and retrieving data based on specific conditions. Ideal for learning the fundamental flow of database interactions using Supabase.",
+      categories: ["template","supabase"],
     },
   ],
   table: [

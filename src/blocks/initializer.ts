@@ -168,7 +168,6 @@ import {
 import {
   defineSupabaseCreateClientBlock, initInterpreterSupabaseCreateClient,
   defineSupabaseInsertBlock, initInterpreterSupabaseInsert,
-  defineSupabaseTextToJsonBlock, initInterpreterSupabaseTextToJson,
   defineSupabaseSelectBlock, initInterpreterSupabaseSelect,
   defineSupabaseUpdateBlock, initInterpreterSupabaseUpdate,
   defineSupabaseDeleteBlock, initInterpreterSupabaseDelete
@@ -322,7 +321,6 @@ const createCustomBlocks = () => {
   // Supabase
   defineSupabaseCreateClientBlock();
   defineSupabaseInsertBlock();
-  defineSupabaseTextToJsonBlock();
   defineSupabaseSelectBlock();
   defineSupabaseUpdateBlock();
   defineSupabaseDeleteBlock();
@@ -451,7 +449,6 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
 
   initInterpreterSupabaseCreateClient(interpreter, scope);
   initInterpreterSupabaseInsert(interpreter, scope);
-  initInterpreterSupabaseTextToJson(interpreter, scope);
   initInterpreterSupabaseSelect(interpreter, scope);
   initInterpreterSupabaseUpdate(interpreter, scope);
   initInterpreterSupabaseDelete(interpreter, scope);

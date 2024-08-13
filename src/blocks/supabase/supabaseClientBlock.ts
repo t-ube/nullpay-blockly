@@ -24,12 +24,12 @@ export const defineSupabaseCreateClientBlock = () => {
       "args1": [
         {
           "type": "field_label",
-          "text": "URL",
+          "text": "Supabase URL",
           "class": "args-label"
         },
         {
           "type": "input_value",
-          "name": "URL",
+          "name": "SUPABASE_URL",
           "check": blockCheckType.string
         }
       ],
@@ -50,7 +50,7 @@ export const defineSupabaseCreateClientBlock = () => {
       "args3": [
         {
           "type": "field_label",
-          "text": "Client",
+          "text": "Supabase client",
           "class": "output-label"
         },
         {
@@ -69,7 +69,7 @@ export const defineSupabaseCreateClientBlock = () => {
   ]);
 
   javascriptGenerator.forBlock['supabase_create_client'] = function(block, generator) {
-    const url = generator.valueToCode(block, 'URL', Order.NONE) || '""';
+    const url = generator.valueToCode(block, 'SUPABASE_URL', Order.NONE) || '""';
     const key = generator.valueToCode(block, 'ANON_KEY', Order.NONE) || '""';
     if (generator.nameDB_ === undefined) {
       return `supabaseCreateClient(${url},${key}, '');\n`;
@@ -97,52 +97,6 @@ export function initInterpreterSupabaseCreateClient(interpreter: any, globalObje
   interpreter.setProperty(globalObject, 'supabaseCreateClient', interpreter.createAsyncFunction(wrapper));
 }
 
-export const defineSupabaseTextToJsonBlock = () => {
-  Blockly.defineBlocksWithJsonArray([
-    {
-      "type": "supabase_text_to_json",
-      "message0": "%1 %2",
-      "args0": [
-        {
-          "type": "field_label",
-          "text": "text to JSON",
-          "class": "args-label"
-        },
-        {
-          "type": "input_value",
-          "name": "TEXT",
-          "check": blockCheckType.string
-        }
-      ],
-      "output": blockCheckType.json,
-      "inputsInline": false,
-      "colour": BlockColors.supabase,
-      "tooltip": "Convert a plain text to a JSON object",
-      "helpUrl": ""
-    }
-  ]);
-
-  javascriptGenerator.forBlock['supabase_text_to_json'] = function (block, generator) {
-    const textInput = generator.valueToCode(block, 'TEXT', Order.ATOMIC) || '""';
-    const code = `supabaseTextToJson(${textInput})`;
-    return [code, Order.ATOMIC];
-  };
-};
-
-export function initInterpreterSupabaseTextToJson(interpreter: any, globalObject: any) {
-  javascriptGenerator.addReservedWords('supabaseTextToJson');
-  const wrapper = function (textInput: string) {
-    try {
-      const json = JSON.parse(textInput);
-      return interpreter.nativeToPseudo(json);
-    } catch (error) {
-      console.error(`Failed to convert: ${textInput}`,error);
-      return interpreter.nativeToPseudo(null);
-    }
-  };
-  interpreter.setProperty(globalObject, 'supabaseTextToJson', interpreter.createNativeFunction(wrapper));
-}
-
 export const defineSupabaseInsertBlock = () => {
   Blockly.defineBlocksWithJsonArray([
     {
@@ -159,7 +113,7 @@ export const defineSupabaseInsertBlock = () => {
       "args1": [
         {
           "type": "field_label",
-          "text": "Client",
+          "text": "Supabase client",
           "class": "args-label"
         },
         {
@@ -177,7 +131,7 @@ export const defineSupabaseInsertBlock = () => {
         },
         {
           "type": "input_value",
-          "name": "TABLE",
+          "name": "TABLE_NAME",
           "check": blockCheckType.string
         }
       ],
@@ -185,12 +139,12 @@ export const defineSupabaseInsertBlock = () => {
       "args3": [
         {
           "type": "field_label",
-          "text": "Data (JSON)",
+          "text": "Records (JSON)",
           "class": "args-label"
         },
         {
           "type": "input_value",
-          "name": "DATA",
+          "name": "INSERT_RECORDS_JSON",
           "check": blockCheckType.json
         }
       ],
@@ -198,13 +152,13 @@ export const defineSupabaseInsertBlock = () => {
       "args4": [
         {
           "type": "field_label",
-          "text": "Error",
+          "text": "Result",
           "class": "output-label"
         },
         {
           "type": "field_variable",
-          "name": "ERROR",
-          "variable": "error"
+          "name": "IS_ERROR",
+          "variable": "isError"
         }
       ],
       "inputsInline": false,
@@ -218,12 +172,12 @@ export const defineSupabaseInsertBlock = () => {
 
   javascriptGenerator.forBlock['supabase_insert'] = function(block, generator) {
     const client = generator.valueToCode(block, 'SUPABASE_CLIENT', Order.NONE) || '""';
-    const table = generator.valueToCode(block, 'TABLE', Order.NONE) || '""';
-    const data = generator.valueToCode(block, 'DATA', Order.NONE) || {};
+    const table = generator.valueToCode(block, 'TABLE_NAME', Order.NONE) || '""';
+    const data = generator.valueToCode(block, 'INSERT_RECORDS_JSON', Order.NONE) || {};
     if (generator.nameDB_ === undefined) {
       return `supabaseInsert(${client},${table},JSON.stringify(${data}), '');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('ERROR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('IS_ERROR'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `supabaseInsert(${client},${table},JSON.stringify(${data}),'${variable}');\n`;
     return code;
   };
@@ -274,7 +228,7 @@ export const defineSupabaseSelectBlock = () => {
       "args1": [
         {
           "type": "field_label",
-          "text": "Client",
+          "text": "Supabase client",
           "class": "args-label"
         },
         {
@@ -292,7 +246,7 @@ export const defineSupabaseSelectBlock = () => {
         },
         {
           "type": "input_value",
-          "name": "TABLE",
+          "name": "TABLE_NAME",
           "check": blockCheckType.string
         }
       ],
@@ -326,12 +280,12 @@ export const defineSupabaseSelectBlock = () => {
       "args5": [
         {
           "type": "field_label",
-          "text": "Condition",
+          "text": "Filter Operator",
           "class": "args-label"
         },
         {
           "type": "field_dropdown",
-          "name": "CONDITION",
+          "name": "FILTER_OPERATOR",
           "options": [
             ["Equal to", "eq"],
             ["Greater than", "gt"],
@@ -375,8 +329,8 @@ export const defineSupabaseSelectBlock = () => {
         },
         {
           "type": "field_variable",
-          "name": "ERROR",
-          "variable": "data"
+          "name": "SELECTED_DATA",
+          "variable": "selectedData"
         }
       ],
       "inputsInline": false,
@@ -390,10 +344,10 @@ export const defineSupabaseSelectBlock = () => {
 
   javascriptGenerator.forBlock['supabase_select'] = function(block, generator) {
     const client = generator.valueToCode(block, 'SUPABASE_CLIENT', Order.NONE) || '""';
-    const table = generator.valueToCode(block, 'TABLE', Order.NONE) || '""';
+    const table = generator.valueToCode(block, 'TABLE_NAME', Order.NONE) || '""';
     const columns = generator.valueToCode(block, 'COLUMNS', Order.NONE) || '"*"';
     const filterColumn = generator.valueToCode(block, 'FILTER_COLUMN', Order.NONE) || '""';
-    const condition = block.getFieldValue('CONDITION');
+    const condition = block.getFieldValue('FILTER_OPERATOR');
     let filterValue = generator.valueToCode(block, 'FILTER_VALUE', Order.NONE) || '""';
     if (condition === 'is') {
       filterValue = `'null'`; // Is null condition
@@ -401,7 +355,7 @@ export const defineSupabaseSelectBlock = () => {
     if (generator.nameDB_ === undefined) {
       return `supabaseSelect(${client}, ${table}, ${columns}, ${filterColumn}, '${condition}', ${filterValue}, '');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('ERROR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('SELECTED_DATA'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `supabaseSelect(${client}, ${table}, ${columns}, ${filterColumn}, '${condition}', ${filterValue}, '${variable}');\n`;
     return code;
   };
@@ -453,7 +407,7 @@ export const defineSupabaseUpdateBlock = () => {
       "args1": [
         {
           "type": "field_label",
-          "text": "Client",
+          "text": "Supabase client",
           "class": "args-label"
         },
         {
@@ -471,7 +425,7 @@ export const defineSupabaseUpdateBlock = () => {
         },
         {
           "type": "input_value",
-          "name": "TABLE",
+          "name": "TABLE_NAME",
           "check": blockCheckType.string
         }
       ],
@@ -479,12 +433,12 @@ export const defineSupabaseUpdateBlock = () => {
       "args3": [
         {
           "type": "field_label",
-          "text": "Data (JSON)",
+          "text": "Update Fields (JSON)",
           "class": "args-label"
         },
         {
           "type": "input_value",
-          "name": "DATA",
+          "name": "UPDATE_FIELDS_JSON",
           "check": blockCheckType.json
         }
       ],
@@ -505,12 +459,12 @@ export const defineSupabaseUpdateBlock = () => {
       "args5": [
         {
           "type": "field_label",
-          "text": "Condition",
+          "text": "Filter Operator",
           "class": "args-label"
         },
         {
           "type": "field_dropdown",
-          "name": "CONDITION",
+          "name": "FILTER_OPERATOR",
           "options": [
             ["Equal to", "eq"],
             ["Greater than", "gt"],
@@ -549,13 +503,13 @@ export const defineSupabaseUpdateBlock = () => {
       "args7": [
         {
           "type": "field_label",
-          "text": "Error",
+          "text": "Result",
           "class": "output-label"
         },
         {
           "type": "field_variable",
-          "name": "ERROR",
-          "variable": "error"
+          "name": "IS_ERROR",
+          "variable": "isError"
         }
       ],
       "inputsInline": false,
@@ -569,10 +523,10 @@ export const defineSupabaseUpdateBlock = () => {
 
   javascriptGenerator.forBlock['supabase_update'] = function(block, generator) {
     const client = generator.valueToCode(block, 'SUPABASE_CLIENT', Order.NONE) || '""';
-    const table = generator.valueToCode(block, 'TABLE', Order.NONE) || '""';
-    const data = generator.valueToCode(block, 'DATA', Order.NONE) || {};
+    const table = generator.valueToCode(block, 'TABLE_NAME', Order.NONE) || '""';
+    const data = generator.valueToCode(block, 'UPDATE_FIELDS_JSON', Order.NONE) || {};
     const filterColumn = generator.valueToCode(block, 'FILTER_COLUMN', Order.NONE) || '""';
-    const condition = block.getFieldValue('CONDITION');
+    const condition = block.getFieldValue('FILTER_OPERATOR');
     let filterValue = generator.valueToCode(block, 'FILTER_VALUE', Order.NONE) || '""';
 
     if (condition === 'in' || condition === 'contains' || condition === 'containedBy') {
@@ -586,7 +540,7 @@ export const defineSupabaseUpdateBlock = () => {
     if (generator.nameDB_ === undefined) {
       return `supabaseUpdate(${client}, ${table}, JSON.stringify(${data}), ${filterColumn}, '${condition}', ${filterValue}, '');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('ERROR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('IS_ERROR'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `supabaseUpdate(${client}, ${table}, JSON.stringify(${data}), ${filterColumn}, '${condition}', ${filterValue}, '${variable}');\n`;
     return code;
   };
@@ -641,7 +595,7 @@ export const defineSupabaseDeleteBlock = () => {
       "args1": [
         {
           "type": "field_label",
-          "text": "Client",
+          "text": "Supabase client",
           "class": "args-label"
         },
         {
@@ -659,7 +613,7 @@ export const defineSupabaseDeleteBlock = () => {
         },
         {
           "type": "input_value",
-          "name": "TABLE",
+          "name": "TABLE_NAME",
           "check": blockCheckType.string
         }
       ],
@@ -680,12 +634,12 @@ export const defineSupabaseDeleteBlock = () => {
       "args4": [
         {
           "type": "field_label",
-          "text": "Condition",
+          "text": "Filter Operator",
           "class": "args-label"
         },
         {
           "type": "field_dropdown",
-          "name": "CONDITION",
+          "name": "FILTER_OPERATOR",
           "options": [
             ["Equal to", "eq"],
             ["Greater than", "gt"],
@@ -724,13 +678,13 @@ export const defineSupabaseDeleteBlock = () => {
       "args6": [
         {
           "type": "field_label",
-          "text": "Error",
+          "text": "Result",
           "class": "output-label"
         },
         {
           "type": "field_variable",
-          "name": "ERROR",
-          "variable": "error"
+          "name": "IS_ERROR",
+          "variable": "isError"
         }
       ],
       "inputsInline": false,
@@ -744,9 +698,9 @@ export const defineSupabaseDeleteBlock = () => {
 
   javascriptGenerator.forBlock['supabase_delete'] = function(block, generator) {
     const client = generator.valueToCode(block, 'SUPABASE_CLIENT', Order.NONE) || '""';
-    const table = generator.valueToCode(block, 'TABLE', Order.NONE) || '""';
+    const table = generator.valueToCode(block, 'TABLE_NAME', Order.NONE) || '""';
     const filterColumn = generator.valueToCode(block, 'FILTER_COLUMN', Order.NONE) || '""';
-    const condition = block.getFieldValue('CONDITION');
+    const condition = block.getFieldValue('FILTER_OPERATOR');
     let filterValue = generator.valueToCode(block, 'FILTER_VALUE', Order.NONE) || '""';
 
     if (condition === 'in' || condition === 'contains' || condition === 'containedBy') {
@@ -759,7 +713,7 @@ export const defineSupabaseDeleteBlock = () => {
     if (generator.nameDB_ === undefined) {
       return `supabaseDelete(${client}, ${table}, ${filterColumn}, '${condition}', ${filterValue}, '');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('ERROR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('IS_ERROR'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `supabaseDelete(${client}, ${table}, ${filterColumn}, '${condition}', ${filterValue}, '${variable}');\n`;
     return code;
   };
