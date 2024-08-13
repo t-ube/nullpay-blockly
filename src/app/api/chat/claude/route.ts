@@ -68,7 +68,6 @@ const validBlocks = [
   "xrpl_payload_sale_token_offer",
   "xrpl_command_nft_buy_offers",
   "xrpl_payload_payment_token",
-  "xrpl_payment_transaction",
   "xrpl_create_account_and_request_faucet",
   "xrpl_request_faucet",
   "xrpl_autofill_payload",

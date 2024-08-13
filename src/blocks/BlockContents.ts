@@ -191,17 +191,6 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       subCategories: [XRPLSubCategories.BASIC_OPERATIONS]
     },
     {
-      height: 183,
-      block: `
-        <block type="xrpl_payment_transaction" x="0" y="0"></block>
-      `,
-      title: "Payment Transaction",
-      description: "Create and submit a payment transaction on the XRPL.",
-      categories: ["xrpl"],
-      blockType: "xrpl_payment_transaction",
-      subCategories: [XRPLSubCategories.TRANSACTIONS]
-    },
-    {
       height: 105,
       block: `
         <block type="xrpl_wallet_sign" x="0" y="0"></block>
@@ -466,873 +455,516 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       subCategories: [XRPLSubCategories.DEX_OPERATIONS]
     },
     {
-      height: 1829,
-      block: `
-        <variables>
-          <variable id="K+=7kLss}zzFh+WDV|w4">userInfo</variable>
-          <variable id="gF*aYnq*HcLnh}aDPP\$u">userAccount</variable>
-          <variable id="GfI4b9ixq-b_FaGZ[gKV">result</variable>
-          <variable id="a8odClXjH1#I}N7#T6SE">xrplClient</variable>
-          <variable id="^C=-[p.p[Yv,Ydoajoxh">nftID</variable>
-          <variable id="8I/xk/gsj-/y/X|Gv.sG">brokerAddress</variable>
-          <variable id="#(CSK,Ivnl4\`=oNPQb.}">bidStep</variable>
-          <variable id="g\$p.34oz2Ndzsh\`^\`8%n">startBid</variable>
-          <variable id="f5Q?cJ|ceq:VtvA\`W@2N">status</variable>
-          <variable id="H8?7.T:4!\`hKG.w57*E^">response</variable>
-          <variable id="eSJu}OSb8qa\${afKZ/9m">ownerAddress</variable>
-          <variable id="3ZAKt=2Sbga)Go6jb5u~">sortedOffers</variable>
-          <variable id="L*8JxJvWWO)aF+}m,c\$w">buyPayload</variable>
-          <variable id="0r9JNHH9?h;Sp8A[R*JK">topOffer</variable>
-          <variable id="}r8U68uAomtU|j6ig4wf">payloadID</variable>
-          <variable id="zDx^.:C\$OkRI3Ukgi3Xb">highestBidAccount</variable>
-          <variable id="DJAIoI2uq.*U,y!Iv|b?">highestAmount</variable>
-          <variable id="-9^X_9!F{?~WFtM=)|,|">newAmount</variable>
-        </variables>
-        <block type="xaman_login" id="lsScrv}mFNf72aYU9;,B" x="0" y="0">
-          <field name="USER_INFO" id="K+=7kLss}zzFh+WDV|w4">userInfo</field>
-          <next>
-            <block type="variables_set" id="AQ(;k.L#K/vCne~q?~mR">
-              <field name="VAR" id="gF*aYnq*HcLnh}aDPP\$u">userAccount</field>
-              <value name="VALUE">
-                <block type="json_get_value" id="@H??[~#b2O-8dBBaPTv1">
-                  <value name="JSON">
-                    <block type="variables_get" id="M9.rAde3hfQTMb\`|TIGJ">
-                      <field name="VAR" id="K+=7kLss}zzFh+WDV|w4">userInfo</field>
-                    </block>
-                  </value>
-                  <value name="KEY">
-                    <block type="text" id="@\`.\`E\`NhYdR{N,YHI]*}">
-                      <field name="TEXT">account</field>
-                    </block>
-                  </value>
-                </block>
-              </value>
-              <next>
-                <block type="form_modal_block" id="X7tU0Tc(g[X9dAfi7-mR">
-                  <field name="INPUT">{"editable":false,"title":{"default":"Semi-Automatic Bid on xrp.cafe"},"items":{"label_0":{"key":"label_0","value":"000800003B47E48122DE8B064405969E0426B39DA2BF658811007754040393BA","type":"string","name":{"default":"NFT ID"},"description":{"default":"New Description"}},"label_2":{"key":"label_2","value":0.2,"type":"number","name":{"default":"Starting Bid (XRP)"},"description":{"default":"New Description"}},"label_4":{"key":"label_4","value":0.1,"type":"number","name":{"default":"Bid Step (XRP)"},"description":{"default":"New Description"}}}}</field>
-                  <field name="RESULT" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
-                  <next>
-                    <block type="dynamic_if" id="]s2boZttjzxl]\`P))u{:">
-                      <value name="IF0">
-                        <block type="form_submitted" id="RvuGM4e=*\$wGur,wt+t6">
-                          <value name="FORM_RESULT">
-                            <block type="variables_get" id="z.U\$!RK~4#1\$Y|Kd]wG\$">
-                              <field name="VAR" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
-                            </block>
-                          </value>
-                        </block>
-                      </value>
-                      <statement name="DO0">
-                        <block type="xrpl_client_initialize" id="+C3Ae85(~-GN{3=Z-JG8">
-                          <field name="XRPL_CLIENT" id="a8odClXjH1#I}N7#T6SE">xrplClient</field>
-                          <value name="SERVER">
-                            <block type="xrpl_network_wss_selection" id=")H?Jo:o~?BriyHM\`bRJ6">
-                              <field name="NETWORK_TYPE">xrpl</field>
-                              <field name="CONNECTION">wss://s1.ripple.com</field>
-                            </block>
-                          </value>
-                          <next>
-                            <block type="variables_set" id="Ou@_wl^w1pO~,ySzyjlQ">
-                              <field name="VAR" id="^C=-[p.p[Yv,Ydoajoxh">nftID</field>
-                              <value name="VALUE">
-                                <block type="form_variable_get" id="Z5VJPz43P?ilaHuW_?~y">
-                                  <value name="FORM_RESULT">
-                                    <block type="variables_get" id="0\$T[In%t?i8+BUz_KF,\`">
-                                      <field name="VAR" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
-                                    </block>
-                                  </value>
-                                  <value name="NAME">
-                                    <block type="text" id="(HrFw\`f?[I?!9nq=?VL;">
-                                      <field name="TEXT">NFT ID</field>
-                                    </block>
-                                  </value>
-                                </block>
-                              </value>
-                              <next>
-                                <block type="variables_set" id="-6w(g{}wXmkZ[d9dZE|P">
-                                  <field name="VAR" id="8I/xk/gsj-/y/X|Gv.sG">brokerAddress</field>
-                                  <value name="VALUE">
-                                    <block type="xrpl_address" id=",tl9N7(3X9@,~B0DW[q2">
-                                      <field name="ADDRESS">rpx9JThQ2y37FaGeeJP7PXDUVEXY3PHZSC</field>
-                                    </block>
-                                  </value>
-                                  <next>
-                                    <block type="variables_set" id="N\$uY/om~V.)knw%3e_cp">
-                                      <field name="VAR" id="#(CSK,Ivnl4\`=oNPQb.}">bidStep</field>
-                                      <value name="VALUE">
-                                        <block type="xrpl_xrp_to_drops" id="[Ywy~oB\$Ti2o63u\$s4A.">
-                                          <value name="AMOUNT">
-                                            <block type="form_variable_get" id="%5FPpvQy8YFb.fvNyz\$R">
-                                              <value name="FORM_RESULT">
-                                                <block type="variables_get" id="H,[WSBjn1SG_7\`y?72/I">
-                                                  <field name="VAR" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
-                                                </block>
-                                              </value>
-                                              <value name="NAME">
-                                                <block type="text" id="JB86.!%BiC/9M[b|*=kk">
-                                                  <field name="TEXT">Bid Step (XRP)</field>
-                                                </block>
-                                              </value>
-                                            </block>
-                                          </value>
-                                        </block>
-                                      </value>
-                                      <next>
-                                        <block type="variables_set" id="H1Afu32L,GHV2{KgAiaS">
-                                          <field name="VAR" id="g\$p.34oz2Ndzsh\`^\`8%n">startBid</field>
-                                          <value name="VALUE">
-                                            <block type="xrpl_xrp_to_drops" id="C.m~-/ixxMZy9uXR))GT">
-                                              <value name="AMOUNT">
-                                                <block type="form_variable_get" id="|@tpxZm{qkj[*eP^(VZi">
-                                                  <value name="FORM_RESULT">
-                                                    <block type="variables_get" id="j[c*TSP-oflK.B%-3^(c">
-                                                      <field name="VAR" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
-                                                    </block>
-                                                  </value>
-                                                  <value name="NAME">
-                                                    <block type="text" id="zKPU[^RDo_UR}HhTcLip">
-                                                      <field name="TEXT">Starting Bid (XRP)</field>
-                                                    </block>
-                                                  </value>
-                                                </block>
-                                              </value>
-                                            </block>
-                                          </value>
-                                          <next>
-                                            <block type="xrpl_clio_command_nft_info" id="%RE;,JEzW4r#RZ!}[TtD">
-                                              <field name="STATUS" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
-                                              <field name="RESPONSE" id="H8?7.T:4!\`hKG.w57*E^">response</field>
-                                              <value name="XRPL_CLIENT">
-                                                <block type="variables_get" id=")?WEXZB#e]m]zy-vM)=e">
-                                                  <field name="VAR" id="a8odClXjH1#I}N7#T6SE">xrplClient</field>
-                                                </block>
-                                              </value>
-                                              <value name="NFT_ID">
-                                                <block type="variables_get" id="q]?L8crtsoPt^;r;mJUT">
-                                                  <field name="VAR" id="^C=-[p.p[Yv,Ydoajoxh">nftID</field>
-                                                </block>
-                                              </value>
-                                              <next>
-                                                <block type="variables_set" id="JPd9~]_}zn3VeGp6%O0r">
-                                                  <field name="VAR" id="eSJu}OSb8qa\${afKZ/9m">ownerAddress</field>
-                                                  <value name="VALUE">
-                                                    <block type="json_get_value" id="0IX_5db]yF2]Q4]RtX@r">
-                                                      <value name="JSON">
-                                                        <block type="variables_get" id="J)-:P.U_Dz%U\$})i4UYE">
-                                                          <field name="VAR" id="H8?7.T:4!\`hKG.w57*E^">response</field>
-                                                        </block>
-                                                      </value>
-                                                      <value name="KEY">
-                                                        <block type="text" id="Kf1hR.n~]=hp#JH\`uX1b">
-                                                          <field name="TEXT">owner</field>
-                                                        </block>
-                                                      </value>
-                                                    </block>
-                                                  </value>
-                                                  <next>
-                                                    <block type="controls_whileUntil" id="{b6M2@/{n[%kB!5I2Sm=">
-                                                      <field name="MODE">WHILE</field>
-                                                      <value name="BOOL">
-                                                        <block type="logic_compare" id="Fmcbf5Bs_b8HO*E#/)h6">
-                                                          <field name="OP">NEQ</field>
-                                                          <value name="A">
-                                                            <block type="variables_get" id="T@2uV_568~X3@a}HcfG%">
-                                                              <field name="VAR" id="eSJu}OSb8qa\${afKZ/9m">ownerAddress</field>
-                                                            </block>
-                                                          </value>
-                                                          <value name="B">
-                                                            <block type="variables_get" id="xn3\$xh;jZ7?RDZB,2GVr">
-                                                              <field name="VAR" id="gF*aYnq*HcLnh}aDPP\$u">userAccount</field>
-                                                            </block>
-                                                          </value>
-                                                        </block>
-                                                      </value>
-                                                      <statement name="DO">
-                                                        <block type="xrpl_command_nft_buy_offers" id="BU,sKqtu(Mz=iK,}I82l">
-                                                          <field name="STATUS" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
-                                                          <field name="RESPONSE" id="H8?7.T:4!\`hKG.w57*E^">response</field>
-                                                          <value name="XRPL_CLIENT">
-                                                            <block type="variables_get" id="bZR5LNWzGUR5D5^=RI.\`">
-                                                              <field name="VAR" id="a8odClXjH1#I}N7#T6SE">xrplClient</field>
-                                                            </block>
-                                                          </value>
-                                                          <value name="NFT_ID">
-                                                            <block type="variables_get" id="^!j}_,(7hzcxBd^yA2:@">
-                                                              <field name="VAR" id="^C=-[p.p[Yv,Ydoajoxh">nftID</field>
-                                                            </block>
-                                                          </value>
-                                                          <next>
-                                                            <block type="dynamic_if" id="q2u5{zB1lYAaJ3~e*8:9">
-                                                              <mutation else="1"></mutation>
-                                                              <value name="IF0">
-                                                                <block type="json_get_value" id="?a^^7NhI~lY-=xijxJZy">
-                                                                  <value name="JSON">
-                                                                    <block type="variables_get" id="V%Ef1-ZJVxXUoQ/m,n)c">
-                                                                      <field name="VAR" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
-                                                                    </block>
-                                                                  </value>
-                                                                  <value name="KEY">
-                                                                    <block type="text" id=",RRC+qYjsN:M#E2)q9*[">
-                                                                      <field name="TEXT">success</field>
-                                                                    </block>
-                                                                  </value>
-                                                                </block>
-                                                              </value>
-                                                              <statement name="DO0">
-                                                                <block type="variables_set" id="=EmIgh+2jxat.B/|BzCu">
-                                                                  <field name="VAR" id="3ZAKt=2Sbga)Go6jb5u~">sortedOffers</field>
-                                                                  <value name="VALUE">
-                                                                    <block type="lists_sort_json_value" id="0Xo3wy?|DNREr3AF5wy7">
-                                                                      <field name="TYPE">numeric</field>
-                                                                      <field name="ORDER">desc</field>
-                                                                      <value name="LIST">
-                                                                        <block type="json_get_value" id="Gr?d{/i=gMG[\`;Fx2f7=">
-                                                                          <value name="JSON">
-                                                                            <block type="variables_get" id="r)P+EJX.P=fz}v]HBoNG">
-                                                                              <field name="VAR" id="H8?7.T:4!\`hKG.w57*E^">response</field>
-                                                                            </block>
-                                                                          </value>
-                                                                          <value name="KEY">
-                                                                            <block type="text" id="w)ClZ=kZOdP51s(j}J4/">
-                                                                              <field name="TEXT">offers</field>
-                                                                            </block>
-                                                                          </value>
-                                                                        </block>
-                                                                      </value>
-                                                                      <value name="KEY">
-                                                                        <block type="text" id="n+YwVFH]w+N9WO*uba_R">
-                                                                          <field name="TEXT">amount</field>
-                                                                        </block>
-                                                                      </value>
-                                                                    </block>
-                                                                  </value>
-                                                                  <next>
-                                                                    <block type="variables_set" id="v1;O\$eEKa,.qgng0f\$L.">
-                                                                      <field name="VAR" id="0r9JNHH9?h;Sp8A[R*JK">topOffer</field>
-                                                                      <value name="VALUE">
-                                                                        <block type="lists_getIndex" id="e|U%Am7SeR[Q4kt9EoR4">
-                                                                          <mutation statement="false" at="true"></mutation>
-                                                                          <field name="MODE">GET</field>
-                                                                          <field name="WHERE">FROM_START</field>
-                                                                          <value name="VALUE">
-                                                                            <block type="variables_get" id="PZHx,IH#]%4r8lBl7,[J">
-                                                                              <field name="VAR" id="3ZAKt=2Sbga)Go6jb5u~">sortedOffers</field>
-                                                                            </block>
-                                                                          </value>
-                                                                          <value name="AT">
-                                                                            <block type="math_number" id="fsa#9c*l]m1+(wsd58f(">
-                                                                              <field name="NUM">1</field>
-                                                                            </block>
-                                                                          </value>
-                                                                        </block>
-                                                                      </value>
-                                                                      <next>
-                                                                        <block type="variables_set" id="#x(aKL@18d~Iaeq/q/oo">
-                                                                          <field name="VAR" id="zDx^.:C\$OkRI3Ukgi3Xb">highestBidAccount</field>
-                                                                          <value name="VALUE">
-                                                                            <block type="json_get_value" id="%/]u|EiUJ[S@a_q~Rgq6">
-                                                                              <value name="JSON">
-                                                                                <block type="variables_get" id=":s-2_d%um~Et6b5a)KKE">
-                                                                                  <field name="VAR" id="0r9JNHH9?h;Sp8A[R*JK">topOffer</field>
-                                                                                </block>
-                                                                              </value>
-                                                                              <value name="KEY">
-                                                                                <block type="text" id="j#aKW(fBT24ig^#3i~kM">
-                                                                                  <field name="TEXT">owner</field>
-                                                                                </block>
-                                                                              </value>
-                                                                            </block>
-                                                                          </value>
-                                                                          <next>
-                                                                            <block type="variables_set" id="a,JJd^2S5Xv@[j_v*ymE">
-                                                                              <field name="VAR" id="DJAIoI2uq.*U,y!Iv|b?">highestAmount</field>
-                                                                              <value name="VALUE">
-                                                                                <block type="json_get_value" id="twRCp_*^/hUQe:(W(8kT">
-                                                                                  <value name="JSON">
-                                                                                    <block type="variables_get" id="3^]~onU8awy\`BP}qesGb">
-                                                                                      <field name="VAR" id="0r9JNHH9?h;Sp8A[R*JK">topOffer</field>
-                                                                                    </block>
-                                                                                  </value>
-                                                                                  <value name="KEY">
-                                                                                    <block type="text" id="*rI;Ilhik3DR]O}Pr*=/">
-                                                                                      <field name="TEXT">amount</field>
-                                                                                    </block>
-                                                                                  </value>
-                                                                                </block>
-                                                                              </value>
-                                                                              <next>
-                                                                                <block type="dynamic_if" id="IiJ]#r0MS[UHnBg%hzT:">
-                                                                                  <value name="IF0">
-                                                                                    <block type="logic_compare" id=":zrG74WzRxzw;zSPkhc=">
-                                                                                      <field name="OP">NEQ</field>
-                                                                                      <value name="A">
-                                                                                        <block type="variables_get" id="Vq5,]GY/JJ|g*Lo;R/9k">
-                                                                                          <field name="VAR" id="zDx^.:C\$OkRI3Ukgi3Xb">highestBidAccount</field>
-                                                                                        </block>
-                                                                                      </value>
-                                                                                      <value name="B">
-                                                                                        <block type="variables_get" id="8J85Tci3sC]S:QE)-6QR">
-                                                                                          <field name="VAR" id="gF*aYnq*HcLnh}aDPP\$u">userAccount</field>
-                                                                                        </block>
-                                                                                      </value>
-                                                                                    </block>
-                                                                                  </value>
-                                                                                  <statement name="DO0">
-                                                                                    <block type="text_print" id="h!iP:D~dTwvPwJ%1*L|I">
-                                                                                      <value name="TEXT">
-                                                                                        <block type="dynamic_text_join" id="4GFKN#;h~r1dd.7U\`4ia">
-                                                                                          <mutation items="2"></mutation>
-                                                                                          <value name="ADD0">
-                                                                                            <block type="xrpl_drops_to_xrp" id="Ro)OC}l.sgql[Q/^DW#-">
-                                                                                              <value name="AMOUNT">
-                                                                                                <block type="variables_get" id="Y:5[ZOfr]EQ;AjtjwZR6">
-                                                                                                  <field name="VAR" id="DJAIoI2uq.*U,y!Iv|b?">highestAmount</field>
-                                                                                                </block>
-                                                                                              </value>
-                                                                                            </block>
-                                                                                          </value>
-                                                                                          <value name="ADD1">
-                                                                                            <block type="text" id="V~E76!jDoi\`G81)f]%:G">
-                                                                                              <field name="TEXT">XRP</field>
-                                                                                            </block>
-                                                                                          </value>
-                                                                                        </block>
-                                                                                      </value>
-                                                                                      <next>
-                                                                                        <block type="variables_set" id="%\`[/Cq{~h.hy:7j(X0*(">
-                                                                                          <field name="VAR" id="-9^X_9!F{?~WFtM=)|,|">newAmount</field>
-                                                                                          <value name="VALUE">
-                                                                                            <block type="xrpl_token_amount_arithmetic" id="2W!d(2lWtzh*\$Y}qquMb">
-                                                                                              <field name="OPERATOR">+</field>
-                                                                                              <value name="TOKEN">
-                                                                                                <block type="variables_get" id="R.xXId;3YbU7L%/!ZIz[">
-                                                                                                  <field name="VAR" id="DJAIoI2uq.*U,y!Iv|b?">highestAmount</field>
-                                                                                                </block>
-                                                                                              </value>
-                                                                                              <value name="VALUE">
-                                                                                                <block type="variables_get" id="tbB6?_:Y\$M\`+1]-f.KUt">
-                                                                                                  <field name="VAR" id="#(CSK,Ivnl4\`=oNPQb.}">bidStep</field>
-                                                                                                </block>
-                                                                                              </value>
-                                                                                            </block>
-                                                                                          </value>
-                                                                                          <next>
-                                                                                            <block type="variables_set" id="}Y2]]LZ[.(Y]W4!Rx4EJ">
-                                                                                              <field name="VAR" id="L*8JxJvWWO)aF+}m,c\$w">buyPayload</field>
-                                                                                              <value name="VALUE">
-                                                                                                <block type="xrpl_payload_nftoken_buy_offer" id="Pp@](4f.^%k=Ik_6#tV[">
-                                                                                                  <value name="OWNER_ID">
-                                                                                                    <block type="variables_get" id="\`X/E_RJ[RNkF]Uy4R2[T">
-                                                                                                      <field name="VAR" id="eSJu}OSb8qa\${afKZ/9m">ownerAddress</field>
-                                                                                                    </block>
-                                                                                                  </value>
-                                                                                                  <value name="TOKEN_ID">
-                                                                                                    <block type="variables_get" id="P(LAeP:SD5M6qaCpW?/y">
-                                                                                                      <field name="VAR" id="^C=-[p.p[Yv,Ydoajoxh">nftID</field>
-                                                                                                    </block>
-                                                                                                  </value>
-                                                                                                  <value name="AMOUNT">
-                                                                                                    <block type="variables_get" id="PT*DxI0w[iEmyfPLi,X+">
-                                                                                                      <field name="VAR" id="-9^X_9!F{?~WFtM=)|,|">newAmount</field>
-                                                                                                    </block>
-                                                                                                  </value>
-                                                                                                  <value name="DESTINATION">
-                                                                                                    <block type="variables_get" id="DU5Gt^HQ?OluC0^n1.]h">
-                                                                                                      <field name="VAR" id="8I/xk/gsj-/y/X|Gv.sG">brokerAddress</field>
-                                                                                                    </block>
-                                                                                                  </value>
-                                                                                                </block>
-                                                                                              </value>
-                                                                                              <next>
-                                                                                                <block type="xaman_payload_set" id="d\$@,umhk2Oz+F=}Gtj/k">
-                                                                                                  <field name="STATUS" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
-                                                                                                  <field name="PAYLOAD_ID" id="}r8U68uAomtU|j6ig4wf">payloadID</field>
-                                                                                                  <value name="PAYLOAD">
-                                                                                                    <block type="variables_get" id="\`wTCT/pU+PX]9y@875@y">
-                                                                                                      <field name="VAR" id="L*8JxJvWWO)aF+}m,c\$w">buyPayload</field>
-                                                                                                    </block>
-                                                                                                  </value>
-                                                                                                  <next>
-                                                                                                    <block type="xaman_wait_for_signature" id="~3g{mb9R?F;XdOYW5\$}|">
-                                                                                                      <value name="PAYLOAD_ID">
-                                                                                                        <block type="variables_get" id="2r;XR8I/{i@[]\`N9K5xI">
-                                                                                                          <field name="VAR" id="}r8U68uAomtU|j6ig4wf">payloadID</field>
-                                                                                                        </block>
-                                                                                                      </value>
-                                                                                                    </block>
-                                                                                                  </next>
-                                                                                                </block>
-                                                                                              </next>
-                                                                                            </block>
-                                                                                          </next>
-                                                                                        </block>
-                                                                                      </next>
-                                                                                    </block>
-                                                                                  </statement>
-                                                                                </block>
-                                                                              </next>
-                                                                            </block>
-                                                                          </next>
-                                                                        </block>
-                                                                      </next>
-                                                                    </block>
-                                                                  </next>
-                                                                </block>
-                                                              </statement>
-                                                              <statement name="ELSE">
-                                                                <block type="variables_set" id="yHgFVF3Y\$@@v0mj7n)9v">
-                                                                  <field name="VAR" id="L*8JxJvWWO)aF+}m,c\$w">buyPayload</field>
-                                                                  <value name="VALUE">
-                                                                    <block type="xrpl_payload_nftoken_buy_offer" id="vCo#Y[7lpY=3.-|FHqJC">
-                                                                      <value name="OWNER_ID">
-                                                                        <block type="variables_get" id="uD~%S*8=odMX?n=M\`iLy">
-                                                                          <field name="VAR" id="eSJu}OSb8qa\${afKZ/9m">ownerAddress</field>
-                                                                        </block>
-                                                                      </value>
-                                                                      <value name="TOKEN_ID">
-                                                                        <block type="variables_get" id="PZB^j@K]p}ji(C+jT1,#">
-                                                                          <field name="VAR" id="^C=-[p.p[Yv,Ydoajoxh">nftID</field>
-                                                                        </block>
-                                                                      </value>
-                                                                      <value name="AMOUNT">
-                                                                        <block type="variables_get" id="Gu?\`z{T]=e5qCo2Kt]Td">
-                                                                          <field name="VAR" id="g\$p.34oz2Ndzsh\`^\`8%n">startBid</field>
-                                                                        </block>
-                                                                      </value>
-                                                                      <value name="DESTINATION">
-                                                                        <block type="variables_get" id="r;xKjp9*xSA7AUgageb1">
-                                                                          <field name="VAR" id="8I/xk/gsj-/y/X|Gv.sG">brokerAddress</field>
-                                                                        </block>
-                                                                      </value>
-                                                                    </block>
-                                                                  </value>
-                                                                  <next>
-                                                                    <block type="xaman_payload_set" id="vWo~Ri|2IEOigwEIZjfu">
-                                                                      <field name="STATUS" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
-                                                                      <field name="PAYLOAD_ID" id="}r8U68uAomtU|j6ig4wf">payloadID</field>
-                                                                      <value name="PAYLOAD">
-                                                                        <block type="variables_get" id="VhZfEuP!g.n#]g;zVD!S">
-                                                                          <field name="VAR" id="L*8JxJvWWO)aF+}m,c\$w">buyPayload</field>
-                                                                        </block>
-                                                                      </value>
-                                                                      <next>
-                                                                        <block type="xaman_wait_for_signature" id="Al]oC/yXHEF;z@D}%nd2">
-                                                                          <value name="PAYLOAD_ID">
-                                                                            <block type="variables_get" id="HisB-e/}OnVM\`k?\$B^Z5">
-                                                                              <field name="VAR" id="}r8U68uAomtU|j6ig4wf">payloadID</field>
-                                                                            </block>
-                                                                          </value>
-                                                                        </block>
-                                                                      </next>
-                                                                    </block>
-                                                                  </next>
-                                                                </block>
-                                                              </statement>
-                                                              <next>
-                                                                <block type="wait_seconds" id="]f[0m)]+tG]\`xv~X(1X,">
-                                                                  <value name="TIME">
-                                                                    <block type="math_number" id="\$6~-~57vqv{L19ir:r6L">
-                                                                      <field name="NUM">5</field>
-                                                                    </block>
-                                                                  </value>
-                                                                  <next>
-                                                                    <block type="xrpl_clio_command_nft_info" id="\`)(UI\`JP0e:[zj6a[nyM">
-                                                                      <field name="STATUS" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
-                                                                      <field name="RESPONSE" id="H8?7.T:4!\`hKG.w57*E^">response</field>
-                                                                      <value name="XRPL_CLIENT">
-                                                                        <block type="variables_get" id="YVFX|U{\`q}BYJ99f83Cz">
-                                                                          <field name="VAR" id="a8odClXjH1#I}N7#T6SE">xrplClient</field>
-                                                                        </block>
-                                                                      </value>
-                                                                      <value name="NFT_ID">
-                                                                        <block type="variables_get" id="EIz!,UJ5Cg+0K=;7im;/">
-                                                                          <field name="VAR" id="^C=-[p.p[Yv,Ydoajoxh">nftID</field>
-                                                                        </block>
-                                                                      </value>
-                                                                      <next>
-                                                                        <block type="variables_set" id="TJu9SQ4jaI)|h2B=pMbK">
-                                                                          <field name="VAR" id="eSJu}OSb8qa\${afKZ/9m">ownerAddress</field>
-                                                                          <value name="VALUE">
-                                                                            <block type="json_get_value" id="M1Xb\$)lB\`f1:[D;bt8s0">
-                                                                              <value name="JSON">
-                                                                                <block type="variables_get" id="kAQFiuZ1m%oJ70FJ\`6FQ">
-                                                                                  <field name="VAR" id="H8?7.T:4!\`hKG.w57*E^">response</field>
-                                                                                </block>
-                                                                              </value>
-                                                                              <value name="KEY">
-                                                                                <block type="text" id="**-YowB(qfz/wu6nPnrJ">
-                                                                                  <field name="TEXT">owner</field>
-                                                                                </block>
-                                                                              </value>
-                                                                            </block>
-                                                                          </value>
-                                                                        </block>
-                                                                      </next>
-                                                                    </block>
-                                                                  </next>
-                                                                </block>
-                                                              </next>
-                                                            </block>
-                                                          </next>
-                                                        </block>
-                                                      </statement>
-                                                    </block>
-                                                  </next>
-                                                </block>
-                                              </next>
-                                            </block>
-                                          </next>
-                                        </block>
-                                      </next>
-                                    </block>
-                                  </next>
-                                </block>
-                              </next>
-                            </block>
-                          </next>
-                        </block>
-                      </statement>
-                    </block>
-                  </next>
-                </block>
-              </next>
-            </block>
-          </next>
-        </block>
-      `,
-      title: "Semi-Automatic Bid on xrp.cafe",
-      description: "This template ensures a thorough understanding of how to interact with the XRPL for creating and managing a semi-automatic bidding system for NFTs, providing a hands-on approach to handling NFT transactions on the XRPL.",
-      categories: ["template","xrpl","xaman","form"]
-    },
-    {
-      height: 1502.5,
+      height: 1815,
       block: `
           <variables>
-            <variable id="}=@y]lR)yo\$7jm\${%)~Q">issuerInfo</variable>
-            <variable id="=%)Saa;n}:JDCT)JwuHf">issuerAddress</variable>
-            <variable id="y(c/b\`2w_ExT-MP[t]o2">token</variable>
-            <variable id="Xe_Um=04.A}Pm;=wMsX:">xrplClient</variable>
-            <variable id="bxPm,KY=-@8vtu*bSGsp">issuerWallet</variable>
-            <variable id="IuTgNBpqZmM*Wnx4\`!pt">result</variable>
-            <variable id="GF3QbB*ZmaBxon@!4?FH">faucetInfo</variable>
-            <variable id="/}dNVuDet})7KIAd!{;V">userAddress</variable>
-            <variable id="xMBzI7UBn!L3](uO_[sm">userWallet</variable>
-            <variable id="R.lC{=0~|_Ha0S)g3Aga">accountLines</variable>
+            <variable id="K+=7kLss}zzFh+WDV|w4">userInfo</variable>
+            <variable id="gF*aYnq*HcLnh}aDPP\$u">userAccount</variable>
+            <variable id="GfI4b9ixq-b_FaGZ[gKV">result</variable>
+            <variable id="a8odClXjH1#I}N7#T6SE">xrplClient</variable>
+            <variable id="^C=-[p.p[Yv,Ydoajoxh">nftID</variable>
+            <variable id="8I/xk/gsj-/y/X|Gv.sG">brokerAddress</variable>
+            <variable id="#(CSK,Ivnl4\`=oNPQb.}">bidStep</variable>
+            <variable id="g\$p.34oz2Ndzsh\`^\`8%n">startBid</variable>
+            <variable id="kl-en5*aAB2BPE{LbmLd">isError</variable>
+            <variable id="H8?7.T:4!\`hKG.w57*E^">response</variable>
+            <variable id="eSJu}OSb8qa\${afKZ/9m">ownerAddress</variable>
+            <variable id="3ZAKt=2Sbga)Go6jb5u~">sortedOffers</variable>
+            <variable id="L*8JxJvWWO)aF+}m,c\$w">buyPayload</variable>
+            <variable id="0r9JNHH9?h;Sp8A[R*JK">topOffer</variable>
+            <variable id="f5Q?cJ|ceq:VtvA\`W@2N">status</variable>
+            <variable id="}r8U68uAomtU|j6ig4wf">payloadID</variable>
+            <variable id="zDx^.:C\$OkRI3Ukgi3Xb">highestBidAccount</variable>
+            <variable id="DJAIoI2uq.*U,y!Iv|b?">highestAmount</variable>
+            <variable id="-9^X_9!F{?~WFtM=)|,|">newAmount</variable>
           </variables>
-          <block type="xrpl_create_account_and_request_faucet" id="G)}V,za@edq^YN@CIzmj" x="0" y="0">
-            <field name="FAUCET_INFO" id="}=@y]lR)yo\$7jm\${%)~Q">issuerInfo</field>
-            <value name="CONNECTION">
-              <block type="xrpl_network_wss_selection" id="/t(|RBJj0}q|LuIn(ag6">
-                <field name="NETWORK_TYPE">xrpl</field>
-                <field name="CONNECTION">wss://s.altnet.rippletest.net:51233</field>
-              </block>
-            </value>
-            <value name="XRP_AMOUNT">
-              <block type="math_number" id="x)L386P,?clW6*x*@W+.">
-                <field name="NUM">1000</field>
-              </block>
-            </value>
+          <block type="xaman_login" id="lsScrv}mFNf72aYU9;,B" x="0" y="0">
+            <field name="USER_INFO" id="K+=7kLss}zzFh+WDV|w4">userInfo</field>
             <next>
-              <block type="variables_set" id="Z0/W[eVt0|Q@++g/]loh">
-                <field name="VAR" id="=%)Saa;n}:JDCT)JwuHf">issuerAddress</field>
+              <block type="variables_set" id="AQ(;k.L#K/vCne~q?~mR">
+                <field name="VAR" id="gF*aYnq*HcLnh}aDPP\$u">userAccount</field>
                 <value name="VALUE">
-                  <block type="json_get_value" id="4j4K7Ln}-nTM~_CScP7w">
+                  <block type="json_get_value" id="@H??[~#b2O-8dBBaPTv1">
                     <value name="JSON">
-                      <block type="variables_get" id="P#TJjIZt{KOz5T5CC7~x">
-                        <field name="VAR" id="}=@y]lR)yo\$7jm\${%)~Q">issuerInfo</field>
+                      <block type="variables_get" id="M9.rAde3hfQTMb\`|TIGJ">
+                        <field name="VAR" id="K+=7kLss}zzFh+WDV|w4">userInfo</field>
                       </block>
                     </value>
                     <value name="KEY">
-                      <block type="text" id="YIh?+7#JU7+fA/1m\`XYL">
-                        <field name="TEXT">address</field>
+                      <block type="text" id="@\`.\`E\`NhYdR{N,YHI]*}">
+                        <field name="TEXT">account</field>
                       </block>
                     </value>
                   </block>
                 </value>
                 <next>
-                  <block type="variables_set" id=";RzTIWE0bTNF[sCO[-o{">
-                    <field name="VAR" id="y(c/b\`2w_ExT-MP[t]o2">token</field>
-                    <value name="VALUE">
-                      <block type="xrpl_create_new_token" id="xj4t7^/lk17OuJX\`(3(i">
-                        <value name="ISSUER_ADDRESS">
-                          <block type="variables_get" id="}{avAx},E59Dd}Mj469O">
-                            <field name="VAR" id="=%)Saa;n}:JDCT)JwuHf">issuerAddress</field>
-                          </block>
-                        </value>
-                        <value name="CURRECY_CODE">
-                          <block type="text" id="G#D{9=ghRW2T3CV[Z/V.">
-                            <field name="TEXT">TST</field>
-                          </block>
-                        </value>
-                        <value name="TOTAL_SUPPLY">
-                          <block type="math_number" id="n04k33{Ik^#M#t#|Dk6C">
-                            <field name="NUM">100000</field>
-                          </block>
-                        </value>
-                      </block>
-                    </value>
+                  <block type="form_modal_block" id="X7tU0Tc(g[X9dAfi7-mR">
+                    <field name="INPUT">{"editable":false,"title":{"default":"Semi-Automatic Bid on xrp.cafe"},"items":{"label_0":{"key":"label_0","value":"000800003B47E48122DE8B064405969E0426B39DA2BF658811007754040393BA","type":"string","name":{"default":"NFT ID"},"description":{"default":"New Description"}},"label_2":{"key":"label_2","value":0.2,"type":"number","name":{"default":"Starting Bid (XRP)"},"description":{"default":"New Description"}},"label_4":{"key":"label_4","value":0.1,"type":"number","name":{"default":"Bid Step (XRP)"},"description":{"default":"New Description"}}}}</field>
+                    <field name="RESULT" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
                     <next>
-                      <block type="text_print" id="gzRZf,=vU0nET1:HXQtp">
-                        <value name="TEXT">
-                          <block type="json_to_text" id="Xm?l_u??\`\`m9]_!@]dAt">
-                            <value name="JSON">
-                              <block type="variables_get" id="StNJ|2+Yo9(q!H1,DX}5">
-                                <field name="VAR" id="y(c/b\`2w_ExT-MP[t]o2">token</field>
+                      <block type="dynamic_if" id="]s2boZttjzxl]\`P))u{:">
+                        <value name="IF0">
+                          <block type="form_submitted" id="RvuGM4e=*\$wGur,wt+t6">
+                            <value name="FORM_RESULT">
+                              <block type="variables_get" id="z.U\$!RK~4#1\$Y|Kd]wG\$">
+                                <field name="VAR" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
                               </block>
                             </value>
                           </block>
                         </value>
-                        <next>
-                          <block type="xrpl_client_initialize" id="7xl8[+*psP%_%QdmXe*I">
-                            <field name="XRPL_CLIENT" id="Xe_Um=04.A}Pm;=wMsX:">xrplClient</field>
+                        <statement name="DO0">
+                          <block type="xrpl_client_initialize" id="+C3Ae85(~-GN{3=Z-JG8">
+                            <field name="XRPL_CLIENT" id="a8odClXjH1#I}N7#T6SE">xrplClient</field>
                             <value name="SERVER">
-                              <block type="xrpl_network_wss_selection" id="xdv1J7TW7N?npM%ee!R2">
+                              <block type="xrpl_network_wss_selection" id=")H?Jo:o~?BriyHM\`bRJ6">
                                 <field name="NETWORK_TYPE">xrpl</field>
-                                <field name="CONNECTION">wss://s.altnet.rippletest.net:51233</field>
+                                <field name="CONNECTION">wss://s1.ripple.com</field>
                               </block>
                             </value>
                             <next>
-                              <block type="xrpl_load_wallet" id="4JB\$@tr9U)!^+|is{F)c">
-                                <field name="WALLET_ID" id="bxPm,KY=-@8vtu*bSGsp">issuerWallet</field>
-                                <value name="SEED">
-                                  <block type="json_get_value" id="VgA(ukOC-bDq/e|HwZiU">
-                                    <value name="JSON">
-                                      <block type="variables_get" id="|n[iv*[w\`!Fu\$ofqAW4A">
-                                        <field name="VAR" id="}=@y]lR)yo\$7jm\${%)~Q">issuerInfo</field>
+                              <block type="variables_set" id="Ou@_wl^w1pO~,ySzyjlQ">
+                                <field name="VAR" id="^C=-[p.p[Yv,Ydoajoxh">nftID</field>
+                                <value name="VALUE">
+                                  <block type="form_variable_get" id="Z5VJPz43P?ilaHuW_?~y">
+                                    <value name="FORM_RESULT">
+                                      <block type="variables_get" id="0\$T[In%t?i8+BUz_KF,\`">
+                                        <field name="VAR" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
                                       </block>
                                     </value>
-                                    <value name="KEY">
-                                      <block type="text" id="n26RfEAuxBd9+H5d~P79">
-                                        <field name="TEXT">secret</field>
+                                    <value name="NAME">
+                                      <block type="text" id="(HrFw\`f?[I?!9nq=?VL;">
+                                        <field name="TEXT">NFT ID</field>
                                       </block>
                                     </value>
                                   </block>
                                 </value>
                                 <next>
-                                  <block type="xrpl_easy_submit" id="YCpMl^~Xl/D[s@1r,@*W">
-                                    <field name="RESULT" id="IuTgNBpqZmM*Wnx4\`!pt">result</field>
-                                    <value name="XRPL_CLIENT">
-                                      <block type="variables_get" id="3behGs!l[P*BUD-K7:,v">
-                                        <field name="VAR" id="Xe_Um=04.A}Pm;=wMsX:">xrplClient</field>
-                                      </block>
-                                    </value>
-                                    <value name="WALLET_ID">
-                                      <block type="variables_get" id="a7ZB4FV7AP!.!EDo*fb\`">
-                                        <field name="VAR" id="bxPm,KY=-@8vtu*bSGsp">issuerWallet</field>
-                                      </block>
-                                    </value>
-                                    <value name="PAYLOAD">
-                                      <block type="xrpl_payload_rippling" id="t*yU?=oC%].mFct)8{N_">
-                                        <field name="RIPPLING">ENABLE</field>
-                                        <value name="ADDRESS">
-                                          <block type="variables_get" id="l_Uc|PZ.Z{Q[N|14M.Q}">
-                                            <field name="VAR" id="=%)Saa;n}:JDCT)JwuHf">issuerAddress</field>
-                                          </block>
-                                        </value>
+                                  <block type="variables_set" id="-6w(g{}wXmkZ[d9dZE|P">
+                                    <field name="VAR" id="8I/xk/gsj-/y/X|Gv.sG">brokerAddress</field>
+                                    <value name="VALUE">
+                                      <block type="xrpl_address" id=",tl9N7(3X9@,~B0DW[q2">
+                                        <field name="ADDRESS">rpx9JThQ2y37FaGeeJP7PXDUVEXY3PHZSC</field>
                                       </block>
                                     </value>
                                     <next>
-                                      <block type="xrpl_create_account_and_request_faucet" id=".37*Z?f!S\$pta5V^P,zS">
-                                        <field name="FAUCET_INFO" id="GF3QbB*ZmaBxon@!4?FH">faucetInfo</field>
-                                        <value name="CONNECTION">
-                                          <block type="xrpl_network_wss_selection" id="l0m{q9k[f.BLrAzCVfi#">
-                                            <field name="NETWORK_TYPE">xrpl</field>
-                                            <field name="CONNECTION">wss://s.altnet.rippletest.net:51233</field>
-                                          </block>
-                                        </value>
-                                        <value name="XRP_AMOUNT">
-                                          <block type="math_number" id="{Y/w[95N78sUL?P1-n\`g">
-                                            <field name="NUM">100</field>
+                                      <block type="variables_set" id="N\$uY/om~V.)knw%3e_cp">
+                                        <field name="VAR" id="#(CSK,Ivnl4\`=oNPQb.}">bidStep</field>
+                                        <value name="VALUE">
+                                          <block type="xrpl_xrp_to_drops" id="[Ywy~oB\$Ti2o63u\$s4A.">
+                                            <value name="AMOUNT">
+                                              <block type="form_variable_get" id="%5FPpvQy8YFb.fvNyz\$R">
+                                                <value name="FORM_RESULT">
+                                                  <block type="variables_get" id="H,[WSBjn1SG_7\`y?72/I">
+                                                    <field name="VAR" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
+                                                  </block>
+                                                </value>
+                                                <value name="NAME">
+                                                  <block type="text" id="JB86.!%BiC/9M[b|*=kk">
+                                                    <field name="TEXT">Bid Step (XRP)</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
                                           </block>
                                         </value>
                                         <next>
-                                          <block type="variables_set" id="(z:-hx-~fe1,}iylo]/#">
-                                            <field name="VAR" id="/}dNVuDet})7KIAd!{;V">userAddress</field>
+                                          <block type="variables_set" id="H1Afu32L,GHV2{KgAiaS">
+                                            <field name="VAR" id="g\$p.34oz2Ndzsh\`^\`8%n">startBid</field>
                                             <value name="VALUE">
-                                              <block type="json_get_value" id="fPX;D^no%d/N|VUH5X_]">
-                                                <value name="JSON">
-                                                  <block type="variables_get" id="VoU|nCp}%6o-p\$u]xG_9">
-                                                    <field name="VAR" id="GF3QbB*ZmaBxon@!4?FH">faucetInfo</field>
-                                                  </block>
-                                                </value>
-                                                <value name="KEY">
-                                                  <block type="text" id="]jy/D=3nc^p~Ou-gW}+G">
-                                                    <field name="TEXT">address</field>
+                                              <block type="xrpl_xrp_to_drops" id="C.m~-/ixxMZy9uXR))GT">
+                                                <value name="AMOUNT">
+                                                  <block type="form_variable_get" id="|@tpxZm{qkj[*eP^(VZi">
+                                                    <value name="FORM_RESULT">
+                                                      <block type="variables_get" id="j[c*TSP-oflK.B%-3^(c">
+                                                        <field name="VAR" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="NAME">
+                                                      <block type="text" id="zKPU[^RDo_UR}HhTcLip">
+                                                        <field name="TEXT">Starting Bid (XRP)</field>
+                                                      </block>
+                                                    </value>
                                                   </block>
                                                 </value>
                                               </block>
                                             </value>
                                             <next>
-                                              <block type="xrpl_load_wallet" id="e8o.n)_s~QV]i4lOeDQ{">
-                                                <field name="WALLET_ID" id="xMBzI7UBn!L3](uO_[sm">userWallet</field>
-                                                <value name="SEED">
-                                                  <block type="json_get_value" id="_O9**!zzQsJXa\`BxXg\$L">
-                                                    <value name="JSON">
-                                                      <block type="variables_get" id="bw\`s/+K#0HMWjCTxNT4,">
-                                                        <field name="VAR" id="GF3QbB*ZmaBxon@!4?FH">faucetInfo</field>
-                                                      </block>
-                                                    </value>
-                                                    <value name="KEY">
-                                                      <block type="text" id="WT}m*j*7i?C,1|@;Np3l">
-                                                        <field name="TEXT">secret</field>
-                                                      </block>
-                                                    </value>
+                                              <block type="xrpl_clio_command_nft_info" id="r:\$S9Ux;2ll*T-vMh9s5">
+                                                <field name="IS_ERROR" id="kl-en5*aAB2BPE{LbmLd">isError</field>
+                                                <field name="RESPONSE" id="H8?7.T:4!\`hKG.w57*E^">response</field>
+                                                <value name="XRPL_CLIENT">
+                                                  <block type="variables_get" id=")?WEXZB#e]m]zy-vM)=e">
+                                                    <field name="VAR" id="a8odClXjH1#I}N7#T6SE">xrplClient</field>
+                                                  </block>
+                                                </value>
+                                                <value name="NFT_ID">
+                                                  <block type="variables_get" id="q]?L8crtsoPt^;r;mJUT">
+                                                    <field name="VAR" id="^C=-[p.p[Yv,Ydoajoxh">nftID</field>
                                                   </block>
                                                 </value>
                                                 <next>
-                                                  <block type="xrpl_easy_submit" id="o]ih?DJ_y#jsw1b1|2Yv">
-                                                    <field name="RESULT" id="IuTgNBpqZmM*Wnx4\`!pt">result</field>
-                                                    <value name="XRPL_CLIENT">
-                                                      <block type="variables_get" id="wLJW6OuwaK_/QZ2/89Uy">
-                                                        <field name="VAR" id="Xe_Um=04.A}Pm;=wMsX:">xrplClient</field>
-                                                      </block>
-                                                    </value>
-                                                    <value name="WALLET_ID">
-                                                      <block type="variables_get" id="0UrO+PW*Q#lC3-^KTY:6">
-                                                        <field name="VAR" id="xMBzI7UBn!L3](uO_[sm">userWallet</field>
-                                                      </block>
-                                                    </value>
-                                                    <value name="PAYLOAD">
-                                                      <block type="xrpl_payload_trust_set" id="\$^z21d,u*nnCB(_(7U\$]">
-                                                        <value name="CURRECY_CODE_AND_ISSUER_AND_SUPPLY">
-                                                          <block type="variables_get" id="=nE\$BGkDwF45#N!LSZB0">
-                                                            <field name="VAR" id="y(c/b\`2w_ExT-MP[t]o2">token</field>
+                                                  <block type="variables_set" id="JPd9~]_}zn3VeGp6%O0r">
+                                                    <field name="VAR" id="eSJu}OSb8qa\${afKZ/9m">ownerAddress</field>
+                                                    <value name="VALUE">
+                                                      <block type="json_get_value" id="0IX_5db]yF2]Q4]RtX@r">
+                                                        <value name="JSON">
+                                                          <block type="variables_get" id="J)-:P.U_Dz%U\$})i4UYE">
+                                                            <field name="VAR" id="H8?7.T:4!\`hKG.w57*E^">response</field>
                                                           </block>
                                                         </value>
-                                                        <value name="ACCOUNT_ADDRESS">
-                                                          <block type="variables_get" id="l.UPF#a/1;%Xkxl^}Y|c">
-                                                            <field name="VAR" id="/}dNVuDet})7KIAd!{;V">userAddress</field>
+                                                        <value name="KEY">
+                                                          <block type="text" id="Kf1hR.n~]=hp#JH\`uX1b">
+                                                            <field name="TEXT">owner</field>
                                                           </block>
                                                         </value>
                                                       </block>
                                                     </value>
                                                     <next>
-                                                      <block type="xrpl_easy_submit" id="ng9+*1dnrg3(#UG2A5|d">
-                                                        <field name="RESULT" id="IuTgNBpqZmM*Wnx4\`!pt">result</field>
-                                                        <value name="XRPL_CLIENT">
-                                                          <block type="variables_get" id="i24~A]BPk9~juHxjO0~8">
-                                                            <field name="VAR" id="Xe_Um=04.A}Pm;=wMsX:">xrplClient</field>
-                                                          </block>
-                                                        </value>
-                                                        <value name="WALLET_ID">
-                                                          <block type="variables_get" id="HO,wI%C0qp61SbE-mp%q">
-                                                            <field name="VAR" id="xMBzI7UBn!L3](uO_[sm">userWallet</field>
-                                                          </block>
-                                                        </value>
-                                                        <value name="PAYLOAD">
-                                                          <block type="xrpl_payload_buy_token_offer" id="FIB(nUf,@e%(pd0w9eeb">
-                                                            <value name="ACCOUNT_ADDRESS">
-                                                              <block type="variables_get" id="XPqhM#Ljg6_u(%{+5:qU">
-                                                                <field name="VAR" id="/}dNVuDet})7KIAd!{;V">userAddress</field>
+                                                      <block type="controls_whileUntil" id="{b6M2@/{n[%kB!5I2Sm=">
+                                                        <field name="MODE">WHILE</field>
+                                                        <value name="BOOL">
+                                                          <block type="logic_compare" id="Fmcbf5Bs_b8HO*E#/)h6">
+                                                            <field name="OP">NEQ</field>
+                                                            <value name="A">
+                                                              <block type="variables_get" id="T@2uV_568~X3@a}HcfG%">
+                                                                <field name="VAR" id="eSJu}OSb8qa\${afKZ/9m">ownerAddress</field>
                                                               </block>
                                                             </value>
-                                                            <value name="TOKEN">
-                                                              <block type="variables_get" id="j]{{\`?\$W:}dGHg717YPd">
-                                                                <field name="VAR" id="y(c/b\`2w_ExT-MP[t]o2">token</field>
-                                                              </block>
-                                                            </value>
-                                                            <value name="TOKEN_AMOUNT">
-                                                              <block type="math_number" id="k%F8hoJ~k*2VMen@W;BL">
-                                                                <field name="NUM">1</field>
-                                                              </block>
-                                                            </value>
-                                                            <value name="XRP_AMOUNT">
-                                                              <block type="math_number" id="5Clcj{)%-(Ip-@/it4gu">
-                                                                <field name="NUM">10</field>
+                                                            <value name="B">
+                                                              <block type="variables_get" id="xn3\$xh;jZ7?RDZB,2GVr">
+                                                                <field name="VAR" id="gF*aYnq*HcLnh}aDPP\$u">userAccount</field>
                                                               </block>
                                                             </value>
                                                           </block>
                                                         </value>
-                                                        <next>
-                                                          <block type="xrpl_easy_submit" id="j_6=:#W6:xlB4D{;74me">
-                                                            <field name="RESULT" id="IuTgNBpqZmM*Wnx4\`!pt">result</field>
+                                                        <statement name="DO">
+                                                          <block type="xrpl_command_nft_buy_offers" id="D.OyZRm3qG*RJf;_f]GO">
+                                                            <field name="IS_ERROR" id="kl-en5*aAB2BPE{LbmLd">isError</field>
+                                                            <field name="RESPONSE" id="H8?7.T:4!\`hKG.w57*E^">response</field>
                                                             <value name="XRPL_CLIENT">
-                                                              <block type="variables_get" id=":eFrew]b]h3gcajI*0+O">
-                                                                <field name="VAR" id="Xe_Um=04.A}Pm;=wMsX:">xrplClient</field>
+                                                              <block type="variables_get" id="bZR5LNWzGUR5D5^=RI.\`">
+                                                                <field name="VAR" id="a8odClXjH1#I}N7#T6SE">xrplClient</field>
                                                               </block>
                                                             </value>
-                                                            <value name="WALLET_ID">
-                                                              <block type="variables_get" id="NrHvCt*LUv8P\`eKk|0c3">
-                                                                <field name="VAR" id="bxPm,KY=-@8vtu*bSGsp">issuerWallet</field>
-                                                              </block>
-                                                            </value>
-                                                            <value name="PAYLOAD">
-                                                              <block type="xrpl_payload_sale_token_offer" id="UXj7\`J@]Da+|D38AdCSM">
-                                                                <value name="ACCOUNT_ADDRESS">
-                                                                  <block type="variables_get" id="|bOfsJN14/#g]a.^3ZI+">
-                                                                    <field name="VAR" id="=%)Saa;n}:JDCT)JwuHf">issuerAddress</field>
-                                                                  </block>
-                                                                </value>
-                                                                <value name="TOKEN">
-                                                                  <block type="variables_get" id="xWiQk9Mm)%+i}D|?BZc*">
-                                                                    <field name="VAR" id="y(c/b\`2w_ExT-MP[t]o2">token</field>
-                                                                  </block>
-                                                                </value>
-                                                                <value name="TOKEN_AMOUNT">
-                                                                  <block type="math_number" id="g3a!6?-c0u^2cq\`C4#F=">
-                                                                    <field name="NUM">1</field>
-                                                                  </block>
-                                                                </value>
-                                                                <value name="XRP_AMOUNT">
-                                                                  <block type="math_number" id="CA!KZ0H^xm38L{Ye/AMx">
-                                                                    <field name="NUM">10</field>
-                                                                  </block>
-                                                                </value>
+                                                            <value name="NFT_ID">
+                                                              <block type="variables_get" id="^!j}_,(7hzcxBd^yA2:@">
+                                                                <field name="VAR" id="^C=-[p.p[Yv,Ydoajoxh">nftID</field>
                                                               </block>
                                                             </value>
                                                             <next>
-                                                              <block type="dynamic_if" id="/HNRBW=M:yOz^~[7Rw:%">
+                                                              <block type="dynamic_if" id="q2u5{zB1lYAaJ3~e*8:9">
                                                                 <mutation else="1"></mutation>
                                                                 <value name="IF0">
-                                                                  <block type="xrpl_command_account_lines" id="Xz9iiB_R#y}p=J1NCp6F">
-                                                                    <field name="ACCOUNT_LINES" id="R.lC{=0~|_Ha0S)g3Aga">accountLines</field>
-                                                                    <value name="XRPL_CLIENT">
-                                                                      <block type="variables_get" id="PNjch4E~s@#l%x}pv1U[">
-                                                                        <field name="VAR" id="Xe_Um=04.A}Pm;=wMsX:">xrplClient</field>
+                                                                  <block type="logic_compare" id="=UpJ6vkL!!oq\`LJ)QsR~">
+                                                                    <field name="OP">EQ</field>
+                                                                    <value name="A">
+                                                                      <block type="variables_get" id="V%Ef1-ZJVxXUoQ/m,n)c">
+                                                                        <field name="VAR" id="kl-en5*aAB2BPE{LbmLd">isError</field>
                                                                       </block>
                                                                     </value>
-                                                                    <value name="ACCOUNT_ADDRESS">
-                                                                      <block type="variables_get" id="1|J]JlPS*p*A)||xf,VT">
-                                                                        <field name="VAR" id="/}dNVuDet})7KIAd!{;V">userAddress</field>
-                                                                      </block>
+                                                                    <value name="B">
+                                                                      <block type="false" id="9xJv0E{H)%CWW\$7(Z^5l"></block>
                                                                     </value>
                                                                   </block>
                                                                 </value>
                                                                 <statement name="DO0">
-                                                                  <block type="text_print" id="1g3nJM,(5;4aiY*:bDK=">
-                                                                    <value name="TEXT">
-                                                                      <block type="json_to_text" id="jk]L+]pe\`j4R_o(mdQ:D">
-                                                                        <value name="JSON">
-                                                                          <block type="variables_get" id="0}S,j}7zI|QOfN#[0^9m">
-                                                                            <field name="VAR" id="R.lC{=0~|_Ha0S)g3Aga">accountLines</field>
+                                                                  <block type="variables_set" id="=EmIgh+2jxat.B/|BzCu">
+                                                                    <field name="VAR" id="3ZAKt=2Sbga)Go6jb5u~">sortedOffers</field>
+                                                                    <value name="VALUE">
+                                                                      <block type="lists_sort_json_value" id="0Xo3wy?|DNREr3AF5wy7">
+                                                                        <field name="TYPE">numeric</field>
+                                                                        <field name="ORDER">desc</field>
+                                                                        <value name="LIST">
+                                                                          <block type="json_get_value" id="Gr?d{/i=gMG[\`;Fx2f7=">
+                                                                            <value name="JSON">
+                                                                              <block type="variables_get" id="r)P+EJX.P=fz}v]HBoNG">
+                                                                                <field name="VAR" id="H8?7.T:4!\`hKG.w57*E^">response</field>
+                                                                              </block>
+                                                                            </value>
+                                                                            <value name="KEY">
+                                                                              <block type="text" id="w)ClZ=kZOdP51s(j}J4/">
+                                                                                <field name="TEXT">offers</field>
+                                                                              </block>
+                                                                            </value>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="KEY">
+                                                                          <block type="text" id="n+YwVFH]w+N9WO*uba_R">
+                                                                            <field name="TEXT">amount</field>
                                                                           </block>
                                                                         </value>
                                                                       </block>
                                                                     </value>
                                                                     <next>
-                                                                      <block type="text_print" id="T0v{Q-CA}-ip!/idfbfv">
-                                                                        <value name="TEXT">
-                                                                          <block type="text" id="Wr_rTT5GO!}8y[!C!sI\$">
-                                                                            <field name="TEXT">Complete!</field>
+                                                                      <block type="variables_set" id="v1;O\$eEKa,.qgng0f\$L.">
+                                                                        <field name="VAR" id="0r9JNHH9?h;Sp8A[R*JK">topOffer</field>
+                                                                        <value name="VALUE">
+                                                                          <block type="lists_getIndex" id="e|U%Am7SeR[Q4kt9EoR4">
+                                                                            <mutation statement="false" at="true"></mutation>
+                                                                            <field name="MODE">GET</field>
+                                                                            <field name="WHERE">FROM_START</field>
+                                                                            <value name="VALUE">
+                                                                              <block type="variables_get" id="PZHx,IH#]%4r8lBl7,[J">
+                                                                                <field name="VAR" id="3ZAKt=2Sbga)Go6jb5u~">sortedOffers</field>
+                                                                              </block>
+                                                                            </value>
+                                                                            <value name="AT">
+                                                                              <block type="math_number" id="fsa#9c*l]m1+(wsd58f(">
+                                                                                <field name="NUM">1</field>
+                                                                              </block>
+                                                                            </value>
                                                                           </block>
                                                                         </value>
+                                                                        <next>
+                                                                          <block type="variables_set" id="#x(aKL@18d~Iaeq/q/oo">
+                                                                            <field name="VAR" id="zDx^.:C\$OkRI3Ukgi3Xb">highestBidAccount</field>
+                                                                            <value name="VALUE">
+                                                                              <block type="json_get_value" id="%/]u|EiUJ[S@a_q~Rgq6">
+                                                                                <value name="JSON">
+                                                                                  <block type="variables_get" id=":s-2_d%um~Et6b5a)KKE">
+                                                                                    <field name="VAR" id="0r9JNHH9?h;Sp8A[R*JK">topOffer</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <value name="KEY">
+                                                                                  <block type="text" id="j#aKW(fBT24ig^#3i~kM">
+                                                                                    <field name="TEXT">owner</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                              </block>
+                                                                            </value>
+                                                                            <next>
+                                                                              <block type="variables_set" id="a,JJd^2S5Xv@[j_v*ymE">
+                                                                                <field name="VAR" id="DJAIoI2uq.*U,y!Iv|b?">highestAmount</field>
+                                                                                <value name="VALUE">
+                                                                                  <block type="json_get_value" id="twRCp_*^/hUQe:(W(8kT">
+                                                                                    <value name="JSON">
+                                                                                      <block type="variables_get" id="3^]~onU8awy\`BP}qesGb">
+                                                                                        <field name="VAR" id="0r9JNHH9?h;Sp8A[R*JK">topOffer</field>
+                                                                                      </block>
+                                                                                    </value>
+                                                                                    <value name="KEY">
+                                                                                      <block type="text" id="*rI;Ilhik3DR]O}Pr*=/">
+                                                                                        <field name="TEXT">amount</field>
+                                                                                      </block>
+                                                                                    </value>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <next>
+                                                                                  <block type="dynamic_if" id="IiJ]#r0MS[UHnBg%hzT:">
+                                                                                    <value name="IF0">
+                                                                                      <block type="logic_compare" id=":zrG74WzRxzw;zSPkhc=">
+                                                                                        <field name="OP">NEQ</field>
+                                                                                        <value name="A">
+                                                                                          <block type="variables_get" id="Vq5,]GY/JJ|g*Lo;R/9k">
+                                                                                            <field name="VAR" id="zDx^.:C\$OkRI3Ukgi3Xb">highestBidAccount</field>
+                                                                                          </block>
+                                                                                        </value>
+                                                                                        <value name="B">
+                                                                                          <block type="variables_get" id="8J85Tci3sC]S:QE)-6QR">
+                                                                                            <field name="VAR" id="gF*aYnq*HcLnh}aDPP\$u">userAccount</field>
+                                                                                          </block>
+                                                                                        </value>
+                                                                                      </block>
+                                                                                    </value>
+                                                                                    <statement name="DO0">
+                                                                                      <block type="text_print" id="h!iP:D~dTwvPwJ%1*L|I">
+                                                                                        <value name="TEXT">
+                                                                                          <block type="dynamic_text_join" id="4GFKN#;h~r1dd.7U\`4ia">
+                                                                                            <mutation items="2"></mutation>
+                                                                                            <value name="ADD0">
+                                                                                              <block type="xrpl_drops_to_xrp" id="Ro)OC}l.sgql[Q/^DW#-">
+                                                                                                <value name="AMOUNT">
+                                                                                                  <block type="variables_get" id="Y:5[ZOfr]EQ;AjtjwZR6">
+                                                                                                    <field name="VAR" id="DJAIoI2uq.*U,y!Iv|b?">highestAmount</field>
+                                                                                                  </block>
+                                                                                                </value>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                            <value name="ADD1">
+                                                                                              <block type="text" id="V~E76!jDoi\`G81)f]%:G">
+                                                                                                <field name="TEXT">XRP</field>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                          </block>
+                                                                                        </value>
+                                                                                        <next>
+                                                                                          <block type="variables_set" id="%\`[/Cq{~h.hy:7j(X0*(">
+                                                                                            <field name="VAR" id="-9^X_9!F{?~WFtM=)|,|">newAmount</field>
+                                                                                            <value name="VALUE">
+                                                                                              <block type="xrpl_token_amount_arithmetic" id="2W!d(2lWtzh*\$Y}qquMb">
+                                                                                                <field name="OPERATOR">+</field>
+                                                                                                <value name="TOKEN">
+                                                                                                  <block type="variables_get" id="R.xXId;3YbU7L%/!ZIz[">
+                                                                                                    <field name="VAR" id="DJAIoI2uq.*U,y!Iv|b?">highestAmount</field>
+                                                                                                  </block>
+                                                                                                </value>
+                                                                                                <value name="VALUE">
+                                                                                                  <block type="variables_get" id="tbB6?_:Y\$M\`+1]-f.KUt">
+                                                                                                    <field name="VAR" id="#(CSK,Ivnl4\`=oNPQb.}">bidStep</field>
+                                                                                                  </block>
+                                                                                                </value>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                            <next>
+                                                                                              <block type="variables_set" id="}Y2]]LZ[.(Y]W4!Rx4EJ">
+                                                                                                <field name="VAR" id="L*8JxJvWWO)aF+}m,c\$w">buyPayload</field>
+                                                                                                <value name="VALUE">
+                                                                                                  <block type="xrpl_payload_nftoken_buy_offer" id="Pp@](4f.^%k=Ik_6#tV[">
+                                                                                                    <value name="OWNER_ID">
+                                                                                                      <block type="variables_get" id="\`X/E_RJ[RNkF]Uy4R2[T">
+                                                                                                        <field name="VAR" id="eSJu}OSb8qa\${afKZ/9m">ownerAddress</field>
+                                                                                                      </block>
+                                                                                                    </value>
+                                                                                                    <value name="TOKEN_ID">
+                                                                                                      <block type="variables_get" id="P(LAeP:SD5M6qaCpW?/y">
+                                                                                                        <field name="VAR" id="^C=-[p.p[Yv,Ydoajoxh">nftID</field>
+                                                                                                      </block>
+                                                                                                    </value>
+                                                                                                    <value name="AMOUNT">
+                                                                                                      <block type="variables_get" id="PT*DxI0w[iEmyfPLi,X+">
+                                                                                                        <field name="VAR" id="-9^X_9!F{?~WFtM=)|,|">newAmount</field>
+                                                                                                      </block>
+                                                                                                    </value>
+                                                                                                    <value name="DESTINATION">
+                                                                                                      <block type="variables_get" id="DU5Gt^HQ?OluC0^n1.]h">
+                                                                                                        <field name="VAR" id="8I/xk/gsj-/y/X|Gv.sG">brokerAddress</field>
+                                                                                                      </block>
+                                                                                                    </value>
+                                                                                                  </block>
+                                                                                                </value>
+                                                                                                <next>
+                                                                                                  <block type="xaman_payload_set" id="d\$@,umhk2Oz+F=}Gtj/k">
+                                                                                                    <field name="STATUS" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
+                                                                                                    <field name="PAYLOAD_ID" id="}r8U68uAomtU|j6ig4wf">payloadID</field>
+                                                                                                    <value name="PAYLOAD">
+                                                                                                      <block type="variables_get" id="\`wTCT/pU+PX]9y@875@y">
+                                                                                                        <field name="VAR" id="L*8JxJvWWO)aF+}m,c\$w">buyPayload</field>
+                                                                                                      </block>
+                                                                                                    </value>
+                                                                                                    <next>
+                                                                                                      <block type="xaman_wait_for_signature" id="~3g{mb9R?F;XdOYW5\$}|">
+                                                                                                        <value name="PAYLOAD_ID">
+                                                                                                          <block type="variables_get" id="2r;XR8I/{i@[]\`N9K5xI">
+                                                                                                            <field name="VAR" id="}r8U68uAomtU|j6ig4wf">payloadID</field>
+                                                                                                          </block>
+                                                                                                        </value>
+                                                                                                      </block>
+                                                                                                    </next>
+                                                                                                  </block>
+                                                                                                </next>
+                                                                                              </block>
+                                                                                            </next>
+                                                                                          </block>
+                                                                                        </next>
+                                                                                      </block>
+                                                                                    </statement>
+                                                                                  </block>
+                                                                                </next>
+                                                                              </block>
+                                                                            </next>
+                                                                          </block>
+                                                                        </next>
                                                                       </block>
                                                                     </next>
                                                                   </block>
                                                                 </statement>
                                                                 <statement name="ELSE">
-                                                                  <block type="text_print" id="Z2E[UAW.RJ]Fv\$^~FW/A">
-                                                                    <value name="TEXT">
-                                                                      <block type="text" id="B|XKo?}^r+C6*YC_:ahx">
-                                                                        <field name="TEXT">Failed to get account lines.</field>
+                                                                  <block type="variables_set" id="yHgFVF3Y\$@@v0mj7n)9v">
+                                                                    <field name="VAR" id="L*8JxJvWWO)aF+}m,c\$w">buyPayload</field>
+                                                                    <value name="VALUE">
+                                                                      <block type="xrpl_payload_nftoken_buy_offer" id="vCo#Y[7lpY=3.-|FHqJC">
+                                                                        <value name="OWNER_ID">
+                                                                          <block type="variables_get" id="uD~%S*8=odMX?n=M\`iLy">
+                                                                            <field name="VAR" id="eSJu}OSb8qa\${afKZ/9m">ownerAddress</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="TOKEN_ID">
+                                                                          <block type="variables_get" id="PZB^j@K]p}ji(C+jT1,#">
+                                                                            <field name="VAR" id="^C=-[p.p[Yv,Ydoajoxh">nftID</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="AMOUNT">
+                                                                          <block type="variables_get" id="Gu?\`z{T]=e5qCo2Kt]Td">
+                                                                            <field name="VAR" id="g\$p.34oz2Ndzsh\`^\`8%n">startBid</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="DESTINATION">
+                                                                          <block type="variables_get" id="r;xKjp9*xSA7AUgageb1">
+                                                                            <field name="VAR" id="8I/xk/gsj-/y/X|Gv.sG">brokerAddress</field>
+                                                                          </block>
+                                                                        </value>
                                                                       </block>
                                                                     </value>
+                                                                    <next>
+                                                                      <block type="xaman_payload_set" id="vWo~Ri|2IEOigwEIZjfu">
+                                                                        <field name="STATUS" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
+                                                                        <field name="PAYLOAD_ID" id="}r8U68uAomtU|j6ig4wf">payloadID</field>
+                                                                        <value name="PAYLOAD">
+                                                                          <block type="variables_get" id="VhZfEuP!g.n#]g;zVD!S">
+                                                                            <field name="VAR" id="L*8JxJvWWO)aF+}m,c\$w">buyPayload</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <next>
+                                                                          <block type="xaman_wait_for_signature" id="Al]oC/yXHEF;z@D}%nd2">
+                                                                            <value name="PAYLOAD_ID">
+                                                                              <block type="variables_get" id="HisB-e/}OnVM\`k?\$B^Z5">
+                                                                                <field name="VAR" id="}r8U68uAomtU|j6ig4wf">payloadID</field>
+                                                                              </block>
+                                                                            </value>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </next>
                                                                   </block>
                                                                 </statement>
+                                                                <next>
+                                                                  <block type="wait_seconds" id="]f[0m)]+tG]\`xv~X(1X,">
+                                                                    <value name="TIME">
+                                                                      <block type="math_number" id="\$6~-~57vqv{L19ir:r6L">
+                                                                        <field name="NUM">5</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <next>
+                                                                      <block type="xrpl_clio_command_nft_info" id="sQs%af+kf#)_n4~cP\`z)">
+                                                                        <field name="IS_ERROR" id="kl-en5*aAB2BPE{LbmLd">isError</field>
+                                                                        <field name="RESPONSE" id="H8?7.T:4!\`hKG.w57*E^">response</field>
+                                                                        <value name="XRPL_CLIENT">
+                                                                          <block type="variables_get" id="YVFX|U{\`q}BYJ99f83Cz">
+                                                                            <field name="VAR" id="a8odClXjH1#I}N7#T6SE">xrplClient</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="NFT_ID">
+                                                                          <block type="variables_get" id="EIz!,UJ5Cg+0K=;7im;/">
+                                                                            <field name="VAR" id="^C=-[p.p[Yv,Ydoajoxh">nftID</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <next>
+                                                                          <block type="variables_set" id="TJu9SQ4jaI)|h2B=pMbK">
+                                                                            <field name="VAR" id="eSJu}OSb8qa\${afKZ/9m">ownerAddress</field>
+                                                                            <value name="VALUE">
+                                                                              <block type="json_get_value" id="M1Xb\$)lB\`f1:[D;bt8s0">
+                                                                                <value name="JSON">
+                                                                                  <block type="variables_get" id="kAQFiuZ1m%oJ70FJ\`6FQ">
+                                                                                    <field name="VAR" id="H8?7.T:4!\`hKG.w57*E^">response</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <value name="KEY">
+                                                                                  <block type="text" id="**-YowB(qfz/wu6nPnrJ">
+                                                                                    <field name="TEXT">owner</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                              </block>
+                                                                            </value>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </next>
+                                                                  </block>
+                                                                </next>
                                                               </block>
                                                             </next>
                                                           </block>
-                                                        </next>
+                                                        </statement>
                                                       </block>
                                                     </next>
                                                   </block>
@@ -1348,7 +980,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                               </block>
                             </next>
                           </block>
-                        </next>
+                        </statement>
                       </block>
                     </next>
                   </block>
@@ -1356,6 +988,378 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
               </block>
             </next>
           </block>
+      `,
+      title: "Semi-Automatic Bid on xrp.cafe",
+      description: "This template ensures a thorough understanding of how to interact with the XRPL for creating and managing a semi-automatic bidding system for NFTs, providing a hands-on approach to handling NFT transactions on the XRPL.",
+      categories: ["template","xrpl","xaman","form"]
+    },
+    {
+      height: 1533,
+      block: `
+            <variables>
+              <variable id="}=@y]lR)yo\$7jm\${%)~Q">issuerInfo</variable>
+              <variable id="=%)Saa;n}:JDCT)JwuHf">issuerAddress</variable>
+              <variable id="y(c/b\`2w_ExT-MP[t]o2">token</variable>
+              <variable id="Xe_Um=04.A}Pm;=wMsX:">xrplClient</variable>
+              <variable id="bxPm,KY=-@8vtu*bSGsp">issuerWallet</variable>
+              <variable id="IuTgNBpqZmM*Wnx4\`!pt">result</variable>
+              <variable id="GF3QbB*ZmaBxon@!4?FH">faucetInfo</variable>
+              <variable id="/}dNVuDet})7KIAd!{;V">userAddress</variable>
+              <variable id="xMBzI7UBn!L3](uO_[sm">userWallet</variable>
+              <variable id="8v/?|tL}(|!6FG.GGJ;d">isError</variable>
+              <variable id="R.lC{=0~|_Ha0S)g3Aga">accountLines</variable>
+            </variables>
+            <block type="xrpl_create_account_and_request_faucet" id="G)}V,za@edq^YN@CIzmj" x="0" y="0">
+              <field name="FAUCET_INFO" id="}=@y]lR)yo\$7jm\${%)~Q">issuerInfo</field>
+              <value name="CONNECTION">
+                <block type="xrpl_network_wss_selection" id="/t(|RBJj0}q|LuIn(ag6">
+                  <field name="NETWORK_TYPE">xrpl</field>
+                  <field name="CONNECTION">wss://s.altnet.rippletest.net:51233</field>
+                </block>
+              </value>
+              <value name="XRP_AMOUNT">
+                <block type="math_number" id="x)L386P,?clW6*x*@W+.">
+                  <field name="NUM">1000</field>
+                </block>
+              </value>
+              <next>
+                <block type="variables_set" id="Z0/W[eVt0|Q@++g/]loh">
+                  <field name="VAR" id="=%)Saa;n}:JDCT)JwuHf">issuerAddress</field>
+                  <value name="VALUE">
+                    <block type="json_get_value" id="4j4K7Ln}-nTM~_CScP7w">
+                      <value name="JSON">
+                        <block type="variables_get" id="P#TJjIZt{KOz5T5CC7~x">
+                          <field name="VAR" id="}=@y]lR)yo\$7jm\${%)~Q">issuerInfo</field>
+                        </block>
+                      </value>
+                      <value name="KEY">
+                        <block type="text" id="YIh?+7#JU7+fA/1m\`XYL">
+                          <field name="TEXT">address</field>
+                        </block>
+                      </value>
+                    </block>
+                  </value>
+                  <next>
+                    <block type="variables_set" id=";RzTIWE0bTNF[sCO[-o{">
+                      <field name="VAR" id="y(c/b\`2w_ExT-MP[t]o2">token</field>
+                      <value name="VALUE">
+                        <block type="xrpl_create_new_token" id="xj4t7^/lk17OuJX\`(3(i">
+                          <value name="ISSUER_ADDRESS">
+                            <block type="variables_get" id="}{avAx},E59Dd}Mj469O">
+                              <field name="VAR" id="=%)Saa;n}:JDCT)JwuHf">issuerAddress</field>
+                            </block>
+                          </value>
+                          <value name="CURRECY_CODE">
+                            <block type="text" id="G#D{9=ghRW2T3CV[Z/V.">
+                              <field name="TEXT">TST</field>
+                            </block>
+                          </value>
+                          <value name="TOTAL_SUPPLY">
+                            <block type="math_number" id="n04k33{Ik^#M#t#|Dk6C">
+                              <field name="NUM">100000</field>
+                            </block>
+                          </value>
+                        </block>
+                      </value>
+                      <next>
+                        <block type="text_print" id="gzRZf,=vU0nET1:HXQtp">
+                          <value name="TEXT">
+                            <block type="json_to_text" id="Xm?l_u??\`\`m9]_!@]dAt">
+                              <value name="JSON">
+                                <block type="variables_get" id="StNJ|2+Yo9(q!H1,DX}5">
+                                  <field name="VAR" id="y(c/b\`2w_ExT-MP[t]o2">token</field>
+                                </block>
+                              </value>
+                            </block>
+                          </value>
+                          <next>
+                            <block type="xrpl_client_initialize" id="7xl8[+*psP%_%QdmXe*I">
+                              <field name="XRPL_CLIENT" id="Xe_Um=04.A}Pm;=wMsX:">xrplClient</field>
+                              <value name="SERVER">
+                                <block type="xrpl_network_wss_selection" id="xdv1J7TW7N?npM%ee!R2">
+                                  <field name="NETWORK_TYPE">xrpl</field>
+                                  <field name="CONNECTION">wss://s.altnet.rippletest.net:51233</field>
+                                </block>
+                              </value>
+                              <next>
+                                <block type="xrpl_load_wallet" id="4JB\$@tr9U)!^+|is{F)c">
+                                  <field name="WALLET_ID" id="bxPm,KY=-@8vtu*bSGsp">issuerWallet</field>
+                                  <value name="SEED">
+                                    <block type="json_get_value" id="VgA(ukOC-bDq/e|HwZiU">
+                                      <value name="JSON">
+                                        <block type="variables_get" id="|n[iv*[w\`!Fu\$ofqAW4A">
+                                          <field name="VAR" id="}=@y]lR)yo\$7jm\${%)~Q">issuerInfo</field>
+                                        </block>
+                                      </value>
+                                      <value name="KEY">
+                                        <block type="text" id="n26RfEAuxBd9+H5d~P79">
+                                          <field name="TEXT">secret</field>
+                                        </block>
+                                      </value>
+                                    </block>
+                                  </value>
+                                  <next>
+                                    <block type="xrpl_easy_submit" id="YCpMl^~Xl/D[s@1r,@*W">
+                                      <field name="RESULT" id="IuTgNBpqZmM*Wnx4\`!pt">result</field>
+                                      <value name="XRPL_CLIENT">
+                                        <block type="variables_get" id="3behGs!l[P*BUD-K7:,v">
+                                          <field name="VAR" id="Xe_Um=04.A}Pm;=wMsX:">xrplClient</field>
+                                        </block>
+                                      </value>
+                                      <value name="WALLET_ID">
+                                        <block type="variables_get" id="a7ZB4FV7AP!.!EDo*fb\`">
+                                          <field name="VAR" id="bxPm,KY=-@8vtu*bSGsp">issuerWallet</field>
+                                        </block>
+                                      </value>
+                                      <value name="PAYLOAD">
+                                        <block type="xrpl_payload_rippling" id="t*yU?=oC%].mFct)8{N_">
+                                          <field name="RIPPLING">ENABLE</field>
+                                          <value name="ADDRESS">
+                                            <block type="variables_get" id="l_Uc|PZ.Z{Q[N|14M.Q}">
+                                              <field name="VAR" id="=%)Saa;n}:JDCT)JwuHf">issuerAddress</field>
+                                            </block>
+                                          </value>
+                                        </block>
+                                      </value>
+                                      <next>
+                                        <block type="xrpl_create_account_and_request_faucet" id=".37*Z?f!S\$pta5V^P,zS">
+                                          <field name="FAUCET_INFO" id="GF3QbB*ZmaBxon@!4?FH">faucetInfo</field>
+                                          <value name="CONNECTION">
+                                            <block type="xrpl_network_wss_selection" id="l0m{q9k[f.BLrAzCVfi#">
+                                              <field name="NETWORK_TYPE">xrpl</field>
+                                              <field name="CONNECTION">wss://s.altnet.rippletest.net:51233</field>
+                                            </block>
+                                          </value>
+                                          <value name="XRP_AMOUNT">
+                                            <block type="math_number" id="{Y/w[95N78sUL?P1-n\`g">
+                                              <field name="NUM">100</field>
+                                            </block>
+                                          </value>
+                                          <next>
+                                            <block type="variables_set" id="(z:-hx-~fe1,}iylo]/#">
+                                              <field name="VAR" id="/}dNVuDet})7KIAd!{;V">userAddress</field>
+                                              <value name="VALUE">
+                                                <block type="json_get_value" id="fPX;D^no%d/N|VUH5X_]">
+                                                  <value name="JSON">
+                                                    <block type="variables_get" id="VoU|nCp}%6o-p\$u]xG_9">
+                                                      <field name="VAR" id="GF3QbB*ZmaBxon@!4?FH">faucetInfo</field>
+                                                    </block>
+                                                  </value>
+                                                  <value name="KEY">
+                                                    <block type="text" id="]jy/D=3nc^p~Ou-gW}+G">
+                                                      <field name="TEXT">address</field>
+                                                    </block>
+                                                  </value>
+                                                </block>
+                                              </value>
+                                              <next>
+                                                <block type="xrpl_load_wallet" id="e8o.n)_s~QV]i4lOeDQ{">
+                                                  <field name="WALLET_ID" id="xMBzI7UBn!L3](uO_[sm">userWallet</field>
+                                                  <value name="SEED">
+                                                    <block type="json_get_value" id="_O9**!zzQsJXa\`BxXg\$L">
+                                                      <value name="JSON">
+                                                        <block type="variables_get" id="bw\`s/+K#0HMWjCTxNT4,">
+                                                          <field name="VAR" id="GF3QbB*ZmaBxon@!4?FH">faucetInfo</field>
+                                                        </block>
+                                                      </value>
+                                                      <value name="KEY">
+                                                        <block type="text" id="WT}m*j*7i?C,1|@;Np3l">
+                                                          <field name="TEXT">secret</field>
+                                                        </block>
+                                                      </value>
+                                                    </block>
+                                                  </value>
+                                                  <next>
+                                                    <block type="xrpl_easy_submit" id="o]ih?DJ_y#jsw1b1|2Yv">
+                                                      <field name="RESULT" id="IuTgNBpqZmM*Wnx4\`!pt">result</field>
+                                                      <value name="XRPL_CLIENT">
+                                                        <block type="variables_get" id="wLJW6OuwaK_/QZ2/89Uy">
+                                                          <field name="VAR" id="Xe_Um=04.A}Pm;=wMsX:">xrplClient</field>
+                                                        </block>
+                                                      </value>
+                                                      <value name="WALLET_ID">
+                                                        <block type="variables_get" id="0UrO+PW*Q#lC3-^KTY:6">
+                                                          <field name="VAR" id="xMBzI7UBn!L3](uO_[sm">userWallet</field>
+                                                        </block>
+                                                      </value>
+                                                      <value name="PAYLOAD">
+                                                        <block type="xrpl_payload_trust_set" id="\$^z21d,u*nnCB(_(7U\$]">
+                                                          <value name="CURRECY_CODE_AND_ISSUER_AND_SUPPLY">
+                                                            <block type="variables_get" id="=nE\$BGkDwF45#N!LSZB0">
+                                                              <field name="VAR" id="y(c/b\`2w_ExT-MP[t]o2">token</field>
+                                                            </block>
+                                                          </value>
+                                                          <value name="ACCOUNT_ADDRESS">
+                                                            <block type="variables_get" id="l.UPF#a/1;%Xkxl^}Y|c">
+                                                              <field name="VAR" id="/}dNVuDet})7KIAd!{;V">userAddress</field>
+                                                            </block>
+                                                          </value>
+                                                        </block>
+                                                      </value>
+                                                      <next>
+                                                        <block type="xrpl_easy_submit" id="ng9+*1dnrg3(#UG2A5|d">
+                                                          <field name="RESULT" id="IuTgNBpqZmM*Wnx4\`!pt">result</field>
+                                                          <value name="XRPL_CLIENT">
+                                                            <block type="variables_get" id="i24~A]BPk9~juHxjO0~8">
+                                                              <field name="VAR" id="Xe_Um=04.A}Pm;=wMsX:">xrplClient</field>
+                                                            </block>
+                                                          </value>
+                                                          <value name="WALLET_ID">
+                                                            <block type="variables_get" id="HO,wI%C0qp61SbE-mp%q">
+                                                              <field name="VAR" id="xMBzI7UBn!L3](uO_[sm">userWallet</field>
+                                                            </block>
+                                                          </value>
+                                                          <value name="PAYLOAD">
+                                                            <block type="xrpl_payload_buy_token_offer" id="FIB(nUf,@e%(pd0w9eeb">
+                                                              <value name="ACCOUNT_ADDRESS">
+                                                                <block type="variables_get" id="XPqhM#Ljg6_u(%{+5:qU">
+                                                                  <field name="VAR" id="/}dNVuDet})7KIAd!{;V">userAddress</field>
+                                                                </block>
+                                                              </value>
+                                                              <value name="TOKEN">
+                                                                <block type="variables_get" id="j]{{\`?\$W:}dGHg717YPd">
+                                                                  <field name="VAR" id="y(c/b\`2w_ExT-MP[t]o2">token</field>
+                                                                </block>
+                                                              </value>
+                                                              <value name="TOKEN_AMOUNT">
+                                                                <block type="math_number" id="k%F8hoJ~k*2VMen@W;BL">
+                                                                  <field name="NUM">1</field>
+                                                                </block>
+                                                              </value>
+                                                              <value name="XRP_AMOUNT">
+                                                                <block type="math_number" id="5Clcj{)%-(Ip-@/it4gu">
+                                                                  <field name="NUM">10</field>
+                                                                </block>
+                                                              </value>
+                                                            </block>
+                                                          </value>
+                                                          <next>
+                                                            <block type="xrpl_easy_submit" id="j_6=:#W6:xlB4D{;74me">
+                                                              <field name="RESULT" id="IuTgNBpqZmM*Wnx4\`!pt">result</field>
+                                                              <value name="XRPL_CLIENT">
+                                                                <block type="variables_get" id=":eFrew]b]h3gcajI*0+O">
+                                                                  <field name="VAR" id="Xe_Um=04.A}Pm;=wMsX:">xrplClient</field>
+                                                                </block>
+                                                              </value>
+                                                              <value name="WALLET_ID">
+                                                                <block type="variables_get" id="NrHvCt*LUv8P\`eKk|0c3">
+                                                                  <field name="VAR" id="bxPm,KY=-@8vtu*bSGsp">issuerWallet</field>
+                                                                </block>
+                                                              </value>
+                                                              <value name="PAYLOAD">
+                                                                <block type="xrpl_payload_sale_token_offer" id="UXj7\`J@]Da+|D38AdCSM">
+                                                                  <value name="ACCOUNT_ADDRESS">
+                                                                    <block type="variables_get" id="|bOfsJN14/#g]a.^3ZI+">
+                                                                      <field name="VAR" id="=%)Saa;n}:JDCT)JwuHf">issuerAddress</field>
+                                                                    </block>
+                                                                  </value>
+                                                                  <value name="TOKEN">
+                                                                    <block type="variables_get" id="xWiQk9Mm)%+i}D|?BZc*">
+                                                                      <field name="VAR" id="y(c/b\`2w_ExT-MP[t]o2">token</field>
+                                                                    </block>
+                                                                  </value>
+                                                                  <value name="TOKEN_AMOUNT">
+                                                                    <block type="math_number" id="g3a!6?-c0u^2cq\`C4#F=">
+                                                                      <field name="NUM">1</field>
+                                                                    </block>
+                                                                  </value>
+                                                                  <value name="XRP_AMOUNT">
+                                                                    <block type="math_number" id="CA!KZ0H^xm38L{Ye/AMx">
+                                                                      <field name="NUM">10</field>
+                                                                    </block>
+                                                                  </value>
+                                                                </block>
+                                                              </value>
+                                                              <next>
+                                                                <block type="xrpl_command_account_lines" id="Xz9iiB_R#y}p=J1NCp6F">
+                                                                  <field name="IS_ERROR" id="8v/?|tL}(|!6FG.GGJ;d">isError</field>
+                                                                  <field name="ACCOUNT_LINES" id="R.lC{=0~|_Ha0S)g3Aga">accountLines</field>
+                                                                  <value name="XRPL_CLIENT">
+                                                                    <block type="variables_get" id="PNjch4E~s@#l%x}pv1U[">
+                                                                      <field name="VAR" id="Xe_Um=04.A}Pm;=wMsX:">xrplClient</field>
+                                                                    </block>
+                                                                  </value>
+                                                                  <value name="ACCOUNT_ADDRESS">
+                                                                    <block type="variables_get" id="1|J]JlPS*p*A)||xf,VT">
+                                                                      <field name="VAR" id="/}dNVuDet})7KIAd!{;V">userAddress</field>
+                                                                    </block>
+                                                                  </value>
+                                                                  <next>
+                                                                    <block type="dynamic_if" id="/HNRBW=M:yOz^~[7Rw:%">
+                                                                      <mutation else="1"></mutation>
+                                                                      <value name="IF0">
+                                                                        <block type="logic_compare" id="{ZOw*bWsgY@T%i?il+![">
+                                                                          <field name="OP">EQ</field>
+                                                                          <value name="A">
+                                                                            <block type="variables_get" id="fOAci1|W3h/hz?I+ig,p">
+                                                                              <field name="VAR" id="8v/?|tL}(|!6FG.GGJ;d">isError</field>
+                                                                            </block>
+                                                                          </value>
+                                                                          <value name="B">
+                                                                            <block type="false" id="JAP]B^j?sxF|ml.Mh\`[["></block>
+                                                                          </value>
+                                                                        </block>
+                                                                      </value>
+                                                                      <statement name="DO0">
+                                                                        <block type="text_print" id="1g3nJM,(5;4aiY*:bDK=">
+                                                                          <value name="TEXT">
+                                                                            <block type="json_to_text" id="jk]L+]pe\`j4R_o(mdQ:D">
+                                                                              <value name="JSON">
+                                                                                <block type="variables_get" id="0}S,j}7zI|QOfN#[0^9m">
+                                                                                  <field name="VAR" id="R.lC{=0~|_Ha0S)g3Aga">accountLines</field>
+                                                                                </block>
+                                                                              </value>
+                                                                            </block>
+                                                                          </value>
+                                                                          <next>
+                                                                            <block type="text_print" id="T0v{Q-CA}-ip!/idfbfv">
+                                                                              <value name="TEXT">
+                                                                                <block type="text" id="Wr_rTT5GO!}8y[!C!sI\$">
+                                                                                  <field name="TEXT">Complete!</field>
+                                                                                </block>
+                                                                              </value>
+                                                                            </block>
+                                                                          </next>
+                                                                        </block>
+                                                                      </statement>
+                                                                      <statement name="ELSE">
+                                                                        <block type="text_print" id="Z2E[UAW.RJ]Fv\$^~FW/A">
+                                                                          <value name="TEXT">
+                                                                            <block type="text" id="B|XKo?}^r+C6*YC_:ahx">
+                                                                              <field name="TEXT">Failed to get account lines.</field>
+                                                                            </block>
+                                                                          </value>
+                                                                        </block>
+                                                                      </statement>
+                                                                    </block>
+                                                                  </next>
+                                                                </block>
+                                                              </next>
+                                                            </block>
+                                                          </next>
+                                                        </block>
+                                                      </next>
+                                                    </block>
+                                                  </next>
+                                                </block>
+                                              </next>
+                                            </block>
+                                          </next>
+                                        </block>
+                                      </next>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </next>
+            </block>
       `,
       title: "XRPL Token Generation and Transaction Flow",
       description: "This template guides you through the entire process of creating and managing a token on the XRPL (XRP Ledger). It includes steps to create a token, initialize the XRPL client, request testnet funds, set up wallets, and execute transactions such as trust set and token offers. This comprehensive flow ensures you understand how to interact with the XRPL for token management and transactions.",
@@ -1376,7 +1380,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
           <variable id="xWg\`}7GJ$AR,I7(1B-hX">date</variable>
           <variable id="sY,z!:\`96U)fU(2UB8Fg">extractedData</variable>
         </variables>
-        <block type="xrpl_client_initialize" id="A3y[!Z-60*aOL%.5r!y]" x="228" y="-1">
+        <block type="xrpl_client_initialize" id="A3y[!Z-60*aOL%.5r!y]" x="0" y="0">
           <field name="XRPL_CLIENT" id="kDLr-FS(n4n(\`vJ2c9#$">xrplClient</field>
           <value name="SERVER">
             <block type="xrpl_network_wss_selection" id="F4aUDcaP%cN[tf)la4.C">

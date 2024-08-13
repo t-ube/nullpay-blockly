@@ -71,7 +71,6 @@ import {
 } from '@/blocks/xrpl/xrplPathAndOrderBookBlock';
 import {
   xrpl_payload_payment_token,
-  xrpl_payment_transaction
 } from '@/blocks/xrpl/xrplPaymentTransactionBlock';
 import {
   xrpl_create_account_and_request_faucet,
@@ -176,7 +175,6 @@ export const BlockStructures = [
   xrpl_payload_sale_token_offer,
   xrpl_command_nft_buy_offers,
   xrpl_payload_payment_token,
-  xrpl_payment_transaction,
   xrpl_create_account_and_request_faucet,
   xrpl_request_faucet,
   xrpl_autofill_payload,

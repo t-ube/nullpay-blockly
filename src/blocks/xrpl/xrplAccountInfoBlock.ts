@@ -137,7 +137,7 @@ export const xrpl_command_account_lines : any = {
       "check": blockCheckType.string
     }
   ],
-  "message3": "%1 %2",
+  "message3": "%1 %2 %3",
   "args3": [
     {
       "type": "field_label",
@@ -146,12 +146,18 @@ export const xrpl_command_account_lines : any = {
     },
     {
       "type": "field_variable",
+      "name": "IS_ERROR",
+      "variable": "isError"
+    },
+    {
+      "type": "field_variable",
       "name": "ACCOUNT_LINES",
       "variable": "accountLines"
     }
   ],
-  "output": blockCheckType.boolean,
   "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
   "colour": BlockColors.xrpl,
   "tooltip": "Retrieve information about the trust lines associated with an XRPL account.",
   "helpUrl": ""
@@ -166,17 +172,18 @@ export const defineXrplAccountLinesCommandBlock = () => {
     const client = generator.valueToCode(block, 'XRPL_CLIENT', Order.ATOMIC) || '""';
     const account = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.ATOMIC) || '""';
     if (generator.nameDB_ === undefined) {
-      return `xrplAccountLinesCommand(${client}, ${account}, '')`;
+      return `xrplAccountLinesCommand(${client}, ${account}, '');\n`;
     }
+    const isError = generator.nameDB_.getName(block.getFieldValue('IS_ERROR'), Blockly.VARIABLE_CATEGORY_NAME);
     const variable = generator.nameDB_.getName(block.getFieldValue('ACCOUNT_LINES'), Blockly.VARIABLE_CATEGORY_NAME);
-    const code = `xrplAccountLinesCommand(${client}, ${account}, '${variable}')`;
-    return [code, Order.ATOMIC];
+    const code = `xrplAccountLinesCommand(${client}, ${account}, '${isError}', '${variable}');\n`;
+    return code;
   };
 };
 
 export function initInterpreterXrplAccountLinesCommand(interpreter:any, globalObject:any) {
   javascriptGenerator.addReservedWords('xrplAccountLinesCommand');
-  const wrapper = async function (clientKey:string, account:string, variable:any, callback:any) {
+  const wrapper = async function (clientKey:string, account:string, isErrorVar:any, variable:any, callback:any) {
     try {
       const client = getXrplClient(clientKey);
       if (!client) {
@@ -187,14 +194,16 @@ export function initInterpreterXrplAccountLinesCommand(interpreter:any, globalOb
         account: account
       });
       if (transaction.result) {
+        interpreter.setProperty(globalObject, isErrorVar, false);
         interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(transaction.result));
-        callback(interpreter.nativeToPseudo(true));
+        callback();
         return;
       }
     } catch (error) {
       console.error('Failed to get transaction:', error);
+      interpreter.setProperty(globalObject, isErrorVar, true);
     }
-    callback(interpreter.nativeToPseudo(false));
+    callback();
   };
   interpreter.setProperty(globalObject, 'xrplAccountLinesCommand', interpreter.createAsyncFunction(wrapper));
 }

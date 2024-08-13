@@ -52,8 +52,8 @@ export const xrpl_command_nft_buy_offers : any = {
     },
     {
       "type": "field_variable",
-      "name": "STATUS",
-      "variable": "status"
+      "name": "IS_ERROR",
+      "variable": "isError"
     },
     {
       "type": "field_variable",
@@ -80,16 +80,16 @@ export const defineXrplNftBuyOffersCommandBlock = () => {
     if (generator.nameDB_ === undefined) {
       return `xrplNftBuyOffersCommand(${client}, ${nftID}, '', '');\n`;
     }
-    const status = generator.nameDB_.getName(block.getFieldValue('STATUS'), Blockly.VARIABLE_CATEGORY_NAME);
+    const isError = generator.nameDB_.getName(block.getFieldValue('IS_ERROR'), Blockly.VARIABLE_CATEGORY_NAME);
     const response = generator.nameDB_.getName(block.getFieldValue('RESPONSE'), Blockly.VARIABLE_CATEGORY_NAME);
-    const code = `xrplNftBuyOffersCommand(${client}, ${nftID}, '${status}', '${response}');\n`;
+    const code = `xrplNftBuyOffersCommand(${client}, ${nftID}, '${isError}', '${response}');\n`;
     return code;
   };
 };
 
 export function initInterpreterXrplNftBuyOffersCommand(interpreter:any, globalObject:any) {
   javascriptGenerator.addReservedWords('xrplNftBuyOffersCommand');
-  const wrapper = async function (clientKey:string, nftID:string, statusVar:any, responseVar:any, callback:any) {
+  const wrapper = async function (clientKey:string, nftID:string, isErrorVar:any, responseVar:any, callback:any) {
     try {
       const client = getXrplClient(clientKey);
       if (!client) {
@@ -100,7 +100,7 @@ export function initInterpreterXrplNftBuyOffersCommand(interpreter:any, globalOb
         nft_id: nftID
       });
       if (transaction.result) {
-        interpreter.setProperty(globalObject, statusVar, interpreter.nativeToPseudo(getBlockSuccess()));
+        interpreter.setProperty(globalObject, isErrorVar, false);
         interpreter.setProperty(globalObject, responseVar, interpreter.nativeToPseudo(transaction.result));
         callback();
         return;
@@ -108,7 +108,7 @@ export function initInterpreterXrplNftBuyOffersCommand(interpreter:any, globalOb
     } catch (error) {
       const message = 'Failed to get transaction';
       console.error(`${message}:`, error);
-      interpreter.setProperty(globalObject, statusVar, interpreter.nativeToPseudo(getBlockError(message)));
+      interpreter.setProperty(globalObject, isErrorVar, true);
     }
     callback();
   };
