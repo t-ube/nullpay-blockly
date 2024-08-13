@@ -77,7 +77,7 @@ import {
   defineXrplTrustSetTxnBlock, initInterpreterXrplTrustSetTxn,
 } from '@/blocks/xrpl/xrplTrustSetTransactionBlock';
 import {
-  defineXrplGetTxnInfoBlock, initInterpreterXrplGetTxnInfoBlock,
+  defineXrplGetTxnInfoBlock, initInterpreterXrplExtractTransactionDetailsBlock,
   defineXrplExtractOfferCreateTxnBlock, initInterpreterXrplExtractOfferCreateTxnBlock
 } from '@/blocks/xrpl/xrplAnalyticsTxnBlock';
 import {
@@ -402,7 +402,7 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterXrplTokenAmountArithmetic(interpreter, scope);
   initInterpreterXrplRipplingTxn(interpreter, scope);
   initInterpreterXrplTrustSetTxn(interpreter, scope);
-  initInterpreterXrplGetTxnInfoBlock(interpreter, scope);
+  initInterpreterXrplExtractTransactionDetailsBlock(interpreter, scope);
   initInterpreterBuyTokenOfferTxn(interpreter, scope);
   initInterpreterSaleTokenOfferTxn(interpreter, scope);
   initInterpreterXrplTxCommand(interpreter, scope);

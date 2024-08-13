@@ -46,8 +46,8 @@ import {
   xrpl_xrp_to_drops
 } from '@/blocks/xrpl/xrplAmountBlock';
 import {
-  xrpl_extract_offer_create_txn,
-  xrpl_read_txn_info
+  xrpl_extract_offer_create_details,
+  xrpl_extract_transaction_details
 } from '@/blocks/xrpl/xrplAnalyticsTxnBlock';
 import {
   xrpl_client_initialize
@@ -165,8 +165,8 @@ export const BlockStructures = [
   xrpl_exchange_address,
   xrpl_drops_to_xrp,
   xrpl_xrp_to_drops,
-  xrpl_extract_offer_create_txn,
-  xrpl_read_txn_info,
+  xrpl_extract_offer_create_details,
+  xrpl_extract_transaction_details,
   xrpl_client_initialize,
   xrpl_clio_command_nft_info,
   xrpl_faucet_network_selection,

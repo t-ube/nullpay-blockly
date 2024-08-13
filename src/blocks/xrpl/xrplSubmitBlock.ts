@@ -352,21 +352,26 @@ export const xrpl_command_tx : any = {
   "args2": [
     {
       "type": "field_label",
-      "text": "Hash",
+      "text": "Transaction hash",
       "class": "args-label"
     },
     {
       "type": "input_value",
-      "name": "HASH",
+      "name": "TRANSACTION_HASH",
       "check": blockCheckType.string
     }
   ],
-  "message3": "%1 %2",
+  "message3": "%1 %2 %3",
   "args3": [
     {
       "type": "field_label",
-      "text": "Transaction (validated)",
+      "text": "Result",
       "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "IS_ERROR",
+      "variable": "isError"
     },
     {
       "type": "field_variable",
@@ -374,7 +379,8 @@ export const xrpl_command_tx : any = {
       "variable": "transaction"
     }
   ],
-  "output": blockCheckType.boolean,
+  "previousStatement": null,
+  "nextStatement": null,
   "inputsInline": false,
   "colour": BlockColors.xrpl,
   "tooltip": "Retrieve a transaction from the XRPL using the specified client and transaction hash",
@@ -388,19 +394,20 @@ export const defineXrplTxCommandBlock = () => {
 
   javascriptGenerator.forBlock['xrpl_command_tx'] = function (block, generator) {
     const client = generator.valueToCode(block, 'XRPL_CLIENT', Order.ATOMIC) || '""';
-    const hash = generator.valueToCode(block, 'HASH', Order.ATOMIC) || '""';
+    const hash = generator.valueToCode(block, 'TRANSACTION_HASH', Order.ATOMIC) || '""';
     if (generator.nameDB_ === undefined) {
-      return `xrplTxCommand(${client}, ${hash}, '')`;
+      return `xrplTxCommand(${client}, ${hash}, '', '');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('TRANSACTION'), Blockly.VARIABLE_CATEGORY_NAME);
-    const code = `xrplTxCommand(${client}, ${hash}, '${variable}')`;
-    return [code, Order.ATOMIC];
+    const txn = generator.nameDB_.getName(block.getFieldValue('TRANSACTION'), Blockly.VARIABLE_CATEGORY_NAME);
+    const isError = generator.nameDB_.getName(block.getFieldValue('IS_ERROR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const code = `xrplTxCommand(${client}, ${hash}, '${isError}', '${txn}');\n`;
+    return code;
   };
 };
 
 export function initInterpreterXrplTxCommand(interpreter:any, globalObject:any) {
   javascriptGenerator.addReservedWords('xrplTxCommand');
-  const wrapper = async function (clientKey:string, hash:string, variable:any, callback:any) {
+  const wrapper = async function (clientKey:string, hash:string, isError:any, variable:any, callback:any) {
     try {
       const client = getXrplClient(clientKey);
       if (!client) {
@@ -412,13 +419,13 @@ export function initInterpreterXrplTxCommand(interpreter:any, globalObject:any) 
       });
       if (transaction.result) {
         interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(transaction.result));
-        callback(interpreter.nativeToPseudo(true));
-        return;
+        interpreter.setProperty(globalObject, isError, interpreter.nativeToPseudo(false));
       }
     } catch (error) {
       console.error('Failed to get transaction:', error);
+      interpreter.setProperty(globalObject, isError, interpreter.nativeToPseudo(true));
     }
-    callback(interpreter.nativeToPseudo(false));
+    callback();
   };
   interpreter.setProperty(globalObject, 'xrplTxCommand', interpreter.createAsyncFunction(wrapper));
 }

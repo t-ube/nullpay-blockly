@@ -17,13 +17,13 @@ import { BlockColors } from '@/blocks/BlockColors';
 import { blockCheckType } from '@/blocks/BlockField';
 
 
-export const xrpl_read_txn_info : any = {
-  "type": "xrpl_read_txn_info",
+export const xrpl_extract_transaction_details : any = {
+  "type": "xrpl_extract_transaction_details",
   "message0": "%1",
   "args0": [
     {
       "type": "field_label",
-      "text": "Read transaction info",
+      "text": "Extract transaction details",
       "class": "title-label"
     }
   ],
@@ -83,13 +83,13 @@ export const xrpl_read_txn_info : any = {
   "args5": [
     {
       "type": "field_label",
-      "text": "Hash",
+      "text": "Transaction hash",
       "class": "output-label"
     },
     {
       "type": "field_variable",
-      "name": "HASH",
-      "variable": "hash"
+      "name": "TRANSACTION_HASH",
+      "variable": "transactionHash"
     }
   ],
   "message6": "%1 %2",
@@ -105,33 +105,34 @@ export const xrpl_read_txn_info : any = {
       "variable": "date"
     }
   ],
-  "output": blockCheckType.boolean,
+  "previousStatement": null,
+  "nextStatement": null,
   "colour": BlockColors.xrpl,
-  "tooltip": "Retrieve transaction information and store it in separate variables",
+  "tooltip": "Extract and process the transaction details into separate variables",
   "helpUrl": ""
 };
 
 export const defineXrplGetTxnInfoBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_read_txn_info
+    xrpl_extract_transaction_details
   ]);
 
-  javascriptGenerator.forBlock['xrpl_read_txn_info'] = function(block, generator) {
+  javascriptGenerator.forBlock['xrpl_extract_transaction_details'] = function(block, generator) {
     const transactionJson = generator.valueToCode(block, 'TRANSACTION_JSON', Order.NONE) || '{}';
     if (generator.nameDB_ === undefined) {
-      return `xrplGetTxnInfo(JSON.stringify(${transactionJson}),'','','','','')`;
+      return `xrplGetTxnInfo(JSON.stringify(${transactionJson}),'','','','','');\n`;
     }
     const typeVar = generator.nameDB_.getName(block.getFieldValue('TRANSACTION_TYPE'), Blockly.VARIABLE_CATEGORY_NAME);
     const accountVar = generator.nameDB_.getName(block.getFieldValue('ACCOUNT'), Blockly.VARIABLE_CATEGORY_NAME);
     const indexVar = generator.nameDB_.getName(block.getFieldValue('LEDGER_INDEX'), Blockly.VARIABLE_CATEGORY_NAME);
-    const hashVar = generator.nameDB_.getName(block.getFieldValue('HASH'), Blockly.VARIABLE_CATEGORY_NAME);
+    const hashVar = generator.nameDB_.getName(block.getFieldValue('TRANSACTION_HASH'), Blockly.VARIABLE_CATEGORY_NAME);
     const dateVar = generator.nameDB_.getName(block.getFieldValue('AMOUNT_DATE'), Blockly.VARIABLE_CATEGORY_NAME);
-    const code = `xrplGetTxnInfo(JSON.stringify(${transactionJson}),'${typeVar}','${accountVar}','${indexVar}','${hashVar}','${dateVar}')`;
-    return [code, Order.ATOMIC];
+    const code = `xrplGetTxnInfo(JSON.stringify(${transactionJson}),'${typeVar}','${accountVar}','${indexVar}','${hashVar}','${dateVar}');\n`;
+    return code;
   };
 };
 
-export function initInterpreterXrplGetTxnInfoBlock(interpreter:any, globalObject:any) {
+export function initInterpreterXrplExtractTransactionDetailsBlock(interpreter:any, globalObject:any) {
   javascriptGenerator.addReservedWords('xrplGetTxnInfo');
   const wrapper = function (jsonText:string,typeVar:any,accountVar:any,indexVar:any,hashVar:any,dateVar:any) {
     try {
@@ -158,23 +159,23 @@ export function initInterpreterXrplGetTxnInfoBlock(interpreter:any, globalObject
       interpreter.setProperty(globalObject, indexVar, interpreter.nativeToPseudo(json.ledger_index));
       interpreter.setProperty(globalObject, hashVar, interpreter.nativeToPseudo(txn.hash || ''));
       interpreter.setProperty(globalObject, dateVar, interpreter.nativeToPseudo(txn.date || ''));
-      return interpreter.nativeToPseudo(true);
+      return;
     } catch (error) {
       console.error(`Failed to parse json: ${jsonText}`);
-      return interpreter.nativeToPseudo(false);
+      return;
     }
   };
   interpreter.setProperty(globalObject, 'xrplGetTxnInfo', interpreter.createNativeFunction(wrapper));
 }
 
 
-export const xrpl_extract_offer_create_txn : any = {
-  "type": "xrpl_extract_offer_create_txn",
+export const xrpl_extract_offer_create_details : any = {
+  "type": "xrpl_extract_offer_create_details",
   "message0": "%1",
   "args0": [
     {
       "type": "field_label",
-      "text": "Extract offer create transaction",
+      "text": "Extract OfferCreate transaction details",
       "class": "title-label"
     }
   ],
@@ -217,7 +218,8 @@ export const xrpl_extract_offer_create_txn : any = {
       "variable": "extractedData"
     }
   ],
-  "output": blockCheckType.boolean,
+  "previousStatement": null,
+  "nextStatement": null,
   "inputsInline": false,
   "colour": BlockColors.xrpl,
   "tooltip": "Extract and process the OfferCreate transaction payload into separate variables",
@@ -226,18 +228,18 @@ export const xrpl_extract_offer_create_txn : any = {
 
 export const defineXrplExtractOfferCreateTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_extract_offer_create_txn
+    xrpl_extract_offer_create_details
   ]);
 
-  javascriptGenerator.forBlock['xrpl_extract_offer_create_txn'] = function(block, generator) {
+  javascriptGenerator.forBlock['xrpl_extract_offer_create_details'] = function(block, generator) {
     const transactionJson = generator.valueToCode(block, 'TRANSACTION_JSON', Order.NONE) || '{}';
     const account = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.NONE) || '""';
     if (generator.nameDB_ === undefined) {
-      return `xrplExtractOfferCreateTxn(JSON.stringify(${transactionJson}),'')`;
+      return `xrplExtractOfferCreateTxn(JSON.stringify(${transactionJson}),'')\n;`;
     }
     const parsedVar = generator.nameDB_.getName(block.getFieldValue('EXTRACTED_DATA'), Blockly.VARIABLE_CATEGORY_NAME);
-    const code = `xrplExtractOfferCreateTxn(JSON.stringify(${transactionJson}),${account},'${parsedVar}')`;
-    return [code, Order.ATOMIC];
+    const code = `xrplExtractOfferCreateTxn(JSON.stringify(${transactionJson}),${account},'${parsedVar}')\n;`;
+    return code;
   };
 };
 
@@ -459,10 +461,10 @@ export function initInterpreterXrplExtractOfferCreateTxnBlock(interpreter:any, g
         }
       }
       interpreter.setProperty(globalObject, parsedVar, interpreter.nativeToPseudo(txAccountAmounts));
-      return interpreter.nativeToPseudo(true);
+      return;
     } catch (error) {
       console.error(`Failed to extract json: ${jsonText}`);
-      return interpreter.nativeToPseudo(false);
+      return;
     }
   };
   interpreter.setProperty(globalObject, 'xrplExtractOfferCreateTxn', interpreter.createNativeFunction(wrapper));
