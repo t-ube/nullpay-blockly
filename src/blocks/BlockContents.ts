@@ -510,7 +510,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
               <next>
                 <block type="form_modal_block" id="X7tU0Tc(g[X9dAfi7-mR">
                   <field name="INPUT">{"editable":false,"title":{"default":"Semi-Automatic Bid on xrp.cafe"},"items":{"label_0":{"key":"label_0","value":"000800003B47E48122DE8B064405969E0426B39DA2BF658811007754040393BA","type":"string","name":{"default":"NFT ID"},"description":{"default":"New Description"}},"label_2":{"key":"label_2","value":0.2,"type":"number","name":{"default":"Starting Bid (XRP)"},"description":{"default":"New Description"}},"label_4":{"key":"label_4","value":0.1,"type":"number","name":{"default":"Bid Step (XRP)"},"description":{"default":"New Description"}}}}</field>
-                  <field name="VAR" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
+                  <field name="RESULT" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
                   <next>
                     <block type="dynamic_if" id="]s2boZttjzxl]\`P))u{:">
                       <value name="IF0">
