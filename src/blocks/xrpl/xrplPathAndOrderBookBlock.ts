@@ -57,8 +57,8 @@ export const xrpl_command_nft_buy_offers : any = {
     },
     {
       "type": "field_variable",
-      "name": "RESPONSE",
-      "variable": "response"
+      "name": "NFT_BUY_OFFERS",
+      "variable": "nftBuyOffers"
     }
   ],
   "inputsInline": false,
@@ -81,7 +81,7 @@ export const defineXrplNftBuyOffersCommandBlock = () => {
       return `xrplNftBuyOffersCommand(${client}, ${nftID}, '', '');\n`;
     }
     const isError = generator.nameDB_.getName(block.getFieldValue('IS_ERROR'), Blockly.VARIABLE_CATEGORY_NAME);
-    const response = generator.nameDB_.getName(block.getFieldValue('RESPONSE'), Blockly.VARIABLE_CATEGORY_NAME);
+    const response = generator.nameDB_.getName(block.getFieldValue('NFT_BUY_OFFERS'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `xrplNftBuyOffersCommand(${client}, ${nftID}, '${isError}', '${response}');\n`;
     return code;
   };

@@ -5,7 +5,7 @@ export const DemoV0R4Form = `
   </variables>
   <block type="form_modal_block" id="/yh?qxZS5|wvO)Ua*~(S" x="0" y="0">
     <field name="INPUT">{"editable":false,"title":{"default":"Form Title"},"items":{"label_0":{"key":"label_0","value":"ABC","type":"string","name":{"default":"Param1"},"description":{"default":"New Description"}}}}</field>
-    <field name="VAR" id=";z!a2xC^GeJya%K349f$">result</field>
+    <field name="FORM_RESULT" id=";z!a2xC^GeJya%K349f$">result</field>
     <next>
       <block type="dynamic_if" id=";q_fdtZar$B04v?F_VEP">
         <mutation else="1"></mutation>

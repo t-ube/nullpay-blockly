@@ -25,13 +25,13 @@ export const defineFormModalBlock = () => {
       "args1": [
         {
           "type": "field_label",
-          "text": "Result",
+          "text": "Form result",
           "class": "args-label"
         },
         {
           "type": "field_variable",
-          "name": "RESULT",
-          "variable": "result"
+          "name": "FORM_RESULT",
+          "variable": "formResult"
         }
       ],
       "inputsInline": false,
@@ -48,7 +48,7 @@ export const defineFormModalBlock = () => {
       const code = `formShowModal('${block.id}','');\n`;
       return code;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('RESULT'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('FORM_RESULT'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `formShowModal('${block.id}','${variable}');\n`;
     return code;
   };

@@ -103,7 +103,7 @@ const workspaces = [
     id: 'step-5',
     block: `
       <block type="xrpl_command_submit" x="0" y="0">
-        <field name="RESULT">result</field>
+        <field name="SUBMIT_RESULT">result</field>
         <value name="XRPL_CLIENT">
           <block type="variables_get">
             <field name="VAR">xrplClient</field>
@@ -195,7 +195,7 @@ const workspaces = [
                       </value>
                       <next>
                         <block type="xrpl_command_submit">
-                          <field name="RESULT">result</field>
+                          <field name="SUBMIT_RESULT">result</field>
                           <value name="XRPL_CLIENT">
                             <block type="variables_get">
                               <field name="VAR">xrplClient</field>

@@ -48,13 +48,13 @@ export const xrpl_command_submit : any = {
   "args3": [
     {
       "type": "field_label",
-      "text": "Result",
+      "text": "Submit result",
       "class": "output-label"
     },
     {
       "type": "field_variable",
-      "name": "RESULT",
-      "variable": "result"
+      "name": "SUBMIT_RESULT",
+      "variable": "submitResult"
     }
   ],
   "inputsInline": false,
@@ -76,7 +76,7 @@ export const defineXrplClientSubmitBlock = () => {
     if (generator.nameDB_ === undefined) {
       return `xrplClientSubmit(${client}, JSON.stringify(${blobJson}), '');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('RESULT'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('SUBMIT_RESULT'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `xrplClientSubmit(${client}, JSON.stringify(${blobJson}), '${variable}');\n`;
     return code;
   };
@@ -265,13 +265,13 @@ export const xrpl_easy_submit : any = {
   "args4": [
     {
       "type": "field_label",
-      "text": "Result",
+      "text": "Submit result",
       "class": "output-label"
     },
     {
       "type": "field_variable",
-      "name": "RESULT",
-      "variable": "result"
+      "name": "SUBMIT_RESULT",
+      "variable": "submitResult"
     }
   ],
   "inputsInline": false,
@@ -294,7 +294,7 @@ export const defineXrplEasySubmitBlock = () => {
     if (generator.nameDB_ === undefined) {
       return `xrplEasySubmit(${client}, ${wallet}, JSON.stringify(${payloadJSON}), '');\n`;
     }
-    const variable = generator.nameDB_.getName(block.getFieldValue('RESULT'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('SUBMIT_RESULT'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `xrplEasySubmit(${client}, ${wallet}, JSON.stringify(${payloadJSON}), '${variable}');\n`;
     return code;
   };

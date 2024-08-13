@@ -36,8 +36,8 @@ const workspaces = [
     id: 'step-3',
     block: `
       <block type="xrpl_clio_command_nft_info" x="0" y="0">
-        <field name="STATUS">status</field>
-        <field name="RESPONSE">response</field>
+        <field name="IS_ERROR">status</field>
+        <field name="NFT_INFO">response</field>
         <value name="XRPL_CLIENT">
           <block type="variables_get">
             <field name="VAR">xrplClient</field>
@@ -85,7 +85,7 @@ const workspaces = [
     id: 'step-6',
     block: `
       <block type="xaman_payload_set" x="0" y="0">
-        <field name="STATUS">status</field>
+        <field name="IS_ERROR">status</field>
         <field name="PAYLOAD_ID">payloadID</field>
         <value name="PAYLOAD">
           <block type="xrpl_payload_nftoken_buy_offer">
@@ -146,8 +146,8 @@ const workspaces = [
             </value>
             <next>
               <block type="xrpl_clio_command_nft_info">
-                <field name="STATUS">status</field>
-                <field name="RESPONSE">response</field>
+                <field name="IS_ERROR">status</field>
+                <field name="NFT_INFO">response</field>
                 <value name="XRPL_CLIENT">
                   <block type="variables_get">
                     <field name="VAR">xrplClient</field>
@@ -180,7 +180,7 @@ const workspaces = [
                         <field name="USER_INFO">userInfo</field>
                         <next>
                           <block type="xaman_payload_set">
-                            <field name="STATUS">status</field>
+                            <field name="IS_ERROR">status</field>
                             <field name="PAYLOAD_ID">payloadID</field>
                             <value name="PAYLOAD">
                               <block type="xrpl_payload_nftoken_buy_offer">

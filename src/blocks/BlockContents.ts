@@ -499,7 +499,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
               <next>
                 <block type="form_modal_block" id="X7tU0Tc(g[X9dAfi7-mR">
                   <field name="INPUT">{"editable":false,"title":{"default":"Semi-Automatic Bid on xrp.cafe"},"items":{"label_0":{"key":"label_0","value":"000800003B47E48122DE8B064405969E0426B39DA2BF658811007754040393BA","type":"string","name":{"default":"NFT ID"},"description":{"default":"New Description"}},"label_2":{"key":"label_2","value":0.2,"type":"number","name":{"default":"Starting Bid (XRP)"},"description":{"default":"New Description"}},"label_4":{"key":"label_4","value":0.1,"type":"number","name":{"default":"Bid Step (XRP)"},"description":{"default":"New Description"}}}}</field>
-                  <field name="RESULT" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
+                  <field name="FORM_RESULT" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
                   <next>
                     <block type="dynamic_if" id="]s2boZttjzxl]\`P))u{:">
                       <value name="IF0">
@@ -590,7 +590,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                           <next>
                                             <block type="xrpl_clio_command_nft_info" id="r:\$S9Ux;2ll*T-vMh9s5">
                                               <field name="IS_ERROR" id="kl-en5*aAB2BPE{LbmLd">isError</field>
-                                              <field name="RESPONSE" id="H8?7.T:4!\`hKG.w57*E^">response</field>
+                                              <field name="NFT_INFO" id="H8?7.T:4!\`hKG.w57*E^">response</field>
                                               <value name="XRPL_CLIENT">
                                                 <block type="variables_get" id=")?WEXZB#e]m]zy-vM)=e">
                                                   <field name="VAR" id="a8odClXjH1#I}N7#T6SE">xrplClient</field>
@@ -639,7 +639,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                       <statement name="DO">
                                                         <block type="xrpl_command_nft_buy_offers" id="D.OyZRm3qG*RJf;_f]GO">
                                                           <field name="IS_ERROR" id="kl-en5*aAB2BPE{LbmLd">isError</field>
-                                                          <field name="RESPONSE" id="H8?7.T:4!\`hKG.w57*E^">response</field>
+                                                          <field name="NFT_BUY_OFFERS" id="H8?7.T:4!\`hKG.w57*E^">response</field>
                                                           <value name="XRPL_CLIENT">
                                                             <block type="variables_get" id="bZR5LNWzGUR5D5^=RI.\`">
                                                               <field name="VAR" id="a8odClXjH1#I}N7#T6SE">xrplClient</field>
@@ -926,7 +926,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                   <next>
                                                                     <block type="xrpl_clio_command_nft_info" id="sQs%af+kf#)_n4~cP\`z)">
                                                                       <field name="IS_ERROR" id="kl-en5*aAB2BPE{LbmLd">isError</field>
-                                                                      <field name="RESPONSE" id="H8?7.T:4!\`hKG.w57*E^">response</field>
+                                                                      <field name="NFT_INFO" id="H8?7.T:4!\`hKG.w57*E^">response</field>
                                                                       <value name="XRPL_CLIENT">
                                                                         <block type="variables_get" id="YVFX|U{\`q}BYJ99f83Cz">
                                                                           <field name="VAR" id="a8odClXjH1#I}N7#T6SE">xrplClient</field>
@@ -1001,7 +1001,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
               <variable id="y(c/b\`2w_ExT-MP[t]o2">token</variable>
               <variable id="Xe_Um=04.A}Pm;=wMsX:">xrplClient</variable>
               <variable id="bxPm,KY=-@8vtu*bSGsp">issuerWallet</variable>
-              <variable id="IuTgNBpqZmM*Wnx4\`!pt">result</variable>
+              <variable id="IuTgNBpqZmM*Wnx4\`!pt">submitResult</variable>
               <variable id="GF3QbB*ZmaBxon@!4?FH">faucetInfo</variable>
               <variable id="/}dNVuDet})7KIAd!{;V">userAddress</variable>
               <variable id="xMBzI7UBn!L3](uO_[sm">userWallet</variable>
@@ -1099,7 +1099,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                   </value>
                                   <next>
                                     <block type="xrpl_easy_submit" id="YCpMl^~Xl/D[s@1r,@*W">
-                                      <field name="RESULT" id="IuTgNBpqZmM*Wnx4\`!pt">result</field>
+                                      <field name="SUBMIT_RESULT" id="IuTgNBpqZmM*Wnx4\`!pt">submitResult</field>
                                       <value name="XRPL_CLIENT">
                                         <block type="variables_get" id="3behGs!l[P*BUD-K7:,v">
                                           <field name="VAR" id="Xe_Um=04.A}Pm;=wMsX:">xrplClient</field>
@@ -1170,7 +1170,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                   </value>
                                                   <next>
                                                     <block type="xrpl_easy_submit" id="o]ih?DJ_y#jsw1b1|2Yv">
-                                                      <field name="RESULT" id="IuTgNBpqZmM*Wnx4\`!pt">result</field>
+                                                      <field name="SUBMIT_RESULT" id="IuTgNBpqZmM*Wnx4\`!pt">submitResult</field>
                                                       <value name="XRPL_CLIENT">
                                                         <block type="variables_get" id="wLJW6OuwaK_/QZ2/89Uy">
                                                           <field name="VAR" id="Xe_Um=04.A}Pm;=wMsX:">xrplClient</field>
@@ -1197,7 +1197,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                       </value>
                                                       <next>
                                                         <block type="xrpl_easy_submit" id="ng9+*1dnrg3(#UG2A5|d">
-                                                          <field name="RESULT" id="IuTgNBpqZmM*Wnx4\`!pt">result</field>
+                                                          <field name="SUBMIT_RESULT" id="IuTgNBpqZmM*Wnx4\`!pt">submitResult</field>
                                                           <value name="XRPL_CLIENT">
                                                             <block type="variables_get" id="i24~A]BPk9~juHxjO0~8">
                                                               <field name="VAR" id="Xe_Um=04.A}Pm;=wMsX:">xrplClient</field>
@@ -1234,7 +1234,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                           </value>
                                                           <next>
                                                             <block type="xrpl_easy_submit" id="j_6=:#W6:xlB4D{;74me">
-                                                              <field name="RESULT" id="IuTgNBpqZmM*Wnx4\`!pt">result</field>
+                                                              <field name="SUBMIT_RESULT" id="IuTgNBpqZmM*Wnx4\`!pt">submitResult</field>
                                                               <value name="XRPL_CLIENT">
                                                                 <block type="variables_get" id=":eFrew]b]h3gcajI*0+O">
                                                                   <field name="VAR" id="Xe_Um=04.A}Pm;=wMsX:">xrplClient</field>
@@ -1932,7 +1932,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
         <variable id="iFdY8EIySLEsg3B#+Kt6">faucetInfo</variable>
         <variable id="_fnZ#%D$iVPeh,vm[fqp">userInfo</variable>
         <variable id="9/U)[:oS\`7#x2Mra]5Tu">payloadID</variable>
-        <variable id="h!l]-UQ|^nDpMUxd*|7G">error</variable>
+        <variable id="h!l]-UQ|^nDpMUxd*|7G">isError</variable>
       </variables>
       <block type="xrpl_create_account_and_request_faucet" id=",c#Q(9RsUi{$IzA=^Jd}" x="0" y="0">
         <field name="FAUCET_INFO" id="iFdY8EIySLEsg3B#+Kt6">faucetInfo</field>
@@ -1964,7 +1964,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                 <next>
                   <block type="xaman_payment" id="\`tbLE=kevs{~qXQucG,E">
                     <field name="PAYLOAD_ID" id="9/U)[:oS\`7#x2Mra]5Tu">payloadID</field>
-                    <field name="RESULT" id="h!l]-UQ|^nDpMUxd*|7G">error</field>
+                    <field name="IS_ERROR" id="h!l]-UQ|^nDpMUxd*|7G">isError</field>
                     <value name="DESTINATION">
                       <block type="json_get_value" id="y8_lzp}Gd@9fXAQzyPxR">
                         <value name="JSON">
@@ -2707,7 +2707,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       </variables>
       <block type="form_modal_block" id="/yh?qxZS5|wvO)Ua*~(S" x="0" y="0">
         <field name="INPUT">{"editable":false,"title":{"default":"Form Title"},"items":{"label_0":{"key":"label_0","value":"ABC","type":"string","name":{"default":"Param1"},"description":{"default":"New Description"}}}}</field>
-        <field name="RESULT" id=";z!a2xC^GeJya%K349f$">result</field>
+        <field name="FORM_RESULT" id=";z!a2xC^GeJya%K349f$">result</field>
         <next>
           <block type="dynamic_if" id=";q_fdtZar$B04v?F_VEP">
             <mutation else="1"></mutation>

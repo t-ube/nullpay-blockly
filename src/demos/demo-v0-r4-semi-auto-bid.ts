@@ -42,7 +42,7 @@ export const DemoV0R4SemiAutoBid = `
         <next>
           <block type="form_modal_block" id="X7tU0Tc(g[X9dAfi7-mR">
             <field name="INPUT">{"editable":false,"title":{"default":"Semi-Automatic Bid on xrp.cafe"},"items":{"label_0":{"key":"label_0","value":"000800003B47E48122DE8B064405969E0426B39DA2BF658811007754040393BA","type":"string","name":{"default":"NFT ID"},"description":{"default":"New Description"}},"label_2":{"key":"label_2","value":0.2,"type":"number","name":{"default":"Starting Bid (XRP)"},"description":{"default":"New Description"}},"label_4":{"key":"label_4","value":0.1,"type":"number","name":{"default":"Bid Step (XRP)"},"description":{"default":"New Description"}}}}</field>
-            <field name="VAR" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
+            <field name="FORM_RESULT" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
             <next>
               <block type="dynamic_if" id="]s2boZttjzxl]\`P))u{:">
                 <value name="IF0">
@@ -132,8 +132,8 @@ export const DemoV0R4SemiAutoBid = `
                                     </value>
                                     <next>
                                       <block type="xrpl_clio_command_nft_info" id="%RE;,JEzW4r#RZ!}[TtD">
-                                        <field name="STATUS" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
-                                        <field name="RESPONSE" id="H8?7.T:4!\`hKG.w57*E^">response</field>
+                                        <field name="IS_ERROR" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
+                                        <field name="NFT_INFO" id="H8?7.T:4!\`hKG.w57*E^">response</field>
                                         <value name="CLIENT">
                                           <block type="variables_get" id=")?WEXZB#e]m]zy-vM)=e">
                                             <field name="VAR" id="a8odClXjH1#I}N7#T6SE">xrplClient</field>
@@ -181,8 +181,8 @@ export const DemoV0R4SemiAutoBid = `
                                                 </value>
                                                 <statement name="DO">
                                                   <block type="xrpl_command_nft_buy_offers" id="BU,sKqtu(Mz=iK,}I82l">
-                                                    <field name="STATUS" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
-                                                    <field name="RESPONSE" id="H8?7.T:4!\`hKG.w57*E^">response</field>
+                                                    <field name="IS_ERROR" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
+                                                    <field name="NFT_BUY_OFFERS" id="H8?7.T:4!\`hKG.w57*E^">response</field>
                                                     <value name="CLIENT">
                                                       <block type="variables_get" id="bZR5LNWzGUR5D5^=RI.\`">
                                                         <field name="VAR" id="a8odClXjH1#I}N7#T6SE">xrplClient</field>
@@ -377,7 +377,7 @@ export const DemoV0R4SemiAutoBid = `
                                                                                         </value>
                                                                                         <next>
                                                                                           <block type="xaman_payload_set" id="d$@,umhk2Oz+F=}Gtj/k">
-                                                                                            <field name="STATUS" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
+                                                                                            <field name="IS_ERROR" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
                                                                                             <field name="PAYLOAD_ID" id="}r8U68uAomtU|j6ig4wf">payloadID</field>
                                                                                             <value name="PAYLOAD">
                                                                                               <block type="variables_get" id="\`wTCT/pU+PX]9y@875@y">
@@ -440,7 +440,7 @@ export const DemoV0R4SemiAutoBid = `
                                                             </value>
                                                             <next>
                                                               <block type="xaman_payload_set" id="vWo~Ri|2IEOigwEIZjfu">
-                                                                <field name="STATUS" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
+                                                                <field name="IS_ERROR" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
                                                                 <field name="PAYLOAD_ID" id="}r8U68uAomtU|j6ig4wf">payloadID</field>
                                                                 <value name="PAYLOAD">
                                                                   <block type="variables_get" id="VhZfEuP!g.n#]g;zVD!S">
@@ -469,8 +469,8 @@ export const DemoV0R4SemiAutoBid = `
                                                             </value>
                                                             <next>
                                                               <block type="xrpl_clio_command_nft_info" id="\`)(UI\`JP0e:[zj6a[nyM">
-                                                                <field name="STATUS" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
-                                                                <field name="RESPONSE" id="H8?7.T:4!\`hKG.w57*E^">response</field>
+                                                                <field name="IS_ERROR" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
+                                                                <field name="NFT_INFO" id="H8?7.T:4!\`hKG.w57*E^">response</field>
                                                                 <value name="CLIENT">
                                                                   <block type="variables_get" id="YVFX|U{\`q}BYJ99f83Cz">
                                                                     <field name="VAR" id="a8odClXjH1#I}N7#T6SE">xrplClient</field>

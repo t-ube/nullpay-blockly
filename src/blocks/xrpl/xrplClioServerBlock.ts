@@ -56,8 +56,8 @@ export const xrpl_clio_command_nft_info : any = {
     },
     {
       "type": "field_variable",
-      "name": "RESPONSE",
-      "variable": "response"
+      "name": "NFT_INFO",
+      "variable": "nftInfo"
     }
   ],
   "inputsInline": false,
@@ -80,7 +80,7 @@ export const defineXrplClioNftInfoBlock = () => {
       return `xrplClioNftInfo(${client}, ${nftID}, '', '');\n`;
     }
     const isError = generator.nameDB_.getName(block.getFieldValue('IS_ERROR'), Blockly.VARIABLE_CATEGORY_NAME);
-    const response = generator.nameDB_.getName(block.getFieldValue('RESPONSE'), Blockly.VARIABLE_CATEGORY_NAME);
+    const response = generator.nameDB_.getName(block.getFieldValue('NFT_INFO'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `xrplClioNftInfo(${client}, ${nftID}, '${isError}', '${response}');\n`;
     return code;
   };
