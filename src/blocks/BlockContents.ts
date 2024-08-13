@@ -28,23 +28,23 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
     {
       height: 50,
       block: `
-        <block type="xrpl_network_wss_selection" x="0" y="0"></block>
+        <block type="xrpl_select_websocket_endpoint" x="0" y="0"></block>
       `,
       title: "XRPL Network Selection",
       description: "Select the WebSocket URL for the XRPL network.",
       categories: ["xrpl"],
-      blockType: "xrpl_network_wss_selection",
+      blockType: "xrpl_select_websocket_endpoint",
       subCategories: [XRPLSubCategories.BASIC_OPERATIONS]
     },
     {
       height: 50,
       block: `
-        <block type="xrpl_faucet_network_selection" x="0" y="0"></block>
+        <block type="xrpl_select_faucet_network_uri" x="0" y="0"></block>
       `,
       title: "XRPL Faucet Network Selection",
       description: "Select the faucet network for creating test accounts.",
       categories: ["xrpl"],
-      blockType: "xrpl_faucet_network_selection",
+      blockType: "xrpl_select_faucet_network_uri",
       subCategories: [XRPLSubCategories.FUNDING_OPERATIONS]
     },
     {
@@ -191,125 +191,15 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       subCategories: [XRPLSubCategories.BASIC_OPERATIONS]
     },
     {
-      height: 105,
+      height: 123,
       block: `
-        <block type="xrpl_wallet_sign" x="0" y="0"></block>
+        <block type="xrpl_submit_transaction" x="0" y="0"></block>
       `,
-      title: "Sign Wallet",
-      description: "Sign a transaction with the wallet's private key to authorize it.",
+      title: "XRPL Easy Submit",
+      description: "Submit a transaction to the XRPL with autofill capability. Specify the XRPL client, wallet, and transaction. The transaction will be automatically filled with necessary details and the result will be stored in the specified variable.",
       categories: ["xrpl"],
-      blockType: "xrpl_wallet_sign",
+      blockType: "xrpl_submit_transaction",
       subCategories: [XRPLSubCategories.TRANSACTIONS]
-    },
-    {
-      height: 105,
-      block: `
-        <block type="xrpl_command_submit" x="0" y="0"></block>
-      `,
-      title: "Submit",
-      description: "Submit a signed transaction to the XRPL network for processing.",
-      categories: ["xrpl"],
-      blockType: "xrpl_command_submit",
-      subCategories: [XRPLSubCategories.TRANSACTIONS]
-    },
-    {
-      height: 50,
-      block: `
-        <block type="datetime_to_ripple_epoch" x="0" y="0"></block>
-      `,
-      title: "DateTime to Ripple Epoch",
-      description: "Convert a date and time to Ripple epoch time.",
-      categories: ["xrpl"],
-      blockType: "datetime_to_ripple_epoch",
-      subCategories: [XRPLSubCategories.TIME_OPERATIONS]
-    },
-    {
-      height: 50,
-      block: `
-        <block type="ripple_epoch_to_datetime" x="0" y="0"></block>
-      `,
-      title: "Ripple Epoch to DateTime",
-      description: "Convert Ripple epoch time to date and time.",
-      categories: ["xrpl"],
-      blockType: "ripple_epoch_to_datetime",
-      subCategories: [XRPLSubCategories.TIME_OPERATIONS]
-    },
-    {
-      height: 50,
-      block: `
-        <block type="xrpl_token_select" x="0" y="0"></block>
-      `,
-      title: "XRPL Token Select",
-      description: "Select an issued token on the XRPL from the dropdown.",
-      categories: ["xrpl"],
-      blockType: "xrpl_token_select",
-      subCategories: [XRPLSubCategories.TOKEN_OPERATIONS]
-    },
-    {
-      height: 96,
-      block: `
-        <block type="xrpl_create_new_token" x="0" y="0"></block>
-      `,
-      title: "XRPL Create New Token",
-      description: "Create a new token on the XRPL by specifying the issuer address, currency code, and total supply.",
-      categories: ["xrpl"],
-      blockType: "xrpl_create_new_token",
-      subCategories: [XRPLSubCategories.TOKEN_OPERATIONS]
-    },
-    {
-      height: 50,
-      block: `
-        <block type="xrpl_token_amount_set" x="0" y="0"></block>
-      `,
-      title: "XRPL Token Amount",
-      description: "Set the amount of a token. Specify the information of the newly created token and its value.",
-      categories: ["xrpl"],
-      blockType: "xrpl_token_amount_set",
-      subCategories: [XRPLSubCategories.TOKEN_OPERATIONS]
-    },
-    {
-      height: 50,
-      block: `
-        <block type="xrpl_token_amount_arithmetic" x="0" y="0"></block>
-      `,
-      title: "XRPL Token Amount Arithmetic",
-      description: "Perform arithmetic operations on XRPL token amounts.This block allows you to add, subtract, multiply, or divide an XRPL token amount by a given value. The 'TOKEN' input can be an XRPL token amount object, a number, or a string representation of a number. The 'OPERATOR' dropdown selects the arithmetic operation to perform, and the 'VALUE' input specifies the number to apply the operation to.The output of this block is a new XRPL token amount object with the result of the arithmetic operation.",
-      categories: ["xrpl"],
-      blockType: "xrpl_token_amount_arithmetic",
-      subCategories: [XRPLSubCategories.TOKEN_OPERATIONS]
-    },
-    {
-      height: 98.5,
-      block: `
-        <block type="xrpl_clio_command_nft_info" x="0" y="0"></block>
-      `,
-      title: "XRPL Get NFT Info",
-      description: "Get information about an NFT (Non-Fungible Token) on the XRPL using the Clio API service.This block allows you to fetch details about a specific NFT, including its owner, metadata, and other properties. The 'XRPL client' input specifies the client connection to the XRPL, which is required to interact with the Clio API. The 'NFT ID' input is the unique identifier of the NFT you want to retrieve information for.The block outputs the status of the operation ('success' or 'error') and the response data from the Clio API, which can be used for further processing in your program. Note: Using this block requires an active connection to the Clio API service, which provides access to the XRPL data.",
-      categories: ["xrpl"],
-      blockType: "xrpl_clio_command_nft_info",
-      subCategories: [XRPLSubCategories.NFT_OPERATIONS]
-    },
-    {
-      height: 143.5,
-      block: `
-        <block type="xrpl_payload_nftoken_buy_offer" x="0" y="0"></block>
-      `,
-      title: "XRPL NFT Buy offer Payload",
-      description: "This block creates an NFT buy offer payload that includes the specified information about the token and its value. The generated payload can be used to submit an NFT buy offer transaction on the XRPL network.",
-      categories: ["xrpl"],
-      blockType: "xrpl_payload_nftoken_buy_offer",
-      subCategories: [XRPLSubCategories.NFT_OPERATIONS]
-    },
-    {
-      height: 50,
-      block: `
-        <block type="xrpl_payload_rippling" x="0" y="0"></block>
-      `,
-      title: "XRPL Rippling",
-      description: "Create a rippling transaction for the XRPL. Specify whether to enable or disable rippling and the address to set this for.",
-      categories: ["xrpl"],
-      blockType: "xrpl_payload_rippling",
-      subCategories: [XRPLSubCategories.TRUST_LINE_OPERATIONS]
     },
     {
       height: 99,
@@ -323,14 +213,135 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       subCategories: [XRPLSubCategories.TRANSACTIONS]
     },
     {
+      height: 105,
+      block: `
+        <block type="xrpl_wallet_sign" x="0" y="0"></block>
+      `,
+      title: "Sign Wallet",
+      description: "Sign a transaction with the wallet's private key to authorize it.",
+      categories: ["xrpl"],
+      blockType: "xrpl_wallet_sign",
+      subCategories: [XRPLSubCategories.TRANSACTIONS]
+    },
+    {
+      height: 105,
+      block: `
+        <block type="xrpl_command_submit_signed_transaction" x="0" y="0"></block>
+      `,
+      title: "Submit",
+      description: "Submit a signed transaction to the XRPL network for processing.",
+      categories: ["xrpl"],
+      blockType: "xrpl_command_submit_signed_transaction",
+      subCategories: [XRPLSubCategories.TRANSACTIONS]
+    },
+    {
+      height: 50,
+      block: `
+        <block type="xrpl_datetime_to_ripple_epoch" x="0" y="0"></block>
+      `,
+      title: "DateTime to Ripple Epoch",
+      description: "Convert a date and time to Ripple epoch time.",
+      categories: ["xrpl"],
+      blockType: "xrpl_datetime_to_ripple_epoch",
+      subCategories: [XRPLSubCategories.TIME_OPERATIONS]
+    },
+    {
+      height: 50,
+      block: `
+        <block type="xrpl_ripple_epoch_to_datetime" x="0" y="0"></block>
+      `,
+      title: "Ripple Epoch to DateTime",
+      description: "Convert Ripple epoch time to date and time.",
+      categories: ["xrpl"],
+      blockType: "xrpl_ripple_epoch_to_datetime",
+      subCategories: [XRPLSubCategories.TIME_OPERATIONS]
+    },
+    {
+      height: 50,
+      block: `
+        <block type="xrpl_select_token" x="0" y="0"></block>
+      `,
+      title: "XRPL Token Select",
+      description: "Select an issued token on the XRPL from the dropdown.",
+      categories: ["xrpl"],
+      blockType: "xrpl_select_token",
+      subCategories: [XRPLSubCategories.TOKEN_OPERATIONS]
+    },
+    {
+      height: 96,
+      block: `
+        <block type="xrpl_define_token_data" x="0" y="0"></block>
+      `,
+      title: "XRPL Define Token Data",
+      description: "Define token data for use in XRP Ledger operations. Specify the issuer address, currency code, and total supply. Note: This does not create a token on the ledger, but prepares the data for future use.",
+      categories: ["xrpl"],
+      blockType: "xrpl_define_token_data",
+      subCategories: [XRPLSubCategories.TOKEN_OPERATIONS]
+    },
+    {
+      height: 86,
+      block: `
+        <block type="xrpl_set_token_amount" x="0" y="0"></block>
+      `,
+      title: "XRPL Token Amount",
+      description: "Set the amount of a token. Specify the information of the newly created token and its value.",
+      categories: ["xrpl"],
+      blockType: "xrpl_set_token_amount",
+      subCategories: [XRPLSubCategories.TOKEN_OPERATIONS]
+    },
+    {
+      height: 50,
+      block: `
+        <block type="xrpl_calculate_token_amount" x="0" y="0"></block>
+      `,
+      title: "XRPL Token Amount Arithmetic",
+      description: "Perform arithmetic operations on XRPL token amounts.This block allows you to add, subtract, multiply, or divide an XRPL token amount by a given value. The 'TOKEN' input can be an XRPL token amount object, a number, or a string representation of a number. The 'OPERATOR' dropdown selects the arithmetic operation to perform, and the 'VALUE' input specifies the number to apply the operation to.The output of this block is a new XRPL token amount object with the result of the arithmetic operation.",
+      categories: ["xrpl"],
+      blockType: "xrpl_calculate_token_amount",
+      subCategories: [XRPLSubCategories.TOKEN_OPERATIONS]
+    },
+    {
+      height: 98.5,
+      block: `
+        <block type="xrpl_command_get_nft_info" x="0" y="0"></block>
+      `,
+      title: "XRPL Get NFT Info",
+      description: "Get information about an NFT (Non-Fungible Token) on the XRPL using the Clio API service.This block allows you to fetch details about a specific NFT, including its owner, metadata, and other properties. The 'XRPL client' input specifies the client connection to the XRPL, which is required to interact with the Clio API. The 'NFT ID' input is the unique identifier of the NFT you want to retrieve information for.The block outputs the status of the operation ('success' or 'error') and the response data from the Clio API, which can be used for further processing in your program. Note: Using this block requires an active connection to the Clio API service, which provides access to the XRPL data.",
+      categories: ["xrpl"],
+      blockType: "xrpl_command_get_nft_info",
+      subCategories: [XRPLSubCategories.NFT_OPERATIONS]
+    },
+    {
+      height: 143.5,
+      block: `
+        <block type="xrpl_payload_nft_buy_offer" x="0" y="0"></block>
+      `,
+      title: "XRPL NFT Buy offer Payload",
+      description: "This block creates an NFT buy offer payload that includes the specified information about the token and its value. The generated payload can be used to submit an NFT buy offer transaction on the XRPL network.",
+      categories: ["xrpl"],
+      blockType: "xrpl_payload_nft_buy_offer",
+      subCategories: [XRPLSubCategories.NFT_OPERATIONS]
+    },
+    {
+      height: 50,
+      block: `
+        <block type="xrpl_payload_rippling_config" x="0" y="0"></block>
+      `,
+      title: "XRPL Rippling",
+      description: "Create a rippling transaction for the XRPL. Specify whether to enable or disable rippling and the address to set this for.",
+      categories: ["xrpl"],
+      blockType: "xrpl_payload_rippling_config",
+      subCategories: [XRPLSubCategories.TRUST_LINE_OPERATIONS]
+    },
+    {
       height: 99,
       block: `
-        <block type="xrpl_payload_trust_set" x="0" y="0"></block>
+        <block type="xrpl_payload_trustline_config" x="0" y="0"></block>
       `,
       title: "XRPL Trust Set",
       description: "Create a trust line setting transaction for the XRPL. Specify the token and the address to set the trust line for.",
       categories: ["xrpl"],
-      blockType: "xrpl_payload_trust_set",
+      blockType: "xrpl_payload_trustline_config",
       subCategories: [XRPLSubCategories.TRUST_LINE_OPERATIONS]
     },
     {
@@ -347,56 +358,45 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
     {
       height: 120,
       block: `
-        <block type="xrpl_payload_payment_token" x="0" y="0"></block>
+        <block type="xrpl_payload_token_payment" x="0" y="0"></block>
       `,
       title: "XRPL Payment Token",
       description: "Create a payment transaction on the XRPL. Specify the token, account address, destination address, and amount for the transaction.",
       categories: ["xrpl"],
-      blockType: "xrpl_payload_payment_token",
+      blockType: "xrpl_payload_token_payment",
       subCategories: [XRPLSubCategories.TOKEN_OPERATIONS]
     },
     {
       height: 120,
       block: `
-        <block type="xrpl_payload_buy_token_offer" x="0" y="0"></block>
+        <block type="xrpl_payload_token_buy_offer" x="0" y="0"></block>
       `,
       title: "XRPL Buy Offer",
       description: "Create a buy offer for tokens on the XRPL DEX.",
       categories: ["xrpl"],
-      blockType: "xrpl_payload_buy_token_offer",
+      blockType: "xrpl_payload_token_buy_offer",
       subCategories: [XRPLSubCategories.DEX_OPERATIONS]
     },
     {
       height: 120,
       block: `
-        <block type="xrpl_payload_sale_token_offer" x="0" y="0"></block>
+        <block type="xrpl_payload_token_sell_offer" x="0" y="0"></block>
       `,
-      title: "XRPL Sale Offer",
+      title: "XRPL Sell Offer",
       description: "Create a sale offer for tokens on the XRPL DEX.",
       categories: ["xrpl"],
-      blockType: "xrpl_payload_sale_token_offer",
+      blockType: "xrpl_payload_token_sell_offer",
       subCategories: [XRPLSubCategories.DEX_OPERATIONS]
-    },
-    {
-      height: 123,
-      block: `
-        <block type="xrpl_easy_submit" x="0" y="0"></block>
-      `,
-      title: "XRPL Easy Submit",
-      description: "Submit a transaction to the XRPL with autofill capability. Specify the XRPL client, wallet, and transaction. The transaction will be automatically filled with necessary details and the result will be stored in the specified variable.",
-      categories: ["xrpl"],
-      blockType: "xrpl_easy_submit",
-      subCategories: [XRPLSubCategories.TRANSACTIONS]
     },
     {
       height: 23.5,
       block: `
-        <block type="xrpl_txn_type_select" x="0" y="0"></block>
+        <block type="xrpl_transaction_type" x="0" y="0"></block>
       `,
       title: "XRPL Transaction Type Select",
       description: "Select an XRPL transaction type from the dropdown.",
       categories: ["xrpl"],
-      blockType: "xrpl_txn_type_select",
+      blockType: "xrpl_transaction_type",
       subCategories: [XRPLSubCategories.TRANSACTIONS]
     },
     {
@@ -514,10 +514,10 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                       <statement name="DO0">
                         <block type="xrpl_client_initialize" id="+C3Ae85(~-GN{3=Z-JG8">
                           <field name="XRPL_CLIENT" id="a8odClXjH1#I}N7#T6SE">xrplClient</field>
-                          <value name="SERVER">
-                            <block type="xrpl_network_wss_selection" id=")H?Jo:o~?BriyHM\`bRJ6">
+                          <value name="WEBSOCKET_ENDPOINT">
+                            <block type="xrpl_select_websocket_endpoint" id=")H?Jo:o~?BriyHM\`bRJ6">
                               <field name="NETWORK_TYPE">xrpl</field>
-                              <field name="CONNECTION">wss://s1.ripple.com</field>
+                              <field name="WEBSOCKET_ENDPOINT">wss://s1.ripple.com</field>
                             </block>
                           </value>
                           <next>
@@ -530,7 +530,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                       <field name="VAR" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
                                     </block>
                                   </value>
-                                  <value name="NAME">
+                                  <value name="VARIABLE_NAME">
                                     <block type="text" id="(HrFw\`f?[I?!9nq=?VL;">
                                       <field name="TEXT">NFT ID</field>
                                     </block>
@@ -557,7 +557,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                   <field name="VAR" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
                                                 </block>
                                               </value>
-                                              <value name="NAME">
+                                              <value name="VARIABLE_NAME">
                                                 <block type="text" id="JB86.!%BiC/9M[b|*=kk">
                                                   <field name="TEXT">Bid Step (XRP)</field>
                                                 </block>
@@ -578,7 +578,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                       <field name="VAR" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
                                                     </block>
                                                   </value>
-                                                  <value name="NAME">
+                                                  <value name="VARIABLE_NAME">
                                                     <block type="text" id="zKPU[^RDo_UR}HhTcLip">
                                                       <field name="TEXT">Starting Bid (XRP)</field>
                                                     </block>
@@ -588,7 +588,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                             </block>
                                           </value>
                                           <next>
-                                            <block type="xrpl_clio_command_nft_info" id="r:\$S9Ux;2ll*T-vMh9s5">
+                                            <block type="xrpl_command_get_nft_info" id="r:\$S9Ux;2ll*T-vMh9s5">
                                               <field name="IS_ERROR" id="kl-en5*aAB2BPE{LbmLd">isError</field>
                                               <field name="NFT_INFO" id="H8?7.T:4!\`hKG.w57*E^">response</field>
                                               <value name="XRPL_CLIENT">
@@ -671,7 +671,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                   <field name="VAR" id="3ZAKt=2Sbga)Go6jb5u~">sortedOffers</field>
                                                                   <value name="VALUE">
                                                                     <block type="lists_sort_json_value" id="0Xo3wy?|DNREr3AF5wy7">
-                                                                      <field name="TYPE">numeric</field>
+                                                                      <field name="COMPARISON_TYPE">numeric</field>
                                                                       <field name="ORDER">desc</field>
                                                                       <value name="LIST">
                                                                         <block type="json_get_value" id="Gr?d{/i=gMG[\`;Fx2f7=">
@@ -790,7 +790,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                                         <block type="variables_set" id="%\`[/Cq{~h.hy:7j(X0*(">
                                                                                           <field name="VAR" id="-9^X_9!F{?~WFtM=)|,|">newAmount</field>
                                                                                           <value name="VALUE">
-                                                                                            <block type="xrpl_token_amount_arithmetic" id="2W!d(2lWtzh*\$Y}qquMb">
+                                                                                            <block type="xrpl_calculate_token_amount" id="2W!d(2lWtzh*\$Y}qquMb">
                                                                                               <field name="OPERATOR">+</field>
                                                                                               <value name="TOKEN">
                                                                                                 <block type="variables_get" id="R.xXId;3YbU7L%/!ZIz[">
@@ -808,13 +808,13 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                                             <block type="variables_set" id="}Y2]]LZ[.(Y]W4!Rx4EJ">
                                                                                               <field name="VAR" id="L*8JxJvWWO)aF+}m,c\$w">buyPayload</field>
                                                                                               <value name="VALUE">
-                                                                                                <block type="xrpl_payload_nftoken_buy_offer" id="Pp@](4f.^%k=Ik_6#tV[">
+                                                                                                <block type="xrpl_payload_nft_buy_offer" id="Pp@](4f.^%k=Ik_6#tV[">
                                                                                                   <value name="OWNER_ID">
                                                                                                     <block type="variables_get" id="\`X/E_RJ[RNkF]Uy4R2[T">
                                                                                                       <field name="VAR" id="eSJu}OSb8qa\${afKZ/9m">ownerAddress</field>
                                                                                                     </block>
                                                                                                   </value>
-                                                                                                  <value name="TOKEN_ID">
+                                                                                                  <value name="NFT_ID">
                                                                                                     <block type="variables_get" id="P(LAeP:SD5M6qaCpW?/y">
                                                                                                       <field name="VAR" id="^C=-[p.p[Yv,Ydoajoxh">nftID</field>
                                                                                                     </block>
@@ -824,7 +824,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                                                       <field name="VAR" id="-9^X_9!F{?~WFtM=)|,|">newAmount</field>
                                                                                                     </block>
                                                                                                   </value>
-                                                                                                  <value name="DESTINATION">
+                                                                                                  <value name="DESTINATION_ADDRESS">
                                                                                                     <block type="variables_get" id="DU5Gt^HQ?OluC0^n1.]h">
                                                                                                       <field name="VAR" id="8I/xk/gsj-/y/X|Gv.sG">brokerAddress</field>
                                                                                                     </block>
@@ -832,10 +832,10 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                                                 </block>
                                                                                               </value>
                                                                                               <next>
-                                                                                                <block type="xaman_payload_set" id="7?SmzTKr2rpjh|[;L]a)">
+                                                                                                <block type="xaman_request_transaction_signature" id="7?SmzTKr2rpjh|[;L]a)">
                                                                                                   <field name="IS_ERROR" id="kl-en5*aAB2BPE{LbmLd">isError</field>
                                                                                                   <field name="PAYLOAD_ID" id="}r8U68uAomtU|j6ig4wf">payloadID</field>
-                                                                                                  <value name="PAYLOAD">
+                                                                                                  <value name="TRANSACTION_PAYLOAD">
                                                                                                     <block type="variables_get" id="\`wTCT/pU+PX]9y@875@y">
                                                                                                       <field name="VAR" id="L*8JxJvWWO)aF+}m,c\$w">buyPayload</field>
                                                                                                     </block>
@@ -871,13 +871,13 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                 <block type="variables_set" id="yHgFVF3Y\$@@v0mj7n)9v">
                                                                   <field name="VAR" id="L*8JxJvWWO)aF+}m,c\$w">buyPayload</field>
                                                                   <value name="VALUE">
-                                                                    <block type="xrpl_payload_nftoken_buy_offer" id="vCo#Y[7lpY=3.-|FHqJC">
+                                                                    <block type="xrpl_payload_nft_buy_offer" id="vCo#Y[7lpY=3.-|FHqJC">
                                                                       <value name="OWNER_ID">
                                                                         <block type="variables_get" id="uD~%S*8=odMX?n=M\`iLy">
                                                                           <field name="VAR" id="eSJu}OSb8qa\${afKZ/9m">ownerAddress</field>
                                                                         </block>
                                                                       </value>
-                                                                      <value name="TOKEN_ID">
+                                                                      <value name="NFT_ID">
                                                                         <block type="variables_get" id="PZB^j@K]p}ji(C+jT1,#">
                                                                           <field name="VAR" id="^C=-[p.p[Yv,Ydoajoxh">nftID</field>
                                                                         </block>
@@ -887,7 +887,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                           <field name="VAR" id="g\$p.34oz2Ndzsh\`^\`8%n">startBid</field>
                                                                         </block>
                                                                       </value>
-                                                                      <value name="DESTINATION">
+                                                                      <value name="DESTINATION_ADDRESS">
                                                                         <block type="variables_get" id="r;xKjp9*xSA7AUgageb1">
                                                                           <field name="VAR" id="8I/xk/gsj-/y/X|Gv.sG">brokerAddress</field>
                                                                         </block>
@@ -895,10 +895,10 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                     </block>
                                                                   </value>
                                                                   <next>
-                                                                    <block type="xaman_payload_set" id="Iw\$Z5moeR7pG}RpY}tkG">
+                                                                    <block type="xaman_request_transaction_signature" id="Iw\$Z5moeR7pG}RpY}tkG">
                                                                       <field name="IS_ERROR" id="kl-en5*aAB2BPE{LbmLd">isError</field>
                                                                       <field name="PAYLOAD_ID" id="}r8U68uAomtU|j6ig4wf">payloadID</field>
-                                                                      <value name="PAYLOAD">
+                                                                      <value name="TRANSACTION_PAYLOAD">
                                                                         <block type="variables_get" id="bNjksdGgpa0ptGZ(3j.A">
                                                                           <field name="VAR" id="L*8JxJvWWO)aF+}m,c\$w">buyPayload</field>
                                                                         </block>
@@ -918,13 +918,13 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                               </statement>
                                                               <next>
                                                                 <block type="wait_seconds" id="]f[0m)]+tG]\`xv~X(1X,">
-                                                                  <value name="TIME">
+                                                                  <value name="SECONDS">
                                                                     <block type="math_number" id="\$6~-~57vqv{L19ir:r6L">
                                                                       <field name="NUM">5</field>
                                                                     </block>
                                                                   </value>
                                                                   <next>
-                                                                    <block type="xrpl_clio_command_nft_info" id="sQs%af+kf#)_n4~cP\`z)">
+                                                                    <block type="xrpl_command_get_nft_info" id="sQs%af+kf#)_n4~cP\`z)">
                                                                       <field name="IS_ERROR" id="kl-en5*aAB2BPE{LbmLd">isError</field>
                                                                       <field name="NFT_INFO" id="H8?7.T:4!\`hKG.w57*E^">response</field>
                                                                       <value name="XRPL_CLIENT">
@@ -1010,10 +1010,10 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
             </variables>
             <block type="xrpl_create_account_and_request_faucet" id="G)}V,za@edq^YN@CIzmj" x="0" y="0">
               <field name="FAUCET_INFO" id="}=@y]lR)yo\$7jm\${%)~Q">issuerInfo</field>
-              <value name="CONNECTION">
-                <block type="xrpl_network_wss_selection" id="/t(|RBJj0}q|LuIn(ag6">
+              <value name="WEBSOCKET_ENDPOINT">
+                <block type="xrpl_select_websocket_endpoint" id="/t(|RBJj0}q|LuIn(ag6">
                   <field name="NETWORK_TYPE">xrpl</field>
-                  <field name="CONNECTION">wss://s.altnet.rippletest.net:51233</field>
+                  <field name="WEBSOCKET_ENDPOINT">wss://s.altnet.rippletest.net:51233</field>
                 </block>
               </value>
               <value name="XRP_AMOUNT">
@@ -1042,7 +1042,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                     <block type="variables_set" id=";RzTIWE0bTNF[sCO[-o{">
                       <field name="VAR" id="y(c/b\`2w_ExT-MP[t]o2">token</field>
                       <value name="VALUE">
-                        <block type="xrpl_create_new_token" id="xj4t7^/lk17OuJX\`(3(i">
+                        <block type="xrpl_define_token_data" id="xj4t7^/lk17OuJX\`(3(i">
                           <value name="ISSUER_ADDRESS">
                             <block type="variables_get" id="}{avAx},E59Dd}Mj469O">
                               <field name="VAR" id="=%)Saa;n}:JDCT)JwuHf">issuerAddress</field>
@@ -1074,16 +1074,16 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                           <next>
                             <block type="xrpl_client_initialize" id="7xl8[+*psP%_%QdmXe*I">
                               <field name="XRPL_CLIENT" id="Xe_Um=04.A}Pm;=wMsX:">xrplClient</field>
-                              <value name="SERVER">
-                                <block type="xrpl_network_wss_selection" id="xdv1J7TW7N?npM%ee!R2">
+                              <value name="WEBSOCKET_ENDPOINT">
+                                <block type="xrpl_select_websocket_endpoint" id="xdv1J7TW7N?npM%ee!R2">
                                   <field name="NETWORK_TYPE">xrpl</field>
-                                  <field name="CONNECTION">wss://s.altnet.rippletest.net:51233</field>
+                                  <field name="WEBSOCKET_ENDPOINT">wss://s.altnet.rippletest.net:51233</field>
                                 </block>
                               </value>
                               <next>
                                 <block type="xrpl_load_wallet" id="4JB\$@tr9U)!^+|is{F)c">
                                   <field name="WALLET_ID" id="bxPm,KY=-@8vtu*bSGsp">issuerWallet</field>
-                                  <value name="SEED">
+                                  <value name="WALLET_SEED">
                                     <block type="json_get_value" id="VgA(ukOC-bDq/e|HwZiU">
                                       <value name="JSON">
                                         <block type="variables_get" id="|n[iv*[w\`!Fu\$ofqAW4A">
@@ -1098,7 +1098,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                     </block>
                                   </value>
                                   <next>
-                                    <block type="xrpl_easy_submit" id="YCpMl^~Xl/D[s@1r,@*W">
+                                    <block type="xrpl_submit_transaction" id="YCpMl^~Xl/D[s@1r,@*W">
                                       <field name="SUBMIT_RESULT" id="IuTgNBpqZmM*Wnx4\`!pt">submitResult</field>
                                       <value name="XRPL_CLIENT">
                                         <block type="variables_get" id="3behGs!l[P*BUD-K7:,v">
@@ -1110,10 +1110,10 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                           <field name="VAR" id="bxPm,KY=-@8vtu*bSGsp">issuerWallet</field>
                                         </block>
                                       </value>
-                                      <value name="PAYLOAD">
-                                        <block type="xrpl_payload_rippling" id="t*yU?=oC%].mFct)8{N_">
+                                      <value name="TRANSACTION_PAYLOAD">
+                                        <block type="xrpl_payload_rippling_config" id="t*yU?=oC%].mFct)8{N_">
                                           <field name="RIPPLING">ENABLE</field>
-                                          <value name="ADDRESS">
+                                          <value name="ACCOUNT_ADDRESS">
                                             <block type="variables_get" id="l_Uc|PZ.Z{Q[N|14M.Q}">
                                               <field name="VAR" id="=%)Saa;n}:JDCT)JwuHf">issuerAddress</field>
                                             </block>
@@ -1123,10 +1123,10 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                       <next>
                                         <block type="xrpl_create_account_and_request_faucet" id=".37*Z?f!S\$pta5V^P,zS">
                                           <field name="FAUCET_INFO" id="GF3QbB*ZmaBxon@!4?FH">faucetInfo</field>
-                                          <value name="CONNECTION">
-                                            <block type="xrpl_network_wss_selection" id="l0m{q9k[f.BLrAzCVfi#">
+                                          <value name="WEBSOCKET_ENDPOINT">
+                                            <block type="xrpl_select_websocket_endpoint" id="l0m{q9k[f.BLrAzCVfi#">
                                               <field name="NETWORK_TYPE">xrpl</field>
-                                              <field name="CONNECTION">wss://s.altnet.rippletest.net:51233</field>
+                                              <field name="WEBSOCKET_ENDPOINT">wss://s.altnet.rippletest.net:51233</field>
                                             </block>
                                           </value>
                                           <value name="XRP_AMOUNT">
@@ -1154,7 +1154,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                               <next>
                                                 <block type="xrpl_load_wallet" id="e8o.n)_s~QV]i4lOeDQ{">
                                                   <field name="WALLET_ID" id="xMBzI7UBn!L3](uO_[sm">userWallet</field>
-                                                  <value name="SEED">
+                                                  <value name="WALLET_SEED">
                                                     <block type="json_get_value" id="_O9**!zzQsJXa\`BxXg\$L">
                                                       <value name="JSON">
                                                         <block type="variables_get" id="bw\`s/+K#0HMWjCTxNT4,">
@@ -1169,7 +1169,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                     </block>
                                                   </value>
                                                   <next>
-                                                    <block type="xrpl_easy_submit" id="o]ih?DJ_y#jsw1b1|2Yv">
+                                                    <block type="xrpl_submit_transaction" id="o]ih?DJ_y#jsw1b1|2Yv">
                                                       <field name="SUBMIT_RESULT" id="IuTgNBpqZmM*Wnx4\`!pt">submitResult</field>
                                                       <value name="XRPL_CLIENT">
                                                         <block type="variables_get" id="wLJW6OuwaK_/QZ2/89Uy">
@@ -1181,8 +1181,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                           <field name="VAR" id="xMBzI7UBn!L3](uO_[sm">userWallet</field>
                                                         </block>
                                                       </value>
-                                                      <value name="PAYLOAD">
-                                                        <block type="xrpl_payload_trust_set" id="\$^z21d,u*nnCB(_(7U\$]">
+                                                      <value name="TRANSACTION_PAYLOAD">
+                                                        <block type="xrpl_payload_trustline_config" id="\$^z21d,u*nnCB(_(7U\$]">
                                                           <value name="CURRECY_CODE_AND_ISSUER_AND_SUPPLY">
                                                             <block type="variables_get" id="=nE\$BGkDwF45#N!LSZB0">
                                                               <field name="VAR" id="y(c/b\`2w_ExT-MP[t]o2">token</field>
@@ -1196,7 +1196,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                         </block>
                                                       </value>
                                                       <next>
-                                                        <block type="xrpl_easy_submit" id="ng9+*1dnrg3(#UG2A5|d">
+                                                        <block type="xrpl_submit_transaction" id="ng9+*1dnrg3(#UG2A5|d">
                                                           <field name="SUBMIT_RESULT" id="IuTgNBpqZmM*Wnx4\`!pt">submitResult</field>
                                                           <value name="XRPL_CLIENT">
                                                             <block type="variables_get" id="i24~A]BPk9~juHxjO0~8">
@@ -1208,8 +1208,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                               <field name="VAR" id="xMBzI7UBn!L3](uO_[sm">userWallet</field>
                                                             </block>
                                                           </value>
-                                                          <value name="PAYLOAD">
-                                                            <block type="xrpl_payload_buy_token_offer" id="FIB(nUf,@e%(pd0w9eeb">
+                                                          <value name="TRANSACTION_PAYLOAD">
+                                                            <block type="xrpl_payload_token_buy_offer" id="FIB(nUf,@e%(pd0w9eeb">
                                                               <value name="ACCOUNT_ADDRESS">
                                                                 <block type="variables_get" id="XPqhM#Ljg6_u(%{+5:qU">
                                                                   <field name="VAR" id="/}dNVuDet})7KIAd!{;V">userAddress</field>
@@ -1225,7 +1225,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                   <field name="NUM">1</field>
                                                                 </block>
                                                               </value>
-                                                              <value name="XRP_AMOUNT">
+                                                              <value name="XRP_DROPS_AMOUNT">
                                                                 <block type="math_number" id="5Clcj{)%-(Ip-@/it4gu">
                                                                   <field name="NUM">10</field>
                                                                 </block>
@@ -1233,7 +1233,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                             </block>
                                                           </value>
                                                           <next>
-                                                            <block type="xrpl_easy_submit" id="j_6=:#W6:xlB4D{;74me">
+                                                            <block type="xrpl_submit_transaction" id="j_6=:#W6:xlB4D{;74me">
                                                               <field name="SUBMIT_RESULT" id="IuTgNBpqZmM*Wnx4\`!pt">submitResult</field>
                                                               <value name="XRPL_CLIENT">
                                                                 <block type="variables_get" id=":eFrew]b]h3gcajI*0+O">
@@ -1245,8 +1245,8 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                   <field name="VAR" id="bxPm,KY=-@8vtu*bSGsp">issuerWallet</field>
                                                                 </block>
                                                               </value>
-                                                              <value name="PAYLOAD">
-                                                                <block type="xrpl_payload_sale_token_offer" id="UXj7\`J@]Da+|D38AdCSM">
+                                                              <value name="TRANSACTION_PAYLOAD">
+                                                                <block type="xrpl_payload_token_sell_offer" id="UXj7\`J@]Da+|D38AdCSM">
                                                                   <value name="ACCOUNT_ADDRESS">
                                                                     <block type="variables_get" id="|bOfsJN14/#g]a.^3ZI+">
                                                                       <field name="VAR" id="=%)Saa;n}:JDCT)JwuHf">issuerAddress</field>
@@ -1262,7 +1262,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                       <field name="NUM">1</field>
                                                                     </block>
                                                                   </value>
-                                                                  <value name="XRP_AMOUNT">
+                                                                  <value name="XRP_DROPS_AMOUNT">
                                                                     <block type="math_number" id="CA!KZ0H^xm38L{Ye/AMx">
                                                                       <field name="NUM">10</field>
                                                                     </block>
@@ -1381,10 +1381,10 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
         </variables>
         <block type="xrpl_client_initialize" id="A3y[!Z-60*aOL%.5r!y]" x="0" y="0">
           <field name="XRPL_CLIENT" id="kDLr-FS(n4n(\`vJ2c9#$">xrplClient</field>
-          <value name="SERVER">
-            <block type="xrpl_network_wss_selection" id="F4aUDcaP%cN[tf)la4.C">
+          <value name="WEBSOCKET_ENDPOINT">
+            <block type="xrpl_select_websocket_endpoint" id="F4aUDcaP%cN[tf)la4.C">
               <field name="NETWORK_TYPE">xrpl</field>
-              <field name="CONNECTION">wss://xrplcluster.com</field>
+              <field name="WEBSOCKET_ENDPOINT">wss://xrplcluster.com</field>
             </block>
           </value>
           <next>
@@ -1427,10 +1427,10 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                       <statement name="DO0">
                         <block type="xrpl_extract_transaction_details" id="mu%aZtLf442Tdp}0H}zR">
                           <field name="TRANSACTION_TYPE" id="V|9D3)Jg@[SNY=:1*57o">transactionType</field>
-                          <field name="ACCOUNT" id="$F;Acx^Tl;0FeJ\`tBI(z">account</field>
+                          <field name="ACCOUNT_ADDRESS" id="$F;Acx^Tl;0FeJ\`tBI(z">account</field>
                           <field name="LEDGER_INDEX" id="lKc/v\`weu]x|QzZY%czN">ledgerIndex</field>
                           <field name="TRANSACTION_HASH" id=":5?1N~|AcY;T\`R_lm$b(">transactionHash</field>
-                          <field name="AMOUNT_DATE" id="xWg\`}7GJ$AR,I7(1B-hX">date</field>
+                          <field name="TRANSACTION_DATE" id="xWg\`}7GJ$AR,I7(1B-hX">date</field>
                           <value name="TRANSACTION_JSON">
                             <block type="variables_get" id="C]VQ]\`:ML+Nu!ge[Vq6N">
                               <field name="VAR" id="LSjNV)z/ozI_7F|ntY{A">transaction</field>
@@ -1447,7 +1447,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                     </block>
                                   </value>
                                   <value name="B">
-                                    <block type="xrpl_txn_type_select" id="BzpQ4fEwA/il!W/3O\`LM">
+                                    <block type="xrpl_transaction_type" id="BzpQ4fEwA/il!W/3O\`LM">
                                       <field name="TRANSACTION_TYPE">OfferCreate</field>
                                     </block>
                                   </value>
@@ -1643,10 +1643,10 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
           <next>
             <block type="xrpl_client_initialize" id="QF9@!2dA)Z8=f%C_QKL9">
               <field name="XRPL_CLIENT" id="~_b6iJcgV_ym.fFIk9j5">xrplClient</field>
-              <value name="SERVER">
-                <block type="xrpl_network_wss_selection" id="6MjF0aai[X_)@BZ@D5tL">
+              <value name="WEBSOCKET_ENDPOINT">
+                <block type="xrpl_select_websocket_endpoint" id="6MjF0aai[X_)@BZ@D5tL">
                   <field name="NETWORK_TYPE">xrpl</field>
-                  <field name="CONNECTION">wss://xrplcluster.com</field>
+                  <field name="WEBSOCKET_ENDPOINT">wss://xrplcluster.com</field>
                 </block>
               </value>
               <next>
@@ -1657,7 +1657,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                       <field name="VAR" id="~_b6iJcgV_ym.fFIk9j5">xrplClient</field>
                     </block>
                   </value>
-                  <value name="ID">
+                  <value name="SUBSCRIBE_ID">
                     <block type="text" id="szuZMkYM4uzjqaTJ)TP)">
                       <field name="TEXT">subscribe1</field>
                     </block>
@@ -1692,7 +1692,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                           </value>
                           <next>
                             <block type="wait_seconds" id="Lh.z4b(E!=.#:geLI,zJ">
-                              <value name="TIME">
+                              <value name="SECONDS">
                                 <block type="math_number" id="*@[7MGd/A22fF=Yp2!}#">
                                   <field name="NUM">5</field>
                                 </block>
@@ -1733,7 +1733,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                           <field name="VAR" id="~_b6iJcgV_ym.fFIk9j5">xrplClient</field>
                                         </block>
                                       </value>
-                                      <value name="ID">
+                                      <value name="SUBSCRIBE_ID">
                                         <block type="text" id="9,v!Gt|]0k}#|~Y=\`9!B">
                                           <field name="TEXT">subscribe1</field>
                                         </block>
@@ -1781,10 +1781,10 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
         </variables>
         <block type="xrpl_create_account_and_request_faucet" id=":=JLQVa1*F#y98#Qd}*U" x="0" y="0">
           <field name="FAUCET_INFO" id="7NXq!4WpNW5XTiN(Uuo{">faucetInfo</field>
-          <value name="CONNECTION">
-          <block type="xrpl_network_wss_selection" id="N|OOQqSY4k]V~[J#q7]^">
+          <value name="WEBSOCKET_ENDPOINT">
+          <block type="xrpl_select_websocket_endpoint" id="N|OOQqSY4k]V~[J#q7]^">
             <field name="NETWORK_TYPE">xrpl</field>
-            <field name="CONNECTION">wss://s.altnet.rippletest.net:51233</field>
+            <field name="WEBSOCKET_ENDPOINT">wss://s.altnet.rippletest.net:51233</field>
           </block>
           </value>
           <value name="XRP_AMOUNT">
@@ -1824,22 +1824,22 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
     {
       height: 200,
       block: `
-        <block type="xaman_payment" x="0" y="0"></block>
+        <block type="xaman_request_payment_signature" x="0" y="0"></block>
       `,
       title: "Xaman Payment",
       description: "Process a payment using the Xaman system.",
-      blockType: "xaman_payment",
+      blockType: "xaman_request_payment_signature",
       categories: ["xaman"]
     },
     {
       height: 74.5,
       block: `
-        <block type="xaman_payload_set" x="0" y="0"></block>
+        <block type="xaman_request_transaction_signature" x="0" y="0"></block>
       `,
       title: "Xaman Payload",
       description: "Set a new payload for the Xaman XRPL wallet integration.This block allows you to create a new Xaman transaction payload, which can then be used to initiate a transaction on the XRP Ledger. The 'Payload' input should be a JSON object representing the transaction details, such as the recipient, amount, and other metadata.When the block is executed, it will attempt to create the new payload using the Xaman SDK. If successful, the block will output the status ('success') and the unique identifier (UUID) of the created payload. This payload ID can be used to further interact with the Xaman wallet integration, such as signing and submitting the transaction. Note: This block requires the user to be logged in to the Xaman wallet in order to create a new payload. If the user is not logged in, the block will output an error status.",
       categories: ["xaman"],
-      blockType: "xaman_payload_set",
+      blockType: "xaman_request_transaction_signature",
     },
     {
         height: 80,
@@ -1936,10 +1936,10 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       </variables>
       <block type="xrpl_create_account_and_request_faucet" id=",c#Q(9RsUi{$IzA=^Jd}" x="0" y="0">
         <field name="FAUCET_INFO" id="iFdY8EIySLEsg3B#+Kt6">faucetInfo</field>
-        <value name="CONNECTION">
-          <block type="xrpl_network_wss_selection" id="h0okwSp;l9/?R{=a-h]p">
+        <value name="WEBSOCKET_ENDPOINT">
+          <block type="xrpl_select_websocket_endpoint" id="h0okwSp;l9/?R{=a-h]p">
             <field name="NETWORK_TYPE">xrpl</field>
-            <field name="CONNECTION">wss://s.altnet.rippletest.net:51233</field>
+            <field name="WEBSOCKET_ENDPOINT">wss://s.altnet.rippletest.net:51233</field>
           </block>
         </value>
         <value name="XRP_AMOUNT">
@@ -1962,10 +1962,10 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
               <block type="xaman_login" id="Gz.V4*|xi#oV}Y_~}qSg">
                 <field name="USER_INFO" id="_fnZ#%D$iVPeh,vm[fqp">userInfo</field>
                 <next>
-                  <block type="xaman_payment" id="\`tbLE=kevs{~qXQucG,E">
+                  <block type="xaman_request_payment_signature" id="\`tbLE=kevs{~qXQucG,E">
                     <field name="PAYLOAD_ID" id="9/U)[:oS\`7#x2Mra]5Tu">payloadID</field>
                     <field name="IS_ERROR" id="h!l]-UQ|^nDpMUxd*|7G">isError</field>
-                    <value name="DESTINATION">
+                    <value name="DESTINATION_ADDRESS">
                       <block type="json_get_value" id="y8_lzp}Gd@9fXAQzyPxR">
                         <value name="JSON">
                           <block type="variables_get" id="Oj!dMl!A8d%F18b^B|I0">
@@ -1979,7 +1979,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                         </value>
                       </block>
                     </value>
-                    <value name="AMOUNT">
+                    <value name="XRP_DROPS_AMOUNT">
                       <block type="xrpl_xrp_to_drops" id="{6tW8_ogd8^hDxgdVLU[">
                         <value name="AMOUNT">
                           <block type="math_number" id="Sew^/j3d[mm]6bm_m~3J">
@@ -2152,12 +2152,12 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
     {
       height: 36.5,
       block: `
-        <block type="text_block_comment" x="0" y="0"></block>
+        <block type="code_multi_line_comment" x="0" y="0"></block>
       `,
       title: "Comment Out",
       description: "",
       categories: ["text"],
-      blockType: "text_block_comment",
+      blockType: "code_multi_line_comment",
     }
   ],
   math: [
@@ -2646,7 +2646,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                         <next>
                           <block type="xrpl_load_wallet" id="bQd%bB#g{sG,lCf\`||5S">
                             <field name="WALLET_ID" id="@}WJq[fy\`-m^WoiOK;5~">xrplWallet</field>
-                            <value name="SEED">
+                            <value name="WALLET_SEED">
                               <block type="variables_get" id="04uz+4fLy1juSr.EM+l1">
                                 <field name="VAR" id="ElY=y_c+SRB4UU!nMf(t">i</field>
                               </block>
@@ -2736,7 +2736,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                             <field name="VAR" id=";z!a2xC^GeJya%K349f$">result</field>
                           </block>
                         </value>
-                        <value name="NAME">
+                        <value name="VARIABLE_NAME">
                           <block type="text" id="c1+-UU()ma}Z2Y8~Hi0\`">
                             <field name="TEXT">Param1</field>
                           </block>
@@ -2867,7 +2867,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
           </block>
         </value>
         <value name="BODY">
-          <block type="json_input_block" id="KnNhwiSOzciirKAd$o4n">
+          <block type="json_create" id="KnNhwiSOzciirKAd$o4n">
             <field name="INPUT">{"data":"test"}</field>
           </block>
         </value>
@@ -3092,12 +3092,12 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
     {
       height: 23.5,
       block: `
-        <block type="json_input_block" x="0" y="0"></block>
+        <block type="json_create" x="0" y="0"></block>
       `,
       title: "JSON Object",
       description: "Convert text to a JSON object.",
       categories: ["json"],
-      blockType: "json_input_block",
+      blockType: "json_create",
     },
     {
       height: 70,
@@ -3112,12 +3112,12 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
     {
       height: 50,
       block: `
-        <block type="dynamic_json_key_values" x="0" y="0"></block>
+        <block type="json_add_key_value_pairs" x="0" y="0"></block>
       `,
       title: "Dynamic JSON Key-Value List",
       description: "Create a dynamic list of JSON key-value pairs.",
       categories: ["json"],
-      blockType: "dynamic_json_key_values",
+      blockType: "json_add_key_value_pairs",
     },
     {
       height: 50,

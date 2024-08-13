@@ -55,13 +55,13 @@ const workspaces = [
     id: 'step-4',
     block: `<block type="xrpl_request_faucet" x="0" y="0">
       <field name="FAUCET_INFO">faucetInfo</field>
-      <value name="CONNECTION">
-        <block type="xrpl_faucet_network_selection">
+      <value name="FAUCET_NETWORK_URI">
+        <block type="xrpl_select_faucet_network_uri">
           <field name="NETWORK_TYPE">xrpl</field>
-          <field name="CONNECTION">https://faucet.altnet.rippletest.net/accounts</field>
+          <field name="FAUCET_NETWORK_URI">https://faucet.altnet.rippletest.net/accounts</field>
         </block>
       </value>
-      <value name="ADDRESS">
+      <value name="DESTINATION_ADDRESS">
         <block type="variables_get">
           <field name="VAR">address</field>
         </block>
@@ -109,13 +109,13 @@ const workspaces = [
             <next>
               <block type="xrpl_request_faucet">
                 <field name="FAUCET_INFO">faucetInfo</field>
-                <value name="CONNECTION">
-                  <block type="xrpl_faucet_network_selection">
+                <value name="FAUCET_NETWORK_URI">
+                  <block type="xrpl_select_faucet_network_uri">
                     <field name="NETWORK_TYPE">xrpl</field>
-                    <field name="CONNECTION">https://faucet.altnet.rippletest.net/accounts</field>
+                    <field name="FAUCET_NETWORK_URI">https://faucet.altnet.rippletest.net/accounts</field>
                   </block>
                 </value>
-                <value name="ADDRESS">
+                <value name="DESTINATION_ADDRESS">
                   <block type="variables_get">
                     <field name="VAR">address</field>
                   </block>

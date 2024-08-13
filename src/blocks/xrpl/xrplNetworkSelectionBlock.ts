@@ -6,8 +6,8 @@ import { FieldDependentDropdown } from "@blockly/field-dependent-dropdown";
 
 Blockly.fieldRegistry.register('field_dependent_dropdown',FieldDependentDropdown);
 
-export const xrpl_network_wss_selection : any = {
-  "type": "xrpl_network_wss_selection",
+export const xrpl_select_websocket_endpoint : any = {
+  "type": "xrpl_select_websocket_endpoint",
   "message0": "%1 %2 / %3",
   "args0": [
     {
@@ -25,7 +25,7 @@ export const xrpl_network_wss_selection : any = {
     },
     {
       "type": "field_dependent_dropdown",
-      "name": "CONNECTION",
+      "name": "WEBSOCKET_ENDPOINT",
       "parentName": "NETWORK_TYPE",
       "optionMapping": {
         "xrpl": [
@@ -55,21 +55,21 @@ export const xrpl_network_wss_selection : any = {
 export const defineXrplNetworkWssSelectionBlock = () => {
 
   Blockly.defineBlocksWithJsonArray([
-    xrpl_network_wss_selection
+    xrpl_select_websocket_endpoint
   ]);
 
-  javascriptGenerator.forBlock["xrpl_network_wss_selection"] = function (
+  javascriptGenerator.forBlock["xrpl_select_websocket_endpoint"] = function (
     block,
     generator
   ) {
-    const connection = block.getFieldValue("CONNECTION");
+    const connection = block.getFieldValue("WEBSOCKET_ENDPOINT");
     return [`"${connection}"`, Order.ATOMIC];
   };
 };
 
 
-export const xrpl_faucet_network_selection : any = {
-  "type": "xrpl_faucet_network_selection",
+export const xrpl_select_faucet_network_uri : any = {
+  "type": "xrpl_select_faucet_network_uri",
   "message0": "%1 %2 / %3",
   "args0": [
     {
@@ -87,7 +87,7 @@ export const xrpl_faucet_network_selection : any = {
     },
     {
       "type": "field_dependent_dropdown",
-      "name": "CONNECTION",
+      "name": "FAUCET_NETWORK_URI",
       "parentName": "NETWORK_TYPE",
       "optionMapping": {
         "xrpl": [
@@ -102,20 +102,20 @@ export const xrpl_faucet_network_selection : any = {
   ],
   "output": "String",
   "colour": BlockColors.xrpl,
-  "tooltip": "Select the network type and connection URI",
+  "tooltip": "Select a faucet URI for obtaining test tokens on XRPL or related networks (including Xahau). Provides specific endpoint URIs for various test networks.",
   "helpUrl": ""
 };
 
 export const defineXrplFaucetNetworkSelectionBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_faucet_network_selection
+    xrpl_select_faucet_network_uri
   ]);
 
-  javascriptGenerator.forBlock["xrpl_faucet_network_selection"] = function (
+  javascriptGenerator.forBlock["xrpl_select_faucet_network_uri"] = function (
     block,
     generator
   ) {
-    const connection = block.getFieldValue("CONNECTION");
+    const connection = block.getFieldValue("FAUCET_NETWORK_URI");
     return [`"${connection}"`, Order.ATOMIC];
   };
 };

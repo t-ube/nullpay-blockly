@@ -6,8 +6,8 @@ import { IXrplToken } from '@/interfaces/IXrplToken';
 import { findTokenTotalSupply } from '@/blocks/xrpl/xrplToken';
 
 // Define the block for setting XRPL Trust set
-export const xrpl_payload_trust_set : any = {
-  "type": "xrpl_payload_trust_set",
+export const xrpl_payload_trustline_config : any = {
+  "type": "xrpl_payload_trustline_config",
   "message0": "%1",
   "args0": [
     {
@@ -51,11 +51,11 @@ export const xrpl_payload_trust_set : any = {
 
 export const defineXrplTrustSetTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_payload_trust_set
+    xrpl_payload_trustline_config
   ]);
 
   // JavaScript code generator for the XRPL trust set block
-  javascriptGenerator.forBlock['xrpl_payload_trust_set'] = function(block, generator) {
+  javascriptGenerator.forBlock['xrpl_payload_trustline_config'] = function(block, generator) {
     const token = generator.valueToCode(block, 'CURRECY_CODE_AND_ISSUER_AND_SUPPLY', Order.NONE) || {} as IXrplToken;
     const address = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.NONE) || '""';
     const code = `xrplTrustSetTxn(JSON.stringify(${token}),${address})`;

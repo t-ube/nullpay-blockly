@@ -4,8 +4,8 @@ import { BlockColors } from '@/blocks/BlockColors';
 import { blockCheckType } from '@/blocks/BlockField';
 import '@/blocks/json/jsonDynamicCreate';
 
-export const json_input_block : any = {
-  "type": "json_input_block",
+export const json_create : any = {
+  "type": "json_create",
   "message0": "JSON %1",
   "args0": [
     {
@@ -22,10 +22,10 @@ export const json_input_block : any = {
 
 export const defineJsonInputJsonBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    json_input_block
+    json_create
   ]);
 
-  javascriptGenerator.forBlock['json_input_block'] = function(block, generator) {
+  javascriptGenerator.forBlock['json_create'] = function(block, generator) {
     var input = block.getFieldValue('INPUT');
     var code = `jsonInputJson('${input}')`;
     return [code, Order.ATOMIC];
@@ -227,8 +227,8 @@ export const defineJsonGetValueBlock = () => {
 };
 
 // Dummy
-export const dynamic_json_key_values : any = {
-  "type": "dynamic_json_key_values",
+export const json_add_key_value_pairs : any = {
+  "type": "json_add_key_value_pairs",
   "message0": "Key-Value list %1",
   "args0": [
     {
@@ -245,7 +245,7 @@ export const dynamic_json_key_values : any = {
 };
 
 export const defineDynamicJsonKVsBlock = () => {
-  javascriptGenerator.forBlock['dynamic_json_key_values'] = function (block:any, generator) {
+  javascriptGenerator.forBlock['json_add_key_value_pairs'] = function (block:any, generator) {
     let elements = [];
     for (let i = 0; i < block.itemCount; i++) {
       const value = generator.valueToCode(block, `ADD${i}`, Order.NONE) || 'null';

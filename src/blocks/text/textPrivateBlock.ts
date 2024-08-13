@@ -11,7 +11,7 @@ export const defineTextOnetimeBlock = () => {
       "args0": [
         {
           "type": "field_input",
-          "name": "INPUT",
+          "name": "TEXT",
           "text": ""
         }
       ],
@@ -23,7 +23,7 @@ export const defineTextOnetimeBlock = () => {
   ]);
   
   javascriptGenerator.forBlock['text_onetime_block'] = function(block, generator) {
-    var input = block.getFieldValue('INPUT');
+    var input = block.getFieldValue('TEXT');
     var code = `"${input}"`;
     return [code, Order.ATOMIC];
   };

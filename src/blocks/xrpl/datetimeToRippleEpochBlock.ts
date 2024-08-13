@@ -4,8 +4,8 @@ import { BlockColors } from '@/blocks/BlockColors';
 import { dayjs } from '@/blocks/time/field_datetime';
 
 
-export const datetime_to_ripple_epoch : any = {
-  "type": "datetime_to_ripple_epoch",
+export const xrpl_datetime_to_ripple_epoch : any = {
+  "type": "xrpl_datetime_to_ripple_epoch",
   "message0": "time to Ripple epoch %1",
   "args0": [
     {
@@ -22,10 +22,10 @@ export const datetime_to_ripple_epoch : any = {
 
 export const defineDateTimeToRippleEpoch = () => {
   Blockly.defineBlocksWithJsonArray([
-    datetime_to_ripple_epoch
+    xrpl_datetime_to_ripple_epoch
   ]);
 
-  javascriptGenerator.forBlock['datetime_to_ripple_epoch'] = function (block, generator) {
+  javascriptGenerator.forBlock['xrpl_datetime_to_ripple_epoch'] = function (block, generator) {
     const dateInput = generator.valueToCode(block, 'DATE', Order.ATOMIC) || 'new Date()';
     const code = `datetimeToRippleEpoch(${dateInput})`;
     return [code, Order.ATOMIC];
@@ -42,13 +42,13 @@ export function initInterpreterDateTimeToRippleEpoch(interpreter:any, globalObje
 }
 
 
-export const ripple_epoch_to_datetime : any = {
-  "type": "ripple_epoch_to_datetime",
+export const xrpl_ripple_epoch_to_datetime : any = {
+  "type": "xrpl_ripple_epoch_to_datetime",
   "message0": "Ripple epoch to time %1",
   "args0": [
     {
       "type": "input_value",
-      "name": "EPOCHTIME",
+      "name": "RIPPLE_EPOCH_TIME",
       "check": "String"
     }
   ],
@@ -60,11 +60,11 @@ export const ripple_epoch_to_datetime : any = {
 
 export const defineRippleEpochToDateTime = () => {
   Blockly.defineBlocksWithJsonArray([
-    ripple_epoch_to_datetime
+    xrpl_ripple_epoch_to_datetime
   ]);
 
-  javascriptGenerator.forBlock['ripple_epoch_to_datetime'] = function (block, generator) {
-    const epochInput = generator.valueToCode(block, 'EPOCHTIME', Order.ATOMIC) || '0';
+  javascriptGenerator.forBlock['xrpl_ripple_epoch_to_datetime'] = function (block, generator) {
+    const epochInput = generator.valueToCode(block, 'RIPPLE_EPOCH_TIME', Order.ATOMIC) || '0';
     const code = `rippleEpochToDateTime(${epochInput})`;
     return [code, Order.ATOMIC];
   };

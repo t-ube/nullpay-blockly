@@ -4,39 +4,6 @@ import { blockCheckType } from '@/blocks/BlockField';
 import { BlockColors } from '@/blocks/BlockColors';
 
 
-export const array_init : any = {
-  "type": "array_init",
-  "message0": "initialize array %1",
-  "args0": [
-    {
-      "type": "field_variable",
-      "name": "VAR",
-      "variable": "item"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": blockCheckType.list,
-  "tooltip": "Initializes an empty array",
-  "helpUrl": ""
-};
-
-export const defineArrayInitBlock = () => {
-  Blockly.defineBlocksWithJsonArray([
-    array_init
-  ]);
-
-  javascriptGenerator.forBlock['array_init'] = function (block, generator) {
-    if (generator.nameDB_ === undefined) {
-        return `defArray = [];\n`
-    }
-    const variable = generator.nameDB_.getName(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
-    const code = `${variable} = [];\n`;
-    return code;
-  };
-};
-
-
 export const lists_append : any = {
   "type": "lists_append",
   "message0": "append to list %1 item %2",
@@ -100,7 +67,7 @@ export const lists_sort_json_value : any = {
   "args2": [
     {
       "type": "field_dropdown",
-      "name": "TYPE",
+      "name": "COMPARISON_TYPE",
       "options": [
         ["numeric", "numeric"],
         ["alphabetic", "alphabetic"],
@@ -133,7 +100,7 @@ export const defineListSortJsonValueBlock = () => {
 
   javascriptGenerator.forBlock['lists_sort_json_value'] = function (block, generator) {
     const key = generator.valueToCode(block, 'KEY', Order.ATOMIC) || '""';
-    const type = block.getFieldValue('TYPE');
+    const type = block.getFieldValue('COMPARISON_TYPE');
     const bodyFormat = block.getFieldValue('ORDER');
     const array = generator.valueToCode(block, 'LIST', Order.ATOMIC) || '[]';
     const code = `listSortJsonValue(JSON.stringify(${array}), ${key},

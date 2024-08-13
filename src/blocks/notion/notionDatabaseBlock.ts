@@ -77,7 +77,7 @@ export const defineNotionCreateClientBlock = () => {
       "args2": [
         {
           "type": "field_label",
-          "text": "Client",
+          "text": "Notion client",
           "class": "output-label"
         },
         {
@@ -140,7 +140,7 @@ export const defineNotionCreateDatabaseBlock = () => {
       "args1": [
         {
           "type": "field_label",
-          "text": "Client",
+          "text": "Notion client",
           "class": "args-label"
         },
         {
@@ -279,7 +279,7 @@ export const defineNotionAddRecordBlock = () => {
       "args1": [
         {
           "type": "field_label",
-          "text": "Client",
+          "text": "Notion client",
           "class": "args-label"
         },
         {

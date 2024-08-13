@@ -10,10 +10,10 @@ const workspaces = [
     block: `
       <block type="xrpl_client_initialize" x="0" y="0">
         <field name="XRPL_CLIENT">xrplClient</field>
-        <value name="SERVER">
-          <block type="xrpl_network_wss_selection">
+        <value name="WEBSOCKET_ENDPOINT">
+          <block type="xrpl_select_websocket_endpoint">
             <field name="NETWORK_TYPE">xrpl</field>
-            <field name="CONNECTION">wss://s1.ripple.com</field>
+            <field name="WEBSOCKET_ENDPOINT">wss://s1.ripple.com</field>
           </block>
         </value>
       </block>
@@ -58,10 +58,10 @@ const workspaces = [
     block: `
       <block type="xrpl_client_initialize" x="0" y="0">
         <field name="XRPL_CLIENT">xrplClient</field>
-        <value name="SERVER">
-          <block type="xrpl_network_wss_selection">
+        <value name="WEBSOCKET_ENDPOINT">
+          <block type="xrpl_select_websocket_endpoint">
             <field name="NETWORK_TYPE">xrpl</field>
-            <field name="CONNECTION">wss://s1.ripple.com</field>
+            <field name="WEBSOCKET_ENDPOINT">wss://s1.ripple.com</field>
           </block>
         </value>
         <next>

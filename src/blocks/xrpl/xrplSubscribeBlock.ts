@@ -36,7 +36,7 @@ export const xrpl_command_subscribe_account_txn : any = {
     },
     {
       "type": "input_value",
-      "name": "ID",
+      "name": "SUBSCRIBE_ID",
       "check": "String"
     }
   ],
@@ -81,7 +81,7 @@ export const defineXrplSubscribeAccountTxnBlock = () => {
 
   javascriptGenerator.forBlock['xrpl_command_subscribe_account_txn'] = function (block, generator) {
     const client = generator.valueToCode(block, 'XRPL_CLIENT', Order.ATOMIC) || '""';
-    const id = generator.valueToCode(block, 'ID', Order.ATOMIC) || '""';
+    const id = generator.valueToCode(block, 'SUBSCRIBE_ID', Order.ATOMIC) || '""';
     const accounts = generator.valueToCode(block, 'ACCOUNTS', Order.ATOMIC) || '[]';
     if (generator.nameDB_ === undefined) {
       return `xrplSubscribeAccountTxn(${client}, ${id}, JSON.stringify(${accounts}), '');\n`;
@@ -149,7 +149,7 @@ export const xrpl_command_unsubscribe_account_txn : any = {
     },
     {
       "type": "input_value",
-      "name": "ID",
+      "name": "SUBSCRIBE_ID",
       "check": "String"
     }
   ],
@@ -181,7 +181,7 @@ export const defineXrplUnsubscribeAccountTxnBlock = () => {
 
   javascriptGenerator.forBlock['xrpl_command_unsubscribe_account_txn'] = function (block, generator) {
     const client = generator.valueToCode(block, 'XRPL_CLIENT', Order.ATOMIC) || '""';
-    const id = generator.valueToCode(block, 'ID', Order.ATOMIC) || '""';
+    const id = generator.valueToCode(block, 'SUBSCRIBE_ID', Order.ATOMIC) || '""';
     const accounts = generator.valueToCode(block, 'ACCOUNTS', Order.ATOMIC) || '[]';
     const code = `xrplUnsubscribeAccountTxn(${client}, ${id}, JSON.stringify(${accounts}));\n`;
     return code;
@@ -242,7 +242,7 @@ export const xrpl_command_subscribe_streams_all_txn : any = {
     },
     {
       "type": "input_value",
-      "name": "ID",
+      "name": "SUBSCRIBE_ID",
       "check": "String"
     }
   ],
@@ -274,7 +274,7 @@ export const defineXrplSubscribeAllTxnBlock = () => {
 
   javascriptGenerator.forBlock['xrpl_command_subscribe_streams_all_txn'] = function (block, generator) {
     const client = generator.valueToCode(block, 'XRPL_CLIENT', Order.ATOMIC) || '""';
-    const id = generator.valueToCode(block, 'ID', Order.ATOMIC) || '""';
+    const id = generator.valueToCode(block, 'SUBSCRIBE_ID', Order.ATOMIC) || '""';
     if (generator.nameDB_ === undefined) {
       return `xrplSubscribeAllTxn(${client}, ${id}, '');\n`;
     }
@@ -341,7 +341,7 @@ export const xrpl_command_unsubscribe_streams_all_txn : any = {
     },
     {
       "type": "input_value",
-      "name": "ID",
+      "name": "SUBSCRIBE_ID",
       "check": "String"
     }
   ],
@@ -360,7 +360,7 @@ export const defineXrplUnsubscribeAllTxnBlock = () => {
 
   javascriptGenerator.forBlock['xrpl_command_unsubscribe_streams_all_txn'] = function (block, generator) {
     const client = generator.valueToCode(block, 'XRPL_CLIENT', Order.ATOMIC) || '""';
-    const id = generator.valueToCode(block, 'ID', Order.ATOMIC) || '""';
+    const id = generator.valueToCode(block, 'SUBSCRIBE_ID', Order.ATOMIC) || '""';
     const code = `xrplUnsubscribeAllTxn(${client}, ${id});\n`;
     return code;
   };

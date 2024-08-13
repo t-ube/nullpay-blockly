@@ -26,7 +26,7 @@ export const xrpl_load_wallet : any = {
     },
     {
       "type": "input_value",
-      "name": "SEED",
+      "name": "WALLET_SEED",
       "check": blockCheckType.string
     }
   ],
@@ -57,7 +57,7 @@ export const defineXrplLoadWalletBlock = () => {
   ]);
 
   javascriptGenerator.forBlock['xrpl_load_wallet'] = function (block, generator) {
-    const seed = generator.valueToCode(block, 'SEED', Order.ATOMIC) || '""';
+    const seed = generator.valueToCode(block, 'WALLET_SEED', Order.ATOMIC) || '""';
     if (generator.nameDB_ === undefined) {
       return `loadXrplWallet(${seed}, '');\n`;
     }

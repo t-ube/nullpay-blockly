@@ -62,7 +62,7 @@ export const xrpl_extract_transaction_details : any = {
     },
     {
       "type": "field_variable",
-      "name": "ACCOUNT",
+      "name": "ACCOUNT_ADDRESS",
       "variable": "account"
     }
   ],
@@ -101,7 +101,7 @@ export const xrpl_extract_transaction_details : any = {
     },
     {
       "type": "field_variable",
-      "name": "AMOUNT_DATE",
+      "name": "TRANSACTION_DATE",
       "variable": "date"
     }
   ],
@@ -123,10 +123,10 @@ export const defineXrplGetTxnInfoBlock = () => {
       return `xrplGetTxnInfo(JSON.stringify(${transactionJson}),'','','','','');\n`;
     }
     const typeVar = generator.nameDB_.getName(block.getFieldValue('TRANSACTION_TYPE'), Blockly.VARIABLE_CATEGORY_NAME);
-    const accountVar = generator.nameDB_.getName(block.getFieldValue('ACCOUNT'), Blockly.VARIABLE_CATEGORY_NAME);
+    const accountVar = generator.nameDB_.getName(block.getFieldValue('ACCOUNT_ADDRESS'), Blockly.VARIABLE_CATEGORY_NAME);
     const indexVar = generator.nameDB_.getName(block.getFieldValue('LEDGER_INDEX'), Blockly.VARIABLE_CATEGORY_NAME);
     const hashVar = generator.nameDB_.getName(block.getFieldValue('TRANSACTION_HASH'), Blockly.VARIABLE_CATEGORY_NAME);
-    const dateVar = generator.nameDB_.getName(block.getFieldValue('AMOUNT_DATE'), Blockly.VARIABLE_CATEGORY_NAME);
+    const dateVar = generator.nameDB_.getName(block.getFieldValue('TRANSACTION_DATE'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `xrplGetTxnInfo(JSON.stringify(${transactionJson}),'${typeVar}','${accountVar}','${indexVar}','${hashVar}','${dateVar}');\n`;
     return code;
   };

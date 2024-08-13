@@ -274,4 +274,4 @@ const DYNAMIC_JSON_CREATE_MIXIN = {
   },
 };
 
-Blockly.Blocks['dynamic_json_key_values'] = DYNAMIC_JSON_CREATE_MIXIN;
+Blockly.Blocks['json_add_key_value_pairs'] = DYNAMIC_JSON_CREATE_MIXIN;

@@ -163,7 +163,7 @@ export const defineFormVariableGetBlock = () => {
         },
         {
           "type": "input_value",
-          "name": "NAME",
+          "name": "VARIABLE_NAME",
           "check": blockCheckType.string
         }
       ],
@@ -177,7 +177,7 @@ export const defineFormVariableGetBlock = () => {
 
   javascriptGenerator.forBlock['form_variable_get'] = function (block, generator) {
     const result = generator.valueToCode(block, 'FORM_RESULT', Order.ATOMIC) || '{}';
-    const name = generator.valueToCode(block, 'NAME', Order.NONE) || '""';
+    const name = generator.valueToCode(block, 'VARIABLE_NAME', Order.NONE) || '""';
     const code = `formVariableGet(JSON.stringify(${result}),${name})`;
     return [code, Order.ATOMIC];
   };

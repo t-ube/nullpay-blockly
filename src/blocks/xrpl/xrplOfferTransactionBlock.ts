@@ -5,8 +5,8 @@ import { blockCheckType } from '@/blocks/BlockField';
 import { IXrplToken } from '@/interfaces/IXrplToken';
 
 // Define the block for BuyOffer
-export const xrpl_payload_buy_token_offer : any = {
-  "type": "xrpl_payload_buy_token_offer",
+export const xrpl_payload_token_buy_offer : any = {
+  "type": "xrpl_payload_token_buy_offer",
   "message0": "%1",
   "args0": [
     {
@@ -63,7 +63,7 @@ export const xrpl_payload_buy_token_offer : any = {
     },
     {
       "type": "input_value",
-      "name": "XRP_AMOUNT",
+      "name": "XRP_DROPS_AMOUNT",
       "check": blockCheckType.number
     }
   ],
@@ -76,14 +76,14 @@ export const xrpl_payload_buy_token_offer : any = {
 
 export const defineBuyTokenOfferTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_payload_buy_token_offer
+    xrpl_payload_token_buy_offer
   ]);
 
-  javascriptGenerator.forBlock['xrpl_payload_buy_token_offer'] = function(block, generator) {
+  javascriptGenerator.forBlock['xrpl_payload_token_buy_offer'] = function(block, generator) {
     const account = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.NONE) || '""';
     const token = generator.valueToCode(block, 'TOKEN', Order.NONE) || {} as IXrplToken;
     const tokenAmount = generator.valueToCode(block, 'TOKEN_AMOUNT', Order.NONE) || 0;
-    const xrpAmount = generator.valueToCode(block, 'XRP_AMOUNT', Order.NONE) || 0;
+    const xrpAmount = generator.valueToCode(block, 'XRP_DROPS_AMOUNT', Order.NONE) || 0;
     const code = `xrplBuyTokenOfferTxn(${account}, JSON.stringify(${token}), String(${tokenAmount}), String(${xrpAmount}))`;
     return [code, Order.ATOMIC];
   };
@@ -108,14 +108,14 @@ export function initInterpreterBuyTokenOfferTxn(interpreter: any, globalObject: 
   interpreter.setProperty(globalObject, 'xrplBuyTokenOfferTxn', interpreter.createNativeFunction(wrapper));
 }
 
-// Define the block for SaleOffer
-export const xrpl_payload_sale_token_offer : any = {
-  "type": "xrpl_payload_sale_token_offer",
+// Define the block for SellOffer
+export const xrpl_payload_token_sell_offer : any = {
+  "type": "xrpl_payload_token_sell_offer",
   "message0": "%1",
   "args0": [
     {
       "type": "field_label",
-      "text": "Sale token offer payload",
+      "text": "Sell token offer payload",
       "class": "title-label"
     }
   ],
@@ -167,7 +167,7 @@ export const xrpl_payload_sale_token_offer : any = {
     },
     {
       "type": "input_value",
-      "name": "XRP_AMOUNT",
+      "name": "XRP_DROPS_AMOUNT",
       "check": blockCheckType.number
     }
   ],
@@ -180,14 +180,14 @@ export const xrpl_payload_sale_token_offer : any = {
 
 export const defineSaleTokenOfferTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_payload_sale_token_offer
+    xrpl_payload_token_sell_offer
   ]);
 
-  javascriptGenerator.forBlock['xrpl_payload_sale_token_offer'] = function(block, generator) {
+  javascriptGenerator.forBlock['xrpl_payload_token_sell_offer'] = function(block, generator) {
     const account = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.NONE) || '""';
     const token = generator.valueToCode(block, 'TOKEN', Order.NONE) || {} as IXrplToken;
     const tokenAmount = generator.valueToCode(block, 'TOKEN_AMOUNT', Order.NONE) || 0;
-    const xrpAmount = generator.valueToCode(block, 'XRP_AMOUNT', Order.NONE) || 0;
+    const xrpAmount = generator.valueToCode(block, 'XRP_DROPS_AMOUNT', Order.NONE) || 0;
     const code = `xrplSaleTokenOfferTxn(${account}, JSON.stringify(${token}), String(${tokenAmount}), String(${xrpAmount}))`;
     return [code, Order.ATOMIC];
   };

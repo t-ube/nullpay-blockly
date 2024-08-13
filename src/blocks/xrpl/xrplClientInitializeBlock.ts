@@ -26,7 +26,7 @@ export const xrpl_client_initialize : any = {
     },
     {
       "type": "input_value",
-      "name": "SERVER",
+      "name": "WEBSOCKET_ENDPOINT",
       "check": "String"
     }
   ],
@@ -57,7 +57,7 @@ export const defineXrplClientInitializeBlock = () => {
   ]);
 
   javascriptGenerator.forBlock['xrpl_client_initialize'] = function (block, generator) {
-    const server = generator.valueToCode(block, 'SERVER', Order.ATOMIC) || '""';
+    const server = generator.valueToCode(block, 'WEBSOCKET_ENDPOINT', Order.ATOMIC) || '""';
     if (generator.nameDB_ === undefined) {
       return `initializeXrplClient(${server}, '');\n`;
     }

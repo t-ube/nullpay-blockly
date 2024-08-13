@@ -61,10 +61,10 @@ export const DemoBlockXml = `
     <next>
       <block type="xrpl_client_initialize" id="QF9@!2dA)Z8=f%C_QKL9">
         <field name="VAR" id="~_b6iJcgV_ym.fFIk9j5">xrplClient</field>
-        <value name="SERVER">
-          <block type="xrpl_network_wss_selection" id="6MjF0aai[X_)@BZ@D5tL">
+        <value name="WEBSOCKET_ENDPOINT">
+          <block type="xrpl_select_websocket_endpoint" id="6MjF0aai[X_)@BZ@D5tL">
             <field name="NETWORK_TYPE">xrpl</field>
-            <field name="CONNECTION">wss://xrplcluster.com</field>
+            <field name="WEBSOCKET_ENDPOINT">wss://xrplcluster.com</field>
           </block>
         </value>
         <next>
@@ -76,7 +76,7 @@ export const DemoBlockXml = `
                 <field name="VAR" id="~_b6iJcgV_ym.fFIk9j5">xrplClient</field>
               </block>
             </value>
-            <value name="ID">
+            <value name="SUBSCRIBE_ID">
               <block type="text" id="szuZMkYM4uzjqaTJ)TP)">
                 <field name="TEXT">subscribe1</field>
               </block>
@@ -112,7 +112,7 @@ export const DemoBlockXml = `
                     </value>
                     <next>
                       <block type="wait_seconds" id="Lh.z4b(E!=.#:geLI,zJ">
-                        <value name="TIME">
+                        <value name="SECONDS">
                           <block type="math_number" id="*@[7MGd/A22fF=Yp2!}#">
                             <field name="NUM">5</field>
                           </block>

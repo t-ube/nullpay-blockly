@@ -23,10 +23,10 @@ const workspaces = [
     block: `
       <block type="xrpl_client_initialize" x="0" y="0">
         <field name="XRPL_CLIENT">xrplClient</field>
-        <value name="SERVER">
-          <block type="xrpl_network_wss_selection">
+        <value name="WEBSOCKET_ENDPOINT">
+          <block type="xrpl_select_websocket_endpoint">
             <field name="NETWORK_TYPE">xrpl</field>
-            <field name="CONNECTION">wss://s1.ripple.com</field>
+            <field name="WEBSOCKET_ENDPOINT">wss://s1.ripple.com</field>
           </block>
         </value>
       </block>
@@ -35,7 +35,7 @@ const workspaces = [
   {
     id: 'step-3',
     block: `
-      <block type="xrpl_clio_command_nft_info" x="0" y="0">
+      <block type="xrpl_command_get_nft_info" x="0" y="0">
         <field name="IS_ERROR">status</field>
         <field name="NFT_INFO">response</field>
         <value name="XRPL_CLIENT">
@@ -84,17 +84,17 @@ const workspaces = [
   {
     id: 'step-6',
     block: `
-      <block type="xaman_payload_set" x="0" y="0">
+      <block type="xaman_request_transaction_signature" x="0" y="0">
         <field name="IS_ERROR">status</field>
         <field name="PAYLOAD_ID">payloadID</field>
-        <value name="PAYLOAD">
-          <block type="xrpl_payload_nftoken_buy_offer">
+        <value name="TRANSACTION_PAYLOAD">
+          <block type="xrpl_payload_nft_buy_offer">
             <value name="OWNER_ID">
               <block type="variables_get">
                 <field name="VAR">ownerAddress</field>
               </block>
             </value>
-            <value name="TOKEN_ID">
+            <value name="NFT_ID">
               <block type="variables_get">
                 <field name="VAR">nftID</field>
               </block>
@@ -138,14 +138,14 @@ const workspaces = [
         <next>
           <block type="xrpl_client_initialize">
             <field name="XRPL_CLIENT">xrplClient</field>
-            <value name="SERVER">
-              <block type="xrpl_network_wss_selection">
+            <value name="WEBSOCKET_ENDPOINT">
+              <block type="xrpl_select_websocket_endpoint">
                 <field name="NETWORK_TYPE">xrpl</field>
-                <field name="CONNECTION">wss://s1.ripple.com</field>
+                <field name="WEBSOCKET_ENDPOINT">wss://s1.ripple.com</field>
               </block>
             </value>
             <next>
-              <block type="xrpl_clio_command_nft_info">
+              <block type="xrpl_command_get_nft_info">
                 <field name="IS_ERROR">status</field>
                 <field name="NFT_INFO">response</field>
                 <value name="XRPL_CLIENT">
@@ -179,17 +179,17 @@ const workspaces = [
                       <block type="xaman_login">
                         <field name="USER_INFO">userInfo</field>
                         <next>
-                          <block type="xaman_payload_set">
+                          <block type="xaman_request_transaction_signature">
                             <field name="IS_ERROR">status</field>
                             <field name="PAYLOAD_ID">payloadID</field>
-                            <value name="PAYLOAD">
-                              <block type="xrpl_payload_nftoken_buy_offer">
+                            <value name="TRANSACTION_PAYLOAD">
+                              <block type="xrpl_payload_nft_buy_offer">
                                 <value name="OWNER_ID">
                                   <block type="variables_get">
                                     <field name="VAR">ownerAddress</field>
                                   </block>
                                 </value>
-                                <value name="TOKEN_ID">
+                                <value name="NFT_ID">
                                   <block type="variables_get">
                                     <field name="VAR">nftID</field>
                                   </block>

@@ -23,7 +23,7 @@ export const animation_confetti : any = {
   "args0": [
     {
       "type": "field_number",
-      "name": "DURATION",
+      "name": "DURATION_SECONDS",
       "value": 5,
       "min": 0,
       "max": "Infinity",
@@ -43,7 +43,7 @@ export const defineConfettiAnimationBlock = () => {
   ]);
 
   javascriptGenerator.forBlock['animation_confetti'] = function (block, generator) {
-    const duration = block.getFieldValue('DURATION');
+    const duration = block.getFieldValue('DURATION_SECONDS');
     const code = `confettiAnimation(${duration});\n`;
     return code;
   };

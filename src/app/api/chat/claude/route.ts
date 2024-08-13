@@ -15,7 +15,7 @@ const validBlocks = [
   "text_ends_with",
   "text_to_uppercase",
   "text_to_lowercase",
-  "text_block_comment",
+  "code_multi_line_comment",
   "math_number",
   "math_arithmetic",
   "wait_seconds",
@@ -27,7 +27,7 @@ const validBlocks = [
   "controls_for",
   "controls_forEach",
   "animation_confetti",
-  "json_input_block",
+  "json_create",
   "json_get_value",
   "json_key_value_pair",
   "json_append_key_values",
@@ -35,12 +35,12 @@ const validBlocks = [
   "json_to_text",
   "text_to_json",
   "text_to_json",
-  "dynamic_json_key_values",
+  "json_add_key_value_pairs",
   "text_to_lowercase",
   "text_to_number",
   "text_to_uppercase",
   "number_to_text",
-  "text_block_comment",
+  "code_multi_line_comment",
   "datetime_current",
   "datetime_create",
   "datetime_adjust",
@@ -48,11 +48,11 @@ const validBlocks = [
   "datetime_text_format",
   "datetime_to_text",
   "datetime_timezone",
-  "ripple_epoch_to_datetime",
-  "datetime_to_ripple_epoch",
+  "xrpl_ripple_epoch_to_datetime",
+  "xrpl_datetime_to_ripple_epoch",
   "xrpl_command_account_info",
   "xrpl_command_account_lines",
-  "xrpl_payload_rippling",
+  "xrpl_payload_rippling_config",
   "xrpl_address",
   "xrpl_exchange_address",
   "xrpl_drops_to_xrp",
@@ -60,36 +60,36 @@ const validBlocks = [
   "xrpl_extract_offer_create_details",
   "xrpl_extract_transaction_details",
   "xrpl_client_initialize",
-  "xrpl_clio_command_nft_info",
-  "xrpl_faucet_network_selection",
-  "xrpl_network_wss_selection",
-  "xrpl_payload_nftoken_buy_offer",
-  "xrpl_payload_buy_token_offer",
-  "xrpl_payload_sale_token_offer",
+  "xrpl_command_get_nft_info",
+  "xrpl_select_faucet_network_uri",
+  "xrpl_select_websocket_endpoint",
+  "xrpl_payload_nft_buy_offer",
+  "xrpl_payload_token_buy_offer",
+  "xrpl_payload_token_sell_offer",
   "xrpl_command_nft_buy_offers",
-  "xrpl_payload_payment_token",
+  "xrpl_payload_token_payment",
   "xrpl_create_account_and_request_faucet",
   "xrpl_request_faucet",
   "xrpl_autofill_payload",
-  "xrpl_command_submit",
-  "xrpl_easy_submit",
+  "xrpl_command_submit_signed_transaction",
+  "xrpl_submit_transaction",
   "xrpl_command_tx",
   "xrpl_command_subscribe_account_txn",
   "xrpl_command_subscribe_streams_all_txn",
   "xrpl_command_unsubscribe_account_txn",
   "xrpl_command_unsubscribe_streams_all_txn",
-  "xrpl_create_new_token",
-  "xrpl_token_amount_arithmetic",
-  "xrpl_token_amount_set",
-  "xrpl_token_select",
-  "xrpl_payload_trust_set",
-  "xrpl_txn_type_select",
+  "xrpl_define_token_data",
+  "xrpl_calculate_token_amount",
+  "xrpl_set_token_amount",
+  "xrpl_select_token",
+  "xrpl_payload_trustline_config",
+  "xrpl_transaction_type",
   "xrpl_generate_wallet",
   "xrpl_load_wallet",
   "xrpl_wallet_info",
   "xrpl_wallet_sign",
-  "xaman_payload_set",
-  "xaman_payment",
+  "xaman_request_transaction_signature",
+  "xaman_request_payment_signature",
   "xaman_wait_for_signature",
   "xaman_login",
   "xaman_logout",
@@ -97,7 +97,6 @@ const validBlocks = [
   "xaman_variable_name",
   "xaman_variable_set",
   "lists_append",
-  "array_init",
   "lists_sort_json_value"
 ];
 
@@ -136,10 +135,10 @@ export async function POST(req: Request) {
   <block type="xaman_login" id="loginBlock" x="0" y="0">
     <field name="USER_INFO" id="userInfoVar">userInfo</field>
     <next>
-      <block type="xaman_payment" id="paymentBlock">
+      <block type="xaman_request_payment_signature" id="paymentBlock">
         <field name="VAR" id="payloadIDVar">payloadID</field>
         <field name="RESULT" id="errorVar">error</field>
-        <value name="DESTINATION">
+        <value name="DESTINATION_ADDRESS">
           <block type="text" id="destAddressBlock">
             <field name="TEXT">rPEPPER7kfTD9w2To4CQk6UCfuHM9c6GDY</field>
           </block>
@@ -155,7 +154,7 @@ export async function POST(req: Request) {
         </value>
         <next>
           <block type="xaman_wait_for_signature" id="waitSignatureBlock">
-            <value name="PAYLOAD">
+            <value name="TRANSACTION_PAYLOAD">
               <block type="variables_get" id="getPayloadIDBlock">
                 <field name="VAR" id="payloadIDVar">payloadID</field>
               </block>

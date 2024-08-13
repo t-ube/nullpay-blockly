@@ -10,7 +10,7 @@ export const defineWaitForSecondsBlock = () => {
       "args0": [
         {
           "type": "input_value",
-          "name": "TIME",
+          "name": "SECONDS",
           "check": "Number"
         }
       ],
@@ -23,7 +23,7 @@ export const defineWaitForSecondsBlock = () => {
   ]);
 
   javascriptGenerator.forBlock['wait_seconds'] = function (block, generator) {
-    const time = generator.valueToCode(block, 'TIME', Order.ATOMIC) || '1000';
+    const time = generator.valueToCode(block, 'SECONDS', Order.ATOMIC) || '1000';
     const code = `waitForSeconds(${time});\n`;
     return code;
   };

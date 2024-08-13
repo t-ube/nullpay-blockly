@@ -10,10 +10,10 @@ const workspaces = [
     block: `
       <block type="xrpl_client_initialize" x="0" y="0">
         <field name="XRPL_CLIENT">xrplClient</field>
-        <value name="SERVER">
-          <block type="xrpl_network_wss_selection">
+        <value name="WEBSOCKET_ENDPOINT">
+          <block type="xrpl_select_websocket_endpoint">
             <field name="NETWORK_TYPE">xrpl</field>
-            <field name="CONNECTION">wss://s1.ripple.com</field>
+            <field name="WEBSOCKET_ENDPOINT">wss://s1.ripple.com</field>
           </block>
         </value>
       </block>
@@ -24,7 +24,7 @@ const workspaces = [
     block: `
       <block type="xrpl_load_wallet" x="0" y="0">
         <field name="WALLET_ID">walletID</field>
-        <value name="SEED">
+        <value name="WALLET_SEED">
           <block type="text">
             <field name="TEXT">sEdTbWX2VSsYQ3n5L6hokj9kvUyKX59</field>
           </block>
@@ -42,7 +42,7 @@ const workspaces = [
             <field name="VAR">xrplClient</field>
           </block>
         </value>
-        <value name="PAYLOAD">
+        <value name="TRANSACTION_PAYLOAD">
           <block type="xrpl_payload_payment">
             <value name="ACCOUNT_ADDRESS">
               <block type="json_get_value">
@@ -62,12 +62,12 @@ const workspaces = [
                 </value>
               </block>
             </value>
-            <value name="DEST_ADDRESS">
+            <value name="DESTINATION_ADDRESS">
               <block type="text">
                 <field name="TEXT">rBv3deKgvs3he1dybHzCfhTQop1ju1gt9s</field>
               </block>
             </value>
-            <value name="AMOUNT">
+            <value name="XRP_DROPS_AMOUNT">
               <block type="xrpl_xrp_to_drops">
                 <value name="AMOUNT">
                   <block type="math_number">
@@ -102,7 +102,7 @@ const workspaces = [
   {
     id: 'step-5',
     block: `
-      <block type="xrpl_command_submit" x="0" y="0">
+      <block type="xrpl_command_submit_signed_transaction" x="0" y="0">
         <field name="SUBMIT_RESULT">result</field>
         <value name="XRPL_CLIENT">
           <block type="variables_get">
@@ -122,16 +122,16 @@ const workspaces = [
     block: `
         <block type="xrpl_client_initialize" x="0" y="0">
           <field name="XRPL_CLIENT">xrplClient</field>
-          <value name="SERVER">
-            <block type="xrpl_network_wss_selection">
+          <value name="WEBSOCKET_ENDPOINT">
+            <block type="xrpl_select_websocket_endpoint">
               <field name="NETWORK_TYPE">xrpl</field>
-              <field name="CONNECTION">wss://s1.ripple.com</field>
+              <field name="WEBSOCKET_ENDPOINT">wss://s1.ripple.com</field>
             </block>
           </value>
           <next>
             <block type="xrpl_load_wallet">
               <field name="WALLET_ID">walletID</field>
-              <value name="SEED">
+              <value name="WALLET_SEED">
                 <block type="text">
                   <field name="TEXT">sEdTbWX2VSsYQ3n5L6hokj9kvUyKX59</field>
                 </block>
@@ -144,7 +144,7 @@ const workspaces = [
                       <field name="VAR">xrplClient</field>
                     </block>
                   </value>
-                  <value name="PAYLOAD">
+                  <value name="TRANSACTION_PAYLOAD">
                     <block type="xrpl_payload_payment">
                       <value name="ACCOUNT_ADDRESS">
                         <block type="json_get_value">
@@ -164,12 +164,12 @@ const workspaces = [
                           </value>
                         </block>
                       </value>
-                      <value name="DEST_ADDRESS">
+                      <value name="DESTINATION_ADDRESS">
                         <block type="text">
                           <field name="TEXT">rBv3deKgvs3he1dybHzCfhTQop1ju1gt9s</field>
                         </block>
                       </value>
-                      <value name="AMOUNT">
+                      <value name="XRP_DROPS_AMOUNT">
                         <block type="xrpl_xrp_to_drops">
                           <value name="AMOUNT">
                             <block type="math_number">
@@ -194,7 +194,7 @@ const workspaces = [
                         </block>
                       </value>
                       <next>
-                        <block type="xrpl_command_submit">
+                        <block type="xrpl_command_submit_signed_transaction">
                           <field name="SUBMIT_RESULT">result</field>
                           <value name="XRPL_CLIENT">
                             <block type="variables_get">

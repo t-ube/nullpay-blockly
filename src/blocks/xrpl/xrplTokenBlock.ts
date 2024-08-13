@@ -29,8 +29,8 @@ const convertToTokenMenu = (tokens: IXrplToken[]): [string, string][] => {
 
 const tokenMenu: Blockly.MenuGenerator = convertToTokenMenu(xrplTokens);
 
-export const xrpl_token_select : any = {
-  "type": "xrpl_token_select",
+export const xrpl_select_token : any = {
+  "type": "xrpl_select_token",
   "message0": "%1 %2 / %3",
   "args0": [
     {
@@ -63,10 +63,10 @@ export const xrpl_token_select : any = {
 
 export const defineXrplTokenSelectBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_token_select
+    xrpl_select_token
   ]);
 
-  javascriptGenerator.forBlock['xrpl_token_select'] = function (block) {
+  javascriptGenerator.forBlock['xrpl_select_token'] = function (block) {
     const token = block.getFieldValue('ISSUER_ADDRESS_AND_CURRENCY_CODE');
     const [issuer, currency_code] = token.split('_');
     const code = JSON.stringify({
@@ -78,13 +78,13 @@ export const defineXrplTokenSelectBlock = () => {
 };
 
 
-export const xrpl_create_new_token : any = {
-  "type": "xrpl_create_new_token",
+export const xrpl_define_token_data : any = {
+  "type": "xrpl_define_token_data",
   "message0": "%1",
   "args0": [
     {
       "type": "field_label",
-      "text": "New token",
+      "text": "Token",
       "class": "title-label"
     }
   ],
@@ -130,16 +130,16 @@ export const xrpl_create_new_token : any = {
   "output": blockCheckType.xrplToken,
   "inputsInline": false,
   "colour": BlockColors.xrpl,
-  "tooltip": "Create a new token on the XRP Ledger. Specify the issuer address, currency code, and total supply",
+  "tooltip": "Define token data for use in XRP Ledger operations. Specify the issuer address, currency code, and total supply. Note: This does not create a token on the ledger, but prepares the data for future use.",
   "helpUrl": ""
 };
 
 export const defineXrplCreateNewTokenBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_create_new_token
+    xrpl_define_token_data
   ]);
 
-  javascriptGenerator.forBlock['xrpl_create_new_token'] = function (block, generator) {
+  javascriptGenerator.forBlock['xrpl_define_token_data'] = function (block, generator) {
     const issuer = generator.valueToCode(block, 'ISSUER_ADDRESS', Order.NONE) || '""';
     const currencyCode = generator.valueToCode(block, 'CURRECY_CODE', Order.NONE) || '""';
     const totalSupply = generator.valueToCode(block, 'TOTAL_SUPPLY', Order.NONE) || 0;
@@ -162,26 +162,39 @@ export function initInterpreterXrplCreateNewToken(interpreter: any, globalObject
 }
 
 
-export const xrpl_token_amount_set : any = {
-  "type": "xrpl_token_amount_set",
-  "message0": "Set token amount %1",
+export const xrpl_set_token_amount : any = {
+  "type": "xrpl_set_token_amount",
+  "message0": "%1",
   "args0": [
     {
-      "type": "input_value",
-      "name": "TOKEN",
-      "check": [blockCheckType.xrplToken,blockCheckType.json]
-    }
+      "type": "field_label",
+      "text": "Set token amount",
+      "class": "title-label"
+    },
   ],
   "message1": "%1 %2",
   "args1": [
     {
       "type": "field_label",
-      "text": "Value",
+      "text": "Token",
       "class": "args-label"
     },
     {
       "type": "input_value",
-      "name": "VALUE",
+      "name": "TOKEN",
+      "check": [blockCheckType.xrplToken,blockCheckType.json,blockCheckType.xrplTokenAmount]
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "Amount",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "AMOUNT",
       "check": blockCheckType.number
     }
   ],
@@ -194,12 +207,12 @@ export const xrpl_token_amount_set : any = {
 
 export const defineXrplTokenAmountSetBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_token_amount_set
+    xrpl_set_token_amount
   ]);
 
-  javascriptGenerator.forBlock['xrpl_token_amount_set'] = function (block, generator) {
+  javascriptGenerator.forBlock['xrpl_set_token_amount'] = function (block, generator) {
     const token = generator.valueToCode(block, 'TOKEN', Order.NONE) || '{}';
-    const value = generator.valueToCode(block, 'VALUE', Order.NONE) || 0;
+    const value = generator.valueToCode(block, 'AMOUNT', Order.NONE) || 0;
     const code = `xrplTokenAmountSet(JSON.stringify(${token}),String(${value}))`;
     return [code, Order.ATOMIC];
   };
@@ -220,8 +233,8 @@ export function initInterpreterXrplTokenAmountSet(interpreter: any, globalObject
 }
 
 
-export const xrpl_token_amount_arithmetic : any = {
-  "type": "xrpl_token_amount_arithmetic",
+export const xrpl_calculate_token_amount : any = {
+  "type": "xrpl_calculate_token_amount",
   "message0": "token amount %1 %2 %3",
   "args0": [
     {
@@ -254,10 +267,10 @@ export const xrpl_token_amount_arithmetic : any = {
 
 export const defineXrplTokenAmountArithmeticBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_token_amount_arithmetic
+    xrpl_calculate_token_amount
   ]);
 
-  javascriptGenerator.forBlock['xrpl_token_amount_arithmetic'] = function (block, generator) {
+  javascriptGenerator.forBlock['xrpl_calculate_token_amount'] = function (block, generator) {
     const token = generator.valueToCode(block, 'TOKEN', Order.NONE) || '"0"';
     const value = generator.valueToCode(block, 'VALUE', Order.NONE) || 0;
     const operator = block.getFieldValue('OPERATOR');

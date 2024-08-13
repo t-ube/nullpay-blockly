@@ -57,10 +57,10 @@ export const DemoV0R4SemiAutoBid = `
                 <statement name="DO0">
                   <block type="xrpl_client_initialize" id="+C3Ae85(~-GN{3=Z-JG8">
                     <field name="VAR" id="a8odClXjH1#I}N7#T6SE">xrplClient</field>
-                    <value name="SERVER">
-                      <block type="xrpl_network_wss_selection" id=")H?Jo:o~?BriyHM\`bRJ6">
+                    <value name="WEBSOCKET_ENDPOINT">
+                      <block type="xrpl_select_websocket_endpoint" id=")H?Jo:o~?BriyHM\`bRJ6">
                         <field name="NETWORK_TYPE">xrpl</field>
-                        <field name="CONNECTION">wss://s1.ripple.com</field>
+                        <field name="WEBSOCKET_ENDPOINT">wss://s1.ripple.com</field>
                       </block>
                     </value>
                     <next>
@@ -73,7 +73,7 @@ export const DemoV0R4SemiAutoBid = `
                                 <field name="VAR" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
                               </block>
                             </value>
-                            <value name="NAME">
+                            <value name="VARIABLE_NAME">
                               <block type="text" id="(HrFw\`f?[I?!9nq=?VL;">
                                 <field name="TEXT">NFT ID</field>
                               </block>
@@ -100,7 +100,7 @@ export const DemoV0R4SemiAutoBid = `
                                             <field name="VAR" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
                                           </block>
                                         </value>
-                                        <value name="NAME">
+                                        <value name="VARIABLE_NAME">
                                           <block type="text" id="JB86.!%BiC/9M[b|*=kk">
                                             <field name="TEXT">Bid Step (XRP)</field>
                                           </block>
@@ -121,7 +121,7 @@ export const DemoV0R4SemiAutoBid = `
                                                 <field name="VAR" id="GfI4b9ixq-b_FaGZ[gKV">result</field>
                                               </block>
                                             </value>
-                                            <value name="NAME">
+                                            <value name="VARIABLE_NAME">
                                               <block type="text" id="zKPU[^RDo_UR}HhTcLip">
                                                 <field name="TEXT">Starting Bid (XRP)</field>
                                               </block>
@@ -131,7 +131,7 @@ export const DemoV0R4SemiAutoBid = `
                                       </block>
                                     </value>
                                     <next>
-                                      <block type="xrpl_clio_command_nft_info" id="%RE;,JEzW4r#RZ!}[TtD">
+                                      <block type="xrpl_command_get_nft_info" id="%RE;,JEzW4r#RZ!}[TtD">
                                         <field name="IS_ERROR" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
                                         <field name="NFT_INFO" id="H8?7.T:4!\`hKG.w57*E^">response</field>
                                         <value name="CLIENT">
@@ -215,7 +215,7 @@ export const DemoV0R4SemiAutoBid = `
                                                             <field name="VAR" id="3ZAKt=2Sbga)Go6jb5u~">sortedOffers</field>
                                                             <value name="VALUE">
                                                               <block type="lists_sort_json_value" id="0Xo3wy?|DNREr3AF5wy7">
-                                                                <field name="TYPE">numeric</field>
+                                                                <field name="COMPARISON_TYPE">numeric</field>
                                                                 <field name="ORDER">desc</field>
                                                                 <value name="ARRAY">
                                                                   <block type="json_get_value" id="Gr?d{/i=gMG[\`;Fx2f7=">
@@ -334,7 +334,7 @@ export const DemoV0R4SemiAutoBid = `
                                                                                   <block type="variables_set" id="%\`[/Cq{~h.hy:7j(X0*(">
                                                                                     <field name="VAR" id="-9^X_9!F{?~WFtM=)|,|">newAmount</field>
                                                                                     <value name="VALUE">
-                                                                                      <block type="xrpl_token_amount_arithmetic" id="2W!d(2lWtzh*$Y}qquMb">
+                                                                                      <block type="xrpl_calculate_token_amount" id="2W!d(2lWtzh*$Y}qquMb">
                                                                                         <field name="OPERATOR">+</field>
                                                                                         <value name="TOKEN">
                                                                                           <block type="variables_get" id="R.xXId;3YbU7L%/!ZIz[">
@@ -352,13 +352,13 @@ export const DemoV0R4SemiAutoBid = `
                                                                                       <block type="variables_set" id="}Y2]]LZ[.(Y]W4!Rx4EJ">
                                                                                         <field name="VAR" id="L*8JxJvWWO)aF+}m,c$w">buyPayload</field>
                                                                                         <value name="VALUE">
-                                                                                          <block type="xrpl_payload_nftoken_buy_offer" id="Pp@](4f.^%k=Ik_6#tV[">
+                                                                                          <block type="xrpl_payload_nft_buy_offer" id="Pp@](4f.^%k=Ik_6#tV[">
                                                                                             <value name="OWNER_ID">
                                                                                               <block type="variables_get" id="\`X/E_RJ[RNkF]Uy4R2[T">
                                                                                                 <field name="VAR" id="-,dV?p?EbB}Gm?~SUB*t">ownerAddess</field>
                                                                                               </block>
                                                                                             </value>
-                                                                                            <value name="TOKEN_ID">
+                                                                                            <value name="NFT_ID">
                                                                                               <block type="variables_get" id="P(LAeP:SD5M6qaCpW?/y">
                                                                                                 <field name="VAR" id="^C=-[p.p[Yv,Ydoajoxh">nftID</field>
                                                                                               </block>
@@ -368,7 +368,7 @@ export const DemoV0R4SemiAutoBid = `
                                                                                                 <field name="VAR" id="-9^X_9!F{?~WFtM=)|,|">newAmount</field>
                                                                                               </block>
                                                                                             </value>
-                                                                                            <value name="DESTINATION">
+                                                                                            <value name="DESTINATION_ADDRESS">
                                                                                               <block type="variables_get" id="DU5Gt^HQ?OluC0^n1.]h">
                                                                                                 <field name="VAR" id="8I/xk/gsj-/y/X|Gv.sG">brokerAddress</field>
                                                                                               </block>
@@ -376,17 +376,17 @@ export const DemoV0R4SemiAutoBid = `
                                                                                           </block>
                                                                                         </value>
                                                                                         <next>
-                                                                                          <block type="xaman_payload_set" id="d$@,umhk2Oz+F=}Gtj/k">
+                                                                                          <block type="xaman_request_transaction_signature" id="d$@,umhk2Oz+F=}Gtj/k">
                                                                                             <field name="IS_ERROR" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
                                                                                             <field name="PAYLOAD_ID" id="}r8U68uAomtU|j6ig4wf">payloadID</field>
-                                                                                            <value name="PAYLOAD">
+                                                                                            <value name="TRANSACTION_PAYLOAD">
                                                                                               <block type="variables_get" id="\`wTCT/pU+PX]9y@875@y">
                                                                                                 <field name="VAR" id="L*8JxJvWWO)aF+}m,c$w">buyPayload</field>
                                                                                               </block>
                                                                                             </value>
                                                                                             <next>
                                                                                               <block type="xaman_wait_for_signature" id="~3g{mb9R?F;XdOYW5$}|">
-                                                                                                <value name="PAYLOAD">
+                                                                                                <value name="TRANSACTION_PAYLOAD">
                                                                                                   <block type="variables_get" id="2r;XR8I/{i@[]\`N9K5xI">
                                                                                                     <field name="VAR" id="}r8U68uAomtU|j6ig4wf">payloadID</field>
                                                                                                   </block>
@@ -415,13 +415,13 @@ export const DemoV0R4SemiAutoBid = `
                                                           <block type="variables_set" id="yHgFVF3Y$@@v0mj7n)9v">
                                                             <field name="VAR" id="L*8JxJvWWO)aF+}m,c$w">buyPayload</field>
                                                             <value name="VALUE">
-                                                              <block type="xrpl_payload_nftoken_buy_offer" id="vCo#Y[7lpY=3.-|FHqJC">
+                                                              <block type="xrpl_payload_nft_buy_offer" id="vCo#Y[7lpY=3.-|FHqJC">
                                                                 <value name="OWNER_ID">
                                                                   <block type="variables_get" id="uD~%S*8=odMX?n=M\`iLy">
                                                                     <field name="VAR" id="-,dV?p?EbB}Gm?~SUB*t">ownerAddess</field>
                                                                   </block>
                                                                 </value>
-                                                                <value name="TOKEN_ID">
+                                                                <value name="NFT_ID">
                                                                   <block type="variables_get" id="PZB^j@K]p}ji(C+jT1,#">
                                                                     <field name="VAR" id="^C=-[p.p[Yv,Ydoajoxh">nftID</field>
                                                                   </block>
@@ -431,7 +431,7 @@ export const DemoV0R4SemiAutoBid = `
                                                                     <field name="VAR" id="g$p.34oz2Ndzsh\`^\`8%n">startBid</field>
                                                                   </block>
                                                                 </value>
-                                                                <value name="DESTINATION">
+                                                                <value name="DESTINATION_ADDRESS">
                                                                   <block type="variables_get" id="r;xKjp9*xSA7AUgageb1">
                                                                     <field name="VAR" id="8I/xk/gsj-/y/X|Gv.sG">brokerAddress</field>
                                                                   </block>
@@ -439,17 +439,17 @@ export const DemoV0R4SemiAutoBid = `
                                                               </block>
                                                             </value>
                                                             <next>
-                                                              <block type="xaman_payload_set" id="vWo~Ri|2IEOigwEIZjfu">
+                                                              <block type="xaman_request_transaction_signature" id="vWo~Ri|2IEOigwEIZjfu">
                                                                 <field name="IS_ERROR" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
                                                                 <field name="PAYLOAD_ID" id="}r8U68uAomtU|j6ig4wf">payloadID</field>
-                                                                <value name="PAYLOAD">
+                                                                <value name="TRANSACTION_PAYLOAD">
                                                                   <block type="variables_get" id="VhZfEuP!g.n#]g;zVD!S">
                                                                     <field name="VAR" id="L*8JxJvWWO)aF+}m,c$w">buyPayload</field>
                                                                   </block>
                                                                 </value>
                                                                 <next>
                                                                   <block type="xaman_wait_for_signature" id="Al]oC/yXHEF;z@D}%nd2">
-                                                                    <value name="PAYLOAD">
+                                                                    <value name="TRANSACTION_PAYLOAD">
                                                                       <block type="variables_get" id="HisB-e/}OnVM\`k?$B^Z5">
                                                                         <field name="VAR" id="}r8U68uAomtU|j6ig4wf">payloadID</field>
                                                                       </block>
@@ -462,13 +462,13 @@ export const DemoV0R4SemiAutoBid = `
                                                         </statement>
                                                         <next>
                                                           <block type="wait_seconds" id="]f[0m)]+tG]\`xv~X(1X,">
-                                                            <value name="TIME">
+                                                            <value name="SECONDS">
                                                               <block type="math_number" id="$6~-~57vqv{L19ir:r6L">
                                                                 <field name="NUM">5</field>
                                                               </block>
                                                             </value>
                                                             <next>
-                                                              <block type="xrpl_clio_command_nft_info" id="\`)(UI\`JP0e:[zj6a[nyM">
+                                                              <block type="xrpl_command_get_nft_info" id="\`)(UI\`JP0e:[zj6a[nyM">
                                                                 <field name="IS_ERROR" id="f5Q?cJ|ceq:VtvA\`W@2N">status</field>
                                                                 <field name="NFT_INFO" id="H8?7.T:4!\`hKG.w57*E^">response</field>
                                                                 <value name="CLIENT">

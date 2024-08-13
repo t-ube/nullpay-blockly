@@ -14,7 +14,7 @@ const workspaces = [
     block: 
       `<block type="xaman_login" x="0" y="0">
         <next>
-          <block type="xaman_payload_set"></block>
+          <block type="xaman_request_transaction_signature"></block>
         </next>
       </block>`
   },
@@ -23,8 +23,8 @@ const workspaces = [
     block: 
       `<block type="xaman_login" x="0" y="0">
         <next>
-          <block type="xaman_payload_set">
-            <value name="PAYLOAD">
+          <block type="xaman_request_transaction_signature">
+            <value name="TRANSACTION_PAYLOAD">
               <block type="xrpl_payload_payment">
                 <value name="ACCOUNT_ADDRESS">
                   <block type="json_get_value">
@@ -40,12 +40,12 @@ const workspaces = [
                     </value>
                   </block>
                 </value>
-                <value name="DEST_ADDRESS">
+                <value name="DESTINATION_ADDRESS">
                   <block type="text">
                     <field name="TEXT">rKCXJLoUhd4dSvd9Vropg8TeURZHgZuknt</field>
                   </block>
                 </value>
-                <value name="AMOUNT">
+                <value name="XRP_DROPS_AMOUNT">
                   <block type="xrpl_xrp_to_drops">
                     <value name="AMOUNT">
                       <block type="math_number">
@@ -65,8 +65,8 @@ const workspaces = [
     block: 
 `      <block type="xaman_login" x="0" y="0">
         <next>
-          <block type="xaman_payload_set">
-            <value name="PAYLOAD">
+          <block type="xaman_request_transaction_signature">
+            <value name="TRANSACTION_PAYLOAD">
               <block type="xrpl_payload_payment">
                 <value name="ACCOUNT_ADDRESS">
                   <block type="json_get_value">
@@ -82,12 +82,12 @@ const workspaces = [
                     </value>
                   </block>
                 </value>
-                <value name="DEST_ADDRESS">
+                <value name="DESTINATION_ADDRESS">
                   <block type="text">
                     <field name="TEXT">rKCXJLoUhd4dSvd9Vropg8TeURZHgZuknt</field>
                   </block>
                 </value>
-                <value name="AMOUNT">
+                <value name="XRP_DROPS_AMOUNT">
                   <block type="xrpl_xrp_to_drops">
                     <value name="AMOUNT">
                       <block type="math_number">

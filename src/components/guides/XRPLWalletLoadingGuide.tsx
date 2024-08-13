@@ -10,7 +10,7 @@ const workspaces = [
     block: `
       <block type="xrpl_load_wallet" x="0" y="0">
         <field name="WALLET_ID">walletID</field>
-        <value name="SEED">
+        <value name="WALLET_SEED">
           <block type="text">
             <field name="TEXT">sEdTbWX2VSsYQ3n5L6hokj9kvUyKX59</field>
           </block>
@@ -61,7 +61,7 @@ const workspaces = [
     block: `
       <block type="xrpl_load_wallet" x="0" y="0">
         <field name="WALLET_ID">walletID</field>
-        <value name="SEED">
+        <value name="WALLET_SEED">
           <block type="text">
             <field name="TEXT">sEdTbWX2VSsYQ3n5L6hokj9kvUyKX59</field>
           </block>

@@ -4,19 +4,18 @@ import xamanPkce from '@/utils/XamanPkce';
 import { XummJsonTransaction } from 'xumm-sdk/dist/src/types';
 import { BlockColors } from '@/blocks/BlockColors';
 import { blockCheckType } from '@/blocks/BlockField';
-import { getBlockSuccess, getBlockError } from '@/blocks/BlockResult';
 
 function stringToHex(str:string) {
   return Buffer.from(str, 'utf8').toString('hex');
 }
 
-export const xaman_payment : any = {
-  "type": "xaman_payment",
+export const xaman_request_payment_signature : any = {
+  "type": "xaman_request_payment_signature",
   "message0": "%1",
   "args0": [
     {
       "type": "field_label",
-      "text": "Xaman simple payment",
+      "text": "Xaman payment request",
       "class": "title-label"
     }
   ],
@@ -29,7 +28,7 @@ export const xaman_payment : any = {
     },
     {
       "type": "input_value",
-      "name": "DESTINATION",
+      "name": "DESTINATION_ADDRESS",
       "check": "String"
     }
   ],
@@ -37,12 +36,12 @@ export const xaman_payment : any = {
   "args2": [
     {
       "type": "field_label",
-      "text": "Amount (drops)",
+      "text": "XRP amount (drops)",
       "class": "args-label"
     },
     {
       "type": "input_value",
-      "name": "AMOUNT",
+      "name": "XRP_DROPS_AMOUNT",
       "check": "Number"
     }
   ],
@@ -95,12 +94,12 @@ export const xaman_payment : any = {
 
 export const defineXamanPaymentBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xaman_payment
+    xaman_request_payment_signature
   ]);
 
-  javascriptGenerator.forBlock['xaman_payment'] = function (block, generator) {
-    const destination = generator.valueToCode(block, 'DESTINATION', Order.ATOMIC) || '""';
-    const amount = generator.valueToCode(block, 'AMOUNT', Order.ATOMIC) || '0';
+  javascriptGenerator.forBlock['xaman_request_payment_signature'] = function (block, generator) {
+    const destination = generator.valueToCode(block, 'DESTINATION_ADDRESS', Order.ATOMIC) || '""';
+    const amount = generator.valueToCode(block, 'XRP_DROPS_AMOUNT', Order.ATOMIC) || '0';
     const memo = generator.valueToCode(block, 'MEMO', Order.ATOMIC) || '""';
     if (generator.nameDB_ === undefined) {
       return `xamanCreatePaymentTransaction(${destination}, ${amount}, ${memo}, '', '');\n`;
@@ -244,13 +243,13 @@ export function initInterpreterXamanWaitForSignatureBlock(interpreter:any, globa
 }
 
 
-export const xaman_payload_set : any = {
-  "type": "xaman_payload_set",
+export const xaman_request_transaction_signature : any = {
+  "type": "xaman_request_transaction_signature",
   "message0": "%1",
   "args0": [
     {
       "type": "field_label",
-      "text": "Xaman set payload",
+      "text": "Xaman transaction request",
       "class": "title-label"
     }
   ],
@@ -263,7 +262,7 @@ export const xaman_payload_set : any = {
     },
     {
       "type": "input_value",
-      "name": "PAYLOAD",
+      "name": "TRANSACTION_PAYLOAD",
       "check": [blockCheckType.xrplTxnPayload, blockCheckType.json]
     }
   ],
@@ -289,17 +288,17 @@ export const xaman_payload_set : any = {
   "previousStatement": null,
   "nextStatement": null,
   "colour": BlockColors.xaman,
-  "tooltip": "Create a new Xaman transaction payload to be used for an XRPL transaction. Requires a JSON payload object as input.",
+  "tooltip": "Requests a signature for an XRPL transaction through Xaman. Creates a transaction payload and sends it to Xaman for user approval and signature. Requires a JSON transaction object as input.",
   "helpUrl": ""
 };
 
 export const defineXamanPayloadSetBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xaman_payload_set
+    xaman_request_transaction_signature
   ]);
 
-  javascriptGenerator.forBlock['xaman_payload_set'] = function(block, generator) {
-    const payload = generator.valueToCode(block, 'PAYLOAD', Order.NONE) || '{}';
+  javascriptGenerator.forBlock['xaman_request_transaction_signature'] = function(block, generator) {
+    const payload = generator.valueToCode(block, 'TRANSACTION_PAYLOAD', Order.NONE) || '{}';
     if (generator.nameDB_ === undefined) {
       return `xamanPayloadSet(JSON.stringify(${payload}),'','');\n`;
     }

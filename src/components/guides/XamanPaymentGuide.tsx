@@ -11,20 +11,20 @@ const workspaces = [
   },
   {
     id: 'step-2',
-    block: `<block type="xaman_payment" x="0" y="0"></block>`
+    block: `<block type="xaman_request_payment_signature" x="0" y="0"></block>`
   },
   {
     id: 'step-3',
     block: 
       `<block type="xaman_login" x="0" y="0">
         <next>
-          <block type="xaman_payment">
-            <value name="DESTINATION">
+          <block type="xaman_request_payment_signature">
+            <value name="DESTINATION_ADDRESS">
               <block type="text">
                 <field name="TEXT">rKCXJLoUhd4dSvd9Vropg8TeURZHgZuknt</field>
               </block>
             </value>
-            <value name="AMOUNT">
+            <value name="XRP_DROPS_AMOUNT">
               <block type="xrpl_xrp_to_drops">
                 <value name="AMOUNT">
                   <block type="math_number">
@@ -42,13 +42,13 @@ const workspaces = [
     block:
       `<block type="xaman_login" x="0" y="0">
         <next>
-          <block type="xaman_payment">
-            <value name="DESTINATION">
+          <block type="xaman_request_payment_signature">
+            <value name="DESTINATION_ADDRESS">
               <block type="text">
                 <field name="TEXT">rKCXJLoUhd4dSvd9Vropg8TeURZHgZuknt</field>
               </block>
             </value>
-            <value name="AMOUNT">
+            <value name="XRP_DROPS_AMOUNT">
               <block type="xrpl_xrp_to_drops">
                 <value name="AMOUNT">
                   <block type="math_number">

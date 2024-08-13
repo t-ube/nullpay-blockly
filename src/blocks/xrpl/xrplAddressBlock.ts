@@ -16,7 +16,7 @@ export const xrpl_address : any = {
   ],
   "output": "String",
   "colour": BlockColors.xrpl,
-  "tooltip": "Enter the XRPL address",
+  "tooltip": "Enter and validate an XRPL address. Ensures the input conforms to the XRPL address format.",
   "helpUrl": ""
 };
 

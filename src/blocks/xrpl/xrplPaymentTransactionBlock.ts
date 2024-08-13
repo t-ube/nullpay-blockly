@@ -6,8 +6,8 @@ import { blockCheckType } from '@/blocks/BlockField';
 
 
 // Define the block for Payment XRPL Token
-export const xrpl_payload_payment_token : any = {
-  "type": "xrpl_payload_payment_token",
+export const xrpl_payload_token_payment : any = {
+  "type": "xrpl_payload_token_payment",
   "message0": "%1",
   "args0": [
     {
@@ -51,7 +51,7 @@ export const xrpl_payload_payment_token : any = {
     },
     {
       "type": "input_value",
-      "name": "DEST_ADDRESS",
+      "name": "DESTINATION_ADDRESS",
       "check": "String"
     }
   ],
@@ -77,14 +77,14 @@ export const xrpl_payload_payment_token : any = {
 
 export const defineXrplPaymentTokenTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_payload_payment_token
+    xrpl_payload_token_payment
   ]);
 
   // JavaScript code generator for Payment XRPL Token
-  javascriptGenerator.forBlock['xrpl_payload_payment_token'] = function(block, generator) {
+  javascriptGenerator.forBlock['xrpl_payload_token_payment'] = function(block, generator) {
     const token = generator.valueToCode(block, 'TOKEN', Order.NONE) || {} as IXrplToken;
     const account = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.NONE) || '""';
-    const dest = generator.valueToCode(block, 'DEST_ADDRESS', Order.NONE) || '""';
+    const dest = generator.valueToCode(block, 'DESTINATION_ADDRESS', Order.NONE) || '""';
     const amount = generator.valueToCode(block, 'AMOUNT', Order.NONE) || 0;
     const code = `xrplPaymentTokenTxn(JSON.stringify(${token}),${account},${dest},String(${amount}))`;
     return [code, Order.ATOMIC];
@@ -143,7 +143,7 @@ export const xrpl_payload_payment : any = {
     },
     {
       "type": "input_value",
-      "name": "DEST_ADDRESS",
+      "name": "DESTINATION_ADDRESS",
       "check": "String"
     }
   ],
@@ -151,12 +151,12 @@ export const xrpl_payload_payment : any = {
   "args3": [
     {
       "type": "field_label",
-      "text": "Amount (drops)",
+      "text": "XRP amount (drops)",
       "class": "args-label"
     },
     {
       "type": "input_value",
-      "name": "AMOUNT",
+      "name": "XRP_DROPS_AMOUNT",
       "check": "Number"
     }
   ],
@@ -175,8 +175,8 @@ export const defineXrplPaymentBlock = () => {
   // JavaScript code generator for Payment XRPL Token
   javascriptGenerator.forBlock['xrpl_payload_payment'] = function(block, generator) {
     const account = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.NONE) || '""';
-    const dest = generator.valueToCode(block, 'DEST_ADDRESS', Order.NONE) || '""';
-    const amount = generator.valueToCode(block, 'AMOUNT', Order.NONE) || 0;
+    const dest = generator.valueToCode(block, 'DESTINATION_ADDRESS', Order.NONE) || '""';
+    const amount = generator.valueToCode(block, 'XRP_DROPS_AMOUNT', Order.NONE) || 0;
     let code = `xrplPayment(${account},${dest},String(${amount}))`;
     return [code, Order.ATOMIC];
   };

@@ -24,7 +24,7 @@ export const xrpl_request_faucet : any = {
     },
     {
       "type": "input_value",
-      "name": "CONNECTION",
+      "name": "FAUCET_NETWORK_URI",
       "check": "String"
     }
   ],
@@ -37,7 +37,7 @@ export const xrpl_request_faucet : any = {
     },
     {
       "type": "input_value",
-      "name": "ADDRESS",
+      "name": "DESTINATION_ADDRESS",
       "check": "String",
     }
   ],
@@ -68,8 +68,8 @@ export const defineXrplRequestFaucetBlock = () => {
   ]);
 
   javascriptGenerator.forBlock['xrpl_request_faucet'] = function (block, generator) {
-    const address = generator.valueToCode(block, 'ADDRESS', Order.ATOMIC) || '""';
-    const connection = generator.valueToCode(block, 'CONNECTION', Order.ATOMIC) || '""';
+    const address = generator.valueToCode(block, 'DESTINATION_ADDRESS', Order.ATOMIC) || '""';
+    const connection = generator.valueToCode(block, 'FAUCET_NETWORK_URI', Order.ATOMIC) || '""';
     if (generator.nameDB_ === undefined) {
       return `xrplRequestFaucet(${address}, ${connection}, '');\n`;
     }
@@ -122,7 +122,7 @@ export const xrpl_create_account_and_request_faucet : any = {
     },
     {
       "type": "input_value",
-      "name": "CONNECTION",
+      "name": "WEBSOCKET_ENDPOINT",
       "check": "String"
     }
   ],
@@ -167,7 +167,7 @@ export const defineXrplRequestCustomFaucetBlock = () => {
 
   javascriptGenerator.forBlock['xrpl_create_account_and_request_faucet'] = function (block, generator) {
     const amount = generator.valueToCode(block, 'XRP_AMOUNT', Order.ATOMIC) || '""';
-    const connection = generator.valueToCode(block, 'CONNECTION', Order.ATOMIC) || '""';
+    const connection = generator.valueToCode(block, 'WEBSOCKET_ENDPOINT', Order.ATOMIC) || '""';
     if (generator.nameDB_ === undefined) {
       return `xrplRequestCustomFaucet(${amount}, ${connection}, '');\n`;
     }

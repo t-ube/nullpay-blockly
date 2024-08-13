@@ -5,8 +5,8 @@ import { BlockColors } from '@/blocks/BlockColors';
 import { blockCheckType } from '@/blocks/BlockField';
 
 // Define the block for setting XRPL rippling
-export const xrpl_payload_rippling : any = {
-  "type": "xrpl_payload_rippling",
+export const xrpl_payload_rippling_config : any = {
+  "type": "xrpl_payload_rippling_config",
   "message0": "%1 %2",
   "args0": [
     {
@@ -31,7 +31,7 @@ export const xrpl_payload_rippling : any = {
     },
     {
       "type": "input_value",
-      "name": "ADDRESS",
+      "name": "ACCOUNT_ADDRESS",
       "check": "String"
     }
   ],
@@ -44,13 +44,13 @@ export const xrpl_payload_rippling : any = {
 
 export const defineXrplRipplingTxnBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_payload_rippling
+    xrpl_payload_rippling_config
   ]);
 
   // JavaScript code generator for the XRPL rippling block
-  javascriptGenerator.forBlock['xrpl_payload_rippling'] = function(block, generator) {
+  javascriptGenerator.forBlock['xrpl_payload_rippling_config'] = function(block, generator) {
     const rippling = block.getFieldValue('RIPPLING');
-    const address = generator.valueToCode(block, 'ADDRESS', Order.NONE) || '""';
+    const address = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.NONE) || '""';
     const code = `xrplRipplingTxn(${rippling === 'ENABLE' ? 'true' : 'false'},${address})`;
     return [code, Order.ATOMIC];
   };

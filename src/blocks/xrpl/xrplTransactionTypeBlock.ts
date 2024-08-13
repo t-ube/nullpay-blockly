@@ -4,8 +4,8 @@ import { BlockColors } from '@/blocks/BlockColors';
 import { blockCheckType } from '@/blocks/BlockField';
 
 
-export const xrpl_txn_type_select : any = {
-  "type": "xrpl_txn_type_select",
+export const xrpl_transaction_type : any = {
+  "type": "xrpl_transaction_type",
   "message0": "transaction type %1",
   "args0": [
     {
@@ -64,10 +64,10 @@ export const xrpl_txn_type_select : any = {
 
 export const defineXrplTxnTypeSelectBlock = () => {
   Blockly.defineBlocksWithJsonArray([
-    xrpl_txn_type_select
+    xrpl_transaction_type
   ]);
   
-  javascriptGenerator.forBlock['xrpl_txn_type_select'] = function (block, generator) {
+  javascriptGenerator.forBlock['xrpl_transaction_type'] = function (block, generator) {
     const type = block.getFieldValue('TRANSACTION_TYPE');
     const code = `"${type}"`;
     return [code, Order.ATOMIC];

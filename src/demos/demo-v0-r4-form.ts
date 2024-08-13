@@ -34,7 +34,7 @@ export const DemoV0R4Form = `
                         <field name="VAR" id=";z!a2xC^GeJya%K349f$">result</field>
                       </block>
                     </value>
-                    <value name="NAME">
+                    <value name="VARIABLE_NAME">
                       <block type="text" id="c1+-UU()ma}Z2Y8~Hi0\`">
                         <field name="TEXT">Param1</field>
                       </block>

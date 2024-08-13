@@ -122,7 +122,6 @@ import {
 import { defineWaitForSecondsBlock, initInterpreterWaitForSeconds } from '@/blocks/control/waitForSecondsBlock';
 import { defineControlRunSpeedBlock, initInterpreterControlRunSpeed } from '@/blocks/control/controlRunSpeed';
 import {
-  defineArrayInitBlock,
   defineArrayAppendBlock,
   defineListSortJsonValueBlock, initInterpreterListSortJsonValue
 } from '@/blocks/list/arrayInitBlock';
@@ -211,7 +210,7 @@ let flyout:Blockly.WorkspaceSvg;
 const toolbox = `
   <xml id="toolbox" style="display: none">
     <category name="XRPL" colour="${BlockColors.xrpl}">
-      <block type="xrpl_network_wss_selection"></block>
+      <block type="xrpl_select_websocket_endpoint"></block>
     </category>
   </xml>
 `;
@@ -337,7 +336,6 @@ const createCustomBlocks = () => {
 
   // List
   defineArrayAppendBlock();
-  defineArrayInitBlock();
   defineListSortJsonValueBlock();
 
   // Control
