@@ -6,7 +6,7 @@ import { blockCheckType } from '@/blocks/BlockField';
 export const definePercentageBlock = () => {
   Blockly.defineBlocksWithJsonArray([
     {
-      "type": "percentage",
+      "type": "math_percentage",
       "message0": "%1 % of %2",
       "args0": [
         {

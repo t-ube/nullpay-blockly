@@ -2167,7 +2167,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
         <block type="math_number" x="0" y="0"></block>
       `,
       title: "Number",
-      description: "Define a number.",
+      description: "This block represents a numerical value. It allows users to input any number, including integers and decimals. It's a fundamental block used in various mathematical operations and can be connected to other blocks that require numerical inputs.",
       categories: ["math"],
       blockType: "math_number",
     },
@@ -2176,20 +2176,130 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       block: `
         <block type="math_arithmetic" x="0" y="0"></block>
       `,
-      title: "Number Arithmetic",
-      description: "Math arithmetic",
+      title: "Arithmetic",
+      description: "This block performs basic arithmetic operations. It includes addition, subtraction, multiplication, division, and exponentiation. Users can select the desired operation from a dropdown menu and input two numbers to perform the calculation. It's essential for creating mathematical expressions in your programs.",
       categories: ["math"],
       blockType: "math_arithmetic",
     },
     {
       height: 50,
       block: `
-        <block type="percentage" x="0" y="0"></block>
+        <block type="math_percentage" x="0" y="0"></block>
       `,
       title: "Percentage",
       description: "Calculate a percentage.",
       categories: ["math"],
-      blockType: "percentage",
+      blockType: "math_percentage",
+    },
+    {
+      "height": 54,
+      "block": `
+        <block type="math_single" x="0" y="0"></block>
+      `,
+      title: "Math Operations",
+      description: "This block provides various single-input mathematical operations. It includes functions like square root, absolute value, negation, natural logarithm, logarithm base 10, exponential function, and base 10 exponent. These operations are useful for more advanced mathematical calculations.",
+      categories: ["math"],
+      blockType: "math_single",
+    },
+    {
+      "height": 54,
+      "block": `
+        <block type="math_trig" x="0" y="0"></block>
+      `,
+      title: "Trigonometry",
+      description: "This block performs trigonometric functions. It includes sine, cosine, tangent, arcsine, arccosine, and arctangent. These functions are crucial for calculations involving angles and are often used in geometry, physics, and engineering applications.",
+      categories: ["math"],
+      blockType: "math_trig",
+    },
+    {
+      "height": 54,
+      "block": `
+        <block type="math_constant" x="0" y="0"></block>
+      `,
+      title: "Constants",
+      description: "This block provides access to common mathematical constants. It typically includes π (pi), e (Euler's number), φ (golden ratio), sqrt(2), sqrt(½), and infinity. These constants are useful in various mathematical and scientific calculations.",
+      categories: ["math"],
+      blockType: "math_constant",
+    },
+    {
+      "height": 54,
+      "block": `
+        <block type="math_number_property" x="0" y="0"></block>
+      `,
+      title: "Number Properties",
+      description: "This block checks various properties of a number. It can determine if a number is even, odd, prime, whole, positive, negative, or divisible by another number. It returns a boolean value (true or false) based on the selected property check.",
+      categories: ["math"],
+      blockType: "math_number_property",
+    },
+    {
+      "height": 54,
+      "block": `
+        <block type="math_round" x="0" y="0"></block>
+      `,
+      title: "Round",
+      description: "This block rounds numbers. It offers options to round up (ceiling), round down (floor), or round to the nearest integer. This block is useful when you need to work with whole numbers or when you want to limit the precision of decimal numbers.",
+      categories: ["math"],
+      blockType: "math_round",
+    },
+    {
+      "height": 54,
+      "block": `
+        <block type="math_on_list" x="0" y="0"></block>
+      `,
+      title: "List Operations",
+      description: "This block performs mathematical operations on lists of numbers. It can calculate the sum, minimum, maximum, average, median, mode, standard deviation, or random item from a list. This block is particularly useful when working with datasets or multiple values.",
+      categories: ["math"],
+      blockType: "math_on_list",
+    },
+    {
+      "height": 54,
+      "block": `
+        <block type="math_modulo" x="0" y="0"></block>
+      `,
+      title: "Modulo",
+      description: "This block calculates the remainder of a division operation. It takes two inputs: the dividend and the divisor. The block returns the remainder after division. Modulo is often used in programming for tasks like determining if a number is even or odd, or for creating cyclic patterns.",
+      categories: ["math"],
+      blockType: "math_modulo",
+    },
+    {
+      "height": 54,
+      "block": `
+        <block type="math_constrain" x="0" y="0"></block>
+      `,
+      title: "Constrain",
+      description: "This block constrains a number to fall within a specified range. It takes three inputs: the number to constrain, the lower limit, and the upper limit. If the number is outside the range, it's set to the nearest limit. This is useful for ensuring values stay within acceptable bounds.",
+      categories: ["math"],
+      blockType: "math_constrain",
+    },
+    {
+      "height": 54,
+      "block": `
+        <block type="math_random_int" x="0" y="0"></block>
+      `,
+      title: "Random Integer",
+      description: "This block generates a random integer within a specified range. Users input the minimum and maximum values, and the block returns a random integer inclusive of both limits. This is useful for creating games, simulations, or any application requiring randomness.",
+      categories: ["math"],
+      blockType: "math_random_int",
+    },
+    {
+      "height": 54,
+      "block": `
+        <block type="math_random_float" x="0" y="0"></block>
+      `,
+      title: "Random Fraction",
+      description: "This block generates a random fraction between 0 and 1. It returns a float value greater than or equal to 0 and strictly less than 1. This block is useful when you need a random decimal number, often for probability calculations or generating random percentages.",
+      categories: ["math"],
+      blockType: "math_random_float",
+    },
+    {
+      "height": 54,
+      "block": `
+        <block type="math_atan2" x="0" y="0"></block>
+      `,
+      title: "Arctangent 2",
+      description: "This block calculates the arctangent of y/x, using the signs of both arguments to determine the quadrant of the result. It's particularly useful in robotics and game development for calculating angles between points. The block takes two inputs (y and x) and returns the angle in radians.",
+      categories: ["math"],
+      blockType: "math_atan2",
     }
   ],
   supabase: [
