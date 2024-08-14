@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import * as Blockly from 'blockly/core';
+import { v4 as uuidv4 } from 'uuid';
 import { Box, Modal, TextField, Typography, InputAdornment, Chip, Stack, IconButton, Tooltip } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import { MagnifyingGlassIcon, XCircleIcon, ArrowLeftCircleIcon, PlusIcon } from '@heroicons/react/24/solid';
@@ -24,6 +25,7 @@ const BlocklySearchFlyout = ({ onBlockSelected, onBlockSelectedV2, setOpen, open
   const [dynamicUpdated, setDynamicUpdated] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [xmlMode, setXmlMode] = useState(false);
 
   const handleClose = useCallback(() => {
     workspaceRefs.current.forEach(({ workspace }) => {
@@ -42,23 +44,38 @@ const BlocklySearchFlyout = ({ onBlockSelected, onBlockSelectedV2, setOpen, open
       if (workspace && (event.type === 'selected' || event.type === 'click' || event.type === 'drag')) {
         const blockSvg = workspace.getBlockById(event.blockId);
         if (blockSvg) {
-          //const xml = Blockly.Xml.blockToDom(blockSvg as Blockly.Block) as Element;
-          //const xmlText = Blockly.Xml.domToText(xml);
-          const json = Blockly.serialization.blocks.save(blockSvg as Blockly.Block);
-          const jsonText = JSON.stringify(json);
           const blockElement = blockSvg.getSvgRoot();
           const rect = blockElement.getBoundingClientRect();
           let dummyEvent: any = {
             clientX: rect.left,
             clientY: rect.top
           };
-          //onBlockSelected(xmlText, event.type, dummyEvent);
-          onBlockSelectedV2(jsonText, event.type, dummyEvent);
+          const replaceIds = (obj: any): any => {
+            if (obj && typeof obj === 'object') {
+              if (obj.id) {
+                obj.id = `${obj.type}_${uuidv4()}`;
+              }
+              for (const key in obj) {
+                obj[key] = replaceIds(obj[key]);
+              }
+            }
+            return obj;
+          };
+          if (xmlMode) {
+            const xml = Blockly.Xml.blockToDom(blockSvg as Blockly.Block) as Element;
+            const xmlText = Blockly.Xml.domToText(xml);
+            onBlockSelected(xmlText, event.type, dummyEvent);
+          } else {
+            const json = Blockly.serialization.blocks.save(blockSvg as Blockly.Block);
+            const newJson = replaceIds(json);
+            const jsonText = JSON.stringify(newJson);
+            onBlockSelectedV2(jsonText, event.type, dummyEvent);
+          }
           handleClose();
         }
       }
     },
-    [/*onBlockSelected,*/onBlockSelectedV2, handleClose]
+    [onBlockSelected, onBlockSelectedV2, xmlMode, handleClose]
   );
 
   const handleAddBlock = useCallback((workspaceId: string, blockId: string) => {
@@ -68,23 +85,38 @@ const BlocklySearchFlyout = ({ onBlockSelected, onBlockSelectedV2, setOpen, open
       if (blockSvgs && blockSvgs.length) {
         const blockSvg = blockSvgs[0];
         if (blockSvg) {
-          //const xml = Blockly.Xml.blockToDom(blockSvg as Blockly.Block) as Element;
-          //const xmlText = Blockly.Xml.domToText(xml);
-          const json = Blockly.serialization.blocks.save(blockSvg as Blockly.Block);
-          const jsonText = JSON.stringify(json);
           const blockElement = blockSvg.getSvgRoot();
           const rect = blockElement.getBoundingClientRect();
           let dummyEvent: any = {
             clientX: rect.left,
             clientY: rect.top
           };
-          //onBlockSelected(xmlText, 'click', dummyEvent);
-          onBlockSelectedV2(jsonText, 'click', dummyEvent);
+          const replaceIds = (obj: any): any => {
+            if (obj && typeof obj === 'object') {
+              if (obj.id) {
+                obj.id = `${obj.type}_${uuidv4()}`;
+              }
+              for (const key in obj) {
+                obj[key] = replaceIds(obj[key]);
+              }
+            }
+            return obj;
+          };
+          if (xmlMode) {
+            const xml = Blockly.Xml.blockToDom(blockSvg as Blockly.Block) as Element;
+            const xmlText = Blockly.Xml.domToText(xml);
+            onBlockSelected(xmlText, 'click', dummyEvent);
+          } else {
+            const json = Blockly.serialization.blocks.save(blockSvg as Blockly.Block);
+            const newJson = replaceIds(json);
+            const jsonText = JSON.stringify(newJson);
+            onBlockSelectedV2(jsonText, 'click', dummyEvent);
+          }
           handleClose();
         }
       }
     }
-  }, [mainWorkspace]);
+  }, [onBlockSelected, onBlockSelectedV2, xmlMode, handleClose]);
 
   const disposeWorkspaces = useCallback(() => {
     workspaceRefs.current.forEach(({ workspace }) => {
