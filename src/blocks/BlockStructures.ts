@@ -122,7 +122,6 @@ import {
 } from '@/blocks/xaman/xamanVariableBlock';
 import {
   logic_false,
-  logic_null,
   logic_true,
   logic_undefined
 } from '@/blocks/logic/logicBlock';
@@ -201,7 +200,6 @@ export const BlockStructures = [
   xaman_variable_name,
   xaman_variable_set,
   logic_false,
-  logic_null,
   logic_true,
   logic_undefined,
   lists_append,
