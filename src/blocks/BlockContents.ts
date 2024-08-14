@@ -662,7 +662,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                     </block>
                                                                   </value>
                                                                   <value name="B">
-                                                                    <block type="false" id="9xJv0E{H)%CWW\$7(Z^5l"></block>
+                                                                    <block type="logic_false" id="9xJv0E{H)%CWW\$7(Z^5l"></block>
                                                                   </value>
                                                                 </block>
                                                               </value>
@@ -1295,7 +1295,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                                             </block>
                                                                           </value>
                                                                           <value name="B">
-                                                                            <block type="false" id="JAP]B^j?sxF|ml.Mh\`[["></block>
+                                                                            <block type="logic_false" id="JAP]B^j?sxF|ml.Mh\`[["></block>
                                                                           </value>
                                                                         </block>
                                                                       </value>
@@ -1420,7 +1420,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                             </block>
                           </value>
                           <value name="B">
-                            <block type="false" id="WCLUnol(PmsI}b$SFaFp"></block>
+                            <block type="logic_false" id="WCLUnol(PmsI}b$SFaFp"></block>
                           </value>
                         </block>
                       </value>
@@ -1679,7 +1679,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                             </block>
                           </value>
                           <value name="B">
-                            <block type="undefined" id="biK*Nb-*$UaN3)Fx9f:{"></block>
+                            <block type="logic_undefined" id="biK*Nb-*$UaN3)Fx9f:{"></block>
                           </value>
                         </block>
                       </value>
@@ -2939,7 +2939,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
         <block type="controls_whileUntil" id=":clCTs/YNCAf,[qXsoLh" x="0" y="0">
           <field name="MODE">WHILE</field>
           <value name="BOOL">
-            <block type="true" id="jqp:gfPIkj]xxI|s]]/="></block>
+            <block type="logic_true" id="jqp:gfPIkj]xxI|s]]/="></block>
           </value>
           <statement name="DO">
             <block type="webapi_request" id="~3veFu$19_YR*,ZAH~xp">
@@ -3189,49 +3189,91 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
         <block type="logic_compare" x="0" y="0"></block>
       `,
       title: "Logic Compare",
-      description: "Compare two values.",
+      "description": "This block is used for comparing two values. It offers various comparison operators such as equal to, not equal to, less than, greater than, less than or equal to, and greater than or equal to. The block returns a boolean value (true or false) based on the comparison result. It's essential for creating conditional logic in your programs.",
       categories: ["logic"],
       blockType: "logic_compare",
     },
     {
       height: 50,
       block: `
-        <block type="undefined" x="0" y="0"></block>
+        <block type="logic_undefined" x="0" y="0"></block>
       `,
       title: "Undefined",
       description: "Returns the undefined value, used to indicate the absence of a value.",
       categories: ["logic"],
-      blockType: "undefined",
+      blockType: "logic_undefined",
     },
     {
       height: 50,
       block: `
-        <block type="null" x="0" y="0"></block>
+        <block type="logic_null" x="0" y="0"></block>
       `,
       title: "Null",
-      description: "Returns the null value, used to indicate the intentional absence of any object value.",
+      description: "This block represents a null value. In programming, null typically indicates the absence of any object value. It's often used to represent an uninitialized state or to indicate that a variable has no value assigned to it. Be cautious when using null values, as they can lead to errors if not handled properly.",
       categories: ["logic"],
-      blockType: "null",
+      blockType: "logic_null",
     },
     {
       height: 50,
       block: `
-        <block type="true" x="0" y="0"></block>
+        <block type="logic_true" x="0" y="0"></block>
       `,
       title: "True",
       description: "Returns the boolean value true.",
       categories: ["logic"],
-      blockType: "true",
+      blockType: "logic_true",
     },
     {
       height: 50,
       block: `
-        <block type="false" x="0" y="0"></block>
+        <block type="logic_false" x="0" y="0"></block>
       `,
       title: "False",
       description: "Returns the boolean value false.",
       categories: ["logic"],
-      blockType: "false",
+      blockType: "logic_false",
+    },
+    {
+      height: 50,
+      block: `
+        <block type="logic_negate" x="0" y="0"></block>
+      `,
+      "title": "Not",
+      "description": "This block negates a boolean value. It takes a boolean input and returns its opposite. If the input is true, it returns false, and if the input is false, it returns true. This block is useful for inverting conditions or creating opposite logic in your program.",
+      categories: ["logic"],
+      blockType: "logic_negate",
+    },
+    /*
+    {
+      height: 50,
+      block: `
+        <block type="logic_boolean" x="0" y="0"></block>
+      `,
+      title: "Boolean",
+      "description": "This block represents a boolean value, which can be either true or false. It is commonly used in conditional statements and logical operations. The block allows users to select between 'true' and 'false' from a dropdown menu, making it easy to set and change boolean values in your program.",
+      categories: ["logic"],
+      blockType: "logic_boolean",
+    },
+    */
+    {
+      height: 50,
+      block: `
+        <block type="logic_operation" x="0" y="0"></block>
+      `,
+      title: "Logical Operation",
+      "description": "This block performs logical operations on boolean values. It supports 'AND' and 'OR' operations. The 'AND' operation returns true only if both inputs are true, while the 'OR' operation returns true if at least one input is true. This block is crucial for combining multiple conditions in complex logical expressions.",
+      categories: ["logic"],
+      blockType: "logic_operation",
+    },
+    {
+      height: 96,
+      block: `
+        <block type="logic_ternary" x="0" y="0"></block>
+      `,
+      title: "Ternary Operator",
+      description: "This block implements a ternary operation, which is a compact way of writing an if-else statement. It takes three inputs: a condition, a value to return if the condition is true, and a value to return if the condition is false. This block is useful for concise conditional assignments and can make your code more readable in certain situations.",
+      categories: ["logic"],
+      blockType: "logic_ternary",
     },
   ],
   loop: [

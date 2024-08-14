@@ -4,7 +4,7 @@ import { BlockColors } from '@/blocks/BlockColors';
 
 
 export const logic_undefined : any = {
-  "type": "undefined",
+  "type": "logic_undefined",
   "message0": "undefined",
   "output": null,
   "colour": BlockColors.logic,
@@ -17,32 +17,13 @@ export const defineUndefinedBlock = () => {
     logic_undefined
   ]);
 
-  javascriptGenerator.forBlock['undefined'] = function (block, generator) {
-    return ['undefined', Order.ATOMIC];
-  };
-};
-  
-export const logic_null : any = {
-  "type": "null",
-  "message0": "null",
-  "output": null,
-  "colour": BlockColors.logic,
-  "tooltip": "Returns the null value.",
-  "helpUrl": ""
-};
-
-export const defineNullBlock = () => {
-  Blockly.defineBlocksWithJsonArray([
-    logic_null
-  ]);
-
-  javascriptGenerator.forBlock['null'] = function (block, generator) {
-    return ['null', Order.ATOMIC];
+  javascriptGenerator.forBlock['logic_undefined'] = function (block, generator) {
+    return ['logic_undefined', Order.ATOMIC];
   };
 };
 
 export const logic_true : any = {
-  "type": "true",
+  "type": "logic_true",
   "message0": "true",
   "output": null,
   "colour": BlockColors.logic,
@@ -55,13 +36,13 @@ export const defineTrueBlock = () => {
     logic_true
   ]);
 
-  javascriptGenerator.forBlock['true'] = function (block, generator) {
+  javascriptGenerator.forBlock['logic_true'] = function (block, generator) {
     return ['true', Order.ATOMIC];
   };
 };
 
 export const logic_false : any = {
-  "type": "false",
+  "type": "logic_false",
   "message0": "false",
   "output": null,
   "colour": BlockColors.logic,
@@ -74,7 +55,7 @@ export const defineFalseBlock = () => {
     logic_false
   ]);
 
-  javascriptGenerator.forBlock['false'] = function (block, generator) {
+  javascriptGenerator.forBlock['logic_false'] = function (block, generator) {
     return ['false', Order.ATOMIC];
   };
 };

@@ -99,7 +99,7 @@ export const DemoBlockXml = `
                       </block>
                     </value>
                     <value name="B">
-                      <block type="undefined" id="biK*Nb-*$UaN3)Fx9f:{"></block>
+                      <block type="logic_undefined" id="biK*Nb-*$UaN3)Fx9f:{"></block>
                     </value>
                   </block>
                 </value>

@@ -90,7 +90,6 @@ import {
 } from '@/blocks/text/textPrintBlock';
 import { 
   defineUndefinedBlock,
-  defineNullBlock,
   defineTrueBlock,
   defineFalseBlock
 } from '@/blocks/logic/logicBlock';
@@ -355,7 +354,6 @@ const createCustomBlocks = () => {
 
   // Logic
   defineUndefinedBlock();
-  defineNullBlock();
   defineTrueBlock();
   defineFalseBlock();
 
