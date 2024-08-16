@@ -1,9 +1,7 @@
 // app/api/chat/langchain/route.ts
-import OpenAI from 'openai';
-import { Pinecone } from '@pinecone-database/pinecone';
+export const runtime = 'edge'
 
-const pc = new Pinecone( { apiKey: process.env.NEXT_PUBLIC_PINECONE_API_KEY })
-const pcIndex = pc.index(process.env.NEXT_PUBLIC_PINECONE_INDEX)
+import OpenAI from 'openai';
 
 const openai = new OpenAI({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
@@ -20,14 +18,26 @@ export async function POST(req: Request) {
     });
     const queryEmbedding = embedResponse.data[0].embedding;
 
-    const searchResponse = await pcIndex.query({
+    // Pinecone query request
+    const pineconeResponse = await fetch(`${process.env.NEXT_PUBLIC_PINECONE_HOST}/query`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Api-Key': process.env.NEXT_PUBLIC_PINECONE_API_KEY,
+        'X-Pinecone-API-Version': '2024-07',
+      },
+      body: JSON.stringify({
         vector: queryEmbedding,
         topK: 3,
         includeMetadata: true,
+      }),
     });
 
+    const searchResponse = await pineconeResponse.json();
+
     const similarXmls = searchResponse.matches
-      .map(match => match.metadata?.content as string)
+      .map((match: any) => match.metadata?.content as string)
       .filter(Boolean);
 
     if (similarXmls.length === 0) {
@@ -44,7 +54,7 @@ export async function POST(req: Request) {
     - For any fields that might contain sensitive data not provided in the user's task, use placeholder values or descriptive tags.
     
     Original XMLs:
-    ${similarXmls.map((xml, index) => `Document ${index + 1}:\n${xml}`).join('\n\n')}
+    ${similarXmls.map((xml:any, index:number) => `Document ${index + 1}:\n${xml}`).join('\n\n')}
     
     User Task: ${requestJson.task}
     
