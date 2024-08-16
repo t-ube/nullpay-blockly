@@ -203,7 +203,12 @@ export async function POST(req: Request) {
     }
     */
 
-    return new Response(JSON.stringify({ generatedContent: generatedContent }) , {
+    return new Response(JSON.stringify(
+      {
+        generatedContent: generatedContent,
+        explanation: "Code blocks have been created."
+      }
+    ) , {
       status: 200,
       headers: {
         'Content-Type': 'application/json',

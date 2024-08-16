@@ -156,7 +156,12 @@ export async function POST(req: Request) {
       }
     }
    
-    return new Response(JSON.stringify({ generatedContent: generatedXml }) , {
+    return new Response(JSON.stringify(
+      {
+        generatedContent: generatedXml,
+        explanation: "Code blocks have been created."
+      }
+    ) , {
       status: 200,
       headers: {
         'Content-Type': 'application/json',

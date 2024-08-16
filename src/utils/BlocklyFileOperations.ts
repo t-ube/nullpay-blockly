@@ -81,6 +81,33 @@ export const saveWorkspaceMachineLearningFile = (workspace: Blockly.WorkspaceSvg
   document.body.appendChild(modal);
 }
 
+export const downloadMlTrainingData = (prompt: string, xmlText: string) : void => {
+  let jsonlData;
+  jsonlData = JSON.stringify({
+    prompt: prompt,
+    completion: xmlText
+  }) + '\n';
+  const blob = new Blob([jsonlData], { type: 'application/jsonl' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'blockly_training_data.jsonl';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+export const downloadXMLFromText = (xmlText: string) : void => {
+  const blob = new Blob([xmlText], { type: 'text/xml' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `blockly_code.xml`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 export const saveWorkspaceJson = (workspace: Blockly.WorkspaceSvg) => {
   const state = Blockly.serialization.workspaces.save(workspace);
   const clearOneTimeBlocks = (block: any) => {
