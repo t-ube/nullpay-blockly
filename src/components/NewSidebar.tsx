@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import * as Blockly from 'blockly/core';
-import { Tabs, Tab, Box, ToggleButton, ToggleButtonGroup, Typography, Divider, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Button } from '@mui/material';
+import { Box, ToggleButton, ToggleButtonGroup, Typography, Divider, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Button, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { styled } from '@mui/material/styles';
 import PuzzleIcon from '@mui/icons-material/Extension';
@@ -41,32 +41,32 @@ const initialBlockTitleMap : IDrawerBlockTitleMap = {
   function: 'Functions',
 };
 
-const VerticalTabs = styled(Tabs)({
+const scrollbarStyle = {
+  '&::-webkit-scrollbar': {
+    width: '6px',
+  },
+  '&::-webkit-scrollbar-thumb': {
+    backgroundColor: '#ced4da',
+    borderRadius: '3px',
+  },
+};
+
+const StyledList = styled(List)({
   borderRight: `1px solid #e8e8e8`,
-  '& .MuiTabs-indicator': {
-    left: 0,
-    right: 'auto',
-    width: 3,
+  '& .MuiListItem-root': {
+    padding: '8px 12px',
+  },
+  '& .MuiListItem-root.Mui-selected': {
+    backgroundColor: 'rgba(0, 0, 0, 0.08)',
+  },
+  '& .MuiListItemIcon-root': {
+    minWidth: '30px',
   },
   minWidth: '140px',
+  maxHeight: '100%',
+  overflowY: 'auto',
+  ...scrollbarStyle
 });
-
-const VerticalTab = styled(Tab)(({ theme }) => ({
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'flex-start',
-  minHeight: '40px',
-  padding: '8px 12px',
-  textAlign: 'left',
-  textTransform: 'none',
-  '&.Mui-selected': {
-    color: theme.palette.primary.main,
-    backgroundColor: theme.palette.action.selected,
-  },
-  '&:hover': {
-    backgroundColor: theme.palette.action.hover,
-  },
-}));
 
 interface ISidebarProps {
   onBlockSelectedV2: (json: string, eventType: string, event: MouseEvent) => void;
@@ -79,7 +79,7 @@ interface ISidebarProps {
 
 export function NewSidebar({ onBlockSelectedV2, open, setOpen, mainWorkspace, activeSidebar, setActiveSidebar }: ISidebarProps) {
   const workspaceRefs = useRef<{ id: string, workspace: Blockly.WorkspaceSvg | null }[]>([]);
-  const [tabValue, setTabValue] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [hoverTab, setHoverTab] = useState<string | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [varDialogOpen, setVarDialogOpen] = useState(false);
@@ -241,11 +241,6 @@ export function NewSidebar({ onBlockSelectedV2, open, setOpen, mainWorkspace, ac
     }
   }, [open, flyoutType, handleBlockClick, mainWorkspace]);
 
-
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setTabValue(newValue);
-  };
-
   const handleVarDialogClose = () => {
     setVarDialogOpen(false);
     setVariableName("");
@@ -266,7 +261,7 @@ export function NewSidebar({ onBlockSelectedV2, open, setOpen, mainWorkspace, ac
     }
     timeoutRef.current = setTimeout(() => {
       if (flyoutType !== type) {
-        setTabValue(index);
+        setSelectedIndex(index);
         setHoverTab(type);
         setOpen(!!type);
         setFlyoutType(type);
@@ -294,6 +289,25 @@ export function NewSidebar({ onBlockSelectedV2, open, setOpen, mainWorkspace, ac
       setActiveSidebar(newSidebarType);
     }
   };
+
+  const handleListItemHover = useCallback((type: string | null, index: number) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    timeoutRef.current = setTimeout(() => {
+      setSelectedIndex(index);
+      setHoverTab(type);
+      setOpen(!!type);
+      setFlyoutType(type);
+      clearWorkspaces();
+    }, 200);
+  }, [clearWorkspaces, setOpen, setSelectedIndex, setHoverTab, setFlyoutType]);
+
+  const handleListItemLeave = useCallback(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  }, []);
 
   const menuItems = [
     { label: 'XRPL', color: BlockColors.xrpl, type:'xrpl', icon: BlockIcons.xrpl },
@@ -355,46 +369,35 @@ export function NewSidebar({ onBlockSelectedV2, open, setOpen, mainWorkspace, ac
       >
         {activeSidebar === 'blocks' ? (
           <>
-            <VerticalTabs
-              orientation="vertical"
-              variant="scrollable"
-              value={tabValue}
-              onChange={handleChange}
-              sx={{
-                borderRight: 1,
-                borderColor: 'divider',
-                flexShrink: 0,
-                '& .MuiTabs-indicator': {
-                  left: 'auto',
-                  right: 0,
-                  width: '3px',
-                }
-              }}
-            >
-            {menuItems.map((item, index) => (
-              <VerticalTab
-                key={item.label}
-                label={
-                  <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', paddingLeft: '5px' }}>
+            <StyledList>
+              {menuItems.map((item, index) => (
+                <ListItem
+                  button
+                  key={item.label}
+                  selected={selectedIndex === index}
+                  onMouseEnter={() => handleListItemHover(item.type, index)}
+                  onMouseLeave={handleListItemLeave}
+                >
+                  <ListItemIcon>
                     {getIcon(item.icon, item.color)}
-                    <Typography 
-                      sx={{ 
-                        ml: 1.5,
-                        fontSize: '0.9rem',
-                        lineHeight: 1.2,
-                        fontWeight: 'bold',
-                        textAlign: 'left',
-                        flexGrow: 1,
-                      }}
-                    >
-                      {item.label}
-                    </Typography>
-                  </Box>
-                }
-                onMouseEnter={() => handleTabHover(item.type, index, 'a')}
-              />
-            ))}
-            </VerticalTabs>
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={
+                      <Typography
+                        sx={{
+                          fontSize: '0.9rem',
+                          lineHeight: 1.2,
+                          fontWeight: 'bold',
+                          color: '#495057',
+                        }}
+                      >
+                        {item.label}
+                      </Typography>
+                    }
+                  />
+                </ListItem>
+              ))}
+            </StyledList>
             <Box 
               sx={{ 
                 flexGrow: 1, 
@@ -403,40 +406,41 @@ export function NewSidebar({ onBlockSelectedV2, open, setOpen, mainWorkspace, ac
                 width: 330,
                 overflowY: 'auto',
                 maxHeight: '100%',
+                ...scrollbarStyle,
               }}
-              onMouseEnter={() => handleTabHover(hoverTab, tabValue, 'b')}
+              onMouseEnter={() => handleTabHover(hoverTab, selectedIndex, 'b')}
             >
-              {/* ここにブロックを表示するコンポーネントを配置 */}
               <ThemeProvider
                 theme={createTheme({
                   typography: {
-                  fontFamily: [
-                    'Google Sans',
-                    'Noto Sans',
-                    'Noto Sans JP',
-                    'Noto Sans KR',
-                    'Noto Naskh Arabic',
-                    'Noto Sans Thai',
-                    'Noto Sans Hebrew',
-                    'Noto Sans Bengali',
-                    'sans-serif',
-                  ].join(','),
-                },
-                components: {
-                  MuiCssBaseline: {
-                    styleOverrides: `
-                      @font-face {
-                        font-family: 'Google Sans';
-                        font-style: normal;
-                        font-weight: 400;
-                        src: local('Google Sans Regular'), local('GoogleSans-Regular'), url(https://fonts.gstatic.com/s/googlesans/v16/4UaGrENHsxJlGDuGo1OIlL3Kwp5eKQtGBlc.woff2) format('woff2');
-                      }
-                      body {
-                        -webkit-font-smoothing: antialiased;
-                        -moz-osx-font-smoothing: grayscale;
-                      }
-                    `,
-                  }}
+                    fontFamily: [
+                      'Google Sans',
+                      'Noto Sans',
+                      'Noto Sans JP',
+                      'Noto Sans KR',
+                      'Noto Naskh Arabic',
+                      'Noto Sans Thai',
+                      'Noto Sans Hebrew',
+                      'Noto Sans Bengali',
+                      'sans-serif',
+                    ].join(','),
+                  },
+                  components: {
+                    MuiCssBaseline: {
+                      styleOverrides: `
+                        @font-face {
+                          font-family: 'Google Sans';
+                          font-style: normal;
+                          font-weight: 400;
+                          src: local('Google Sans Regular'), local('GoogleSans-Regular'), url(https://fonts.gstatic.com/s/googlesans/v16/4UaGrENHsxJlGDuGo1OIlL3Kwp5eKQtGBlc.woff2) format('woff2');
+                        }
+                        body {
+                          -webkit-font-smoothing: antialiased;
+                          -moz-osx-font-smoothing: grayscale;
+                        }
+                      `,
+                    }
+                  }
                 })}
               >
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -492,7 +496,7 @@ export function NewSidebar({ onBlockSelectedV2, open, setOpen, mainWorkspace, ac
                           />
                         </Box>
                       )
-                  })}
+                    })}
                   </Box>
                 ))}
               </ThemeProvider>
@@ -505,8 +509,7 @@ export function NewSidebar({ onBlockSelectedV2, open, setOpen, mainWorkspace, ac
             setOpen={setOpen}
             mainWorkspace={mainWorkspace}
           />
-        )
-        }
+        )}
         {/* Variable Dialog */}
         <Dialog open={varDialogOpen} onClose={handleVarDialogClose}>
           <DialogTitle>Add Variable</DialogTitle>
@@ -543,4 +546,3 @@ export function NewSidebar({ onBlockSelectedV2, open, setOpen, mainWorkspace, ac
     </Box>
   );
 }
-
