@@ -145,6 +145,7 @@ const BlocklySearchFlyout = ({ onBlockSelected, onBlockSelectedV2, setOpen, open
                 wheel: false,
                 startScale: isMobile ? 0.5 : 0.8,
               },
+              sounds: false,
             });
             workspaceRefs.current.push({ id: divId, workspace });
 

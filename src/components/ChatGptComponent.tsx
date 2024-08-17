@@ -103,6 +103,7 @@ const BlocklyRenderer: React.FC<BlocklyRendererProps> = ({ content, index, onBlo
         wheel: false,
         startScale: 0.75,
       },
+      sounds: false,
     });
     workspaceRef.current = workspace;
 

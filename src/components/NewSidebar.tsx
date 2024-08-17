@@ -213,6 +213,7 @@ export function NewSidebar({ onBlockSelectedV2, open, setOpen, mainWorkspace, ac
                     wheel: false,
                     startScale: 0.75, 
                   },
+                  sounds: false,
                 });
                 workspaceRefs.current.push({ id: divId, workspace });
 

@@ -28,6 +28,7 @@ export function createAndManageWorkspace(
           wheel: false,
           startScale: 0.75,
         },
+        sounds: false,
       });
       workspaceRefs.current.push({ id, workspace });
   

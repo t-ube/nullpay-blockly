@@ -549,6 +549,7 @@ const blocklyInit = () => {
           Blockly.InsertionMarkerPreviewer,
         ),
     },
+    sounds: false
   });
 
   workspaceAdjustment();
