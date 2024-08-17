@@ -122,3 +122,14 @@ h1 {
 .blocklyDropDownArrow.blocklyArrowTop {
   pointer-events: none;
 }
+
+.gutter-custom {
+  background-color: #f0f0f0;
+}
+.gutter-custom .gutter {
+  background-color: #ECEFF1;
+  transition: 0.2s ease;
+}
+.gutter-custom .gutter:hover {
+  background-color: #CFD8DC;
+}

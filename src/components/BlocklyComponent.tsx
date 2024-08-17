@@ -601,7 +601,7 @@ const BlocklyComponent = () => {
         <div className="border-t border-gray-300"></div>
         <div className="flex flex-1 overflow-hidden">
           <Split
-            className="flex flex-1"
+            className="flex flex-1 gutter-custom"
             sizes={isMobile ? [100, 0] : [75, 25]}
             minSize={0}
             gutterSize={isMobile ? 0:  10}
