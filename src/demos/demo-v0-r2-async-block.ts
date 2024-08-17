@@ -111,7 +111,7 @@ export const DemoBlockXml = `
                       </block>
                     </value>
                     <next>
-                      <block type="wait_seconds" id="Lh.z4b(E!=.#:geLI,zJ">
+                      <block type="controls_wait_seconds" id="Lh.z4b(E!=.#:geLI,zJ">
                         <value name="SECONDS">
                           <block type="math_number" id="*@[7MGd/A22fF=Yp2!}#">
                             <field name="NUM">5</field>

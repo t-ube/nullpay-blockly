@@ -13,7 +13,7 @@ export const blockCheckType : IBlockCheckTypeMap = {
   jsonKv: "JSONKv",
   jsonKvArray: "JSONKvArray",
   boolean: "Boolean",
-  datetime: "Datetime",
+  datetime: "DATETIME",
   xrplToken: "XrplToken",
   xrplTokenAmount: "XrplTokenAmount",
   xrplClient: "Client",

@@ -118,7 +118,10 @@ import {
   defineFormSubmittedBlock, initInterpreterFormSubmitted,
   defineFormVariableGetBlock, initInterpreterFormVariableGet
 } from '@/blocks/form/formBlock';
-import { defineWaitForSecondsBlock, initInterpreterWaitForSeconds } from '@/blocks/control/waitForSecondsBlock';
+import { 
+  defineWaitForSecondsBlock, initInterpreterWaitForSeconds,
+  defineWaitUntilDatetimeBlock, initInterpreterWaitUntilDatetime
+} from '@/blocks/control/waitForSecondsBlock';
 import { defineControlRunSpeedBlock, initInterpreterControlRunSpeed } from '@/blocks/control/controlRunSpeed';
 import {
   defineArrayAppendBlock,
@@ -339,6 +342,7 @@ const createCustomBlocks = () => {
 
   // Control
   defineWaitForSecondsBlock();
+  defineWaitUntilDatetimeBlock();
   defineControlRunSpeedBlock();
 
   // Time
@@ -415,6 +419,7 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterXamanPayloadSet(interpreter, scope);
 
   initInterpreterWaitForSeconds(interpreter, scope);
+  initInterpreterWaitUntilDatetime(interpreter, scope);
   initInterpreterControlRunSpeed(interpreter, scope);
   initInterpreterConfettiAnimationFunctions(interpreter, scope);
 

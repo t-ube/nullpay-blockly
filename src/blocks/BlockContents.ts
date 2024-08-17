@@ -897,7 +897,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                           </block>
                                                         </statement>
                                                         <next>
-                                                          <block type="wait_seconds">
+                                                          <block type="controls_wait_seconds">
                                                             <value name="SECONDS">
                                                               <block type="math_number">
                                                                 <field name="NUM">5</field>
@@ -1641,7 +1641,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                       </block>
                     </value>
                     <next>
-                      <block type="wait_seconds">
+                      <block type="controls_wait_seconds">
                         <value name="SECONDS">
                           <block type="math_number">
                             <field name="NUM">5</field>
@@ -2993,12 +2993,22 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
     {
       height: 50,
       block: `
-        <block type="wait_seconds" x="0" y="0"></block>
+        <block type="controls_wait_seconds" x="0" y="0"></block>
       `,
       title: "Wait Seconds",
       description: "Wait for a specified number of seconds.",
       categories: ["control"],
-      blockType: "wait_seconds",
+      blockType: "controls_wait_seconds",
+    },
+    {
+      height: 50,
+      block: `
+        <block type="controls_wait_until_datetime" x="0" y="0"></block>
+      `,
+      title: "Wait DateTime",
+      description: "Waits until the specified date and time.",
+      categories: ["control"],
+      blockType: "controls_wait_until_datetime",
     },
     {
       height: 50,

@@ -18,7 +18,7 @@ export const defineUndefinedBlock = () => {
   ]);
 
   javascriptGenerator.forBlock['logic_undefined'] = function (block, generator) {
-    return ['logic_undefined', Order.ATOMIC];
+    return ['undefined', Order.ATOMIC];
   };
 };
 

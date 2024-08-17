@@ -461,7 +461,7 @@ export const DemoV0R4SemiAutoBid = `
                                                           </block>
                                                         </statement>
                                                         <next>
-                                                          <block type="wait_seconds" id="]f[0m)]+tG]\`xv~X(1X,">
+                                                          <block type="controls_wait_seconds" id="]f[0m)]+tG]\`xv~X(1X,">
                                                             <value name="SECONDS">
                                                               <block type="math_number" id="$6~-~57vqv{L19ir:r6L">
                                                                 <field name="NUM">5</field>
