@@ -28,7 +28,7 @@ import { FlyoutTheme } from '@/blocks/BlocklyTheme';
 import { downloadMlTrainingData, downloadXMLFromText } from '@/utils/BlocklyFileOperations';
 
 const StyledFab = styled(Fab)(({ theme }) => ({
-  backgroundColor: '#CFCFCF',
+  backgroundColor: '#ABABAB',
   color: 'white',
   '&:hover': {
     backgroundColor: theme.palette.primary.main,

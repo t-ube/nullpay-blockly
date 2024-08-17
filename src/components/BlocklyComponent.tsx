@@ -602,7 +602,7 @@ const BlocklyComponent = () => {
         <div className="flex flex-1 overflow-hidden">
           <Split
             className="flex flex-1"
-            sizes={isMobile ? [100, 0] : [80, 20]}
+            sizes={isMobile ? [100, 0] : [75, 25]}
             minSize={0}
             gutterSize={isMobile ? 0:  10}
             onDrag={handleDrag}
