@@ -326,7 +326,7 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position, onBlockS
             position: 'fixed',
             bottom: position.bottom,
             left: position.left,
-            zIndex: 1000,
+            zIndex: 999,
           }}
         >
           <ChatIcon />
