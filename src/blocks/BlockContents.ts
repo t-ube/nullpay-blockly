@@ -973,228 +973,180 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       categories: ["template","xrpl","xaman","form"]
     },
     {
-      height: 1533,
+      height: 1626,
       block: `
-  <block type="xrpl_create_account_and_request_faucet" x="0" y="0">
-    <field name="FAUCET_INFO">issuerInfo</field>
-    <value name="WEBSOCKET_ENDPOINT">
-      <block type="xrpl_select_websocket_endpoint">
-        <field name="NETWORK_TYPE">xrpl</field>
-        <field name="WEBSOCKET_ENDPOINT">wss://s.altnet.rippletest.net:51233</field>
-      </block>
-    </value>
-    <value name="XRP_AMOUNT">
-      <block type="math_number">
-        <field name="NUM">1000</field>
+  <block type="variables_set" x="0" y="0">
+    <field name="VAR">currencyCode</field>
+    <value name="VALUE">
+      <block type="text">
+        <field name="TEXT">TST</field>
       </block>
     </value>
     <next>
       <block type="variables_set">
-        <field name="VAR">issuerAddress</field>
+        <field name="VAR">totalSupply</field>
         <value name="VALUE">
-          <block type="json_get_value">
-            <value name="JSON">
-              <block type="variables_get">
-                <field name="VAR">issuerInfo</field>
-              </block>
-            </value>
-            <value name="KEY">
-              <block type="text">
-                <field name="TEXT">address</field>
-              </block>
-            </value>
+          <block type="math_number">
+            <field name="NUM">100000</field>
           </block>
         </value>
         <next>
-          <block type="variables_set">
-            <field name="VAR">token</field>
-            <value name="VALUE">
-              <block type="xrpl_define_token_data">
-                <value name="ISSUER_ADDRESS">
-                  <block type="variables_get">
-                    <field name="VAR">issuerAddress</field>
-                  </block>
-                </value>
-                <value name="CURRECY_CODE">
-                  <block type="text">
-                    <field name="TEXT">TST</field>
-                  </block>
-                </value>
-                <value name="TOTAL_SUPPLY">
-                  <block type="math_number">
-                    <field name="NUM">100000</field>
-                  </block>
-                </value>
+          <block type="xrpl_create_account_and_request_faucet">
+            <field name="FAUCET_INFO">issuerInfo</field>
+            <value name="WEBSOCKET_ENDPOINT">
+              <block type="xrpl_select_websocket_endpoint">
+                <field name="NETWORK_TYPE">xrpl</field>
+                <field name="WEBSOCKET_ENDPOINT">wss://s.altnet.rippletest.net:51233</field>
+              </block>
+            </value>
+            <value name="XRP_AMOUNT">
+              <block type="math_number">
+                <field name="NUM">1000</field>
               </block>
             </value>
             <next>
-              <block type="text_print">
-                <value name="TEXT">
-                  <block type="json_to_text">
+              <block type="variables_set">
+                <field name="VAR">issuerAddress</field>
+                <value name="VALUE">
+                  <block type="json_get_value">
                     <value name="JSON">
                       <block type="variables_get">
-                        <field name="VAR">token</field>
+                        <field name="VAR">issuerInfo</field>
+                      </block>
+                    </value>
+                    <value name="KEY">
+                      <block type="text">
+                        <field name="TEXT">address</field>
                       </block>
                     </value>
                   </block>
                 </value>
                 <next>
-                  <block type="xrpl_client_initialize">
-                    <field name="XRPL_CLIENT">xrplClient</field>
-                    <value name="WEBSOCKET_ENDPOINT">
-                      <block type="xrpl_select_websocket_endpoint">
-                        <field name="NETWORK_TYPE">xrpl</field>
-                        <field name="WEBSOCKET_ENDPOINT">wss://s.altnet.rippletest.net:51233</field>
+                  <block type="variables_set">
+                    <field name="VAR">token</field>
+                    <value name="VALUE">
+                      <block type="xrpl_define_token_data">
+                        <value name="ISSUER_ADDRESS">
+                          <block type="variables_get">
+                            <field name="VAR">issuerAddress</field>
+                          </block>
+                        </value>
+                        <value name="CURRECY_CODE">
+                          <block type="variables_get">
+                            <field name="VAR">currencyCode</field>
+                          </block>
+                        </value>
+                        <value name="TOTAL_SUPPLY">
+                          <block type="variables_get">
+                            <field name="VAR">totalSupply</field>
+                          </block>
+                        </value>
                       </block>
                     </value>
                     <next>
-                      <block type="xrpl_load_wallet">
-                        <field name="WALLET_ID">issuerWallet</field>
-                        <value name="WALLET_SEED">
-                          <block type="json_get_value">
+                      <block type="text_print">
+                        <value name="TEXT">
+                          <block type="json_to_text">
                             <value name="JSON">
                               <block type="variables_get">
-                                <field name="VAR">issuerInfo</field>
-                              </block>
-                            </value>
-                            <value name="KEY">
-                              <block type="text">
-                                <field name="TEXT">secret</field>
+                                <field name="VAR">token</field>
                               </block>
                             </value>
                           </block>
                         </value>
                         <next>
-                          <block type="xrpl_submit_transaction">
-                            <field name="SUBMIT_RESULT">submitResult</field>
-                            <value name="XRPL_CLIENT">
-                              <block type="variables_get">
-                                <field name="VAR">xrplClient</field>
-                              </block>
-                            </value>
-                            <value name="WALLET_ID">
-                              <block type="variables_get">
-                                <field name="VAR">issuerWallet</field>
-                              </block>
-                            </value>
-                            <value name="TRANSACTION_PAYLOAD">
-                              <block type="xrpl_payload_rippling_config">
-                                <field name="RIPPLING">ENABLE</field>
-                                <value name="ACCOUNT_ADDRESS">
-                                  <block type="variables_get">
-                                    <field name="VAR">issuerAddress</field>
-                                  </block>
-                                </value>
+                          <block type="xrpl_client_initialize">
+                            <field name="XRPL_CLIENT">xrplClient</field>
+                            <value name="WEBSOCKET_ENDPOINT">
+                              <block type="xrpl_select_websocket_endpoint">
+                                <field name="NETWORK_TYPE">xrpl</field>
+                                <field name="WEBSOCKET_ENDPOINT">wss://s.altnet.rippletest.net:51233</field>
                               </block>
                             </value>
                             <next>
-                              <block type="xrpl_create_account_and_request_faucet">
-                                <field name="FAUCET_INFO">faucetInfo</field>
-                                <value name="WEBSOCKET_ENDPOINT">
-                                  <block type="xrpl_select_websocket_endpoint">
-                                    <field name="NETWORK_TYPE">xrpl</field>
-                                    <field name="WEBSOCKET_ENDPOINT">wss://s.altnet.rippletest.net:51233</field>
-                                  </block>
-                                </value>
-                                <value name="XRP_AMOUNT">
-                                  <block type="math_number">
-                                    <field name="NUM">100</field>
+                              <block type="xrpl_load_wallet">
+                                <field name="WALLET_ID">issuerWallet</field>
+                                <value name="WALLET_SEED">
+                                  <block type="json_get_value">
+                                    <value name="JSON">
+                                      <block type="variables_get">
+                                        <field name="VAR">issuerInfo</field>
+                                      </block>
+                                    </value>
+                                    <value name="KEY">
+                                      <block type="text">
+                                        <field name="TEXT">secret</field>
+                                      </block>
+                                    </value>
                                   </block>
                                 </value>
                                 <next>
-                                  <block type="variables_set">
-                                    <field name="VAR">userAddress</field>
-                                    <value name="VALUE">
-                                      <block type="json_get_value">
-                                        <value name="JSON">
+                                  <block type="xrpl_submit_transaction">
+                                    <field name="SUBMIT_RESULT">submitResult</field>
+                                    <value name="XRPL_CLIENT">
+                                      <block type="variables_get">
+                                        <field name="VAR">xrplClient</field>
+                                      </block>
+                                    </value>
+                                    <value name="WALLET_ID">
+                                      <block type="variables_get">
+                                        <field name="VAR">issuerWallet</field>
+                                      </block>
+                                    </value>
+                                    <value name="TRANSACTION_PAYLOAD">
+                                      <block type="xrpl_payload_rippling_config">
+                                        <field name="RIPPLING">ENABLE</field>
+                                        <value name="ACCOUNT_ADDRESS">
                                           <block type="variables_get">
-                                            <field name="VAR">faucetInfo</field>
-                                          </block>
-                                        </value>
-                                        <value name="KEY">
-                                          <block type="text">
-                                            <field name="TEXT">address</field>
+                                            <field name="VAR">issuerAddress</field>
                                           </block>
                                         </value>
                                       </block>
                                     </value>
                                     <next>
-                                      <block type="xrpl_load_wallet">
-                                        <field name="WALLET_ID">userWallet</field>
-                                        <value name="WALLET_SEED">
-                                          <block type="json_get_value">
-                                            <value name="JSON">
-                                              <block type="variables_get">
-                                                <field name="VAR">faucetInfo</field>
-                                              </block>
-                                            </value>
-                                            <value name="KEY">
-                                              <block type="text">
-                                                <field name="TEXT">secret</field>
-                                              </block>
-                                            </value>
+                                      <block type="xrpl_create_account_and_request_faucet">
+                                        <field name="FAUCET_INFO">faucetInfo</field>
+                                        <value name="WEBSOCKET_ENDPOINT">
+                                          <block type="xrpl_select_websocket_endpoint">
+                                            <field name="NETWORK_TYPE">xrpl</field>
+                                            <field name="WEBSOCKET_ENDPOINT">wss://s.altnet.rippletest.net:51233</field>
+                                          </block>
+                                        </value>
+                                        <value name="XRP_AMOUNT">
+                                          <block type="math_number">
+                                            <field name="NUM">100</field>
                                           </block>
                                         </value>
                                         <next>
-                                          <block type="xrpl_submit_transaction">
-                                            <field name="SUBMIT_RESULT">submitResult</field>
-                                            <value name="XRPL_CLIENT">
-                                              <block type="variables_get">
-                                                <field name="VAR">xrplClient</field>
-                                              </block>
-                                            </value>
-                                            <value name="WALLET_ID">
-                                              <block type="variables_get">
-                                                <field name="VAR">userWallet</field>
-                                              </block>
-                                            </value>
-                                            <value name="TRANSACTION_PAYLOAD">
-                                              <block type="xrpl_payload_trustline_config">
-                                                <value name="CURRECY_CODE_AND_ISSUER_AND_SUPPLY">
+                                          <block type="variables_set">
+                                            <field name="VAR">userAddress</field>
+                                            <value name="VALUE">
+                                              <block type="json_get_value">
+                                                <value name="JSON">
                                                   <block type="variables_get">
-                                                    <field name="VAR">token</field>
+                                                    <field name="VAR">faucetInfo</field>
                                                   </block>
                                                 </value>
-                                                <value name="ACCOUNT_ADDRESS">
-                                                  <block type="variables_get">
-                                                    <field name="VAR">userAddress</field>
+                                                <value name="KEY">
+                                                  <block type="text">
+                                                    <field name="TEXT">address</field>
                                                   </block>
                                                 </value>
                                               </block>
                                             </value>
                                             <next>
-                                              <block type="xrpl_submit_transaction">
-                                                <field name="SUBMIT_RESULT">submitResult</field>
-                                                <value name="XRPL_CLIENT">
-                                                  <block type="variables_get">
-                                                    <field name="VAR">xrplClient</field>
-                                                  </block>
-                                                </value>
-                                                <value name="WALLET_ID">
-                                                  <block type="variables_get">
-                                                    <field name="VAR">userWallet</field>
-                                                  </block>
-                                                </value>
-                                                <value name="TRANSACTION_PAYLOAD">
-                                                  <block type="xrpl_payload_token_buy_offer">
-                                                    <value name="ACCOUNT_ADDRESS">
+                                              <block type="xrpl_load_wallet">
+                                                <field name="WALLET_ID">userWallet</field>
+                                                <value name="WALLET_SEED">
+                                                  <block type="json_get_value">
+                                                    <value name="JSON">
                                                       <block type="variables_get">
-                                                        <field name="VAR">userAddress</field>
+                                                        <field name="VAR">faucetInfo</field>
                                                       </block>
                                                     </value>
-                                                    <value name="TOKEN">
-                                                      <block type="variables_get">
-                                                        <field name="VAR">token</field>
-                                                      </block>
-                                                    </value>
-                                                    <value name="TOKEN_AMOUNT">
-                                                      <block type="math_number">
-                                                        <field name="NUM">1</field>
-                                                      </block>
-                                                    </value>
-                                                    <value name="XRP_DROPS_AMOUNT">
-                                                      <block type="math_number">
-                                                        <field name="NUM">10</field>
+                                                    <value name="KEY">
+                                                      <block type="text">
+                                                        <field name="TEXT">secret</field>
                                                       </block>
                                                     </value>
                                                   </block>
@@ -1209,40 +1161,14 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                     </value>
                                                     <value name="WALLET_ID">
                                                       <block type="variables_get">
-                                                        <field name="VAR">issuerWallet</field>
+                                                        <field name="VAR">userWallet</field>
                                                       </block>
                                                     </value>
                                                     <value name="TRANSACTION_PAYLOAD">
-                                                      <block type="xrpl_payload_token_sell_offer">
-                                                        <value name="ACCOUNT_ADDRESS">
-                                                          <block type="variables_get">
-                                                            <field name="VAR">issuerAddress</field>
-                                                          </block>
-                                                        </value>
-                                                        <value name="TOKEN">
+                                                      <block type="xrpl_payload_trustline_config">
+                                                        <value name="CURRECY_CODE_AND_ISSUER_AND_SUPPLY">
                                                           <block type="variables_get">
                                                             <field name="VAR">token</field>
-                                                          </block>
-                                                        </value>
-                                                        <value name="TOKEN_AMOUNT">
-                                                          <block type="math_number">
-                                                            <field name="NUM">1</field>
-                                                          </block>
-                                                        </value>
-                                                        <value name="XRP_DROPS_AMOUNT">
-                                                          <block type="math_number">
-                                                            <field name="NUM">10</field>
-                                                          </block>
-                                                        </value>
-                                                      </block>
-                                                    </value>
-                                                    <next>
-                                                      <block type="xrpl_command_account_lines">
-                                                        <field name="IS_ERROR">isError</field>
-                                                        <field name="ACCOUNT_LINES">accountLines</field>
-                                                        <value name="XRPL_CLIENT">
-                                                          <block type="variables_get">
-                                                            <field name="VAR">xrplClient</field>
                                                           </block>
                                                         </value>
                                                         <value name="ACCOUNT_ADDRESS">
@@ -1250,53 +1176,147 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
                                                             <field name="VAR">userAddress</field>
                                                           </block>
                                                         </value>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="xrpl_submit_transaction">
+                                                        <field name="SUBMIT_RESULT">submitResult</field>
+                                                        <value name="XRPL_CLIENT">
+                                                          <block type="variables_get">
+                                                            <field name="VAR">xrplClient</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="WALLET_ID">
+                                                          <block type="variables_get">
+                                                            <field name="VAR">userWallet</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="TRANSACTION_PAYLOAD">
+                                                          <block type="xrpl_payload_token_buy_offer">
+                                                            <value name="ACCOUNT_ADDRESS">
+                                                              <block type="variables_get">
+                                                                <field name="VAR">userAddress</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="TOKEN">
+                                                              <block type="variables_get">
+                                                                <field name="VAR">token</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="TOKEN_AMOUNT">
+                                                              <block type="math_number">
+                                                                <field name="NUM">1</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="XRP_DROPS_AMOUNT">
+                                                              <block type="math_number">
+                                                                <field name="NUM">10</field>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
                                                         <next>
-                                                          <block type="dynamic_if">
-                                                            <mutation else="1"></mutation>
-                                                            <value name="IF0">
-                                                              <block type="logic_compare">
-                                                                <field name="OP">EQ</field>
-                                                                <value name="A">
+                                                          <block type="xrpl_submit_transaction">
+                                                            <field name="SUBMIT_RESULT">submitResult</field>
+                                                            <value name="XRPL_CLIENT">
+                                                              <block type="variables_get">
+                                                                <field name="VAR">xrplClient</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="WALLET_ID">
+                                                              <block type="variables_get">
+                                                                <field name="VAR">issuerWallet</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="TRANSACTION_PAYLOAD">
+                                                              <block type="xrpl_payload_token_sell_offer">
+                                                                <value name="ACCOUNT_ADDRESS">
                                                                   <block type="variables_get">
-                                                                    <field name="VAR">isError</field>
+                                                                    <field name="VAR">issuerAddress</field>
                                                                   </block>
                                                                 </value>
-                                                                <value name="B">
-                                                                  <block type="logic_false"></block>
+                                                                <value name="TOKEN">
+                                                                  <block type="variables_get">
+                                                                    <field name="VAR">token</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="TOKEN_AMOUNT">
+                                                                  <block type="math_number">
+                                                                    <field name="NUM">1</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="XRP_DROPS_AMOUNT">
+                                                                  <block type="math_number">
+                                                                    <field name="NUM">10</field>
+                                                                  </block>
                                                                 </value>
                                                               </block>
                                                             </value>
-                                                            <statement name="DO0">
-                                                              <block type="text_print">
-                                                                <value name="TEXT">
-                                                                  <block type="json_to_text">
-                                                                    <value name="JSON">
-                                                                      <block type="variables_get">
-                                                                        <field name="VAR">accountLines</field>
-                                                                      </block>
-                                                                    </value>
+                                                            <next>
+                                                              <block type="xrpl_command_account_lines">
+                                                                <field name="IS_ERROR">isError</field>
+                                                                <field name="ACCOUNT_LINES">accountLines</field>
+                                                                <value name="XRPL_CLIENT">
+                                                                  <block type="variables_get">
+                                                                    <field name="VAR">xrplClient</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="ACCOUNT_ADDRESS">
+                                                                  <block type="variables_get">
+                                                                    <field name="VAR">userAddress</field>
                                                                   </block>
                                                                 </value>
                                                                 <next>
-                                                                  <block type="text_print">
-                                                                    <value name="TEXT">
-                                                                      <block type="text">
-                                                                        <field name="TEXT">Complete!</field>
+                                                                  <block type="dynamic_if">
+                                                                    <mutation else="1"></mutation>
+                                                                    <value name="IF0">
+                                                                      <block type="logic_compare">
+                                                                        <field name="OP">EQ</field>
+                                                                        <value name="A">
+                                                                          <block type="variables_get">
+                                                                            <field name="VAR">isError</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="B">
+                                                                          <block type="logic_false"></block>
+                                                                        </value>
                                                                       </block>
                                                                     </value>
+                                                                    <statement name="DO0">
+                                                                      <block type="text_print">
+                                                                        <value name="TEXT">
+                                                                          <block type="json_to_text">
+                                                                            <value name="JSON">
+                                                                              <block type="variables_get">
+                                                                                <field name="VAR">accountLines</field>
+                                                                              </block>
+                                                                            </value>
+                                                                          </block>
+                                                                        </value>
+                                                                        <next>
+                                                                          <block type="text_print">
+                                                                            <value name="TEXT">
+                                                                              <block type="text">
+                                                                                <field name="TEXT">Complete!</field>
+                                                                              </block>
+                                                                            </value>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </statement>
+                                                                    <statement name="ELSE">
+                                                                      <block type="text_print">
+                                                                        <value name="TEXT">
+                                                                          <block type="text">
+                                                                            <field name="TEXT">Failed to get account lines.</field>
+                                                                          </block>
+                                                                        </value>
+                                                                      </block>
+                                                                    </statement>
                                                                   </block>
                                                                 </next>
                                                               </block>
-                                                            </statement>
-                                                            <statement name="ELSE">
-                                                              <block type="text_print">
-                                                                <value name="TEXT">
-                                                                  <block type="text">
-                                                                    <field name="TEXT">Failed to get account lines.</field>
-                                                                  </block>
-                                                                </value>
-                                                              </block>
-                                                            </statement>
+                                                            </next>
                                                           </block>
                                                         </next>
                                                       </block>
