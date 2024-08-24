@@ -44,6 +44,12 @@ export const guideData: IGuideCategory[] = [
     ]
   },
   {
+    category: 'Live Chart',
+    steps: [
+      { id: '800', title: 'XRP/JPY Order Book Live Chart', componentName: 'XRPJPYOrderBookLiveChartGuide' }, 
+    ]
+  },
+  {
     category: 'Control Flow',
     steps: [
       { id: '50', title: 'Making Decisions with If-Else', componentName: 'IfElseGuide' },
