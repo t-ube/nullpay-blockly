@@ -40,6 +40,23 @@ export const defineMessageModalBlock = () => {
       "args2": [
         {
           "type": "field_label",
+          "text": "Style",
+          "class": "args-label"
+        },
+        {
+          "type": "field_dropdown",
+          "name": "MESSAGE_BOX_STYLE",
+          "options": [
+            ["Normal", "Normal"],
+            ["Celebrate", "Celebrate"],
+            ["Console", "Console"]
+          ]
+        }
+      ],
+      "message3": "%1 %2",
+      "args3": [
+        {
+          "type": "field_label",
           "text": "Wait for Close",
           "class": "args-label"
         },
@@ -53,22 +70,23 @@ export const defineMessageModalBlock = () => {
       "previousStatement": null,
       "nextStatement": null,
       "colour": BlockColors.text,
-      "tooltip": "Display a message",
+      "tooltip": "Display a customizable message box. Choose from three styles: Normal, Celebrate, or Console. Option to wait for the user to close the message before continuing.",
       "helpUrl": ""
     }
   ]);
 
   javascriptGenerator.forBlock['message_modal_block'] = function(block, generator) {
     const message = generator.valueToCode(block, 'MESSAGE', Order.ATOMIC) || '""';
-    const waitForOK = block.getFieldValue('WAIT_FOR_CLOSE') === 'TRUE';
-    const code = `showMessageModal('${block.id}', ${message}, ${waitForOK});\n`;
+    const style = block.getFieldValue('MESSAGE_BOX_STYLE');
+    const waitForClose = block.getFieldValue('WAIT_FOR_CLOSE') === 'TRUE';
+    const code = `showMessageModal('${block.id}', ${message}, '${style}', ${waitForClose});\n`;
     return code;
   };
 };
 
 const activeModals: Map<string, FieldMessageModal> = new Map();
 
-async function showMessageModal(blockId: string, message: string, waitForOK: boolean): Promise<void> {
+async function showMessageModal(blockId: string, message: string, style: 'Normal' | 'Celebrate' | 'Console', waitForClose: boolean): Promise<void> {
   const workspace = Blockly.getMainWorkspace();
   const block = workspace.getBlockById(blockId);
   if (block) {
@@ -77,8 +95,8 @@ async function showMessageModal(blockId: string, message: string, waitForOK: boo
     if (activeModals.has(blockId)) {
       const existingModal = activeModals.get(blockId);
       if (existingModal) {
-        if (waitForOK) {
-          await existingModal.showModalAtRuntime('');
+        if (waitForClose) {
+          await existingModal.showModalAtRuntime('', style);
         }
         existingModal.customModal?.hide();
         existingModal.customModal = null;
@@ -88,11 +106,11 @@ async function showMessageModal(blockId: string, message: string, waitForOK: boo
     
     activeModals.set(blockId, field);
     
-    if (waitForOK) {
-      await field.showModalAtRuntime(message);
+    if (waitForClose) {
+      await field.showModalAtRuntime(message, style);
       activeModals.delete(blockId);
     } else {
-      field.showModalAtRuntime(message).then(() => {
+      field.showModalAtRuntime(message, style).then(() => {
         activeModals.delete(blockId);
       });
     }
@@ -101,8 +119,8 @@ async function showMessageModal(blockId: string, message: string, waitForOK: boo
 
 export function initInterpreterMessageModal(interpreter: any, globalObject: any) {
   javascriptGenerator.addReservedWords('showMessageModal');
-  const wrapper = function(blockId: string, message: string, waitForOK: boolean, callback: () => void) {
-    showMessageModal(blockId, message, waitForOK).then(() => {
+  const wrapper = function(blockId: string, message: string, style: 'Normal' | 'Celebrate' | 'Console', waitForClose: boolean, callback: () => void) {
+    showMessageModal(blockId, message, style, waitForClose).then(() => {
       callback();
     });
   };

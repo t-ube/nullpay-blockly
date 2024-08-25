@@ -1982,12 +1982,12 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       blockType: "text_util_inspect_print",
     },
     {
-      height: 70,
+      height: 118,
       block: `
         <block type="message_modal_block" x="0" y="0"></block>
       `,
-      title: "Display a message",
-      description: "Display a message.",
+      title: "Display a Message Box",
+      description: "Display a customizable message box. Choose from three styles: Normal, Celebrate, or Console. Option to wait for the user to close the message before continuing.",
       categories: ["text"],
       blockType: "message_modal_block",
     },

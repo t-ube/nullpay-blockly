@@ -5,12 +5,14 @@ import { createStylishColorButton } from '@/blocks/form/FormButtonHelper';
 
 interface IMessageValue {
   message: string;
+  style: 'Normal' | 'Celebrate' | 'Console';
   waitForClose: boolean;
 }
 
 export function getDefaultMessageValue(): IMessageValue {
   return {
     message: '',
+    style: 'Normal',
     waitForClose: true
   };
 }
@@ -135,15 +137,12 @@ class FieldMessageModal extends Blockly.Field {
     }
   }
 
-  createFestiveContainer(message: string) {
+  createStyledContainer(message: string, style: 'Normal' | 'Celebrate' | 'Console') {
     const container = document.createElement('div');
-    //container.style.padding = '40px';
     container.style.width = '400px';
     container.style.height = '300px';
     container.style.minHeight = '200px';
-    container.style.maxHeight = '400px'; 
-    //container.style.background = 'linear-gradient(135deg, #FF6B6B, #4ECDC4, #45B7D1)';
-    container.style.background = 'white';
+    container.style.maxHeight = '400px';
     container.style.borderRadius = '10px';
     container.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.2)';
     container.style.display = 'flex';
@@ -154,15 +153,7 @@ class FieldMessageModal extends Blockly.Field {
 
     const titleElement = document.createElement('h1');
     titleElement.textContent = message;
-    titleElement.style.fontFamily = '"Arial Black", Gadget, sans-serif';
-    titleElement.style.fontSize = '36px';
     titleElement.style.padding = '20px';
-    titleElement.style.fontWeight = '900';
-    //titleElement.style.color = 'white';
-    titleElement.style.color = 'black';
-    //titleElement.style.textTransform = 'uppercase';
-    titleElement.style.letterSpacing = '2px';
-    titleElement.style.textShadow = '2px 2px 4px rgba(0,0,0,0.3)';
     titleElement.style.marginBottom = '30px';
     titleElement.style.width = '100%';
     titleElement.style.overflowWrap = 'break-word';
@@ -170,8 +161,35 @@ class FieldMessageModal extends Blockly.Field {
     titleElement.style.textAlign = 'center';
     titleElement.style.maxHeight = '280px';
     titleElement.style.overflowY = 'auto';
-    container.appendChild(titleElement);
 
+    switch (style) {
+      case 'Normal':
+        container.style.background = 'white';
+        titleElement.style.fontFamily = 'Arial, sans-serif';
+        titleElement.style.fontSize = '24px';
+        titleElement.style.fontWeight = 'bold';
+        titleElement.style.color = 'black';
+        break;
+      case 'Celebrate':
+        container.style.background = 'linear-gradient(135deg, #FF6B6B, #4ECDC4, #45B7D1)';
+        titleElement.style.fontFamily = '"Arial Black", Gadget, sans-serif';
+        titleElement.style.fontSize = '36px';
+        titleElement.style.fontWeight = '900';
+        titleElement.style.color = 'white';
+        titleElement.style.textTransform = 'uppercase';
+        titleElement.style.letterSpacing = '2px';
+        titleElement.style.textShadow = '2px 2px 4px rgba(0,0,0,0.3)';
+        break;
+      case 'Console':
+        container.style.background = 'black';
+        container.style.border = '2px solid #00FF00';
+        titleElement.style.fontFamily = '"Courier New", Courier, monospace';
+        titleElement.style.fontSize = '18px';
+        titleElement.style.color = '#00FF00';
+        titleElement.style.whiteSpace = 'pre-wrap';
+        break;
+    }
+    container.appendChild(titleElement);
     /*
     const messageElement = document.createElement('p');
     messageElement.textContent = message;
@@ -184,33 +202,59 @@ class FieldMessageModal extends Blockly.Field {
     messageElement.style.maxWidth = '80%';
     container.appendChild(messageElement);
     */
-
+   
     return container;
   }
 
-  createFestiveButton(text: string, onClick: () => void) {
-    //const button = createStylishColorButton(text, '#FFD700');
-    const button = createStylishColorButton(text, '#20B2AA');
+  createStyledButton(text: string, style: 'Normal' | 'Celebrate' | 'Console', onClick: () => void) {
+    let button:any;
+    switch (style) {
+      case 'Normal':
+        button = createStylishColorButton(text, '#20B2AA');
+        button.style.color = 'white';
+        button.onmouseover = () => {
+          button.style.backgroundColor = '#008B8B';
+          button.style.transform = 'scale(1.05)';
+        };
+        button.onmouseout = () => {
+          button.style.backgroundColor = '#20B2AA';
+          button.style.transform = 'scale(1)';
+        };
+        break;
+      case 'Celebrate':
+        button = createStylishColorButton(text, '#FFD700');
+        button.style.color = '#1a1a1a';
+        button.onmouseover = () => {
+          button.style.backgroundColor = '#FFA500';
+          button.style.transform = 'scale(1.05)';
+        };
+        button.onmouseout = () => {
+          button.style.backgroundColor = '#FFD700';
+          button.style.transform = 'scale(1)';
+        };
+        break;
+      case 'Console':
+        button = createStylishColorButton(text, '#00FF00');
+        button.style.color = 'black';
+        button.style.fontFamily = '"Courier New", Courier, monospace';
+        button.onmouseover = () => {
+          button.style.backgroundColor = '#66FF66';
+          button.style.transform = 'scale(1.05)';
+        };
+        button.onmouseout = () => {
+          button.style.backgroundColor = '#00FF00';
+          button.style.transform = 'scale(1)';
+        };
+        break;
+    }
     button.style.fontSize = '20px';
     button.style.fontWeight = 'bold';
     button.style.padding = '15px 30px';
     button.style.borderRadius = '50px';
     button.style.border = 'none';
-    //button.style.color = '#1a1a1a';
-    button.style.color = 'white';
     button.style.cursor = 'pointer';
     button.style.transition = 'all 0.3s ease';
     button.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-    button.onmouseover = () => {
-      //button.style.backgroundColor = '#FFA500';
-      button.style.backgroundColor = '#008B8B';
-      button.style.transform = 'scale(1.05)';
-    };
-    button.onmouseout = () => {
-      //button.style.backgroundColor = '#FFD700';
-      button.style.backgroundColor = '#20B2AA';
-      button.style.transform = 'scale(1)';
-    };
     button.onclick = onClick;
     return button;
   }
@@ -265,23 +309,24 @@ class FieldMessageModal extends Blockly.Field {
   }*/
 
   createEditor_() {
-    const container = this.createFestiveContainer(this.value_.message);
-    const okButton = this.createFestiveButton('Close', () => {
+    const container = this.createStyledContainer(this.value_.message, this.value_.style);
+    const okButton = this.createStyledButton('Close', this.value_.style, () => {
       this.customModal?.hide();
     });
     container.appendChild(okButton);
     return container;
   }
 
-  async showModalAtRuntime(message: string): Promise<void> {
+  async showModalAtRuntime(message: string, style: 'Normal' | 'Celebrate' | 'Console'): Promise<void> {
     return new Promise((resolve) => {
       this.value_.message = message;
+      this.value_.style = style;
 
       const customModal = CustomMessageModal.getInstance();
       customModal.hide();
 
-      const container = this.createFestiveContainer(message);
-      const okButton = this.createFestiveButton('Close', () => {
+      const container = this.createStyledContainer(message, style);
+      const okButton = this.createStyledButton('Close', style, () => {
         customModal.hide();
         resolve();
       });
