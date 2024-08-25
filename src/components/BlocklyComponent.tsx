@@ -554,7 +554,7 @@ const BlocklyComponent = () => {
   const downloadXml = useCallback(() => {
     if (structArea.current) {
       const xmlContent = structArea.current.value;
-      const blob = new Blob([xmlContent], { type: 'text/xml' });
+      const blob = new Blob([xmlContent], { type: 'text/xml; charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
