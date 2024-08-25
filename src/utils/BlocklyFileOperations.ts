@@ -15,7 +15,7 @@ export const saveWorkspaceXML = (workspace: Blockly.WorkspaceSvg) => {
     }
   }
   const xmlText = Blockly.Xml.domToPrettyText(xml);
-  const blob = new Blob([xmlText], { type: 'text/xml' });
+  const blob = new Blob([xmlText], { type: 'text/xml; charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
