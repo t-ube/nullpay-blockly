@@ -41,7 +41,7 @@ class CustomModal {
     backdrop.style.height = '100%';
     backdrop.style.backgroundColor = 'rgba(0,0,0,0.5)';
     backdrop.style.display = 'none';
-    backdrop.style.zIndex = '999';
+    backdrop.style.zIndex = '19';
     backdrop.addEventListener('mousedown', this.handleOutsideClick.bind(this));
     return backdrop;
   }
@@ -60,7 +60,7 @@ class CustomModal {
     modal.style.maxWidth = 'calc(100% - 40px)';
     modal.style.overflow = 'auto';
     modal.style.display = 'none';
-    modal.style.zIndex = '1000';
+    modal.style.zIndex = '20';
     modal.style.borderRadius = '6px';
     return modal;
   }

@@ -1984,6 +1984,16 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
     {
       height: 70,
       block: `
+        <block type="message_modal_block" x="0" y="0"></block>
+      `,
+      title: "Display a message",
+      description: "Display a message.",
+      categories: ["text"],
+      blockType: "message_modal_block",
+    },
+    {
+      height: 70,
+      block: `
         <block type="dynamic_text_join" x="0" y="0"></block>
       `,
       title: "Join Text",

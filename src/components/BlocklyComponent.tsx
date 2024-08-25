@@ -85,7 +85,11 @@ const BlocklyComponent = () => {
   const myInterpreter = useRef<Interpreter | null>(null);
   const [selectedTab, setSelectedTab] = useState("log");
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
-  const { reward, isAnimating } = useReward("confettiItem", "confetti");
+  const { reward, isAnimating } = useReward("confettiItem", "confetti",{
+    elementCount: 150,
+    spread: 70,
+    startVelocity: 45,
+  });
   const [isRunning, setIsRunning] = useState(false);
   const runSpeedRef = useRef(1);
   const [duration, setDuration] = useState(0);

@@ -202,6 +202,9 @@ import {
 import { 
   defineFallbackBlock
 } from '@/blocks/system/systemBlock';
+import {
+  defineMessageModalBlock, initInterpreterMessageModal
+} from '@/blocks/message/messageBlock';
 import { defineConsoleLogBlock } from '@/blocks/debug/consoleLogBlock';
 import { BlockColors } from '@/blocks/BlockColors';
 //import { BlockStructures } from '@/blocks/BlockStructures';
@@ -374,6 +377,9 @@ const createCustomBlocks = () => {
   defineDynamicListCreate();
   defineDynamicTextJoin();
   defineDynamicIf();
+
+  // Message
+  defineMessageModalBlock();
 }
 
 const initInterpreter = (interpreter: Interpreter, scope: any) => {
@@ -468,6 +474,8 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterChartBitbankDepthToOrderBook(interpreter, scope);
   initInterpreterChartExtractBalancedOrderBook(interpreter, scope);
   initInterpreterChartBitrueDepthToOrderBook(interpreter, scope);
+
+  initInterpreterMessageModal(interpreter, scope);
 }
 
 const initInterpreterEx = (interpreter: Interpreter, scope: any, logArea:HTMLTextAreaElement | null) => {
