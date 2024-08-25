@@ -30,6 +30,20 @@ export const animation_confetti : any = {
       "precision": 1
     }
   ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "Wait for Completion",
+      "class": "args-label"
+    },
+    {
+      "type": "field_checkbox",
+      "name": "WAIT_FOR_COMPLETION",
+      "checked": false
+    }
+  ],
+  "inputsInline": false,
   "previousStatement": null,
   "nextStatement": null,
   "colour": BlockColors.animation,
@@ -44,18 +58,21 @@ export const defineConfettiAnimationBlock = () => {
 
   javascriptGenerator.forBlock['animation_confetti'] = function (block, generator) {
     const duration = block.getFieldValue('DURATION_SECONDS');
-    const code = `confettiAnimation(${duration});\n`;
+    const waitForCompletion = block.getFieldValue('WAIT_FOR_COMPLETION') === 'TRUE';
+    const code = `confettiAnimation(${duration},${waitForCompletion});\n`;
     return code;
   };
 };
 
 export function initInterpreterConfettiAnimationFunctions(interpreter: any, globalObject: any) {
   javascriptGenerator.addReservedWords('confettiAnimation');
-  const wrapper = interpreter.createAsyncFunction(
-    function (duration: any, callback: any) {
-      confettiAnimation(duration);
+  const wrapper = function (duration: any, waitForCompletion: boolean, callback: any) {
+    confettiAnimation(duration);
+    if (waitForCompletion) {
       setTimeout(callback, duration * 1000);
-    },
-  );
-  interpreter.setProperty(globalObject, 'confettiAnimation', wrapper);
+    } else {
+      callback();
+    }
+  };
+  interpreter.setProperty(globalObject, 'confettiAnimation', interpreter.createAsyncFunction(wrapper));
 }

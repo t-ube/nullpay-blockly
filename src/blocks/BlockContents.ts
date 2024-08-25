@@ -3197,7 +3197,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
   ],
   animation: [
     {
-      height: 50,
+      height: 61,
       block: `
         <block type="animation_confetti" x="0" y="0"></block>
       `,
