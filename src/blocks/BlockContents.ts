@@ -2933,7 +2933,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       block: `
         <block type="chart_bitbank_depth_to_order_book" x="0" y="0"></block>
       `,
-      title: "Convert Bitbak Depth to Bids & Asks",
+      title: "Convert bitbank Depth to Bids & Asks",
       description: "Converts a Bitbank depth data structure to the format required for the order book chart.",
       categories: ["chart"],
       blockType: "chart_bitbank_depth_to_order_book",
@@ -2947,6 +2947,16 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       description: "Converts a Bitrue depth data structure to the format required for the order book chart.",
       categories: ["chart"],
       blockType: "chart_bitrue_depth_to_order_book",
+    },
+    {
+      height: 23.5,
+      block: `
+        <block type="chart_coinbase_pro_book_to_order_book" x="0" y="0"></block>
+      `,
+      title: "Convert Coinbase Pro Book to Bids & Asks",
+      description: "Converts a Coinbase Pro book data structure to the format required for the order book chart.",
+      categories: ["chart"],
+      blockType: "chart_coinbase_pro_book_to_order_book",
     },
     {
       height: 47.5,

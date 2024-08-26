@@ -46,7 +46,8 @@ export const guideData: IGuideCategory[] = [
   {
     category: 'Live Chart',
     steps: [
-      { id: '800', title: 'XRP/JPY Order Book Live Chart', componentName: 'XRPJPYOrderBookLiveChartGuide' }, 
+      { id: '800', title: 'XRP/JPY Order Book Live Chart', componentName: 'XRPJPYBitbankOrderBookLiveChartGuide' }, 
+      { id: '801', title: 'XRP/USDT Order Book Live Chart', componentName: 'XRPUSDTCoinbaseOrderBookLiveChartGuide' }, 
     ]
   },
   {

@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { Typography, Box } from '@mui/material';
 import { IGuideProps, useWorkspaceManager } from '@/components/GuideUtils';
@@ -26,7 +24,7 @@ const workspaces = [
         <field name="RESPONSE">response</field>
         <value name="URL">
           <block type="text">
-            <field name="TEXT">https://public.bitbank.cc/xrp_jpy/depth</field>
+            <field name="TEXT">https://api.pro.coinbase.com/products/XRP-USDT/book?level=2</field>
           </block>
         </value>
       </block>
@@ -44,7 +42,7 @@ const workspaces = [
         </value>
         <value name="PAIR">
           <block type="text">
-            <field name="TEXT">XRP/JPY</field>
+            <field name="TEXT">XRP/USDT</field>
           </block>
         </value>
       </block>
@@ -55,8 +53,8 @@ const workspaces = [
     block: `
       <block type="chart_extract_balanced_order_book">
         <value name="ORDERBOOK">
-          <block type="chart_bitbank_depth_to_order_book">
-            <value name="DEPTH">
+          <block type="chart_coinbase_pro_book_to_order_book">
+            <value name="ORDER_BOOK">
               <block type="variables_get">
                 <field name="VAR">response</field>
               </block>
@@ -65,7 +63,7 @@ const workspaces = [
         </value>
         <value name="LIMIT">
           <block type="math_number">
-            <field name="NUM">10</field>
+            <field name="NUM">15</field>
           </block>
         </value>
       </block>
@@ -87,7 +85,7 @@ const workspaces = [
             <field name="RESPONSE">response</field>
             <value name="URL">
               <block type="text">
-                <field name="TEXT">https://public.bitbank.cc/xrp_jpy/depth</field>
+                <field name="TEXT">https://api.pro.coinbase.com/products/XRP-USDT/book?level=2</field>
               </block>
             </value>
             <next>
@@ -100,14 +98,14 @@ const workspaces = [
                 </value>
                 <value name="PAIR">
                   <block type="text">
-                    <field name="TEXT">XRP/JPY</field>
+                    <field name="TEXT">XRP/USDT</field>
                   </block>
                 </value>
                 <value name="DATA">
                   <block type="chart_extract_balanced_order_book">
                     <value name="ORDERBOOK">
-                      <block type="chart_bitbank_depth_to_order_book">
-                        <value name="DEPTH">
+                      <block type="chart_coinbase_pro_book_to_order_book">
+                        <value name="ORDER_BOOK">
                           <block type="variables_get">
                             <field name="VAR">response</field>
                           </block>
@@ -116,7 +114,7 @@ const workspaces = [
                     </value>
                     <value name="LIMIT">
                       <block type="math_number">
-                        <field name="NUM">10</field>
+                        <field name="NUM">15</field>
                       </block>
                     </value>
                   </block>
@@ -130,14 +128,14 @@ const workspaces = [
   }
 ];
 
-export default function XRPJPYOrderBookLiveChartGuide({ onBlockSelectedV2, onClose }: IGuideProps) {
+export default function XRPUSDTCoinbaseOrderBookLiveChartGuide({ onBlockSelectedV2, onClose }: IGuideProps) {
   useWorkspaceManager(workspaces, onBlockSelectedV2, onClose);
 
   return (
     <Box>
-      <Typography variant="h4">XRP/JPY Order Book Live Chart</Typography>
+      <Typography variant="h4">XRP/USDT Order Book Live Chart (Coinbase Pro)</Typography>
       <Typography variant="body1" paragraph>
-        {`Welcome to the XRP/JPY Order Book Live Chart guide! In this tutorial, we'll create a program to fetch real-time order book data from Bitbank and display it as a live chart.`}
+        {`Welcome to the XRP/USDT Order Book Live Chart guide using Coinbase Pro! In this tutorial, we'll create a program to fetch real-time order book data from Coinbase Pro and display it as a live chart.`}
       </Typography>
 
       <Typography variant="h6" mt={4}>Step 1: Setting Up the Continuous Loop</Typography>
@@ -150,7 +148,7 @@ export default function XRPJPYOrderBookLiveChartGuide({ onBlockSelectedV2, onClo
 
       <Typography variant="h6" mt={4}>Step 2: Fetching Order Book Data</Typography>
       <Typography variant="body1" paragraph>
-        {`Next, we'll use a web API request to fetch the latest order book data from Bitbank.`}
+        {`Next, we'll use a web API request to fetch the latest order book data from Coinbase Pro.`}
       </Typography>
       <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
         <div id="step-2"/>
@@ -166,7 +164,7 @@ export default function XRPJPYOrderBookLiveChartGuide({ onBlockSelectedV2, onClo
 
       <Typography variant="h6" mt={4}>Step 4: Processing and Limiting the Data</Typography>
       <Typography variant="body1" paragraph>
-        {`Finally, we'll process the raw data from Bitbank and limit it to the top 10 orders on each side.`}
+        {`Finally, we'll process the raw data from Coinbase Pro and limit it to the top 15 orders on each side.`}
       </Typography>
       <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
         <div id="step-4"/>
@@ -174,14 +172,14 @@ export default function XRPJPYOrderBookLiveChartGuide({ onBlockSelectedV2, onClo
 
       <Typography variant="h6" mt={4}>Complete Program</Typography>
       <Typography variant="body1" paragraph>
-        {`Here's the complete program that continuously fetches XRP/JPY order book data from Bitbank and displays it as a live chart:`}
+        {`Here's the complete program that continuously fetches XRP/USDT order book data from Coinbase Pro and displays it as a live chart:`}
       </Typography>
       <Box bgcolor={'#f0f0f0'} padding={3} borderRadius={1} marginBottom={'20px'} overflow="auto">
         <div id="complete"/>
       </Box>
 
       <Typography variant="body1" paragraph>
-        {`Congratulations! You've just created a program to display a live XRP/JPY order book chart using data from Bitbank.`}
+        {`Congratulations! You've just created a program to display a live XRP/USDT order book chart using data from Coinbase Pro.`}
       </Typography>
     </Box>
   );

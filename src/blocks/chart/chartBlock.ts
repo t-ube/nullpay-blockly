@@ -7,10 +7,12 @@ import {
   generateBidAndAskData,
   convertBitbankDepthToOrderBookData,
   convertBitrueDepthToOrderBookData,
+  convertCoinbaseProBookToOrderBookData,
   extractBalancedOrderBook } from '@/blocks/chart/ChartDataHelper';
 import { IOrderBookData } from '@/interfaces/IOrderBook';
 import { IBitbankDepthResponce } from '@/interfaces/IBitbankAPI';
 import { IBitrueDepthResponce } from '@/interfaces/IBitrueAPI';
+import { ICoinbaseProBookResponce } from '@/interfaces/ICoinbaseProAPI';
 
 Blockly.fieldRegistry.register('field_chart_modal', FieldChartModal);
 
@@ -18,7 +20,7 @@ export const defineChartOrderBookBlock = () => {
   Blockly.defineBlocksWithJsonArray([
     {
       "type": "chart_order_book_block",
-      "message0": Blockly.Msg.BKY_CHART_ORDER_BOOK_TITLE,
+      "message0": "Order book Chart %1",
       "args0": [
         {
           "type": "field_chart_modal",
@@ -90,7 +92,7 @@ export const defineChartRandomOrderBookDataBlock = () => {
   Blockly.defineBlocksWithJsonArray([
     {
       "type": "chart_random_order_book_data",
-      "message0": Blockly.Msg.BKY_CHART_RANDOM_ORDER_BOOK_DATA_TITLE,
+      "message0": "Random bids & asks",
       "output": "Object",
       "colour": BlockColors.chart,
       "tooltip": "Generates random order book data for use in the order book chart",
@@ -126,7 +128,7 @@ export const defineChartBitbankDepthToOrderBookBlock = () => {
       "args0": [
         {
           "type": "field_label",
-          "text": Blockly.Msg.BKY_CHART_BITBANK_DEPTH_TO_BIDS_ASKS_TITLE,
+          "text": "bitbank depth to bids & asks",
           "class": "args-label"
         },
         {
@@ -138,8 +140,8 @@ export const defineChartBitbankDepthToOrderBookBlock = () => {
       "output": blockCheckType.json,
       "inputsInline": false,
       "colour": BlockColors.chart,
-      "tooltip": "Convert a Bitbank depth to a bids & asks",
-      "helpUrl": "Converts a Bitbank depth data structure to the format required for the order book chart"
+      "tooltip": "Convert a bitbank depth to a bids & asks",
+      "helpUrl": "Converts a bitbank depth data structure to the format required for the order book chart"
     }
   ]);
 
@@ -172,7 +174,7 @@ export const defineChartBitrueDepthToOrderBookBlock = () => {
       "args0": [
         {
           "type": "field_label",
-          "text": Blockly.Msg.BKY_CHART_BITRUE_DEPTH_TO_BIDS_ASKS_TITLE,
+          "text": "Bitrue depth to bids & asks",
           "class": "args-label"
         },
         {
@@ -210,6 +212,53 @@ export function initInterpreterChartBitrueDepthToOrderBook(interpreter: any, glo
   interpreter.setProperty(globalObject, 'chartBitrueDepthToOrderBook', interpreter.createNativeFunction(wrapper));
 }
 
+export const defineChartCoinbaseBookToOrderBookBlock = () => {
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "chart_coinbase_pro_book_to_order_book",
+      "message0": "%1 %2",
+      "args0": [
+        {
+          "type": "field_label",
+          "text": "Coinbase book to bids & asks",
+          "class": "args-label"
+        },
+        {
+          "type": "input_value",
+          "name": "ORDER_BOOK",
+          "check": blockCheckType.json
+        }
+      ],
+      "output": blockCheckType.json,
+      "inputsInline": false,
+      "colour": BlockColors.chart,
+      "tooltip": "Convert a Coinbase Pro book to a bids & asks",
+      "helpUrl": "Converts a Coinbase Pro book data structure to the format required for the order book chart"
+    }
+  ]);
+
+  javascriptGenerator.forBlock['chart_coinbase_pro_book_to_order_book'] = function (block, generator) {
+    const depth = generator.valueToCode(block, 'ORDER_BOOK', Order.ATOMIC) || '{}';
+    const code = `chartCoinbaseProBookToOrderBook(JSON.stringify(${depth}))`;
+    return [code, Order.ATOMIC];
+  };
+};
+
+export function initInterpreterChartCoinbaseBookToOrderBook(interpreter: any, globalObject: any) {
+  javascriptGenerator.addReservedWords('chartCoinbaseProBookToOrderBook');
+  const wrapper = function (depthText: string) {
+    try {
+      const json = JSON.parse(depthText) as ICoinbaseProBookResponce;
+      return interpreter.nativeToPseudo(convertCoinbaseProBookToOrderBookData(json));
+    } catch (error) {
+      console.error(`Failed to convert: ${depthText}`,error);
+      return interpreter.nativeToPseudo(null);
+    }
+  };
+  interpreter.setProperty(globalObject, 'chartCoinbaseProBookToOrderBook', interpreter.createNativeFunction(wrapper));
+}
+
+
 export const defineChartextractBalancedOrderBookBlock = () => {
   Blockly.defineBlocksWithJsonArray([
     {
@@ -218,7 +267,7 @@ export const defineChartextractBalancedOrderBookBlock = () => {
       "args0": [
         {
           "type": "field_label",
-          "text": Blockly.Msg.BKY_CHART_EXTRACT_BIDS_ASKS_TITLE,
+          "text": "Extract bids & asks",
           "class": "args-label"
         },
         {

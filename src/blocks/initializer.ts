@@ -111,7 +111,8 @@ import {
   defineChartRandomOrderBookDataBlock, initInterpreterChartRandomOrderBookData,
   defineChartBitbankDepthToOrderBookBlock, initInterpreterChartBitbankDepthToOrderBook,
   defineChartextractBalancedOrderBookBlock, initInterpreterChartExtractBalancedOrderBook,
-  defineChartBitrueDepthToOrderBookBlock, initInterpreterChartBitrueDepthToOrderBook
+  defineChartBitrueDepthToOrderBookBlock, initInterpreterChartBitrueDepthToOrderBook,
+  defineChartCoinbaseBookToOrderBookBlock, initInterpreterChartCoinbaseBookToOrderBook,
 } from '@/blocks/chart/chartBlock';
 import {
   defineFormModalBlock, initInterpreterFormModal,
@@ -304,6 +305,7 @@ const createCustomBlocks = () => {
   defineChartBitbankDepthToOrderBookBlock();
   defineChartextractBalancedOrderBookBlock();
   defineChartBitrueDepthToOrderBookBlock();
+  defineChartCoinbaseBookToOrderBookBlock();
 
   // Modal
   defineFormModalBlock();
@@ -474,6 +476,7 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterChartBitbankDepthToOrderBook(interpreter, scope);
   initInterpreterChartExtractBalancedOrderBook(interpreter, scope);
   initInterpreterChartBitrueDepthToOrderBook(interpreter, scope);
+  initInterpreterChartCoinbaseBookToOrderBook(interpreter, scope);
 
   initInterpreterMessageModal(interpreter, scope);
 }

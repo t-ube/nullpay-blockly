@@ -2,6 +2,7 @@
 import { IOrderBookData, IOrderBookDataPoint } from '@/interfaces/IOrderBook';
 import { IBitbankDepthResponce, IBitbankDepth } from '@/interfaces/IBitbankAPI';
 import { IBitrueDepthResponce } from '@/interfaces/IBitrueAPI';
+import { ICoinbaseProBookResponce } from '@/interfaces/ICoinbaseProAPI';
 
 export function convertBitbankDepthToOrderBookData(bitbankDepth: IBitbankDepthResponce): IOrderBookData {
   const convertToDataPoints = (data: [string, string][]): IOrderBookDataPoint[] => {
@@ -30,6 +31,21 @@ export function convertBitrueDepthToOrderBookData(bitrueDepth: IBitrueDepthRespo
   return {
     bids: convertToDataPoints(bitrueDepth.bids),
     asks: convertToDataPoints(bitrueDepth.asks)
+  };
+}
+
+export function convertCoinbaseProBookToOrderBookData(coinbaseOrder: ICoinbaseProBookResponce): IOrderBookData {
+  const convertToDataPoints = (data: [string, string, any[]][]): IOrderBookDataPoint[] => {
+    return data.map(([price, quantity], index) => ({
+      x: index,
+      y: parseFloat(quantity),
+      price: parseFloat(price)
+    }));
+  };
+
+  return {
+    bids: convertToDataPoints(coinbaseOrder.bids),
+    asks: convertToDataPoints(coinbaseOrder.asks)
   };
 }
 
