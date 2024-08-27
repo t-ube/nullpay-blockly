@@ -15,14 +15,17 @@ import ApiIcon from '@mui/icons-material/Api';
 import WarningIcon from '@mui/icons-material/Warning';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import FeedIcon from '@mui/icons-material/Feed';
+import XRPLogo from '@/components/XRPLogo';
+import XamanLogo from '@/components/XamanLogo';
+import SupabaseLogo from '@/components/SupabaseLogo';
 
 interface IBlockIconMap {
   [key: string]: string | React.ElementType;
 }
 
 export const BlockIcons : IBlockIconMap = {
-  xrpl: '/icons/xrpl-logo.svg',
-  xaman: '/icons/xaman-logo.jpg',
+  xrpl: XRPLogo,
+  xaman: XamanLogo,
   text: TextFieldsIcon,
   math: CalculateIcon,
   control: TuneIcon,
@@ -36,7 +39,7 @@ export const BlockIcons : IBlockIconMap = {
   form: FeedIcon,
   webapi: ApiIcon,
   chart: BarChartIcon,
-  supabase: '/icons/supabase-logo.svg',
+  supabase: SupabaseLogo,
   variable: InputIcon,
   function: WidgetsIcon,
   system: WarningIcon,
