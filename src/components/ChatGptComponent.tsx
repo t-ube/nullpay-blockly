@@ -15,7 +15,8 @@ import {
   Fab,
   CircularProgress,
   Tooltip,
-  Chip
+  Chip,
+  Alert
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import SendIcon from '@mui/icons-material/Send';
@@ -221,6 +222,7 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position, onBlockS
     "What's the date today?",
   ]);
   const [showSuggestions, setShowSuggestions] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -267,6 +269,7 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position, onBlockS
       setLastQuery(input);
       setMessages([...messages, { text: input, isUser: true }]);
       setInput('');
+      setError(null);
 
       try {
         // Dummy 
@@ -274,10 +277,15 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position, onBlockS
           setMessages(prev => [...prev, { text: "This is a mock AI response.", isUser: false }]);
         }, 1000);*/
         const data = await generateBlocklyContent(input);
-        setMessages(prev => [...prev, { text: data.explanation, isUser: false, blocklyContent: data.generatedContent }]);
+        if (data.explanation && data.generatedContent) {
+          setMessages(prev => [...prev, { text: data.explanation, isUser: false, blocklyContent: data.generatedContent }]);
+        } else {
+          throw new Error('Invalid response from API');
+        }
       } catch (error) {
         console.error('Error:', error);
-        setMessages(prev => [...prev, { text: "An error occurred while generating the response.", isUser: false }]);
+        setError('An error occurred while generating the response. Please try again.');
+        setMessages(prev => [...prev, { text: "An error occurred. Please try again.", isUser: false }]);
       } finally {
         setIsLoading(false);
       }
@@ -408,12 +416,12 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position, onBlockS
                   ml: message.isUser ? 'auto' : 0,
                 }}>
                   <ListItemText 
-                    primary={message.text.split('\n').map((line, index) => (
+                    primary={message.text ? message.text.split('\n').map((line, index) => (
                       <React.Fragment key={index}>
                         {line}
                         <br />
                       </React.Fragment>
-                    ))} 
+                    )) : 'Error: No response received'}
                     primaryTypographyProps={{ 
                       sx: { 
                         wordWrap: 'break-word',
@@ -519,6 +527,11 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position, onBlockS
               </Paper>
             </ListItem>
           )}
+            {error && (
+              <Alert severity="error" sx={{ mt: 2 }}>
+                {error}
+              </Alert>
+            )}
             <div ref={messagesEndRef} />
           </List>
           <Box sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
