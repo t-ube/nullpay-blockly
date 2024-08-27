@@ -14,7 +14,8 @@ import {
   Button,
   Fab,
   CircularProgress,
-  Tooltip
+  Tooltip,
+  Chip
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import SendIcon from '@mui/icons-material/Send';
@@ -215,6 +216,11 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position, onBlockS
   const listRef = useRef<null | HTMLUListElement>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [lastQuery, setLastQuery] = useState('');
+  const [suggestions] = useState([
+    "Send 70 XRP using Xaman",
+    "What's the date today?",
+  ]);
+  const [showSuggestions, setShowSuggestions] = useState(true);
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -314,6 +320,16 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position, onBlockS
 
   const toggleChat = () => {
     setOpen(prev => !prev);
+  };
+
+  const handleSuggestionClick = (suggestion: string) => {
+    setInput(suggestion);
+    setShowSuggestions(false);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+    setShowSuggestions(e.target.value === '');
   };
 
   return (
@@ -505,20 +521,36 @@ const ChatGptComponent: React.FC<IChatGptComponentProps> = ({ position, onBlockS
           )}
             <div ref={messagesEndRef} />
           </List>
-          <Box sx={{ p: 2, display: 'flex' }}>
-            <TextField
-              fullWidth
-              variant="outlined"
-              size="small"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-              placeholder="What kind of code would you like to generate?"
-              autoComplete="off"
-            />
-            <IconButton color="primary" onClick={handleSend} disabled={isLoading}>
-              {isLoading ? <CircularProgress size={24} /> : <SendIcon />}
-            </IconButton>
+          <Box sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+            {showSuggestions && (
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 1 }}>
+                {suggestions.map((suggestion, index) => (
+                  <Chip
+                    key={index}
+                    label={suggestion}
+                    onClick={() => handleSuggestionClick(suggestion)}
+                    color="primary"
+                    variant="outlined"
+                    sx={{ cursor: 'pointer' }}
+                  />
+                ))}
+              </Box>
+            )}
+            <Box sx={{ display: 'flex' }}>
+              <TextField
+                fullWidth
+                variant="outlined"
+                size="small"
+                value={input}
+                onChange={handleInputChange}
+                onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                placeholder={showSuggestions ? "Select a suggestion or type your own" : "What kind of code would you like to generate?"}
+                autoComplete="off"
+              />
+              <IconButton color="primary" onClick={handleSend} disabled={isLoading}>
+                {isLoading ? <CircularProgress size={24} /> : <SendIcon />}
+              </IconButton>
+            </Box>
           </Box>
         </Paper>
       )}
