@@ -65,6 +65,13 @@ export const defineXrplTrustSetTxnBlock = () => {
 
 export function initInterpreterXrplTrustSetTxn(interpreter: any, globalObject: any) {
   javascriptGenerator.addReservedWords('xrplTrustSetTxn');
+  function currencyToHex(currency: string): string {
+    if (currency.length <= 3) {
+      return currency.padEnd(40, '0');
+    } else {
+      return Buffer.from(currency.padEnd(20, '\0')).toString('hex').toUpperCase();
+    }
+  }
   const wrapper = function (tokenText: string, address: string) {
     let token = JSON.parse(tokenText) as IXrplToken;
     const totalSupply = findTokenTotalSupply(token.currency_code, token.issuer);
@@ -73,7 +80,7 @@ export function initInterpreterXrplTrustSetTxn(interpreter: any, globalObject: a
       Account: address,
       LimitAmount: {
         issuer: token.issuer,
-        currency: token.currency_code,
+        currency: currencyToHex(token.currency_code),
         value: totalSupply ? totalSupply : token.total_supply
       }
     };

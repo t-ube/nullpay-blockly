@@ -124,7 +124,7 @@ export const xrpl_define_token_data : any = {
     {
       "type": "input_value",
       "name": "TOTAL_SUPPLY",
-      "check": "Number"
+      "check": ["Number", "String"]
     }
   ],
   "output": blockCheckType.xrplToken,
@@ -142,7 +142,7 @@ export const defineXrplCreateNewTokenBlock = () => {
   javascriptGenerator.forBlock['xrpl_define_token_data'] = function (block, generator) {
     const issuer = generator.valueToCode(block, 'ISSUER_ADDRESS', Order.NONE) || '""';
     const currencyCode = generator.valueToCode(block, 'CURRECY_CODE', Order.NONE) || '""';
-    const totalSupply = generator.valueToCode(block, 'TOTAL_SUPPLY', Order.NONE) || 0;
+    const totalSupply = generator.valueToCode(block, 'TOTAL_SUPPLY', Order.NONE) || '0';
     const code = `xrplCreateNewToken(${issuer},${currencyCode},String(${totalSupply}))`;
     return [code, Order.ATOMIC];
   };
