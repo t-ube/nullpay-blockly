@@ -40,7 +40,9 @@ import {
   defineXrplSubscribeAccountTxnBlock, initInterpreterXrplSubscribeAccountTxn,
   defineXrplUnsubscribeAccountTxnBlock, initInterpreterXrplUnsubscribeAccountTxn,
   defineXrplSubscribeAllTxnBlock, initInterpreterXrplSubscribeAllTxn,
-  defineXrplUnsubscribeAllTxnBlock, initInterpreterXrplUnsubscribeAllTxn
+  defineXrplUnsubscribeAllTxnBlock, initInterpreterXrplUnsubscribeAllTxn,
+  defineXrplSubscribeFilteredTransactionsBlock, initInterpreterXrplSubscribeFilteredTransactions,
+  defineXrplUnsubscribeFilteredTransactionsBlock, initInterpreterXrplUnsubscribeFilteredTransactions
 } from '@/blocks/xrpl/xrplSubscribeBlock';
 import {
   // defineXrplPaymentBlock,
@@ -51,7 +53,8 @@ import {
   defineXrplLoadWalletBlock, initInterpreterXrplLoadWallet,
   defineXrplWalletSignBlock, initInterpreterXrplWalletSign,
   defineXrplWalletInfoBlock, initInterpreterXrplWalletInfo,
-  defineXrplCreateAccountBlock, initInterpreterXrplCreateAccount
+  defineXrplCreateAccountBlock, initInterpreterXrplCreateAccount,
+  defineXrplLoadWalletFromSecretNumbersBlock, initInterpreterXrplLoadWalletFromSecretNumbers
 } from '@/blocks/xrpl/xrplWalletBlock';
 import {
   defineXrplTokenSelectBlock,
@@ -74,6 +77,7 @@ import {
 } from '@/blocks/xrpl/xrplSubmitBlock';
 import {
   defineXrplTrustSetTxnBlock, initInterpreterXrplTrustSetTxn,
+  defineXrplDecodeCurrencyBlock, initInterpreterXrplDecodeCurrency
 } from '@/blocks/xrpl/xrplTrustSetTransactionBlock';
 import {
   defineXrplGetTxnInfoBlock, initInterpreterXrplExtractTransactionDetailsBlock,
@@ -227,6 +231,7 @@ const createCustomBlocks = () => {
   defineXrplNetworkWssSelectionBlock();
   defineXrplFaucetNetworkSelectionBlock();
   defineXrplCreateAccountBlock();
+  defineXrplLoadWalletFromSecretNumbersBlock();
   defineXrplRequestFaucetBlock();
   defineXrplRequestCustomFaucetBlock();
   defineXrplAddressBlock();
@@ -239,6 +244,8 @@ const createCustomBlocks = () => {
   defineXrplUnsubscribeAccountTxnBlock();
   defineXrplSubscribeAllTxnBlock();
   defineXrplUnsubscribeAllTxnBlock();
+  defineXrplSubscribeFilteredTransactionsBlock();
+  defineXrplUnsubscribeFilteredTransactionsBlock();
   defineXrplLoadWalletBlock();
   defineXrplEasySubmitBlock();
   defineXrplTxCommandBlock();
@@ -256,6 +263,7 @@ const createCustomBlocks = () => {
   defineXrplTokenAmountArithmeticBlock();
   defineXrplRipplingTxnBlock();
   defineXrplTrustSetTxnBlock();
+  defineXrplDecodeCurrencyBlock();
   defineBuyTokenOfferTxnBlock();
   defineSaleTokenOfferTxnBlock();
   defineXrplGetTxnInfoBlock();
@@ -393,12 +401,15 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterXrplSubscribeAccountTxn(interpreter, scope);
   initInterpreterXrplUnsubscribeAccountTxn(interpreter, scope);
   initInterpreterXrplSubscribeAllTxn(interpreter, scope);
+  initInterpreterXrplSubscribeFilteredTransactions(interpreter, scope);
+  initInterpreterXrplUnsubscribeFilteredTransactions(interpreter, scope);
   initInterpreterXrplCreateAccount(interpreter, scope);
   initInterpreterXrplRequestFaucet(interpreter, scope);
   initInterpreterXrplRequestCustomFaucet(interpreter, scope);
   initInterpreterXrplLoadWallet(interpreter, scope);
   initInterpreterXrplWalletSign(interpreter, scope);
   initInterpreterXrplWalletInfo(interpreter, scope);
+  initInterpreterXrplLoadWalletFromSecretNumbers(interpreter, scope);
   initInterpreterXrplEasySubmit(interpreter, scope);
   initInterpreterXrplClientSubmit(interpreter, scope);
   initInterpreterXrplClientAutofill(interpreter, scope);
@@ -409,6 +420,7 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterXrplTokenAmountArithmetic(interpreter, scope);
   initInterpreterXrplRipplingTxn(interpreter, scope);
   initInterpreterXrplTrustSetTxn(interpreter, scope);
+  initInterpreterXrplDecodeCurrency(interpreter, scope);
   initInterpreterXrplExtractTransactionDetailsBlock(interpreter, scope);
   initInterpreterBuyTokenOfferTxn(interpreter, scope);
   initInterpreterSaleTokenOfferTxn(interpreter, scope);

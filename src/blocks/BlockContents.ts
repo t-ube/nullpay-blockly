@@ -169,14 +169,47 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       subCategories: [XRPLSubCategories.MONITORING]
     },
     {
+      height: 131,
+      block: `
+        <block type="xrpl_command_subscribe_filtered_transactions" x="0" y="0"></block>
+      `,
+      title: "Subscribe Filtered Transactions",
+      description: "Subscribe to specified transaction types on the XRPL to receive real-time updates for filtered transactions.",
+      categories: ["xrpl"],
+      blockType: "xrpl_command_subscribe_filtered_transactions",
+      subCategories: [XRPLSubCategories.MONITORING]
+    },
+    {
+      height: 100,
+      block: `
+        <block type="xrpl_command_unsubscribe_filtered_transactions" x="0" y="0"></block>
+      `,
+      title: "Unsubscribe Filtered Transactions",
+      description: "Unsubscribe from filtered transactions on the XRPL to stop receiving updates for specified transaction types.",
+      categories: ["xrpl"],
+      blockType: "xrpl_command_unsubscribe_filtered_transactions",
+      subCategories: [XRPLSubCategories.MONITORING]
+    },
+    {
       height: 80,
       block: `
         <block type="xrpl_load_wallet" x="0" y="0"></block>
       `,
-      title: "Load Wallet",
+      title: "Load Wallet from Seed",
       description: "Load an existing wallet using a seed to manage XRPL accounts and transactions.",
       categories: ["xrpl"],
       blockType: "xrpl_load_wallet",
+      subCategories: [XRPLSubCategories.BASIC_OPERATIONS]
+    },
+    {
+      height: 80,
+      block: `
+        <block type="xrpl_load_wallet_from_secret_numbers" x="0" y="0"></block>
+      `,
+      title: "Load Wallet from Secret Numbers",
+      description: "Load an existing wallet using secret numbers.",
+      categories: ["xrpl"],
+      blockType: "xrpl_load_wallet_from_secret_numbers",
       subCategories: [XRPLSubCategories.BASIC_OPERATIONS]
     },
     {
@@ -353,6 +386,17 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       description: "Create a trust line setting transaction for the XRPL. Specify the token and the address to set the trust line for.",
       categories: ["xrpl"],
       blockType: "xrpl_payload_trustline_config",
+      subCategories: [XRPLSubCategories.TRUST_LINE_OPERATIONS]
+    },
+    {
+      height: 54,
+      block: `
+        <block type="xrpl_decode_currency" x="0" y="0"></block>
+      `,
+      title: "XRPL Decode Currency",
+      description: "Decode a hexadecimal currency code used in XRPL transactions to a human-readable format. This block takes a 40-character hex string and converts it to the corresponding currency code or token name.",
+      categories: ["xrpl"],
+      blockType: "xrpl_decode_currency",
       subCategories: [XRPLSubCategories.TRUST_LINE_OPERATIONS]
     },
     {

@@ -1,11 +1,11 @@
 // xrplWalletBlock.ts
-import { Wallet as xrplWallet } from 'xrpl';
+import { Wallet as xrplWallet, walletFromSecretNumbers } from 'xrpl';
 import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { xrplWalletInstances } from '@/blocks/xrpl/xrplWallet';
 import { blockCheckType } from '@/blocks/BlockField';
-
+import { Account, Utils } from 'xrpl-secret-numbers';
 
 export const xrpl_load_wallet : any = {
   "type": "xrpl_load_wallet",
@@ -13,7 +13,7 @@ export const xrpl_load_wallet : any = {
   "args0": [
     {
       "type": "field_label",
-      "text": "Load wallet",
+      "text": "Load wallet from seed",
       "class": "title-label"
     }
   ],
@@ -307,4 +307,82 @@ export function initInterpreterXrplCreateAccount(interpreter:any, globalObject:a
     callback();
   };
   interpreter.setProperty(globalObject, 'xrplCreateAccount', interpreter.createAsyncFunction(wrapper));
+}
+
+export const xrpl_load_wallet_from_secret_numbers : any = {
+  "type": "xrpl_load_wallet_from_secret_numbers",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Load wallet from secret numbers",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "Secret numbers",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "SECRET_NUMBERS",
+      "check": blockCheckType.string
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "XRPL wallet ID",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "WALLET_ID",
+      "variable": "walletID"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Load an XRPL wallet using secret numbers and store it in a variable",
+  "helpUrl": ""
+};
+
+export const defineXrplLoadWalletFromSecretNumbersBlock = () => {
+  Blockly.defineBlocksWithJsonArray([
+    xrpl_load_wallet_from_secret_numbers
+  ]);
+
+  javascriptGenerator.forBlock['xrpl_load_wallet_from_secret_numbers'] = function(block, generator) {
+    const secretNumbers = generator.valueToCode(block, 'SECRET_NUMBERS', Order.ATOMIC) || '""';
+    if (generator.nameDB_ === undefined) {
+      return `loadXrplWalletFromSecretNumbers(${secretNumbers}, '');\n`;
+    }
+    const variable = generator.nameDB_.getName(block.getFieldValue('WALLET_ID'), Blockly.VARIABLE_CATEGORY_NAME);
+    const code = `loadXrplWalletFromSecretNumbers(${secretNumbers}, '${variable}');\n`;
+    return code;
+  };
+};
+
+export function initInterpreterXrplLoadWalletFromSecretNumbers(interpreter:any, globalObject:any) {
+  javascriptGenerator.addReservedWords('loadXrplWalletFromSecretNumbers');
+  const wrapper = async function (secretNumbersString: string, variable:any, callback:any) {
+    const secretNumbers = secretNumbersString.split(/\s+/);
+    const wallet = walletFromSecretNumbers(secretNumbers);
+    try {
+      xrplWalletInstances[variable] = wallet;
+      interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(variable));
+      console.log('Load XRPL wallet :', wallet.address);
+      callback();
+    } catch (error) {
+      console.error('Failed to load XRPL wallet:', error);
+      callback();
+    }
+  };
+  interpreter.setProperty(globalObject, 'loadXrplWalletFromSecretNumbers', interpreter.createAsyncFunction(wrapper));
 }

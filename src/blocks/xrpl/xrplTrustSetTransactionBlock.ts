@@ -89,3 +89,100 @@ export function initInterpreterXrplTrustSetTxn(interpreter: any, globalObject: a
   };
   interpreter.setProperty(globalObject, 'xrplTrustSetTxn', interpreter.createNativeFunction(wrapper));
 }
+
+export const xrpl_decode_currency: any = {
+  "type": "xrpl_decode_currency",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Decode XRPL currency code",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "Hex currency code",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "HEX_CURRENCY",
+      "check": blockCheckType.string
+    }
+  ],
+  "output": blockCheckType.string,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Decode an XRPL hex currency code to a readable string",
+  "helpUrl": ""
+};
+
+export const defineXrplDecodeCurrencyBlock = () => {
+  Blockly.defineBlocksWithJsonArray([
+    xrpl_decode_currency
+  ]);
+
+  javascriptGenerator.forBlock['xrpl_decode_currency'] = function(block, generator) {
+    const hexCurrency = generator.valueToCode(block, 'HEX_CURRENCY', Order.ATOMIC) || '""';
+    const code = `decodeCurrency(${hexCurrency})`;
+    return [code, Order.FUNCTION_CALL];
+  };
+};
+
+export function initInterpreterXrplDecodeCurrency(interpreter: any, globalObject: any) {
+  javascriptGenerator.addReservedWords('decodeCurrency');
+  const wrapper = function(currency: string) {
+    try {
+      // Remove any whitespace and ensure the string is uppercase
+      currency = currency.replace(/\s/g, '').toUpperCase();
+
+      console.log(currency)
+      // Check if it's a standard 3-character currency code
+      if (/^[A-Z]{3}$/.test(currency)) {
+        return currency;
+      }
+
+      // Check if only the first 3 characters are non-zero
+      if (/^[0-9A-Z]{3}0{37}$/.test(currency)) {
+        return currency.slice(0, 3);
+      }
+
+      // Check if it's a valid 40-character hex string
+      if (!/^[0-9A-F]{40}$/.test(currency)) {
+        throw new Error('Invalid currency code format');
+      }
+
+      // XRP is represented by 40 zeros
+      if (currency === '0000000000000000000000000000000000000000') {
+        return 'XRP';
+      }
+
+      // Decode up to 20 bytes (40 characters) of the hex string to ASCII
+      let decoded = decodeHex(currency);
+
+      // If we have a valid decoded string, return it; otherwise, return the original hex
+      return decoded || currency;
+    } catch (error) {
+      console.error('Failed to decode currency:', error);
+      return currency;
+    }
+  };
+
+  function decodeHex(hex: string): string {
+    let decoded = '';
+    for (let i = 0; i < hex.length; i += 2) {
+      const charCode = parseInt(hex.substr(i, 2), 16);
+      if (charCode === 0) break; // Stop at the first null byte
+      if (charCode < 32 || charCode > 126) {
+        // If we encounter a non-printable ASCII character, return an empty string
+        return '';
+      }
+      decoded += String.fromCharCode(charCode);
+    }
+    return decoded.trim();
+  }
+
+  interpreter.setProperty(globalObject, 'decodeCurrency', interpreter.createNativeFunction(wrapper));
+}
