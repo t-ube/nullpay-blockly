@@ -66,8 +66,11 @@ export const defineXrplTrustSetTxnBlock = () => {
 export function initInterpreterXrplTrustSetTxn(interpreter: any, globalObject: any) {
   javascriptGenerator.addReservedWords('xrplTrustSetTxn');
   function currencyToHex(currency: string): string {
+    if (typeof currency !== 'string') {
+      return "";
+    }
     if (currency.length <= 3) {
-      return currency.padEnd(40, '0');
+      return currency;
     } else {
       return Buffer.from(currency.padEnd(20, '\0')).toString('hex').toUpperCase();
     }
@@ -88,6 +91,96 @@ export function initInterpreterXrplTrustSetTxn(interpreter: any, globalObject: a
     return interpreter.nativeToPseudo(transaction);
   };
   interpreter.setProperty(globalObject, 'xrplTrustSetTxn', interpreter.createNativeFunction(wrapper));
+}
+
+export const xrpl_payload_trustline_remove_config: any = {
+  "type": "xrpl_payload_trustline_remove_config",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Remove Trust Line",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "Token",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "CURRECY_CODE_AND_ISSUER",
+      "check": blockCheckType.xrplToken
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "Account address",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "ACCOUNT_ADDRESS",
+      "check": "String"
+    }
+  ],
+  "output": blockCheckType.xrplTxnPayload,
+  "inputsInline": false,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Remove a trust line on the XRPL",
+  "helpUrl": ""
+};
+
+export const defineXrplTrustSetRemoveTxnBlock = () => {
+  Blockly.defineBlocksWithJsonArray([
+    xrpl_payload_trustline_remove_config
+  ]);
+
+  // JavaScript code generator for the XRPL trust set removal block
+  javascriptGenerator.forBlock['xrpl_payload_trustline_remove_config'] = function(block, generator) {
+    const token = generator.valueToCode(block, 'CURRECY_CODE_AND_ISSUER', Order.NONE) || {} as IXrplToken;
+    const address = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.NONE) || '""';
+    const code = `xrplTrustSetRemoveTxn(JSON.stringify(${token}),${address})`;
+    return [code, Order.ATOMIC];
+  };
+};
+
+export function initInterpreterXrplTrustSetRemoveTxn(interpreter: any, globalObject: any) {
+  javascriptGenerator.addReservedWords('xrplTrustSetRemoveTxn');
+  
+  function currencyToHex(currency: string): string {
+    if (typeof currency !== 'string') {
+      return "";
+    }
+    if (currency.length <= 3) {
+      return currency;
+    } else {
+      return Buffer.from(currency.padEnd(20, '\0')).toString('hex').toUpperCase();
+    }
+  }
+
+  const wrapper = function (tokenText: string, address: string) {
+    let token = JSON.parse(tokenText) as IXrplToken;
+    const transaction = {
+      TransactionType: 'TrustSet',
+      Account: address,
+      LimitAmount: {
+        issuer: token.issuer,
+        currency: currencyToHex(token.currency_code),
+        value: "0" // Set limit to 0 to remove the trust line
+      },
+      Flags: 131072 // tfSetNoRipple flag
+    };
+    console.log("Removing trust line:", transaction);
+    return interpreter.nativeToPseudo(transaction);
+  };
+  
+  interpreter.setProperty(globalObject, 'xrplTrustSetRemoveTxn', interpreter.createNativeFunction(wrapper));
 }
 
 export const xrpl_decode_currency: any = {
@@ -160,12 +253,13 @@ export function initInterpreterXrplDecodeCurrency(interpreter: any, globalObject
       }
 
       // Decode up to 20 bytes (40 characters) of the hex string to ASCII
-      let decoded = decodeHex(currency);
+      let decoded = decodeHexToUTF8(currency);
 
       // If we have a valid decoded string, return it; otherwise, return the original hex
       return decoded || currency;
     } catch (error) {
       console.error('Failed to decode currency:', error);
+      console.log(currency)
       return currency;
     }
   };
@@ -182,6 +276,16 @@ export function initInterpreterXrplDecodeCurrency(interpreter: any, globalObject
       decoded += String.fromCharCode(charCode);
     }
     return decoded.trim();
+  }
+
+  function decodeHexToUTF8(hex: string): string {
+    const bytes = new Uint8Array(hex.match(/.{1,2}/g)!.map(byte => parseInt(byte, 16)));
+    try {
+      return new TextDecoder('utf-8').decode(bytes).replace(/\0/g, '').trim();
+    } catch (error) {
+      console.error('Failed to decode hex to UTF-8:', error);
+      return '';
+    }
   }
 
   interpreter.setProperty(globalObject, 'decodeCurrency', interpreter.createNativeFunction(wrapper));

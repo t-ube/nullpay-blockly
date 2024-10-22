@@ -191,6 +191,17 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       subCategories: [XRPLSubCategories.MONITORING]
     },
     {
+      height: 131,
+      block: `
+        <block type="xrpl_command_subscribe_first_ledger_amm_transactions" x="0" y="0"></block>
+      `,
+      title: "Subscribe FirstLedger AMM Transactions",
+      description: "Subscribe to AccountSet and TrustSet transactions on the XRPL. Detects potential FirstLedger token issuers and their corresponding trust lines.",
+      categories: ["xrpl"],
+      blockType: "xrpl_command_subscribe_first_ledger_amm_transactions",
+      subCategories: [XRPLSubCategories.MONITORING]
+    },
+    {
       height: 80,
       block: `
         <block type="xrpl_load_wallet" x="0" y="0"></block>
@@ -221,6 +232,17 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       description: "Retrieve information about an XRPL wallet. Provide the wallet ID to get the address and secret.",
       categories: ["xrpl"],
       blockType: "xrpl_wallet_info",
+      subCategories: [XRPLSubCategories.BASIC_OPERATIONS]
+    },
+    {
+      height: 112,
+      block: `
+        <block type="xrpl_wallet_balance" x="0" y="0"></block>
+      `,
+      title: "Get Wallet Balance",
+      description: "Retrieve the balance of an XRPL wallet. Provide the wallet ID to get the current XRP balance.",
+      categories: ["xrpl"],
+      blockType: "xrpl_wallet_balance",
       subCategories: [XRPLSubCategories.BASIC_OPERATIONS]
     },
     {
@@ -386,6 +408,17 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       description: "Create a trust line setting transaction for the XRPL. Specify the token and the address to set the trust line for.",
       categories: ["xrpl"],
       blockType: "xrpl_payload_trustline_config",
+      subCategories: [XRPLSubCategories.TRUST_LINE_OPERATIONS]
+    },
+    {
+      height: 99,
+      block: `
+        <block type="xrpl_payload_trustline_remove_config" x="0" y="0"></block>
+      `,
+      title: "XRPL Remove Trust Line",
+      description: "Remove a trust line setting transaction for the XRPL. Specify the token and the address to set the trust line for.",
+      categories: ["xrpl"],
+      blockType: "xrpl_payload_trustline_remove_config",
       subCategories: [XRPLSubCategories.TRUST_LINE_OPERATIONS]
     },
     {
@@ -2115,6 +2148,16 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       description: "Checks if a text string ends with a specified suffix.",
       categories: ["text"],
       blockType: "text_ends_with",
+    },
+    {
+      height: 50,
+      block: `
+        <block type="text_contains" x="0" y="0"></block>
+      `,
+      title: "Contains",
+      description: "Checks if a text string contains a specified substring.",
+      categories: ["text"],
+      blockType: "text_contains",
     },
     {
       height: 50,

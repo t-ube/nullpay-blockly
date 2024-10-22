@@ -83,3 +83,44 @@ export function initInterpreterTextEndsWith(interpreter: any, globalObject: any)
   };
   interpreter.setProperty(globalObject, 'textEndsWith', interpreter.createNativeFunction(wrapper));
 }
+
+export const defineTextContainsBlock = () => {
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "text_contains",
+      "message0": "%1 contains %2",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "TEXT",
+          "check": "String"
+        },
+        {
+          "type": "input_value",
+          "name": "SUBSTRING",
+          "check": "String"
+        }
+      ],
+      "inputsInline": true,
+      "output": "Boolean",
+      "colour": BlockColors.text,
+      "tooltip": "Checks if a text contains a substring",
+      "helpUrl": ""
+    }
+  ]);
+
+  javascriptGenerator.forBlock['text_contains'] = function(block, generator) {
+    const text = generator.valueToCode(block, 'TEXT', Order.NONE) || '""';
+    const substring = generator.valueToCode(block, 'SUBSTRING', Order.NONE) || '""';
+    const code = `textContains(${text},${substring})`;
+    return [code, Order.ATOMIC];
+  };
+};
+
+export function initInterpreterTextContains(interpreter: any, globalObject: any) {
+  javascriptGenerator.addReservedWords('textContains');
+  const wrapper = function (str: string, substring: string) {
+    return str.includes(substring);
+  };
+  interpreter.setProperty(globalObject, 'textContains', interpreter.createNativeFunction(wrapper));
+}

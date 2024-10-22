@@ -42,7 +42,8 @@ import {
   defineXrplSubscribeAllTxnBlock, initInterpreterXrplSubscribeAllTxn,
   defineXrplUnsubscribeAllTxnBlock, initInterpreterXrplUnsubscribeAllTxn,
   defineXrplSubscribeFilteredTransactionsBlock, initInterpreterXrplSubscribeFilteredTransactions,
-  defineXrplUnsubscribeFilteredTransactionsBlock, initInterpreterXrplUnsubscribeFilteredTransactions
+  defineXrplUnsubscribeFilteredTransactionsBlock, initInterpreterXrplUnsubscribeFilteredTransactions,
+  defineXrplSubscribeFirstLedgerAmmTransactionsBlock, initInterpreterXrplFirstLedgerAmmSubscribeTransactions
 } from '@/blocks/xrpl/xrplSubscribeBlock';
 import {
   // defineXrplPaymentBlock,
@@ -54,7 +55,8 @@ import {
   defineXrplWalletSignBlock, initInterpreterXrplWalletSign,
   defineXrplWalletInfoBlock, initInterpreterXrplWalletInfo,
   defineXrplCreateAccountBlock, initInterpreterXrplCreateAccount,
-  defineXrplLoadWalletFromSecretNumbersBlock, initInterpreterXrplLoadWalletFromSecretNumbers
+  defineXrplLoadWalletFromSecretNumbersBlock, initInterpreterXrplLoadWalletFromSecretNumbers,
+  defineXrplWalletBalanceBlock, initInterpreterXrplWalletBalance
 } from '@/blocks/xrpl/xrplWalletBlock';
 import {
   defineXrplTokenSelectBlock,
@@ -77,7 +79,8 @@ import {
 } from '@/blocks/xrpl/xrplSubmitBlock';
 import {
   defineXrplTrustSetTxnBlock, initInterpreterXrplTrustSetTxn,
-  defineXrplDecodeCurrencyBlock, initInterpreterXrplDecodeCurrency
+  defineXrplDecodeCurrencyBlock, initInterpreterXrplDecodeCurrency,
+  defineXrplTrustSetRemoveTxnBlock, initInterpreterXrplTrustSetRemoveTxn
 } from '@/blocks/xrpl/xrplTrustSetTransactionBlock';
 import {
   defineXrplGetTxnInfoBlock, initInterpreterXrplExtractTransactionDetailsBlock,
@@ -151,7 +154,8 @@ import {
 import { defineConfettiAnimationBlock, initInterpreterConfettiAnimationFunctions  } from '@/blocks/animation/confettiAnimationBlock';
 import { 
   defineTextEndsWithBlock, initInterpreterTextStartsWith,
-  defineTextStartsWithBlock, initInterpreterTextEndsWith
+  defineTextStartsWithBlock, initInterpreterTextEndsWith,
+  defineTextContainsBlock, initInterpreterTextContains
 } from '@/blocks/text/textCompareBlock';
 import {
   defineTextOnetimeBlock
@@ -232,6 +236,7 @@ const createCustomBlocks = () => {
   defineXrplFaucetNetworkSelectionBlock();
   defineXrplCreateAccountBlock();
   defineXrplLoadWalletFromSecretNumbersBlock();
+  defineXrplWalletBalanceBlock();
   defineXrplRequestFaucetBlock();
   defineXrplRequestCustomFaucetBlock();
   defineXrplAddressBlock();
@@ -246,6 +251,7 @@ const createCustomBlocks = () => {
   defineXrplUnsubscribeAllTxnBlock();
   defineXrplSubscribeFilteredTransactionsBlock();
   defineXrplUnsubscribeFilteredTransactionsBlock();
+  defineXrplSubscribeFirstLedgerAmmTransactionsBlock();
   defineXrplLoadWalletBlock();
   defineXrplEasySubmitBlock();
   defineXrplTxCommandBlock();
@@ -264,6 +270,7 @@ const createCustomBlocks = () => {
   defineXrplRipplingTxnBlock();
   defineXrplTrustSetTxnBlock();
   defineXrplDecodeCurrencyBlock();
+  defineXrplTrustSetRemoveTxnBlock();
   defineBuyTokenOfferTxnBlock();
   defineSaleTokenOfferTxnBlock();
   defineXrplGetTxnInfoBlock();
@@ -294,6 +301,7 @@ const createCustomBlocks = () => {
   defineNumberToTextBlock();
   defineTextEndsWithBlock();
   defineTextStartsWithBlock();
+  defineTextContainsBlock();
   defineTextToUpperCaseBlock();
   defineTextToLowerCaseBlock();
   defineTextOnetimeBlock();
@@ -403,6 +411,7 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterXrplSubscribeAllTxn(interpreter, scope);
   initInterpreterXrplSubscribeFilteredTransactions(interpreter, scope);
   initInterpreterXrplUnsubscribeFilteredTransactions(interpreter, scope);
+  initInterpreterXrplFirstLedgerAmmSubscribeTransactions(interpreter, scope);
   initInterpreterXrplCreateAccount(interpreter, scope);
   initInterpreterXrplRequestFaucet(interpreter, scope);
   initInterpreterXrplRequestCustomFaucet(interpreter, scope);
@@ -410,6 +419,7 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterXrplWalletSign(interpreter, scope);
   initInterpreterXrplWalletInfo(interpreter, scope);
   initInterpreterXrplLoadWalletFromSecretNumbers(interpreter, scope);
+  initInterpreterXrplWalletBalance(interpreter, scope);
   initInterpreterXrplEasySubmit(interpreter, scope);
   initInterpreterXrplClientSubmit(interpreter, scope);
   initInterpreterXrplClientAutofill(interpreter, scope);
@@ -420,6 +430,7 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterXrplTokenAmountArithmetic(interpreter, scope);
   initInterpreterXrplRipplingTxn(interpreter, scope);
   initInterpreterXrplTrustSetTxn(interpreter, scope);
+  initInterpreterXrplTrustSetRemoveTxn(interpreter, scope);
   initInterpreterXrplDecodeCurrency(interpreter, scope);
   initInterpreterXrplExtractTransactionDetailsBlock(interpreter, scope);
   initInterpreterBuyTokenOfferTxn(interpreter, scope);
@@ -456,6 +467,7 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
 
   initInterpreterTextStartsWith(interpreter, scope);
   initInterpreterTextEndsWith(interpreter, scope);
+  initInterpreterTextContains(interpreter, scope);
   initInterpreterJsonInputJson(interpreter, scope);
   initInterpreterJsonTextToJsonV2(interpreter, scope);
   initInterpreterJsonSetKVs(interpreter, scope);

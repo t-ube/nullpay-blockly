@@ -6,6 +6,7 @@ import { BlockColors } from '@/blocks/BlockColors';
 import { xrplWalletInstances } from '@/blocks/xrpl/xrplWallet';
 import { blockCheckType } from '@/blocks/BlockField';
 import { Account, Utils } from 'xrpl-secret-numbers';
+import { getXrplClient } from '@/blocks/xrpl/xrplClientInitializeBlock';
 
 export const xrpl_load_wallet : any = {
   "type": "xrpl_load_wallet",
@@ -385,4 +386,113 @@ export function initInterpreterXrplLoadWalletFromSecretNumbers(interpreter:any, 
     }
   };
   interpreter.setProperty(globalObject, 'loadXrplWalletFromSecretNumbers', interpreter.createAsyncFunction(wrapper));
+}
+
+// XRPL Walletbalance
+export const xrpl_wallet_balance : any = {
+  "type": "xrpl_wallet_balance",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Get wallet balance",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "XRPL client",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "XRPL_CLIENT",
+      "check": blockCheckType.xrplClient
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "XRPL wallet ID",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "WALLET_ID",
+      "check": blockCheckType.string
+    }
+  ],
+  "message3": "%1 %2 %3",
+  "args3": [
+    {
+      "type": "field_label",
+      "text": "Balance",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "IS_ERROR",
+      "variable": "isError"
+    },
+    {
+      "type": "field_variable",
+      "name": "BALANCE",
+      "variable": "balance"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Get the balance of an XRPL wallet",
+  "helpUrl": ""
+};
+
+export const defineXrplWalletBalanceBlock = () => {
+  Blockly.defineBlocksWithJsonArray([
+    xrpl_wallet_balance
+  ]);
+
+  javascriptGenerator.forBlock['xrpl_wallet_balance'] = function(block, generator) {
+    const client = generator.valueToCode(block, 'XRPL_CLIENT', Order.ATOMIC) || '""';
+    const wallet = generator.valueToCode(block, 'WALLET_ID', Order.ATOMIC) || '""';
+    if (generator.nameDB_ === undefined) {
+      return `getXrplWalletBalance(${client}, ${wallet}, '', '');\n`;
+    }
+    const isError = generator.nameDB_.getName(block.getFieldValue('IS_ERROR'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('BALANCE'), Blockly.VARIABLE_CATEGORY_NAME);
+    const code = `getXrplWalletBalance(${client}, ${wallet}, '${isError}', '${variable}');\n`;
+    return code;
+  };
+};
+
+export function initInterpreterXrplWalletBalance(interpreter: any, globalObject: any) {
+  javascriptGenerator.addReservedWords('getXrplWalletBalance');
+  const wrapper = async function(clientKey:string, walletID: string, isErrorVar:any, variable: any, callback: any) {
+    try {
+      const client = getXrplClient(clientKey);
+      if (!client) {
+        throw new Error(`Client not found for ID: ${clientKey}`);
+      }
+
+      const wallet = getXrplWallet(walletID);
+      if (!wallet) {
+        throw new Error(`Wallet not found for ID: ${walletID}`);
+      }
+      
+      const response = await client.getXrpBalance(wallet.address);
+
+      interpreter.setProperty(globalObject, isErrorVar, false);
+      interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(response));
+      console.log('XRPL wallet balance:', response);
+    } catch (error) {
+      console.error('Failed to get XRPL wallet balance:', error);
+      interpreter.setProperty(globalObject, isErrorVar, true);
+    }
+    callback();
+  };
+  interpreter.setProperty(globalObject, 'getXrplWalletBalance', interpreter.createAsyncFunction(wrapper));
 }
