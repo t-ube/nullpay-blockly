@@ -160,6 +160,19 @@ export const xrpl_payload_payment : any = {
       "check": "Number"
     }
   ],
+  "message4": "%1 %2",
+  "args4": [
+    {
+      "type": "field_label",
+      "text": "Destination tag",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "DESTINATION_TAG",
+      "check": "Number"
+    }
+  ],
   "output": blockCheckType.xrplTxnPayload,
   "inputsInline": false,
   "colour": BlockColors.xrpl,
@@ -177,113 +190,14 @@ export const defineXrplPaymentBlock = () => {
     const account = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.NONE) || '""';
     const dest = generator.valueToCode(block, 'DESTINATION_ADDRESS', Order.NONE) || '""';
     const amount = generator.valueToCode(block, 'XRP_DROPS_AMOUNT', Order.NONE) || 0;
-    let code = `xrplPayment(${account},${dest},String(${amount}))`;
+    const tag = generator.valueToCode(block, 'DESTINATION_TAG', Order.NONE) || 0;
+    let code = `xrplPayment(${account},${dest},String(${amount}),${tag})`;
     return [code, Order.ATOMIC];
   };
 };
 
 export function initInterpreterXrplPayment(interpreter: any, globalObject: any) {
   javascriptGenerator.addReservedWords('xrplPayment');
-  const wrapper = function (account: string, dest: string, amount: string) {
-    const payload = {
-      TransactionType: 'Payment',
-      Account: account,
-      Destination: dest,
-      Amount: amount
-    };
-    return interpreter.nativeToPseudo(payload);
-  };
-  interpreter.setProperty(globalObject, 'xrplPayment', interpreter.createNativeFunction(wrapper));
-}
-
-// タグ付き Payment ブロックの定義
-export const xrpl_payload_tagged_payment: any = {
-  "type": "xrpl_payload_tagged_payment",
-  "message0": "%1",
-  "args0": [
-    {
-      "type": "field_label",
-      "text": "Tagged Payment payload",
-      "class": "title-label"
-    }
-  ],
-  "message1": "%1 %2",
-  "args1": [
-    {
-      "type": "field_label",
-      "text": "Account address",
-      "class": "args-label"
-    },
-    {
-      "type": "input_value",
-      "name": "ACCOUNT_ADDRESS",
-      "check": "String"
-    }
-  ],
-  "message2": "%1 %2",
-  "args2": [
-    {
-      "type": "field_label",
-      "text": "Destination address",
-      "class": "args-label"
-    },
-    {
-      "type": "input_value",
-      "name": "DESTINATION_ADDRESS",
-      "check": "String"
-    }
-  ],
-  "message3": "%1 %2",
-  "args3": [
-    {
-      "type": "field_label",
-      "text": "XRP amount (drops)",
-      "class": "args-label"
-    },
-    {
-      "type": "input_value",
-      "name": "XRP_DROPS_AMOUNT",
-      "check": "Number"
-    }
-  ],
-  "message4": "%1 %2",
-  "args4": [
-    {
-      "type": "field_label",
-      "text": "Destination Tag",
-      "class": "args-label"
-    },
-    {
-      "type": "input_value",
-      "name": "DESTINATION_TAG",
-      "check": "Number"
-    }
-  ],
-  "output": blockCheckType.xrplTxnPayload,
-  "inputsInline": false,
-  "colour": BlockColors.xrpl,
-  "tooltip": "Create a tagged payment transaction on the XRPL",
-  "helpUrl": ""
-};
-
-export const defineXrplTaggedPaymentBlock = () => {
-  Blockly.defineBlocksWithJsonArray([
-    xrpl_payload_tagged_payment
-  ]);
-
-  // JavaScriptコードジェネレーター
-  javascriptGenerator.forBlock['xrpl_payload_tagged_payment'] = function(block, generator) {
-    const account = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.NONE) || '""';
-    const dest = generator.valueToCode(block, 'DESTINATION_ADDRESS', Order.NONE) || '""';
-    const amount = generator.valueToCode(block, 'XRP_DROPS_AMOUNT', Order.NONE) || 0;
-    const tag = generator.valueToCode(block, 'DESTINATION_TAG', Order.NONE) || 0;
-    let code = `xrplTaggedPayment(${account},${dest},String(${amount}),${tag})`;
-    return [code, Order.ATOMIC];
-  };
-};
-
-export function initInterpreterXrplTaggedPayment(interpreter: any, globalObject: any) {
-  javascriptGenerator.addReservedWords('xrplTaggedPayment');
   const wrapper = function (account: string, dest: string, amount: string, tag: number) {
     const payload = {
       TransactionType: 'Payment',
@@ -294,5 +208,5 @@ export function initInterpreterXrplTaggedPayment(interpreter: any, globalObject:
     };
     return interpreter.nativeToPseudo(payload);
   };
-  interpreter.setProperty(globalObject, 'xrplTaggedPayment', interpreter.createNativeFunction(wrapper));
+  interpreter.setProperty(globalObject, 'xrplPayment', interpreter.createNativeFunction(wrapper));
 }

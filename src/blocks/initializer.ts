@@ -48,8 +48,7 @@ import {
 import {
   // defineXrplPaymentBlock,
   defineXrplPaymentTokenTxnBlock, initInterpreterXrplPaymentTokenTxn,
-  defineXrplPaymentBlock, initInterpreterXrplPayment,
-  defineXrplTaggedPaymentBlock, initInterpreterXrplTaggedPayment
+  defineXrplPaymentBlock, initInterpreterXrplPayment
 } from '@/blocks/xrpl/xrplPaymentTransactionBlock';
 import {
   defineXrplLoadWalletBlock, initInterpreterXrplLoadWallet,
@@ -260,7 +259,6 @@ const createCustomBlocks = () => {
   defineXrplWalletSignBlock();
   defineXrplWalletInfoBlock();
   defineXrplPaymentTokenTxnBlock();
-  defineXrplTaggedPaymentBlock();
   defineXrplPaymentBlock();
   defineXrplClientSubmitBlock();
   defineXrplClientAutoFillBlock();
@@ -427,7 +425,6 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterXrplClientAutofill(interpreter, scope);
   initInterpreterXrplPaymentTokenTxn(interpreter, scope);
   initInterpreterXrplPayment(interpreter, scope);
-  initInterpreterXrplTaggedPayment(interpreter, scope);
   initInterpreterXrplCreateNewToken(interpreter, scope);
   initInterpreterXrplTokenAmountSet(interpreter, scope);
   initInterpreterXrplTokenAmountArithmetic(interpreter, scope);

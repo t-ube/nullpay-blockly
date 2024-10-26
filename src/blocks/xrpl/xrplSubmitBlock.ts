@@ -57,6 +57,19 @@ export const xrpl_command_submit_signed_transaction : any = {
       "variable": "submitResult"
     }
   ],
+  "message4": "%1 %2",
+  "args4": [
+    {
+      "type": "field_label",
+      "text": "No wait",
+      "class": "output-label"
+    },
+    {
+      "type": "field_checkbox",
+      "name": "NO_WAIT",
+      "checked": false
+    }
+  ],
   "inputsInline": false,
   "previousStatement": null,
   "nextStatement": null,
@@ -73,11 +86,12 @@ export const defineXrplClientSubmitBlock = () => {
   javascriptGenerator.forBlock['xrpl_command_submit_signed_transaction'] = function (block, generator) {
     const client = generator.valueToCode(block, 'XRPL_CLIENT', Order.ATOMIC) || '""';
     const blobJson = generator.valueToCode(block, 'SIGNED_TRANSACTION', Order.ATOMIC) || '{}';
+    const noWait = block.getFieldValue('NO_WAIT') === 'TRUE';
     if (generator.nameDB_ === undefined) {
-      return `xrplClientSubmit(${client}, JSON.stringify(${blobJson}), '');\n`;
+      return `xrplClientSubmit(${client}, JSON.stringify(${blobJson}), ${noWait}, '');\n`;
     }
     const variable = generator.nameDB_.getName(block.getFieldValue('SUBMIT_RESULT'), Blockly.VARIABLE_CATEGORY_NAME);
-    const code = `xrplClientSubmit(${client}, JSON.stringify(${blobJson}), '${variable}');\n`;
+    const code = `xrplClientSubmit(${client}, JSON.stringify(${blobJson}), ${noWait}, '${variable}');\n`;
     return code;
   };
 };
@@ -96,7 +110,7 @@ function isValidBlobJson(input: string): boolean {
 
 export function initInterpreterXrplClientSubmit(interpreter:any, globalObject:any) {
   javascriptGenerator.addReservedWords('xrplClientSubmit');
-  const wrapper = async function (clientKey:string, blobJsonText:string, variable:any, callback:any) {
+  const wrapper = async function (clientKey: string, blobJsonText: string, noWait: boolean, variable: any, callback: any) {
     const client = getXrplClient(clientKey);
     try {
       if (!isValidBlobJson(blobJsonText)) {
@@ -104,13 +118,29 @@ export function initInterpreterXrplClientSubmit(interpreter:any, globalObject:an
       }
 
       const blobJson = JSON.parse(blobJsonText);
-      const result = await client.request({
-        command: "submit",
-        tx_blob: blobJson.tx_blob,
-      });
-      console.log(`Submit transactions: ${JSON.stringify(result)}`);
-      interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(result));
-      callback();
+      if (noWait) {
+        const submitPromise = client.request({
+          command: "submit",
+          tx_blob: blobJson.tx_blob,
+        });
+
+        submitPromise.then(result => {
+          console.log(`Submit transactions (no wait): ${JSON.stringify(result)}`);
+          interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(result));
+        }).catch(error => {
+          console.error(`Failed to submit (no wait): ${error}`);
+        });
+        callback();
+      }
+      else {
+        const result = await client.request({
+          command: "submit",
+          tx_blob: blobJson.tx_blob,
+        });
+        console.log(`Submit transactions: ${JSON.stringify(result)}`);
+        interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(result));
+        callback();
+      }
     } catch (error) {
       console.error(`Failed to subscribe: ${error}`);
       callback();
@@ -265,6 +295,19 @@ export const xrpl_submit_transaction : any = {
   "args4": [
     {
       "type": "field_label",
+      "text": "No wait",
+      "class": "output-label"
+    },
+    {
+      "type": "field_checkbox",
+      "name": "NO_WAIT",
+      "checked": false
+    }
+  ],
+  "message5": "%1 %2",
+  "args5": [
+    {
+      "type": "field_label",
       "text": "Submit result",
       "class": "output-label"
     },
@@ -290,19 +333,20 @@ export const defineXrplEasySubmitBlock = () => {
   javascriptGenerator.forBlock['xrpl_submit_transaction'] = function (block, generator) {
     const client = generator.valueToCode(block, 'XRPL_CLIENT', Order.ATOMIC) || '""';
     const wallet = generator.valueToCode(block, 'WALLET_ID', Order.ATOMIC) || '""';
+    const noWait = block.getFieldValue('NO_WAIT') === 'TRUE';
     const payloadJSON = generator.valueToCode(block, 'TRANSACTION_PAYLOAD', Order.ATOMIC) || '{}';
     if (generator.nameDB_ === undefined) {
-      return `xrplEasySubmit(${client}, ${wallet}, JSON.stringify(${payloadJSON}), '');\n`;
+      return `xrplEasySubmit(${client}, ${wallet}, JSON.stringify(${payloadJSON}), ${noWait}, '');\n`;
     }
     const variable = generator.nameDB_.getName(block.getFieldValue('SUBMIT_RESULT'), Blockly.VARIABLE_CATEGORY_NAME);
-    const code = `xrplEasySubmit(${client}, ${wallet}, JSON.stringify(${payloadJSON}), '${variable}');\n`;
+    const code = `xrplEasySubmit(${client}, ${wallet}, JSON.stringify(${payloadJSON}), ${noWait}, '${variable}');\n`;
     return code;
   };
 };
 
 export function initInterpreterXrplEasySubmit(interpreter:any, globalObject:any) {
   javascriptGenerator.addReservedWords('xrplEasySubmit');
-  const wrapper = async function (clientKey:string, walletID:string, payloadJSON:string, variable:any, callback:any) {
+  const wrapper = async function (clientKey:string, walletID:string, payloadJSON:string, noWait: boolean, variable:any, callback:any) {
     try {
       const client = getXrplClient(clientKey);
       if (!client) {
@@ -313,9 +357,21 @@ export function initInterpreterXrplEasySubmit(interpreter:any, globalObject:any)
         throw new Error(`Wallet not found for ID: ${walletID}`);
       }
       const filledPayload = await client.autofill(JSON.parse(payloadJSON));
-      const result = await client.submitAndWait(filledPayload,{ wallet: wallet });
-      interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(result));
-      callback();
+
+      if (noWait) {
+        const submitPromise = client.submitAndWait(filledPayload,{ wallet: wallet });
+        submitPromise.then(result => {
+          console.log(`sign transactions (no wait): ${JSON.stringify(result)}`);
+          interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(result));
+        }).catch(error => {
+          console.error(`Failed to sign (no wait): ${error}`);
+        });
+        callback();
+      } else {
+        const result = await client.submitAndWait(filledPayload,{ wallet: wallet });
+        interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(result));
+        callback();
+      }
     } catch (error) {
       console.error('Failed to sign XRPL wallet:', error);
       callback();

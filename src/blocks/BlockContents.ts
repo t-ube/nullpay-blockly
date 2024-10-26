@@ -246,7 +246,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       subCategories: [XRPLSubCategories.BASIC_OPERATIONS]
     },
     {
-      height: 123,
+      height: 175,
       block: `
         <block type="xrpl_submit_transaction" x="0" y="0"></block>
       `,
@@ -279,7 +279,7 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       subCategories: [XRPLSubCategories.TRANSACTIONS]
     },
     {
-      height: 105,
+      height: 146,
       block: `
         <block type="xrpl_command_submit_signed_transaction" x="0" y="0"></block>
       `,
@@ -452,17 +452,6 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       description: "Create a payment transaction on the XRPL. Specify the token, account address, destination address, and amount for the transaction.",
       categories: ["xrpl"],
       blockType: "xrpl_payload_token_payment",
-      subCategories: [XRPLSubCategories.TOKEN_OPERATIONS]
-    },
-    {
-      height: 120,
-      block: `
-        <block type="xrpl_payload_tagged_payment" x="0" y="0"></block>
-      `,
-      title: "XRPL Tagged Payment",
-      description: "Create a payment transaction on the XRPL. Specify account address, destination address, and amount for the transaction.",
-      categories: ["xrpl"],
-      blockType: "xrpl_payload_tagged_payment",
       subCategories: [XRPLSubCategories.TOKEN_OPERATIONS]
     },
     {
