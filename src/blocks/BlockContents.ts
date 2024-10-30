@@ -125,6 +125,28 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       subCategories: [XRPLSubCategories.ACCOUNT_INFORMATION]
     },
     {
+      height: 93.5,
+      block: `
+        <block type="xrpl_command_get_account_activators" x="0" y="0"></block>
+      `,
+      title: "XRPL Get Account Activators",
+      description: "Retrieve information about which account activated this XRPL account by finding the first payment transaction.",
+      categories: ["xrpl"],
+      blockType: "xrpl_command_get_account_activators",
+      subCategories: [XRPLSubCategories.ACCOUNT_INFORMATION]
+    },
+    {
+      height: 93.5,
+      block: `
+        <block type="xrpl_command_get_activated_accounts" x="0" y="0"></block>
+      `,
+      title: "XRPL Get Activated Accounts",
+      description: "Retrieve a list of accounts that were activated by the specified address. Returns activation transaction details including date, amount, and transaction hash.",
+      categories: ["xrpl"],
+      blockType: "xrpl_command_get_activated_accounts",
+      subCategories: [XRPLSubCategories.ACCOUNT_INFORMATION]
+    },
+    {
       height: 131,
       block: `
         <block type="xrpl_command_subscribe_account_txn" x="0" y="0"></block>

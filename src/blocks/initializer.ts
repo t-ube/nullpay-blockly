@@ -32,7 +32,9 @@ import { defineXrplXrp2DropBlock, defineXrplDrop2XrpBlock } from '@/blocks/xrpl/
 import { definePercentageBlock } from '@/blocks/math/mathBlock'; 
 import { 
   defineXrplAccountInfoBlock,initInterpreterXrplAccountInfo,
-  defineXrplAccountLinesCommandBlock, initInterpreterXrplAccountLinesCommand
+  defineXrplAccountLinesCommandBlock, initInterpreterXrplAccountLinesCommand,
+  defineXrplGetAccountActivatorsBlock, initInterpreterXrplGetAccountActivators,
+  defineXrplGetActivatedAccountsBlock, initInterpreterXrplGetActivatedAccounts
 } from '@/blocks/xrpl/xrplAccountInfoBlock';
 //import { defineXrplSubscribeAllTxnBlock, initInterpreterXrplSubscribeAllTxn } from '@/blocks/xrpl/xrplSubscribeStreamsTxnBlock';
 import { defineXrplClientInitializeBlock, initInterpreterXrplClientInitialize } from '@/blocks/xrpl/xrplClientInitializeBlock';
@@ -256,6 +258,8 @@ const createCustomBlocks = () => {
   defineXrplEasySubmitBlock();
   defineXrplTxCommandBlock();
   defineXrplAccountLinesCommandBlock();
+  defineXrplGetAccountActivatorsBlock();
+  defineXrplGetActivatedAccountsBlock();
   defineXrplWalletSignBlock();
   defineXrplWalletInfoBlock();
   defineXrplPaymentTokenTxnBlock();
@@ -439,6 +443,8 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterXrplExtractOfferCreateTxnBlock(interpreter, scope);
   initInterpreterXrplUnsubscribeAllTxn(interpreter, scope);
   initInterpreterXrplAccountLinesCommand(interpreter, scope);
+  initInterpreterXrplGetAccountActivators(interpreter, scope);
+  initInterpreterXrplGetActivatedAccounts(interpreter, scope);
   initInterpreterXrplNftokenBuyOffer(interpreter, scope);
   initInterpreterXrplNFTokenMintTxn(interpreter, scope);
   initInterpreterXrplNftBuyOffersCommand(interpreter, scope);
