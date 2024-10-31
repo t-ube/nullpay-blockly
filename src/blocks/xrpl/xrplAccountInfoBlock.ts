@@ -211,6 +211,13 @@ export function initInterpreterXrplAccountLinesCommand(interpreter:any, globalOb
   interpreter.setProperty(globalObject, 'xrplAccountLinesCommand', interpreter.createAsyncFunction(wrapper));
 }
 
+interface ActivatorInfo {
+  address: string;
+  date: number;
+  amount: string;
+  txHash: string;
+}
+
 export const xrpl_command_get_account_activators: any = {
   "type": "xrpl_command_get_account_activators",
   "message0": "%1",
@@ -261,7 +268,7 @@ export const xrpl_command_get_account_activators: any = {
     },
     {
       "type": "field_variable",
-      "name": "ACTIVATORS",
+      "name": "ACTIVATOR_INFO",
       "variable": "activators"
     }
   ],
@@ -269,7 +276,7 @@ export const xrpl_command_get_account_activators: any = {
   "previousStatement": null,
   "nextStatement": null,
   "colour": BlockColors.xrpl,
-  "tooltip": "Get the account that activated this wallet (searches from latest transactions)",
+  "tooltip": "Get information about who activated this wallet, including the activation date and amount",
   "helpUrl": ""
 };
 
@@ -285,7 +292,7 @@ export const defineXrplGetAccountActivatorsBlock = () => {
       return `xrplGetAccountActivators(${client}, ${account}, '', '');\n`;
     }
     const isError = generator.nameDB_.getName(block.getFieldValue('IS_ERROR'), Blockly.VARIABLE_CATEGORY_NAME);
-    const variable = generator.nameDB_.getName(block.getFieldValue('ACTIVATORS'), Blockly.VARIABLE_CATEGORY_NAME);
+    const variable = generator.nameDB_.getName(block.getFieldValue('ACTIVATOR_INFO'), Blockly.VARIABLE_CATEGORY_NAME);
     const code = `xrplGetAccountActivators(${client}, ${account}, '${isError}', '${variable}');\n`;
     return code;
   };
@@ -308,7 +315,7 @@ export function initInterpreterXrplGetAccountActivators(interpreter: any, global
       });
 
       const ledgerIndex = accountInfo.result.ledger_index;
-      let activator: string | null = null;
+      let activatorInfo: ActivatorInfo | null = null;
       let marker: unknown = undefined;
 
       do {
@@ -331,12 +338,22 @@ export function initInterpreterXrplGetAccountActivators(interpreter: any, global
             !('DestinationTag' in transaction) &&
             Number(transaction.Amount) >= 10000000
           ) {
-            activator = transaction.Account;
+            const amountInDrops = typeof transaction.Amount === 'string' 
+              ? transaction.Amount 
+              : transaction.Amount.value;
+
+            activatorInfo = {
+              address: transaction.Account,
+              date: transaction.date ? transaction.date : 0,
+              amount: amountInDrops,
+              txHash: transaction.hash || ''
+            };
+
             break;
           }
         }
 
-        if (activator) {
+        if (activatorInfo) {
           break;
         }
 
@@ -345,7 +362,7 @@ export function initInterpreterXrplGetAccountActivators(interpreter: any, global
 
       interpreter.setProperty(globalObject, isErrorVar, false);
       // アクティベーターが見つかった場合は配列に入れて返す
-      const result = activator ? [activator] : [];
+      const result = activatorInfo ? [activatorInfo] : [];
       interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(result));
     } catch (error) {
       console.error('Failed to get activator:', error);
@@ -454,7 +471,7 @@ export const defineXrplGetActivatedAccountsBlock = () => {
 
 interface ActivatedAccount {
   address: string;
-  date: string;
+  date: number;
   amount: string;
   txHash: string;
 }
@@ -508,7 +525,7 @@ export function initInterpreterXrplGetActivatedAccounts(interpreter: any, global
 
             activatedAccounts.push({
               address: transaction.Destination,
-              date: new Date(transaction.date ? (transaction.date + 946684800) * 1000 : 0).toISOString(),
+              date: transaction.date ? transaction.date : 0,
               amount: amountInDrops,
               txHash: transaction.hash || ''
             });
