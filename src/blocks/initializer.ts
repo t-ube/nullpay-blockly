@@ -134,6 +134,9 @@ import {
   defineWaitForSecondsBlock, initInterpreterWaitForSeconds,
   defineWaitUntilDatetimeBlock, initInterpreterWaitUntilDatetime
 } from '@/blocks/control/waitForSecondsBlock';
+import {
+  defineAudioBlocks, initInterpreterAudio
+} from '@/blocks/control/audioPlay';
 import { defineControlRunSpeedBlock, initInterpreterControlRunSpeed } from '@/blocks/control/controlRunSpeed';
 import {
   defineArrayAppendBlock,
@@ -373,6 +376,7 @@ const createCustomBlocks = () => {
   defineWaitForSecondsBlock();
   defineWaitUntilDatetimeBlock();
   defineControlRunSpeedBlock();
+  defineAudioBlocks();
 
   // Time
   defineCurrentDateTimeBlock();
@@ -465,6 +469,7 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterWaitUntilDatetime(interpreter, scope);
   initInterpreterControlRunSpeed(interpreter, scope);
   initInterpreterConfettiAnimationFunctions(interpreter, scope);
+  initInterpreterAudio(interpreter, scope);
 
   initInterpreterCurrentDateTime(interpreter, scope);
   initInterpreterDatedatetimeToText(interpreter, scope);

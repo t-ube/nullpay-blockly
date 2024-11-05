@@ -3191,6 +3191,16 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       categories: ["control"],
       blockType: "run_speed_set",
     },
+    {
+      height: 50,
+      block: `
+        <block type="audio_play_sound" x="0" y="0"></block>
+      `,
+      title: "Play Sound Effect",
+      description: "Plays a predefined sound effect. Choose from: notification (general alert), success (positive feedback), error (warning), or click (UI interaction) sounds.",
+      categories: ["sound"],
+      blockType: "audio_play_sound",
+    }
   ],
   time: [
     {
