@@ -68,6 +68,7 @@ import {
 } from '@/blocks/xrpl/xrplTokenBlock';
 import {
   defineXrplRipplingTxnBlock, initInterpreterXrplRipplingTxn,
+  defineXrplAccountFlagsBlock, initInterpreterXrplAccountFlags
 } from '@/blocks/xrpl/xrplAccountSetTransactionBlock';
 import {
   defineBuyTokenOfferTxnBlock, initInterpreterBuyTokenOfferTxn,
@@ -272,6 +273,7 @@ const createCustomBlocks = () => {
   defineXrplTokenAmountSetBlock();
   defineXrplTokenAmountArithmeticBlock();
   defineXrplRipplingTxnBlock();
+  defineXrplAccountFlagsBlock();
   defineXrplTrustSetTxnBlock();
   defineXrplDecodeCurrencyBlock();
   defineXrplTrustSetRemoveTxnBlock();
@@ -433,6 +435,7 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterXrplTokenAmountSet(interpreter, scope);
   initInterpreterXrplTokenAmountArithmetic(interpreter, scope);
   initInterpreterXrplRipplingTxn(interpreter, scope);
+  initInterpreterXrplAccountFlags(interpreter, scope);
   initInterpreterXrplTrustSetTxn(interpreter, scope);
   initInterpreterXrplTrustSetRemoveTxn(interpreter, scope);
   initInterpreterXrplDecodeCurrency(interpreter, scope);

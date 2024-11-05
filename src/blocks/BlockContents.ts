@@ -422,6 +422,17 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       subCategories: [XRPLSubCategories.TRUST_LINE_OPERATIONS]
     },
     {
+      height: 80,
+      block: `
+        <block type="xrpl_payload_account_flags_config" x="0" y="0"></block>
+      `,
+      title: "XRPL Account Flags",
+      description: "Configure multiple account settings on the XRPL. Control flags for default rippling, destination tags, authorization requirements, and XRP transactions. Each flag can be enabled, disabled, or left unchanged.",
+      categories: ["xrpl"],
+      blockType: "xrpl_payload_account_flags_config",
+      subCategories: [XRPLSubCategories.ACCOUNT_INFORMATION]
+    },
+    {
       height: 99,
       block: `
         <block type="xrpl_payload_trustline_config" x="0" y="0"></block>

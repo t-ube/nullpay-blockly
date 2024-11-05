@@ -164,7 +164,7 @@ export const xrpl_payload_payment : any = {
   "args4": [
     {
       "type": "field_label",
-      "text": "Destination tag",
+      "text": "Destination tag (optional)",
       "class": "args-label"
     },
     {
@@ -190,22 +190,34 @@ export const defineXrplPaymentBlock = () => {
     const account = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.NONE) || '""';
     const dest = generator.valueToCode(block, 'DESTINATION_ADDRESS', Order.NONE) || '""';
     const amount = generator.valueToCode(block, 'XRP_DROPS_AMOUNT', Order.NONE) || 0;
-    const tag = generator.valueToCode(block, 'DESTINATION_TAG', Order.NONE) || 0;
+    const tag = generator.valueToCode(block, 'DESTINATION_TAG', Order.NONE) || null;
     let code = `xrplPayment(${account},${dest},String(${amount}),${tag})`;
     return [code, Order.ATOMIC];
   };
 };
 
+interface PaymentPayload {
+  TransactionType: 'Payment';
+  Account: string;
+  Destination: string;
+  Amount: string;
+  DestinationTag?: number;
+}
+
 export function initInterpreterXrplPayment(interpreter: any, globalObject: any) {
   javascriptGenerator.addReservedWords('xrplPayment');
-  const wrapper = function (account: string, dest: string, amount: string, tag: number) {
-    const payload = {
+  const wrapper = function (account: string, dest: string, amount: string, tag: number | null) {
+    const payload: PaymentPayload = {
       TransactionType: 'Payment',
       Account: account,
       Destination: dest,
-      Amount: amount,
-      DestinationTag: tag
+      Amount: amount
     };
+
+    if (tag !== null) {
+      payload.DestinationTag = tag;
+    }
+    
     return interpreter.nativeToPseudo(payload);
   };
   interpreter.setProperty(globalObject, 'xrplPayment', interpreter.createNativeFunction(wrapper));
