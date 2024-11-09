@@ -683,7 +683,7 @@ export const xrpl_command_subscribe_first_ledger_amm_transactions : any = {
   "args0": [
     {
       "type": "field_label",
-      "text": "Subscribe to filtered transactions",
+      "text": "Subscribe all transactions from First Ledger",
       "class": "title-label"
     }
   ],
@@ -770,9 +770,6 @@ export function initInterpreterXrplFirstLedgerAmmSubscribeTransactions(interpret
     async function processTransaction(data: any ) {
       var tx : Transaction = data.transaction;
       if (tx.TransactionType === 'AccountSet') {
-        console.log("-----");
-        console.log(tx);
-        console.log("-----");
         if (tx.SetFlag === 8 && tx.Domain) {
           const domain = hexToAscii(tx.Domain);
           if (domain.toLowerCase().includes('firstledger')) {
@@ -781,9 +778,6 @@ export function initInterpreterXrplFirstLedgerAmmSubscribeTransactions(interpret
           }
         }
       } else if (tx.TransactionType === 'TrustSet' && potentialIssuer) {
-        console.log("-----");
-        console.log(tx);
-        console.log("-----");
         if (tx.LimitAmount && typeof tx.LimitAmount === 'object' && 'issuer' in tx.LimitAmount) {
           if (tx.LimitAmount.issuer === potentialIssuer) {
             console.log(`Matching TrustSet found for issuer: ${potentialIssuer}`);
@@ -793,9 +787,6 @@ export function initInterpreterXrplFirstLedgerAmmSubscribeTransactions(interpret
           }
         }
       } else if (tx.TransactionType === 'AMMCreate' && AmmIssuer) {
-        console.log("-----");
-        console.log(tx);
-        console.log("-----");
         if (tx.Amount && typeof tx.Amount === 'object' && 'issuer' in tx.Amount) {
           if (tx.Amount.issuer === AmmIssuer) {
             console.log(`Matching TrustSet found for issuer: ${potentialIssuer}`);
@@ -808,7 +799,6 @@ export function initInterpreterXrplFirstLedgerAmmSubscribeTransactions(interpret
 
     async function setupSubscription() {
       try {
-        // トランザクションをサブスクライブ
         const result = await client.request({
           id: `${id}`,
           command: "subscribe",
@@ -827,12 +817,12 @@ export function initInterpreterXrplFirstLedgerAmmSubscribeTransactions(interpret
 
         client.on("disconnected", (code) => {
           console.log("Disconnected with code:", code);
-          setTimeout(setupSubscription, 5000); // 5秒後に再接続を試みる
+          setTimeout(setupSubscription, 5000);
         });
 
       } catch (error) {
         console.error("Error in setupSubscription:", error);
-        setTimeout(setupSubscription, 5000); // エラーが発生した場合も5秒後に再試行
+        setTimeout(setupSubscription, 5000);
       }
     }
 
@@ -841,4 +831,135 @@ export function initInterpreterXrplFirstLedgerAmmSubscribeTransactions(interpret
   };
   
   interpreter.setProperty(globalObject, 'xrplSubscribeFirstLedgerAmmTransactions', interpreter.createAsyncFunction(wrapper));
+}
+
+// XPM
+export const xrpl_command_subscribe_xpm_amm_transactions : any = {
+  "type": "xrpl_command_subscribe_xpm_amm_transactions",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label",
+      "text": "Subscribe all transactions from XPM",
+      "class": "title-label"
+    }
+  ],
+  "message1": "%1 %2",
+  "args1": [
+    {
+      "type": "field_label",
+      "text": "XRPL client",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "XRPL_CLIENT",
+      "check": "Client"
+    }
+  ],
+  "message2": "%1 %2",
+  "args2": [
+    {
+      "type": "field_label",
+      "text": "Subscribe ID",
+      "class": "args-label"
+    },
+    {
+      "type": "input_value",
+      "name": "SUBSCRIBE_ID",
+      "check": "String"
+    }
+  ],
+  "message3": "%1 %2",
+  "args3": [
+    {
+      "type": "field_label",
+      "text": "Transaction info",
+      "class": "output-label"
+    },
+    {
+      "type": "field_variable",
+      "name": "TRANSACTION_INFO",
+      "variable": "transactionInfo"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Subscribes to specified transaction types on the XRPL and stores filtered transaction info in the specified variable.",
+  "helpUrl": ""
+};
+
+export const defineXrplSubscribeXpmAmmTransactionsBlock = () => {
+  Blockly.defineBlocksWithJsonArray([
+    xrpl_command_subscribe_xpm_amm_transactions
+  ]);
+
+  javascriptGenerator.forBlock['xrpl_command_subscribe_xpm_amm_transactions'] = function (block, generator) {
+    const client = generator.valueToCode(block, 'XRPL_CLIENT', Order.ATOMIC) || '""';
+    const id = generator.valueToCode(block, 'SUBSCRIBE_ID', Order.ATOMIC) || '""';
+    if (generator.nameDB_ === undefined) {
+      return `xrplSubscribeXpmAmmTransactions(${client}, ${id}, '');\n`;
+    }
+    const variable = generator.nameDB_.getName(block.getFieldValue('TRANSACTION_INFO'), Blockly.VARIABLE_CATEGORY_NAME);
+    const code = `xrplSubscribeXpmAmmTransactions(${client}, ${id}, '${variable}');\n`;
+    return code;
+  };
+};
+
+export function initInterpreterXrplXpmAmmSubscribeTransactions(interpreter: any, globalObject: any) {
+  javascriptGenerator.addReservedWords('xrplSubscribeXpmAmmTransactions');
+  
+  const wrapper = async function (clientKey: string, id: string, variable: any, callback: any) {
+    const client = getXrplClient(clientKey);
+
+    async function processTransaction(data: any ) {
+      var tx : Transaction = data.transaction;
+      if (tx.TransactionType === 'AMMCreate') {
+        if (tx.Account === "rXPMxDRxMM6JLk8AMVh569iap3TtnjaF3") {
+          console.log("----------------------");
+          console.log(tx);
+          console.log("----------------------");
+          if (tx.Amount2 && typeof tx.Amount2 === 'object' && 'issuer' in tx.Amount2) {
+            interpreter.setProperty(globalObject, variable, interpreter.nativeToPseudo(data));
+          }
+        }
+      }
+    }
+
+    async function setupSubscription() {
+      try {
+        const result = await client.request({
+          id: `${id}`,
+          command: "subscribe",
+          streams: ["transactions"],
+        });
+
+        console.log(`Subscribed to transactions: ${JSON.stringify(result)}`);
+
+        const listener = async (data: any) => {
+          if (data.transaction && data.transaction.TransactionType) {
+            processTransaction(data);
+          }
+        };
+
+        setXrplClientEventListner(client, id, 'transaction', listener);
+
+        client.on("disconnected", (code) => {
+          console.log("Disconnected with code:", code);
+          setTimeout(setupSubscription, 5000);
+        });
+
+      } catch (error) {
+        console.error("Error in setupSubscription:", error);
+        setTimeout(setupSubscription, 5000);
+      }
+    }
+
+    setupSubscription();
+    callback();
+  };
+  
+  interpreter.setProperty(globalObject, 'xrplSubscribeXpmAmmTransactions', interpreter.createAsyncFunction(wrapper));
 }

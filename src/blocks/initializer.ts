@@ -45,7 +45,8 @@ import {
   defineXrplUnsubscribeAllTxnBlock, initInterpreterXrplUnsubscribeAllTxn,
   defineXrplSubscribeFilteredTransactionsBlock, initInterpreterXrplSubscribeFilteredTransactions,
   defineXrplUnsubscribeFilteredTransactionsBlock, initInterpreterXrplUnsubscribeFilteredTransactions,
-  defineXrplSubscribeFirstLedgerAmmTransactionsBlock, initInterpreterXrplFirstLedgerAmmSubscribeTransactions
+  defineXrplSubscribeFirstLedgerAmmTransactionsBlock, initInterpreterXrplFirstLedgerAmmSubscribeTransactions,
+  defineXrplSubscribeXpmAmmTransactionsBlock, initInterpreterXrplXpmAmmSubscribeTransactions
 } from '@/blocks/xrpl/xrplSubscribeBlock';
 import {
   // defineXrplPaymentBlock,
@@ -258,6 +259,7 @@ const createCustomBlocks = () => {
   defineXrplSubscribeFilteredTransactionsBlock();
   defineXrplUnsubscribeFilteredTransactionsBlock();
   defineXrplSubscribeFirstLedgerAmmTransactionsBlock();
+  defineXrplSubscribeXpmAmmTransactionsBlock();
   defineXrplLoadWalletBlock();
   defineXrplEasySubmitBlock();
   defineXrplTxCommandBlock();
@@ -422,6 +424,7 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterXrplSubscribeFilteredTransactions(interpreter, scope);
   initInterpreterXrplUnsubscribeFilteredTransactions(interpreter, scope);
   initInterpreterXrplFirstLedgerAmmSubscribeTransactions(interpreter, scope);
+  initInterpreterXrplXpmAmmSubscribeTransactions(interpreter, scope);
   initInterpreterXrplCreateAccount(interpreter, scope);
   initInterpreterXrplRequestFaucet(interpreter, scope);
   initInterpreterXrplRequestCustomFaucet(interpreter, scope);

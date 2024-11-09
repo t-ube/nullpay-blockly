@@ -224,6 +224,17 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       subCategories: [XRPLSubCategories.MONITORING]
     },
     {
+      height: 131,
+      block: `
+        <block type="xrpl_command_subscribe_xpm_amm_transactions" x="0" y="0"></block>
+      `,
+      title: "Subscribe XPMarket AMM Transactions",
+      description: "Subscribe to AMMCreate transactions on the XRPL. Detects potential XPMarket token issuers and their corresponding trust lines.",
+      categories: ["xrpl"],
+      blockType: "xrpl_command_subscribe_xpm_amm_transactions",
+      subCategories: [XRPLSubCategories.MONITORING]
+    },
+    {
       height: 80,
       block: `
         <block type="xrpl_load_wallet" x="0" y="0"></block>
