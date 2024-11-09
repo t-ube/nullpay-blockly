@@ -229,34 +229,34 @@ export function initInterpreterXrplDecodeCurrency(interpreter: any, globalObject
   const wrapper = function(currency: string) {
     try {
       // Remove any whitespace and ensure the string is uppercase
-      currency = currency.replace(/\s/g, '').toUpperCase();
+      let upperCurrency = currency.replace(/\s/g, '').toUpperCase();
 
       console.log(currency)
       // Check if it's a standard 3-character currency code
-      if (/^[A-Z]{3}$/.test(currency)) {
+      if (/^[A-Z]{3}$/.test(upperCurrency)) {
         return currency;
       }
 
       // Check if only the first 3 characters are non-zero
-      if (/^[0-9A-Z]{3}0{37}$/.test(currency)) {
+      if (/^[0-9A-Z]{3}0{37}$/.test(upperCurrency)) {
         return currency.slice(0, 3);
       }
 
       // Check if it's a valid 40-character hex string
-      if (!/^[0-9A-F]{40}$/.test(currency)) {
+      if (!/^[0-9A-F]{40}$/.test(upperCurrency)) {
         throw new Error('Invalid currency code format');
       }
 
       // XRP is represented by 40 zeros
-      if (currency === '0000000000000000000000000000000000000000') {
+      if (upperCurrency === '0000000000000000000000000000000000000000') {
         return 'XRP';
       }
 
       // Decode up to 20 bytes (40 characters) of the hex string to ASCII
-      let decoded = decodeHexToUTF8(currency);
+      let decoded = decodeHexToUTF8(upperCurrency);
 
       // If we have a valid decoded string, return it; otherwise, return the original hex
-      return decoded || currency;
+      return decoded || upperCurrency;
     } catch (error) {
       console.error('Failed to decode currency:', error);
       console.log(currency)
