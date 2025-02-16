@@ -65,6 +65,7 @@ const validBlocks = [
   "xrpl_datetime_to_ripple_epoch",
   "xrpl_payload_rippling_config",
   "xrpl_payload_nft_buy_offer",
+  "xrpl_uri_to_hex",
   "xrpl_payload_token_buy_offer",
   "xrpl_payload_token_sell_offer",
   "xrpl_payload_payment",

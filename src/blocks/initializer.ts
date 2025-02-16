@@ -95,7 +95,8 @@ import {
 } from '@/blocks/xrpl/xrplTransactionTypeBlock';
 import {
   defineXrplNFTokenMintBlock, initInterpreterXrplNFTokenMintTxn,
-  defineNFTokenBuyOfferBlock, initInterpreterXrplNftokenBuyOffer
+  defineNFTokenBuyOfferBlock, initInterpreterXrplNftokenBuyOffer,
+  defineXrplUriToHexBlock, initInterpreterXrplUriToHex
 } from '@/blocks/xrpl/xrplNFTokenBlock';
 import { 
   defineTextUtilInspectPrintBlock, initInterpreterTextUtilInspectPrint,
@@ -288,6 +289,7 @@ const createCustomBlocks = () => {
   defineXrplExtractOfferCreateTxnBlock();
   defineXrplTxnTypeSelectBlock();
   defineNFTokenBuyOfferBlock();
+  defineXrplUriToHexBlock();
   defineXrplNFTokenMintBlock();
   defineXrplNftBuyOffersCommandBlock();
   defineXrplClioNftInfoBlock();
@@ -456,6 +458,7 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterXrplGetAccountActivators(interpreter, scope);
   initInterpreterXrplGetActivatedAccounts(interpreter, scope);
   initInterpreterXrplNftokenBuyOffer(interpreter, scope);
+  initInterpreterXrplUriToHex(interpreter, scope);
   initInterpreterXrplNFTokenMintTxn(interpreter, scope);
   initInterpreterXrplNftBuyOffersCommand(interpreter, scope);
   initInterpreterXrplClioNftInfo(interpreter, scope);

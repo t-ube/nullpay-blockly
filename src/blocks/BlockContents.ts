@@ -422,6 +422,17 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       subCategories: [XRPLSubCategories.NFT_OPERATIONS]
     },
     {
+      height: 47.5,
+      block: `
+        <block type="xrpl_uri_to_hex" x="0" y="0"></block>
+      `,
+      title: "XRPL URI to HEX",
+      description: "Converts a URI string to hexadecimal format. This is particularly useful for NFT minting operations where URIs need to be encoded in hexadecimal format for the XRPL network.",
+      categories: ["xrpl"],
+      blockType: "xrpl_uri_to_hex",
+      subCategories: [XRPLSubCategories.NFT_OPERATIONS]
+    },
+    {
       height: 50,
       block: `
         <block type="xrpl_payload_rippling_config" x="0" y="0"></block>

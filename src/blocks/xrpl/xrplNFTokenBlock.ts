@@ -2,6 +2,7 @@ import * as Blockly from 'blockly/core';
 import { javascriptGenerator, Order } from 'blockly/javascript';
 import { BlockColors } from '@/blocks/BlockColors';
 import { blockCheckType } from '@/blocks/BlockField';
+import * as xrpl from 'xrpl';
 
 export const xrpl_payload_nftoken_mint: any = {
   "type": "xrpl_payload_nftoken_mint",
@@ -235,4 +236,46 @@ export function initInterpreterXrplNftokenBuyOffer(interpreter: any, globalObjec
     }
   };
   interpreter.setProperty(globalObject, 'xrplNftokenBuyOffer', interpreter.createNativeFunction(wrapper));
+}
+
+export const xrpl_uri_to_hex: any = {
+  "type": "xrpl_uri_to_hex",
+  "message0": "Convert URI to HEX %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "URI",
+      "check": blockCheckType.string
+    }
+  ],
+  "output": blockCheckType.string,
+  "colour": BlockColors.xrpl,
+  "tooltip": "Converts a URI string to hexadecimal format for use in NFTokenMint transactions",
+  "helpUrl": ""
+};
+
+export const defineXrplUriToHexBlock = () => {
+  Blockly.defineBlocksWithJsonArray([
+    xrpl_uri_to_hex
+  ]);
+
+  javascriptGenerator.forBlock['xrpl_uri_to_hex'] = function(block, generator) {
+    const uri = generator.valueToCode(block, 'URI', Order.ATOMIC) || '""';
+    const code = `xrplUriToHex(${uri})`;
+    return [code, Order.ATOMIC];
+  };
+};
+
+export function initInterpreterXrplUriToHex(interpreter: any, globalObject: any) {
+  javascriptGenerator.addReservedWords('xrplUriToHex');
+  const wrapper = function (uri: string) {
+    try {
+      const hex = xrpl.convertStringToHex(uri);
+      return interpreter.nativeToPseudo(hex);
+    } catch (error) {
+      console.error('Failed to convert URI to hex:', error);
+      return interpreter.nativeToPseudo('');
+    }
+  };
+  interpreter.setProperty(globalObject, 'xrplUriToHex', interpreter.createNativeFunction(wrapper));
 }

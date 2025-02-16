@@ -65,6 +65,7 @@ const validBlocks = [
   "xrpl_select_faucet_network_uri",
   "xrpl_select_websocket_endpoint",
   "xrpl_payload_nft_buy_offer",
+  "xrpl_uri_to_hex",
   "xrpl_payload_token_buy_offer",
   "xrpl_payload_token_sell_offer",
   "xrpl_command_nft_buy_offers",
