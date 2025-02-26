@@ -411,6 +411,17 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       subCategories: [XRPLSubCategories.NFT_OPERATIONS]
     },
     {
+      height: 315.5,
+      block: `
+        <block type="xrpl_payload_nftoken_mint_offer" x="0" y="0"></block>
+      `,
+      title: "XRPL NFT Mint Offer Payload",
+      description: "",
+      categories: ["xrpl"],
+      blockType: "xrpl_payload_nftoken_mint_offer",
+      subCategories: [XRPLSubCategories.NFT_OPERATIONS]
+    },
+    {
       height: 143.5,
       block: `
         <block type="xrpl_payload_nft_buy_offer" x="0" y="0"></block>
