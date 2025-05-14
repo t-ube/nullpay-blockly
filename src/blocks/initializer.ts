@@ -84,7 +84,8 @@ import {
 import {
   defineXrplTrustSetTxnBlock, initInterpreterXrplTrustSetTxn,
   defineXrplDecodeCurrencyBlock, initInterpreterXrplDecodeCurrency,
-  defineXrplTrustSetRemoveTxnBlock, initInterpreterXrplTrustSetRemoveTxn
+  defineXrplTrustSetRemoveTxnBlock, initInterpreterXrplTrustSetRemoveTxn,
+  defineXrplTrustSetFreezeTxnBlock, initInterpreterXrplTrustSetFreezeTxn
 } from '@/blocks/xrpl/xrplTrustSetTransactionBlock';
 import {
   defineXrplGetTxnInfoBlock, initInterpreterXrplExtractTransactionDetailsBlock,
@@ -284,6 +285,7 @@ const createCustomBlocks = () => {
   defineXrplTrustSetTxnBlock();
   defineXrplDecodeCurrencyBlock();
   defineXrplTrustSetRemoveTxnBlock();
+  defineXrplTrustSetFreezeTxnBlock();
   defineBuyTokenOfferTxnBlock();
   defineSaleTokenOfferTxnBlock();
   defineXrplGetTxnInfoBlock();
@@ -451,6 +453,7 @@ const initInterpreter = (interpreter: Interpreter, scope: any) => {
   initInterpreterXrplTrustSetRemoveTxn(interpreter, scope);
   initInterpreterXrplDecodeCurrency(interpreter, scope);
   initInterpreterXrplExtractTransactionDetailsBlock(interpreter, scope);
+  initInterpreterXrplTrustSetFreezeTxn(interpreter, scope);
   initInterpreterBuyTokenOfferTxn(interpreter, scope);
   initInterpreterSaleTokenOfferTxn(interpreter, scope);
   initInterpreterXrplTxCommand(interpreter, scope);
@@ -586,7 +589,7 @@ const workspaceAdjustment = () => {
 const blocklyInit = () => {
   console.log('Initializing Blockly...');
 
-  Blockly.setLocale(En);
+  //Blockly.setLocale(En);
   Blockly.setLocale(CustomEn);
   //Blockly.utils.colour.setHsvSaturation(0.9);
   //Blockly.utils.colour.setHsvValue(0.6);

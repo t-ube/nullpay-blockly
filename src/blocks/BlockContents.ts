@@ -488,6 +488,17 @@ export const initialBlockTypesMap: IBlockTypesMap<IBaseBlock> = {
       subCategories: [XRPLSubCategories.TRUST_LINE_OPERATIONS]
     },
     {
+      height: 195,
+      block: `
+        <block type="xrpl_payload_trustline_freeze_config" x="0" y="0"></block>
+      `,
+      title: "XRPL Trust Freeze",
+      description: "Create a TrustSet transaction to freeze, unfreeze, deep freeze, or unfreeze a trust line for a specific token and address.",
+      categories: ["xrpl"],
+      blockType: "xrpl_payload_trustline_freeze_config",
+      subCategories: [XRPLSubCategories.TRUST_LINE_OPERATIONS]
+    },
+    {
       height: 54,
       block: `
         <block type="xrpl_decode_currency" x="0" y="0"></block>

@@ -290,3 +290,114 @@ export function initInterpreterXrplDecodeCurrency(interpreter: any, globalObject
 
   interpreter.setProperty(globalObject, 'decodeCurrency', interpreter.createNativeFunction(wrapper));
 }
+
+export const xrpl_payload_trustline_freeze_config: any = {
+  type: "xrpl_payload_trustline_freeze_config",
+  message0: "%1",
+  args0: [
+    { type: "field_label", text: "Freeze Trust Line", class: "title-label" }
+  ],
+  message1: "%1 %2",
+  args1: [
+    { type: "field_label", text: "Token", class: "args-label" },
+    {
+      type: "input_value",
+      name: "CURRECY_CODE_AND_ISSUER",
+      check: blockCheckType.xrplToken
+    }
+  ],
+  message2: "%1 %2",
+  args2: [
+    { type: "field_label", text: "Target address", class: "args-label" },
+    {
+      type: "input_value",
+      name: "ACCOUNT_ADDRESS",
+      check: "String"
+    }
+  ],
+  message3: "%1 %2",
+  args3: [
+    { type: "field_label", text: "Set Freeze", class: "args-label" },
+    { type: "field_checkbox", name: "TF_SET_FREEZE", checked: false }
+  ],
+  message4: "%1 %2",
+  args4: [
+    { type: "field_label", text: "Clear Freeze", class: "args-label" },
+    { type: "field_checkbox", name: "TF_CLEAR_FREEZE", checked: false }
+  ],
+  message5: "%1 %2",
+  args5: [
+    { type: "field_label", text: "Set Deep Freeze", class: "args-label" },
+    { type: "field_checkbox", name: "TF_SET_DEEP_FREEZE", checked: false }
+  ],
+  message6: "%1 %2",
+  args6: [
+    { type: "field_label", text: "Clear Deep Freeze", class: "args-label" },
+    { type: "field_checkbox", name: "TF_CLEAR_DEEP_FREEZE", checked: false }
+  ],
+  output: blockCheckType.xrplTxnPayload,
+  inputsInline: false,
+  colour: BlockColors.xrpl,
+  tooltip: "Freeze or unfreeze a trust line using TrustSet",
+  helpUrl: ""
+};
+
+export const defineXrplTrustSetFreezeTxnBlock = () => {
+  Blockly.defineBlocksWithJsonArray([
+    xrpl_payload_trustline_freeze_config
+  ]);
+
+  // JavaScript code generator for the XRPL trust set block
+  javascriptGenerator.forBlock['xrpl_payload_trustline_freeze_config'] = function(block, generator) {
+    const token = generator.valueToCode(block, 'CURRECY_CODE_AND_ISSUER', Order.NONE) || '{}';
+    const address = generator.valueToCode(block, 'ACCOUNT_ADDRESS', Order.NONE) || '""';
+  
+    const flags = [];
+    if (block.getFieldValue('TF_SET_FREEZE') === 'TRUE') flags.push(0x00100000); // tfSetFreeze
+    if (block.getFieldValue('TF_CLEAR_FREEZE') === 'TRUE') flags.push(0x00200000); // tfClearFreeze
+    if (block.getFieldValue('TF_SET_DEEP_FREEZE') === 'TRUE') flags.push(0x00400000); // tfSetDeepFreeze
+    if (block.getFieldValue('TF_CLEAR_DEEP_FREEZE') === 'TRUE') flags.push(0x00800000); // tfClearDeepFreeze
+  
+    const flagsExpr = flags.length ? flags.reduce((a, b) => a + b, 0) : null;
+  
+    const code = `xrplTrustSetFreezeTxn(JSON.stringify(${token}), ${address}, ${flagsExpr ?? 0})`;
+    return [code, Order.ATOMIC];
+  };
+};
+
+export function initInterpreterXrplTrustSetFreezeTxn(interpreter: any, globalObject: any) {
+  javascriptGenerator.addReservedWords('xrplTrustSetFreezeTxn');
+  
+  function currencyToHex(currency: string): string {
+    if (typeof currency !== 'string') {
+      return "";
+    }
+    if (currency.length <= 3) {
+      return currency;
+    } else {
+      return Buffer.from(currency.padEnd(20, '\0')).toString('hex').toUpperCase();
+    }
+  }
+
+  const wrapper = function (tokenText: string, address: string, flags: number) {
+    let token = JSON.parse(tokenText) as IXrplToken;
+    const transaction = {
+      TransactionType: 'TrustSet',
+      Account: address,
+      LimitAmount: {
+        issuer: token.issuer,
+        currency: currencyToHex(token.currency_code),
+        value: "0"
+      },
+      Flags: 0
+    };
+
+    if (flags > 0) {
+      transaction.Flags = flags;
+    }
+    console.log("TrustSet freeze transaction:", transaction);
+    return interpreter.nativeToPseudo(transaction);
+  };
+  
+  interpreter.setProperty(globalObject, 'xrplTrustSetFreezeTxn', interpreter.createNativeFunction(wrapper));
+}
